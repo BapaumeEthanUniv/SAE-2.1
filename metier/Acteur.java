@@ -31,9 +31,15 @@ public class Acteur
 	public Acteur   getVoisin  (int indice)  { return this.lstVoisins[indice]; }
 	
 	// Setters
+<<<<<<< HEAD
 	public void     setType    (String type) { this.type = type; }
 	
 	public void     setPrincipal ()
+=======
+	public void   setType    (String type) { this.type = type; }
+	
+	public void   setPrincipal ()
+>>>>>>> refs/remotes/origin/main
 	{
 		if (this.estPrincipal) 	{ this.estPrincipal = false; }
 		else			{ this.estPrincipal = true ; }
@@ -52,5 +58,4 @@ public class Acteur
 		
 		return false;
 	}
-	
 }
