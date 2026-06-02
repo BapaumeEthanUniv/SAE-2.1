@@ -28,8 +28,7 @@ public class frame extends JFrame
 		this.panelActif = pnl;
 		this.add(this.panelActif);
 
-		this.setVisible(false);
-		this.setVisible(true);
+		this.revalidate();
 	}
 	public JPanel getPnl(int i) { return this.tabPanels[i]; }
 }
