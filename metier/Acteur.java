@@ -52,5 +52,4 @@ public class Acteur
 		
 		return false;
 	}
-	
 }
