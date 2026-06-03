@@ -1,5 +1,6 @@
 package metier;
 
+import java.util.ArrayList;
 public class Acteur
 {
 	private int posX;
@@ -8,7 +9,7 @@ public class Acteur
 	private String type;
 	private boolean estPrincipal;
 	
-	private Acteur[] lstVoisins;
+	private ArrayList<Acteur> lstVoisins;
 	
 	// Constructeur
 	public Acteur (int posX, int posY, String type)
@@ -17,7 +18,7 @@ public class Acteur
 		this.posY = posY;
 		this.type = type;
 		
-		this.lstVoisins = new Acteur[8];   // 8 = vertic. + horiz. + diagonales
+		this.lstVoisins = new ArrayList<Acteur>();   // 8 = vertic. + horiz. + diagonales
 		this.estPrincipal = false;
 	}
 	
@@ -27,8 +28,8 @@ public class Acteur
 	public int      getPosX    () 		 { return this.posX;       	  }
 	public int      getPoxY    () 		 { return this.posY;       	  }
 	
-	public Acteur[] getVoisins () 		 { return this.lstVoisins; 	  }
-	public Acteur   getVoisin  (int indice)  { return this.lstVoisins[indice]; }
+	public ArrayList<Acteur> getVoisins ()            { return this.lstVoisins; 	  }
+	public Acteur            getVoisin  (int indice)  { return this.lstVoisins.get(indice); }
 	
 	// Setters
 	public void   setType    (String type) { this.type = type; }
@@ -42,14 +43,17 @@ public class Acteur
 	// MÃ©thodes utilitaires	
 	public boolean estVoisin (Acteur voisin)
 	{
-		for (int cpt = 0; cpt < lstVoisins.length; cpt++)
+		return this.lstVoisins.contains(voisin);
+	}
+	
+	public boolean addVoisin(Acteur voisin)
+	{
+		if (!this.estVoisin(voisin))
 		{
-			if (lstVoisins[cpt].equals(voisin))
-			{
-				return true;
-			}
+			this.lstVoisins.add(voisin);
+			voisin.getVoisins().add(this);
+			return true;
 		}
-		
 		return false;
 	}
 }
