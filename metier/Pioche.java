@@ -5,15 +5,16 @@ public class Pioche
 {
 	//private Controleur          ctrl        ;
 	private Plateau		    metier      ;
+
 	private String[]            lstRoleCarte;
 	private ArrayList<Carte>    lstCarte    ;
 	private int                 nbCartes    ;
 	private int                 cptCarte    ;
 
-	public Pioche(Controleur ctrl)
+	public Pioche(String[] roleDispo)
 	{
-		//this.ctrl = ctrl;
-		this.lstRoleCarte = this.metier.getTabRoleActif();
+		this.lstRoleCarte = new String[roleDispo.length];
+		this.lstRoleCarte = roleDispo;
 	}
 
 	public void creerPioche(int nbCartes)
@@ -21,9 +22,10 @@ public class Pioche
 		String[] typeCarte = new String[] {"Clair", "Foncé"};
 		this.nbCartes = nbCartes;
 
-		for (String type : typeCarte)
+		for( String type : typeCarte)
 		{
-			for (String role : lstRoleCarte)
+			for(String role : this.lstRoleCarte)
+
 			{
 				this.lstCarte.add(new Carte(role, type));
 			}
