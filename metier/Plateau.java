@@ -52,10 +52,13 @@ public class Plateau
 
 	public boolean ajouterActeur  (String type, int posX, int posY) 
 	{
+		Acteur acteur = new Acteur(posX, posY, type);
+
 		if (! Arrays.asList(TAB_ROLE).contains(type) || posX > this.nbLigne || posX < 0 || posY > this.nbColonne || posY < this.nbColonne)
 			return false;
 
-		lstActeurs.add(new Acteur(posX, posY, type));
+		lstActeurs.add(acteur);
+		acteur.majVoisin(lstActeurs);
 		return true;
 	}
 	
@@ -66,6 +69,7 @@ public class Plateau
 			if (posX == acteur.getPosX() && posY == acteur.getPoxY() )
 			{
 				lstActeurs.remove(acteur);
+				acteur.supprimerVoisin();
 				return true;
 			}
 		}
