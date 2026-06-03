@@ -1,28 +1,23 @@
 package metier;
 
-import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Plateau 
 {
-	public static final Color[]  TAB_CASTING = new Color[]  {Color.RED, Color.GREEN, Color.BLUE, Color.MAGENTA, Color.YELLOW, Color.CYAN};
-	public static final String[] TAB_ROLE    = new String[] {"Cascadeur", "Emotion", "Antagoniste", "Figurant"};
-
 	private int      nbLigne;
 	private int      nbColonne;
 	
-	private Color[]  tabCastingActif;
+	private Casting[] tabCastingActif;
 
-	private String[] tabRoleActif;
+	private Role[]    tabRoleActif;
 
-	private int[][]  tabZone;
+	private int[][]   tabZone;
 
-	private int      tailleCase;
+	private int       tailleCase;
 
 	private ArrayList<Acteur> lstActeurs;
 
-	public Plateau(int nbLigne, int nbColonne, int nbCasting, int nbRole, int tailleCase, Color[] tabCastingActif, String[] tabRoleActif)
+	public Plateau(int nbLigne, int nbColonne, int tailleCase, Casting[] tabCastingActif, Role[] tabRoleActif)
 	{
 		this.nbLigne         = nbLigne;
 		this.nbColonne       = nbColonne;
@@ -37,9 +32,9 @@ public class Plateau
 
 	public int getTailleCase() {return tailleCase;}
 
-	public String[] getTabRoleActif() {return tabRoleActif;}
+	public Role[] getTabRoleActif() {return tabRoleActif;}
 
-	public Color[]  getTabCastingActif() {return tabCastingActif;}
+	public Casting[] getTabCastingActif() {return tabCastingActif;}
 
 	public boolean modifierZone(int lig, int col, int nZone)
 	{
@@ -54,11 +49,11 @@ public class Plateau
 	{
 		Acteur acteur = new Acteur(posX, posY, type);
 
-		if (! Arrays.asList(TAB_ROLE).contains(type) || posX > this.nbLigne || posX < 0 || posY > this.nbColonne || posY < this.nbColonne)
+		if (posX > this.nbLigne || posX < 0 || posY > this.nbColonne || posY < this.nbColonne)
 			return false;
 
 		lstActeurs.add(acteur);
-		acteur.majVoisin(lstActeurs);
+		acteur.majVoisins(lstActeurs);
 		return true;
 	}
 	
@@ -66,7 +61,7 @@ public class Plateau
 	{
 		for (Acteur acteur : lstActeurs)
 		{
-			if (posX == acteur.getPosX() && posY == acteur.getPoxY() )
+			if (posX == acteur.getPosX() && posY == acteur.getPosY() )
 			{
 				lstActeurs.remove(acteur);
 				acteur.supprimerVoisin();
