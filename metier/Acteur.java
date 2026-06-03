@@ -83,11 +83,11 @@ public class Acteur
 	{
 		for (Acteur a : lstActeurs)
 		{
-			if ((Math.abs(a.getPosX() - this.getPosX()) == Math.abs(a.getPosY() - this.getPosY())) 
+			if (((Math.abs(a.getPosX() - this.getPosX()) == Math.abs(a.getPosY() - this.getPosY())) 
 			 || (a.getPosX() == this.getPosX() && a.getPosY() != this.getPosY()
-			 ||  a.getPosY() == this.getPosY() && a.getPosX() != this.getPosX()))
+			 ||  a.getPosY() == this.getPosY() && a.getPosX() != this.getPosX()))&& !this.entreDeux(a, lstActeurs))
 			{
-				
+				this.addVoisin(a);
 			}
 		}
 	}
