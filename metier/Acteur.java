@@ -1,6 +1,7 @@
 package metier;
 
 import java.util.ArrayList;
+
 public class Acteur
 {
 	private int posX;
