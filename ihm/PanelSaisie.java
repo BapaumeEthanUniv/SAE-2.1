@@ -2,7 +2,7 @@ package ihm;
 
 import controleur.Controleur;
 
-import metier.Plateau;
+import metier.CreateurPlateau;
 import metier.Casting;
 import metier.Role;
 

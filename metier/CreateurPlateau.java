@@ -2,7 +2,7 @@ package metier;
 
 import java.util.ArrayList;
 
-public class Plateau 
+public class CreateurPlateau 
 {
 	private int      nbLigne;
 	private int      nbColonne;
@@ -17,7 +17,7 @@ public class Plateau
 
 	private ArrayList<Acteur> lstActeurs;
 
-	public Plateau(int nbLigne, int nbColonne, int tailleCase, Casting[] tabCastingActif, Role[] tabRoleActif)
+	public CreateurPlateau(int nbLigne, int nbColonne, int tailleCase, Casting[] tabCastingActif, Role[] tabRoleActif)
 	{
 		this.nbLigne         = nbLigne;
 		this.nbColonne       = nbColonne;
