@@ -91,4 +91,10 @@ public class Acteur
 			}
 		}
 	}
+
+	public void supprimerVoisin()
+	{
+		for (Acteur voisin : lstVoisins)
+			voisin.lstVoisins.remove(this);
+	}
 }
