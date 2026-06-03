@@ -68,7 +68,7 @@ public class Acteur
 		while ( y != a.getPosY() || x != a.getPosX() )
 		{
 			for (Acteur acteur : lstActeurs )
-				if (acteur.getPosY() == y && acteur.getPosX()) == x)
+				if (acteur.getPosY() == y && acteur.getPosX() == x)
 					return false;
 			
 			y += deltaY;
@@ -87,7 +87,7 @@ public class Acteur
 			 || (a.getPosX() == this.getPosX() && a.getPosY() != this.getPosY()
 			 ||  a.getPosY() == this.getPosY() && a.getPosX() != this.getPosX()))
 			{
-
+				
 			}
 		}
 	}
