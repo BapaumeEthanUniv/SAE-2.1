@@ -1,6 +1,5 @@
 
 import java.awt.BorderLayout;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -10,24 +9,37 @@ import javax.swing.JPanel;
 public class PanelCarte extends JPanel
 {
 	// private Controleur     ctrl;
-	private Image imgPersonnage;
+	private ImageIcon imgPersonnage;
 
 
 	public PanelCarte()
 	{
 		JPanel panelAfficheCarte;
 		JPanel panelAfficheScore;
+
+		int hauteur = 500;
+		int largeur = 350;
+		int image;
+
 		// this.ctrl = ctrl;
 		this.setLayout(new BorderLayout());
 
-		panelAfficheCarte = new JPanel(new GridLayout(2,1));
+		image = (int)(Math.random() * 10) + 1;
+
+		panelAfficheCarte = new JPanel(new GridLayout());
 		panelAfficheScore = new JPanel(new GridLayout(2,2));
 
-		panelAfficheCarte.add(new JLabel("La Carte pioché est : "));
+		this.imgPersonnage = new ImageIcon( "../images/" + image + ".png" );
 
-		this.imgPersonnage = getToolkit().getImage ( "obelix.gif" );
+		Image imageRedimensionnee = this.imgPersonnage.getImage().getScaledInstance(largeur, hauteur, Image.SCALE_SMOOTH);
 
-		panelAfficheCarte.add(new JLabel(this.imgPersonnage));
+		ImageIcon iconeFinale = new ImageIcon(imageRedimensionnee);
+
+		JLabel label = new JLabel(iconeFinale);
+
+		panelAfficheCarte.setOpaque(false);
+
+		panelAfficheCarte.add(label);
 
 		panelAfficheScore.add(new JLabel("manche : "));
 		panelAfficheScore.add(new JLabel("tour : "));
@@ -36,15 +48,4 @@ public class PanelCarte extends JPanel
 		this.add(panelAfficheCarte, BorderLayout.CENTER);
 		this.add(panelAfficheScore, BorderLayout.SOUTH);
 	}
-
-    @Override
-	public void paintComponent (Graphics g)
-	{
-		super.paintComponent(g);
-
-		g.drawImage( imgPersonnage, 25 ,25 , this);
-
-		g.drawLine (   20, 470 , 370, 470 );
-		g.drawLine (   20, 490 , 370, 490 );
-    }
 }
