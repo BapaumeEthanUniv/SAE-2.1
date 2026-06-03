@@ -26,7 +26,7 @@ public class Acteur
 	public String   getType    () 		 { return this.type;       	  }
 	
 	public int      getPosX    () 		 { return this.posX;       	  }
-	public int      getPoxY    () 		 { return this.posY;       	  }
+	public int      getPosY    () 		 { return this.posY;       	  }
 	
 	public ArrayList<Acteur> getVoisins ()            { return this.lstVoisins; 	  }
 	public Acteur            getVoisin  (int indice)  { return this.lstVoisins.get(indice); }
@@ -45,7 +45,7 @@ public class Acteur
 	{
 		return this.lstVoisins.contains(voisin);
 	}
-	
+
 	public boolean addVoisin(Acteur voisin)
 	{
 		if (!this.estVoisin(voisin))
@@ -55,5 +55,18 @@ public class Acteur
 			return true;
 		}
 		return false;
+	}
+
+	public void majVoisins(ArrayList<Acteur> lstActeurs)
+	{
+		for (Acteur a : lstActeurs)
+		{
+			if ((Math.abs(a.getPosX() - this.getPosX()) == Math.abs(a.getPosY() - this.getPosY())) 
+			 || (a.getPosX() == this.getPosX() && a.getPosY() != this.getPosY()
+			 ||  a.getPosY() == this.getPosY() && a.getPosX() != this.getPosX()))
+			{
+
+			}
+		}
 	}
 }
