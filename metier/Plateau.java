@@ -12,10 +12,8 @@ public class Plateau
 	private int      nbLigne;
 	private int      nbColonne;
 	
-	private int      nbCasting;
 	private Color[]  tabCastingActif;
 
-	private int      nbRole;
 	private String[] tabRoleActif;
 
 	private int[][]  tabZone;
@@ -28,8 +26,6 @@ public class Plateau
 	{
 		this.nbLigne         = nbLigne;
 		this.nbColonne       = nbColonne;
-		this.nbCasting       = nbCasting;
-		this.nbRole          = nbRole;
 		this.tailleCase      = tailleCase;
 		this.tabCastingActif = tabCastingActif;
 		this.tabRoleActif    = tabRoleActif;
