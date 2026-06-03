@@ -1,29 +1,31 @@
+import metier.Plateau;
 import java.util.ArrayList;
 
 public class Pioche
 {
-	private Controleur          ctrl        ;
-	private String              lstRoleCarte;
+	//private Controleur          ctrl        ;
+	private Plateau		    metier      ;
+	private String[]            lstRoleCarte;
 	private ArrayList<Carte>    lstCarte    ;
 	private int                 nbCartes    ;
 	private int                 cptCarte    ;
 
 	public Pioche(Controleur ctrl)
 	{
-		this.ctrl = ctrl;
-		this.lstRoleCarte = this.ctrl.getRoleActif();
+		//this.ctrl = ctrl;
+		this.lstRoleCarte = this.metier.getTabRoleActif();
 	}
 
 	public void creerPioche(int nbCartes)
 	{
-		String[] typeCarte = new String[]{"Clair", "Foncé"};
+		String[] typeCarte = new String[] {"Clair", "Foncé"};
 		this.nbCartes = nbCartes;
 
-		for( String tmp : typeCarte)
+		for (String type : typeCarte)
 		{
-			for(String tmp2 : this.lstRoleCarte)
+			for (String role : lstRoleCarte)
 			{
-				this.lstCarte.add(new Carte(tmp2, tmp));
+				this.lstCarte.add(new Carte(role, type));
 			}
 		}
 	}
