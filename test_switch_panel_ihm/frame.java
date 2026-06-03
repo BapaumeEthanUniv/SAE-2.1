@@ -14,7 +14,7 @@ public class frame extends JFrame
 		this.tabPanels[1] = new panel2(this,1);
 		this.tabPanels[2] = new panel3(this,2);
 
-		this.panelActif=this.tabPanels[0];
+		this.panelActif=this.tabPanels[1];
 		this.add(this.panelActif);
 
 		this.setVisible(true);
@@ -27,7 +27,8 @@ public class frame extends JFrame
 		this.remove(this.panelActif);
 		this.panelActif = pnl;
 		this.add(this.panelActif);
-
+		
+		this.repaint();
 		this.revalidate();
 	}
 	public JPanel getPnl(int i) { return this.tabPanels[i]; }
