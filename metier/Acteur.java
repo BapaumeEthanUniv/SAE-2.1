@@ -57,6 +57,28 @@ public class Acteur
 		return false;
 	}
 
+	private boolean entreDeux(Acteur a, ArrayList<Acteur> lstActeurs)
+	{
+		int deltaY = Integer.compare(a.getPosY(), this.getPosY());
+		int deltaX = Integer.compare(a.getPosX(), this.getPosX());
+		
+		int y = this.getPosY()   + deltaY;
+		int x = this.getPosX() + deltaX;
+
+		while ( y != a.getPosY() || x != a.getPosX() )
+		{
+			for (Acteur acteur : lstActeurs )
+				if (acteur.getPosY() == y && acteur.getPosX()) == x)
+					return false;
+			
+			y += deltaY;
+			System.out.println(y + " " + a.getPosY());
+			x += deltaX;
+		}
+		
+		return true;
+	}
+
 	public void majVoisins(ArrayList<Acteur> lstActeurs)
 	{
 		for (Acteur a : lstActeurs)
