@@ -39,7 +39,7 @@ public class Plateau
 
 	public String[] getTabRoleActif() {return tabRoleActif;}
 
-	public Color[] getTabCastingActif() {return tabCastingActif;}
+	public Color[]  getTabCastingActif() {return tabCastingActif;}
 
 	public boolean modifierZone(int lig, int col, int nZone)
 	{

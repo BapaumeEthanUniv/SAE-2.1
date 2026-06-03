@@ -1,7 +1,11 @@
+import metier.Plateau;
 import java.util.ArrayList;
 
 public class Pioche
 {
+	//private Controleur          ctrl        ;
+	private Plateau		    metier      ;
+
 	private String[]            lstRoleCarte;
 	private ArrayList<Carte>    lstCarte    ;
 	private int                 nbCartes    ;
@@ -15,12 +19,13 @@ public class Pioche
 
 	public void creerPioche(int nbCartes)
 	{
-		String[] typeCarte = new String[]{"Clair", "Foncé"};
+		String[] typeCarte = new String[] {"Clair", "Foncé"};
 		this.nbCartes = nbCartes;
 
 		for( String type : typeCarte)
 		{
 			for(String role : this.lstRoleCarte)
+
 			{
 				this.lstCarte.add(new Carte(role, type));
 			}
