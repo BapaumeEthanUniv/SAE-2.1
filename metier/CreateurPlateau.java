@@ -1,5 +1,8 @@
 package metier;
 
+import java.io.PrintWriter;
+import java.io.FileOutputStream;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -13,7 +16,7 @@ public class CreateurPlateau
 	private Role[]    tabRole;
 	private Casting[] tabCasting;
 
-	private int[][]   tabZone;
+	private Zone[][]   tabZone;
 
 	private int       tailleCase;
 
@@ -69,5 +72,43 @@ public class CreateurPlateau
 		}
 
 		return false;
+	}
+	public void CreerPlateau()
+	{
+		//appel de toute les fonctions d'export
+	}
+	public void exportZone()
+	{
+		String outputZone = "";
+		String outputPos = "";
+		String sRet;
+		ArrayList<Zone> ZonesDistinctes;
+
+		ZonesDistinctes = new ArrayList<Zone>();
+		for (int y=0; y<this.tabZone.length; y++)
+		{
+			for (int x=0; x<this.tabZone[0].length; x++)
+			{
+				outputPos+=String.format("%03d",tabZone[y][x].getNumZone());
+				if (!ZonesDistinctes.contains(this.tabZone[y][x]))
+				{
+					ZonesDistinctes.add(tabZone[y][x]);
+				}
+			}
+			outputPos+="\n";
+		}
+		for (Zone zone : ZonesDistinctes)
+		{
+			outputZone+=zone+"\n";
+		}
+
+		sRet = outputZone+"_\n"+outputPos;
+
+		try
+		{
+			PrintWriter sortie = new PrintWriter( new FileOutputStream("zone.data") );
+			sortie.print(sRet);
+			sortie.close();
+		}catch (Exception e){ e.printStackTrace(); }
 	}
 }
