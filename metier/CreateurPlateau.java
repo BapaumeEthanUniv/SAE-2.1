@@ -77,6 +77,7 @@ public class CreateurPlateau
 	{
 		//appel de toute les fonctions d'export
 	}
+
 	public void exportZone()
 	{
 		String outputZone = "";
@@ -106,7 +107,7 @@ public class CreateurPlateau
 
 		try
 		{
-			PrintWriter sortie = new PrintWriter( new FileOutputStream("zone.data") );
+			PrintWriter sortie = new PrintWriter( new FileOutputStream("../Plateau/" + nomPlateau + "Zone.data") );
 			sortie.print(sRet);
 			sortie.close();
 		}catch (Exception e){ e.printStackTrace(); }
