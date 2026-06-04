@@ -115,30 +115,6 @@ public class CreateurPlateau
 			sortie.close();
 		}catch (Exception e){ e.printStackTrace(); }
 	}
-	public static void main(String[] args) 
-	{
-		CreateurPlateau plato;
-		Zone zone1;
-		Zone zone2;
-		Zone zone3;
-		plato = new CreateurPlateau("squeezie", 3, 3, 5, null, null);
-		zone1 = new Zone(Color.BLUE);
-		zone2 = new Zone(Color.RED);
-		zone3 = new Zone(Color.GREEN);
-		System.out.println(plato.modifierZone(1-1, 1-1, zone1));
-		
-		plato.modifierZone(1-1, 2-1, zone1);
-		plato.modifierZone(2-1, 2-1, zone1);
-		plato.modifierZone(2-1, 1-1, zone2);
-		plato.modifierZone(3-1, 1-1, zone2);
-		plato.modifierZone(3-1, 2-1, zone2);
-		plato.modifierZone(1-1, 3-1, zone3);
-		plato.modifierZone(2-1, 3-1, zone3);
-		plato.modifierZone(3-1, 3-1, zone3);
-		System.out.println(plato.getNbLigne());
-		System.out.println(plato.getNbColonne());
-		plato.exportZone();
-	}
 
 	public void exportPlateau()
 	{
@@ -189,5 +165,30 @@ public class CreateurPlateau
 			sortie.print(sRet);
 			sortie.close();
 		}catch (Exception e){ e.printStackTrace(); }
+	}
+
+	public static void main(String[] args) 
+	{
+		CreateurPlateau plato;
+		Zone zone1;
+		Zone zone2;
+		Zone zone3;
+		plato = new CreateurPlateau("squeezie", 3, 3, 5, null, null);
+		zone1 = new Zone(Color.BLUE);
+		zone2 = new Zone(Color.RED);
+		zone3 = new Zone(Color.GREEN);
+		System.out.println(plato.modifierZone(1-1, 1-1, zone1));
+		
+		plato.modifierZone(1-1, 2-1, zone1);
+		plato.modifierZone(2-1, 2-1, zone1);
+		plato.modifierZone(2-1, 1-1, zone2);
+		plato.modifierZone(3-1, 1-1, zone2);
+		plato.modifierZone(3-1, 2-1, zone2);
+		plato.modifierZone(1-1, 3-1, zone3);
+		plato.modifierZone(2-1, 3-1, zone3);
+		plato.modifierZone(3-1, 3-1, zone3);
+		System.out.println(plato.getNbLigne());
+		System.out.println(plato.getNbColonne());
+		plato.exportZone();
 	}
 }
