@@ -1,6 +1,7 @@
 package metier;
 
 import java.io.PrintWriter;
+import java.awt.Color;
 import java.io.FileOutputStream;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class CreateurPlateau
 		this.tailleCase      = tailleCase;
 		this.tabRole         = tabRole;
 		this.tabCasting      = tabCasting;
+		this.tabZone = new Zone[this.nbLigne][this.nbColonne];
 	}
 
 	public int getNbLigne() {return nbLigne;}
@@ -39,12 +41,12 @@ public class CreateurPlateau
 
 	public Role[] gettabRole() {return tabRole;}
 
-	public boolean modifierZone(int lig, int col, int nZone)
+	public boolean modifierZone(int lig, int col, Zone zone)
 	{
-		if (lig > this.nbLigne || lig < 0 || col > this.nbColonne || col < this.nbColonne)
+		if (lig > this.nbLigne || lig < 0 || col > this.nbColonne || col < 0)
 			return false;
 
-		this.tabZone[lig][col].setNumZone(nZone);
+		this.tabZone[lig][col]=zone;
 		return true;
 	}
 
@@ -86,14 +88,15 @@ public class CreateurPlateau
 		ArrayList<Zone> ZonesDistinctes;
 
 		ZonesDistinctes = new ArrayList<Zone>();
-		for (int y=0; y<this.tabZone.length; y++)
+		for (int y=0; y<this.getNbColonne(); y++)
 		{
-			for (int x=0; x<this.tabZone[0].length; x++)
+			for (int x=0; x<this.getNbLigne(); x++)
 			{
-				outputAtributZonePlateau+=String.format("%03d",tabZone[y][x].getNumZone());
-				if (!ZonesDistinctes.contains(this.tabZone[y][x]))
+				System.out.println(y+" "+x+" "+this.tabZone[x][y]+this.tabZone[1][1]);
+				outputAtributZonePlateau+=String.format("%03d",this.tabZone[x][y].getNumZone());
+				if (!ZonesDistinctes.contains(this.tabZone[x][y]))
 				{
-					ZonesDistinctes.add(tabZone[y][x]);
+					ZonesDistinctes.add(tabZone[x][y]);
 				}
 			}
 			outputAtributZonePlateau+="\n";
@@ -111,5 +114,29 @@ public class CreateurPlateau
 			sortie.print(sRet);
 			sortie.close();
 		}catch (Exception e){ e.printStackTrace(); }
+	}
+	public static void main(String[] args) 
+	{
+		CreateurPlateau plato;
+		Zone zone1;
+		Zone zone2;
+		Zone zone3;
+		plato = new CreateurPlateau("squeezie", 3, 3, 5, null, null);
+		zone1 = new Zone(Color.BLUE);
+		zone2 = new Zone(Color.RED);
+		zone3 = new Zone(Color.GREEN);
+		System.out.println(plato.modifierZone(1-1, 1-1, zone1));
+		
+		plato.modifierZone(1-1, 2-1, zone1);
+		plato.modifierZone(2-1, 2-1, zone1);
+		plato.modifierZone(2-1, 1-1, zone2);
+		plato.modifierZone(3-1, 1-1, zone2);
+		plato.modifierZone(3-1, 2-1, zone2);
+		plato.modifierZone(1-1, 3-1, zone3);
+		plato.modifierZone(2-1, 3-1, zone3);
+		plato.modifierZone(3-1, 3-1, zone3);
+		System.out.println(plato.getNbLigne());
+		System.out.println(plato.getNbColonne());
+		plato.exportZone();
 	}
 }
