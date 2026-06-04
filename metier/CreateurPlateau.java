@@ -5,10 +5,13 @@ import java.util.Arrays;
 
 public class CreateurPlateau 
 {
+	private String   nomPlateau;
+
 	private int      nbLigne;
 	private int      nbColonne;
 
-	private Role[]    tabRoleActif;
+	private Role[]    tabRole;
+	private Casting[] tabCasting;
 
 	private int[][]   tabZone;
 
@@ -16,12 +19,13 @@ public class CreateurPlateau
 
 	private ArrayList<Acteur> lstActeurs;
 
-	public CreateurPlateau(int nbLigne, int nbColonne, int tailleCase, Role[] tabRoleActif)
+	public CreateurPlateau(String nomPlateau, int nbLigne, int nbColonne, int tailleCase, Role[] tabRole, Casting[] tabCasting)
 	{
 		this.nbLigne         = nbLigne;
 		this.nbColonne       = nbColonne;
 		this.tailleCase      = tailleCase;
-		this.tabRoleActif    = tabRoleActif;
+		this.tabRole         = tabRole;
+		this.tabCasting      = tabCasting;
 	}
 
 	public int getNbLigne() {return nbLigne;}
@@ -30,7 +34,7 @@ public class CreateurPlateau
 
 	public int getTailleCase() {return tailleCase;}
 
-	public Role[] getTabRoleActif() {return tabRoleActif;}
+	public Role[] gettabRole() {return tabRole;}
 
 	public boolean modifierZone(int lig, int col, int nZone)
 	{
