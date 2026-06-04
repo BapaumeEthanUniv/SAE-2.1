@@ -1,6 +1,7 @@
 package metier;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CreateurPlateau 
 {
@@ -40,15 +41,14 @@ public class CreateurPlateau
 		return true;
 	}
 
-	public boolean ajouterActeur  (String type, int posX, int posY) 
+	public boolean ajouterActeur  (Role role, int posX, int posY) 
 	{
-		Acteur acteur = new Acteur(posX, posY, type);
+		Acteur acteur = new Acteur(posX, posY, role);
 
-		if (posX > this.nbLigne || posX < 0 || posY > this.nbColonne || posY < this.nbColonne)
+		if (! Arrays.asList(Role.values()).contains(role) || posX > this.nbLigne || posX < 0 || posY > this.nbColonne || posY < this.nbColonne)
 			return false;
 
 		lstActeurs.add(acteur);
-		acteur.majVoisins(lstActeurs);
 		return true;
 	}
 	

@@ -7,24 +7,24 @@ public class Acteur
 	private int posX;
 	private int posY;
 	
-	private String type;
+	private Role role;
 	private boolean estPrincipal;
 	
 	private ArrayList<Acteur> lstVoisins;
 	
 	// Constructeur
-	public Acteur (int posX, int posY, String type)
+	public Acteur (int posX, int posY, Role role)
 	{
 		this.posX = posX;
 		this.posY = posY;
-		this.type = type;
+		this.role = role;
 		
 		this.lstVoisins = new ArrayList<Acteur>();   // 8 = vertic. + horiz. + diagonales
 		this.estPrincipal = false;
 	}
 	
 	// Getters
-	public String   getType    () 		 { return this.type;       	  }
+	public Role   getrole    () 		 { return this.role;       	  }
 	
 	public int      getPosX    () 		 { return this.posX;       	  }
 	public int      getPosY    () 		 { return this.posY;       	  }
@@ -33,7 +33,7 @@ public class Acteur
 	public Acteur            getVoisin  (int indice)  { return this.lstVoisins.get(indice); }
 	
 	// Setters
-	public void   setType    (String type) { this.type = type; }
+	public void   setrole    (Role role) { this.role = role; }
 	
 	public void   setPrincipal ()
 	{
@@ -97,5 +97,10 @@ public class Acteur
 	{
 		for (Acteur voisin : lstVoisins)
 			voisin.lstVoisins.remove(this);
+	}
+
+	public String toString()
+	{
+		return "" + this.role + String.format("%03d", this.posX) + String.format("%03d", this.posY);
 	}
 }
