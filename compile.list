@@ -1,7 +1,7 @@
 ./metier/Acteur.java
 ./metier/Carte.java
 ./metier/Pioche.java
-./metier/Plateau.java
+./metier/PlateauJeu.java
 ./metier/Casting.java
 ./metier/Role.java
 
