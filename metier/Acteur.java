@@ -26,16 +26,19 @@ public class Acteur
 	}
 	
 	// Getters
-	public Role   getrole    () 		 { return this.role;       	  }
+	public Role   getRole    () 		 { return this.role;       	  }
 	
 	public int      getPosX    () 		 { return this.posX;       	  }
 	public int      getPosY    () 		 { return this.posY;       	  }
+
+	public boolean estPrincipal() {return estPrincipal;}
+	public Color getCouleur() {return couleur;}
 	
 	public ArrayList<Acteur> getVoisins ()            { return this.lstVoisins; 	  }
 	public Acteur            getVoisin  (int indice)  { return this.lstVoisins.get(indice); }
 	
 	// Setters
-	public void   setrole    (Role role) { this.role = role; }
+	public void   setRole    (Role role) { this.role = role; }
 	
 	public void   setPrincipal (Color c)
 	{
