@@ -112,7 +112,7 @@ public class CreateurPlateau
 			outputAtributZone+=zone+"\n";
 		}
 
-		sRet = outputAtributZone+"prout\n"+outputAtributZonePlateau;
+		sRet = outputAtributZone+"Plateau :\n"+outputAtributZonePlateau;
 
 		try
 		{
