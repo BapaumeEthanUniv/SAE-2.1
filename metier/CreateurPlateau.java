@@ -80,8 +80,8 @@ public class CreateurPlateau
 
 	public void exportZone()
 	{
-		String outputZone = "";
-		String outputPos = "";
+		String outputAtributZone = "";
+		String outputAtributZonePlateau = "";
 		String sRet;
 		ArrayList<Zone> ZonesDistinctes;
 
@@ -90,20 +90,20 @@ public class CreateurPlateau
 		{
 			for (int x=0; x<this.tabZone[0].length; x++)
 			{
-				outputPos+=String.format("%03d",tabZone[y][x].getNumZone());
+				outputAtributZonePlateau+=String.format("%03d",tabZone[y][x].getNumZone());
 				if (!ZonesDistinctes.contains(this.tabZone[y][x]))
 				{
 					ZonesDistinctes.add(tabZone[y][x]);
 				}
 			}
-			outputPos+="\n";
+			outputAtributZonePlateau+="\n";
 		}
 		for (Zone zone : ZonesDistinctes)
 		{
-			outputZone+=zone+"\n";
+			outputAtributZone+=zone+"\n";
 		}
 
-		sRet = outputZone+"_\n"+outputPos;
+		sRet = outputAtributZone+"_\n"+outputAtributZonePlateau;
 
 		try
 		{
