@@ -2,12 +2,10 @@ package metier;
 
 import java.util.ArrayList;
 
-public class Plateau 
+public class CreateurPlateau 
 {
 	private int      nbLigne;
 	private int      nbColonne;
-	
-	private Casting[] tabCastingActif;
 
 	private Role[]    tabRoleActif;
 
@@ -17,12 +15,11 @@ public class Plateau
 
 	private ArrayList<Acteur> lstActeurs;
 
-	public Plateau(int nbLigne, int nbColonne, int tailleCase, Casting[] tabCastingActif, Role[] tabRoleActif)
+	public CreateurPlateau(int nbLigne, int nbColonne, int tailleCase, Role[] tabRoleActif)
 	{
 		this.nbLigne         = nbLigne;
 		this.nbColonne       = nbColonne;
 		this.tailleCase      = tailleCase;
-		this.tabCastingActif = tabCastingActif;
 		this.tabRoleActif    = tabRoleActif;
 	}
 
@@ -33,8 +30,6 @@ public class Plateau
 	public int getTailleCase() {return tailleCase;}
 
 	public Role[] getTabRoleActif() {return tabRoleActif;}
-
-	public Casting[] getTabCastingActif() {return tabCastingActif;}
 
 	public boolean modifierZone(int lig, int col, int nZone)
 	{
