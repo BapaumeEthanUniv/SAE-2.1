@@ -20,8 +20,9 @@ public class FrameSaisie extends JFrame
 		
 		this.tabPanel	 = new JPanel[4];
 		
-		this.tabPanel[0] = new PanelSaisie(ctrl, this, 0);
-		this.tabPanel[1] = new PanelZone  (ctrl, this, 1);
+		this.tabPanel[0] = new PanelAccueil(ctrl, this, 0);
+		this.tabPanel[1] = new PanelSaisie (ctrl, this, 1);
+		this.tabPanel[2] = new PanelZone   (ctrl, this, 2);
 		//this.tabPanel[2] = new PanelSymbole(this, 2);
 
 		this.panelActif = this.tabPanel[0];
