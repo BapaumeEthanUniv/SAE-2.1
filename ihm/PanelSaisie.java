@@ -18,6 +18,8 @@ public class PanelSaisie extends JPanel implements ActionListener
 {
 	public 	static 	int 	NB_CASTING_MIN 	= 4;
 	public 	static 	int 	NB_ROLE_MIN 	= 2;
+	public  static  int	TAILLE_MIN	= 6;
+	public  static  int	TAILLE_MAX	= 6;
 	
 	private Controleur 	ctrl;
 	private FrameSaisie 	frame;
@@ -197,7 +199,10 @@ public class PanelSaisie extends JPanel implements ActionListener
 				
 				System.out.println ( "Nombre de rôles   : " + cptRole);
 			}
-			
+			else
+			{
+				System.out.println("Erreur : valeurs erronées.");
+			}
 		}
 	}
 	
@@ -222,6 +227,13 @@ public class PanelSaisie extends JPanel implements ActionListener
 				nbColonne = Integer.parseInt(this.txtColonne.getText());
 			}
 			catch (Exception e)
+			{
+				System.out.println ("Erreur : la taille du plateau saisie n'est pas un entier. Réessayer.");
+				return false;
+			}
+			
+			if (nbLigne   < TAILLE_MIN || nbLigne   > TAILLE_MAX ||
+			    nbColonne < TAILLE_MIN || nbColonne > TAILLE_MAX)
 			{
 				System.out.println ("Erreur : la saisie de la taille du plateau est erronée. Réessayer.");
 				return false;
