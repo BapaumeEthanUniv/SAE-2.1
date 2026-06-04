@@ -3,7 +3,7 @@ package metier;
 public enum Role
 {
 	CASCADEUR 	("Cascadeur  "),
-	EMOTION		("Emotion    "),
+	EMOTION		("Émotion    "),
 	ANTAGONISTE	("Antagoniste"),
 	FIGURANT	("Figurant"   );
 	
