@@ -24,12 +24,12 @@ public class Controleur
 	
 	public String getCasting (int indice)
 	{ 
-		return Casting.valueOf ( indice ).toString(); 
+		return Casting.valueOf ( indice ).getLibelle(); 
 	}
 	
 	public String getRole (int indice)
 	{
-		return Role.valueOf    ( indice ).toString();
+		return Role.valueOf    ( indice ).getLibelle();
 	}
 	
 	public static void main (String[] args) { new Controleur(); }

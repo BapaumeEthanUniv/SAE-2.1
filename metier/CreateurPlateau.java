@@ -3,6 +3,8 @@ package metier;
 import java.io.PrintWriter;
 import java.awt.Color;
 import java.io.FileOutputStream;
+import java.io.File;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,12 +27,14 @@ public class CreateurPlateau
 
 	public CreateurPlateau(String nomPlateau, int nbLigne, int nbColonne, int tailleCase, Role[] tabRole, Casting[] tabCasting)
 	{
+		this.nomPlateau      = nomPlateau;
 		this.nbLigne         = nbLigne;
 		this.nbColonne       = nbColonne;
 		this.tailleCase      = tailleCase;
 		this.tabRole         = tabRole;
 		this.tabCasting      = tabCasting;
 		this.tabZone = new Zone[this.nbLigne][this.nbColonne];
+		this.lstActeurs = new ArrayList<Acteur>();
 	}
 
 	public int getNbLigne() {return nbLigne;}
@@ -53,8 +57,7 @@ public class CreateurPlateau
 	public boolean ajouterActeur  (Role role, int posX, int posY) 
 	{
 		Acteur acteur = new Acteur(posX, posY, role);
-
-		if (! Arrays.asList(Role.values()).contains(role) || posX > this.nbLigne || posX < 0 || posY > this.nbColonne || posY < this.nbColonne)
+		if (! Arrays.asList(Role.values()).contains(role) || posX > this.nbLigne || posX < 0 || posY > this.nbColonne || posY < 0)
 			return false;
 
 		lstActeurs.add(acteur);
@@ -77,7 +80,16 @@ public class CreateurPlateau
 	}
 	public void CreerPlateau()
 	{
-		//appel de toute les fonctions d'export
+		File filePrincipal = new File("Plateau");
+        File filePlateau = new File("Plateau/" + this.nomPlateau);
+
+		filePrincipal.mkdir();
+        filePlateau  .mkdir();
+
+		this.exportZone();
+		this.exportActeur();
+		this.exportCasting();
+		this.exportPlateau();
 	}
 
 	public void exportZone()
@@ -92,7 +104,6 @@ public class CreateurPlateau
 		{
 			for (int x=0; x<this.getNbLigne(); x++)
 			{
-				System.out.println(y+" "+x+" "+this.tabZone[x][y]+this.tabZone[1][1]);
 				outputAtributZonePlateau+=String.format("%03d",this.tabZone[x][y].getNumZone());
 				if (!ZonesDistinctes.contains(this.tabZone[x][y]))
 				{
@@ -106,11 +117,11 @@ public class CreateurPlateau
 			outputAtributZone+=zone+"\n";
 		}
 
-		sRet = outputAtributZone+"_\n"+outputAtributZonePlateau;
+		sRet = outputAtributZone+"Plateau :\n"+outputAtributZonePlateau;
 
 		try
 		{
-			PrintWriter sortie = new PrintWriter( new FileOutputStream("../Plateau/" + nomPlateau + "Zone.data") );
+			PrintWriter sortie = new PrintWriter( new FileOutputStream("Plateau/" + nomPlateau + "/Zone.data") );
 			sortie.print(sRet);
 			sortie.close();
 		}catch (Exception e){ e.printStackTrace(); }
@@ -120,7 +131,7 @@ public class CreateurPlateau
 	{
 		try
 		{
-			PrintWriter sortie = new PrintWriter( new FileOutputStream("../Plateau/" + nomPlateau + "/Plateau.data") );
+			PrintWriter sortie = new PrintWriter( new FileOutputStream("Plateau/" + nomPlateau + "/Plateau.data") );
 			sortie.print(String.format("%03d", nbLigne) + String.format("%03d", nbLigne) + String.format("%03d", tailleCase));
 			sortie.close();
 		}catch (Exception e){ e.printStackTrace(); }
@@ -142,7 +153,7 @@ public class CreateurPlateau
 
 		try
 		{
-			PrintWriter sortie = new PrintWriter( new FileOutputStream("../Plateau/" + nomPlateau + "/Casting.data") );
+			PrintWriter sortie = new PrintWriter( new FileOutputStream("Plateau/" + nomPlateau + "/Casting.data") );
 			sortie.print(sRet);
 			sortie.close();
 		}catch (Exception e){ e.printStackTrace(); }
@@ -161,24 +172,25 @@ public class CreateurPlateau
 
 		try
 		{
-			PrintWriter sortie = new PrintWriter( new FileOutputStream("../Plateau/" + nomPlateau + "/Acteur.data") );
+			PrintWriter sortie = new PrintWriter( new FileOutputStream("Plateau/" + nomPlateau + "/Acteur.data") );
 			sortie.print(sRet);
 			sortie.close();
 		}catch (Exception e){ e.printStackTrace(); }
 	}
 
+	/*main de test
 	public static void main(String[] args) 
 	{
+		 
 		CreateurPlateau plato;
 		Zone zone1;
 		Zone zone2;
 		Zone zone3;
-		plato = new CreateurPlateau("squeezie", 3, 3, 5, null, null);
+		plato = new CreateurPlateau("Bah non frère c'est vraiment pas drôle", 3, 3, 5, null, null);
 		zone1 = new Zone(Color.BLUE);
 		zone2 = new Zone(Color.RED);
 		zone3 = new Zone(Color.GREEN);
-		System.out.println(plato.modifierZone(1-1, 1-1, zone1));
-		
+		plato.modifierZone(1-1, 1-1, zone1);
 		plato.modifierZone(1-1, 2-1, zone1);
 		plato.modifierZone(2-1, 2-1, zone1);
 		plato.modifierZone(2-1, 1-1, zone2);
@@ -187,8 +199,12 @@ public class CreateurPlateau
 		plato.modifierZone(1-1, 3-1, zone3);
 		plato.modifierZone(2-1, 3-1, zone3);
 		plato.modifierZone(3-1, 3-1, zone3);
-		System.out.println(plato.getNbLigne());
-		System.out.println(plato.getNbColonne());
-		plato.exportZone();
-	}
+
+		plato.ajouterActeur(Role.ANTAGONISTE, 0, 0);
+		plato.ajouterActeur(Role.FIGURANT, 1, 0);
+		plato.lstActeurs.get(0).setPrincipal(Color.RED);
+		plato.lstActeurs.get(1).setPrincipal(Color.BLUE);
+
+		plato.CreerPlateau();
+	}*/
 }
