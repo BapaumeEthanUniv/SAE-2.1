@@ -3,6 +3,8 @@ package metier;
 import java.io.PrintWriter;
 import java.awt.Color;
 import java.io.FileOutputStream;
+import java.io.File;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,6 +27,7 @@ public class CreateurPlateau
 
 	public CreateurPlateau(String nomPlateau, int nbLigne, int nbColonne, int tailleCase, Role[] tabRole, Casting[] tabCasting)
 	{
+		this.nomPlateau      = nomPlateau;
 		this.nbLigne         = nbLigne;
 		this.nbColonne       = nbColonne;
 		this.tailleCase      = tailleCase;
@@ -77,7 +80,11 @@ public class CreateurPlateau
 	}
 	public void CreerPlateau()
 	{
-		//appel de toute les fonctions d'export
+		File filePrincipal = new File("Plateau");
+        File filePlateau = new File("Plateau/" + this.nomPlateau);
+
+		filePrincipal.mkdir();
+        filePlateau  .mkdir();
 	}
 
 	public void exportZone()
@@ -110,7 +117,7 @@ public class CreateurPlateau
 
 		try
 		{
-			PrintWriter sortie = new PrintWriter( new FileOutputStream("../Plateau/" + nomPlateau + "Zone.data") );
+			PrintWriter sortie = new PrintWriter( new FileOutputStream("Plateau/" + nomPlateau + "/Zone.data") );
 			sortie.print(sRet);
 			sortie.close();
 		}catch (Exception e){ e.printStackTrace(); }
@@ -120,7 +127,7 @@ public class CreateurPlateau
 	{
 		try
 		{
-			PrintWriter sortie = new PrintWriter( new FileOutputStream("../Plateau/" + nomPlateau + "/Plateau.data") );
+			PrintWriter sortie = new PrintWriter( new FileOutputStream("Plateau/" + nomPlateau + "/Plateau.data") );
 			sortie.print(String.format("%03d", nbLigne) + String.format("%03d", nbLigne) + String.format("%03d", tailleCase));
 			sortie.close();
 		}catch (Exception e){ e.printStackTrace(); }
@@ -142,7 +149,7 @@ public class CreateurPlateau
 
 		try
 		{
-			PrintWriter sortie = new PrintWriter( new FileOutputStream("../Plateau/" + nomPlateau + "/Casting.data") );
+			PrintWriter sortie = new PrintWriter( new FileOutputStream("Plateau/" + nomPlateau + "/Casting.data") );
 			sortie.print(sRet);
 			sortie.close();
 		}catch (Exception e){ e.printStackTrace(); }
@@ -161,7 +168,7 @@ public class CreateurPlateau
 
 		try
 		{
-			PrintWriter sortie = new PrintWriter( new FileOutputStream("../Plateau/" + nomPlateau + "/Acteur.data") );
+			PrintWriter sortie = new PrintWriter( new FileOutputStream("Plateau/" + nomPlateau + "/Acteur.data") );
 			sortie.print(sRet);
 			sortie.close();
 		}catch (Exception e){ e.printStackTrace(); }
@@ -169,6 +176,7 @@ public class CreateurPlateau
 
 	public static void main(String[] args) 
 	{
+		 
 		CreateurPlateau plato;
 		Zone zone1;
 		Zone zone2;
@@ -189,6 +197,7 @@ public class CreateurPlateau
 		plato.modifierZone(3-1, 3-1, zone3);
 		System.out.println(plato.getNbLigne());
 		System.out.println(plato.getNbColonne());
+		plato.CreerPlateau();
 		plato.exportZone();
 	}
 }
