@@ -10,3 +10,4 @@
 ./ihm/FrameSaisie.java
 ./ihm/PanelSaisie.java
 ./ihm/PanelZone.java
+./ihm/PanelAccueil.java
