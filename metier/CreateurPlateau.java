@@ -34,6 +34,7 @@ public class CreateurPlateau
 		this.tabRole         = tabRole;
 		this.tabCasting      = tabCasting;
 		this.tabZone = new Zone[this.nbLigne][this.nbColonne];
+		this.lstActeurs = new ArrayList<Acteur>();
 	}
 
 	public int getNbLigne() {return nbLigne;}
@@ -56,8 +57,7 @@ public class CreateurPlateau
 	public boolean ajouterActeur  (Role role, int posX, int posY) 
 	{
 		Acteur acteur = new Acteur(posX, posY, role);
-
-		if (! Arrays.asList(Role.values()).contains(role) || posX > this.nbLigne || posX < 0 || posY > this.nbColonne || posY < this.nbColonne)
+		if (! Arrays.asList(Role.values()).contains(role) || posX > this.nbLigne || posX < 0 || posY > this.nbColonne || posY < 0)
 			return false;
 
 		lstActeurs.add(acteur);
@@ -99,7 +99,6 @@ public class CreateurPlateau
 		{
 			for (int x=0; x<this.getNbLigne(); x++)
 			{
-				System.out.println(y+" "+x+" "+this.tabZone[x][y]+this.tabZone[1][1]);
 				outputAtributZonePlateau+=String.format("%03d",this.tabZone[x][y].getNumZone());
 				if (!ZonesDistinctes.contains(this.tabZone[x][y]))
 				{
@@ -113,7 +112,7 @@ public class CreateurPlateau
 			outputAtributZone+=zone+"\n";
 		}
 
-		sRet = outputAtributZone+"_\n"+outputAtributZonePlateau;
+		sRet = outputAtributZone+"prout\n"+outputAtributZonePlateau;
 
 		try
 		{
@@ -185,8 +184,7 @@ public class CreateurPlateau
 		zone1 = new Zone(Color.BLUE);
 		zone2 = new Zone(Color.RED);
 		zone3 = new Zone(Color.GREEN);
-		System.out.println(plato.modifierZone(1-1, 1-1, zone1));
-		
+		plato.modifierZone(1-1, 1-1, zone1);
 		plato.modifierZone(1-1, 2-1, zone1);
 		plato.modifierZone(2-1, 2-1, zone1);
 		plato.modifierZone(2-1, 1-1, zone2);
@@ -195,9 +193,12 @@ public class CreateurPlateau
 		plato.modifierZone(1-1, 3-1, zone3);
 		plato.modifierZone(2-1, 3-1, zone3);
 		plato.modifierZone(3-1, 3-1, zone3);
-		System.out.println(plato.getNbLigne());
-		System.out.println(plato.getNbColonne());
+
+		plato.ajouterActeur(Role.ANTAGONISTE, 0, 0);
+		plato.ajouterActeur(Role.FIGURANT, 1, 0);
+
 		plato.CreerPlateau();
 		plato.exportZone();
+		plato.exportActeur();
 	}
 }

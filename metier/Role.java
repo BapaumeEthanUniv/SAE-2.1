@@ -15,7 +15,7 @@ public enum Role
 	
 	public String toString()
 	{
-		return this.name().substring(0, 2);
+		return this.name().substring(0, 3);
 	}
 	
 	public static int getNbRole() 
