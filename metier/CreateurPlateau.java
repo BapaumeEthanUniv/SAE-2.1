@@ -117,7 +117,7 @@ public class CreateurPlateau
 	{
 		try
 		{
-			PrintWriter sortie = new PrintWriter( new FileOutputStream("../Plateau/" + nomPlateau + "Plateau.data") );
+			PrintWriter sortie = new PrintWriter( new FileOutputStream("../Plateau/" + nomPlateau + "/Plateau.data") );
 			sortie.print(String.format("%03d", nbLigne) + String.format("%03d", nbLigne) + String.format("%03d", tailleCase));
 			sortie.close();
 		}catch (Exception e){ e.printStackTrace(); }
@@ -139,7 +139,7 @@ public class CreateurPlateau
 
 		try
 		{
-			PrintWriter sortie = new PrintWriter( new FileOutputStream("../Plateau/" + nomPlateau + "Casting.data") );
+			PrintWriter sortie = new PrintWriter( new FileOutputStream("../Plateau/" + nomPlateau + "/Casting.data") );
 			sortie.print(sRet);
 			sortie.close();
 		}catch (Exception e){ e.printStackTrace(); }
@@ -158,7 +158,7 @@ public class CreateurPlateau
 
 		try
 		{
-			PrintWriter sortie = new PrintWriter( new FileOutputStream("../Plateau/" + nomPlateau + "Acteur.data") );
+			PrintWriter sortie = new PrintWriter( new FileOutputStream("../Plateau/" + nomPlateau + "/Acteur.data") );
 			sortie.print(sRet);
 			sortie.close();
 		}catch (Exception e){ e.printStackTrace(); }
