@@ -85,6 +85,11 @@ public class CreateurPlateau
 
 		filePrincipal.mkdir();
         filePlateau  .mkdir();
+
+		this.exportZone();
+		this.exportActeur();
+		this.exportCasting();
+		this.exportPlateau();
 	}
 
 	public void exportZone()
@@ -173,6 +178,7 @@ public class CreateurPlateau
 		}catch (Exception e){ e.printStackTrace(); }
 	}
 
+	/*main de test
 	public static void main(String[] args) 
 	{
 		 
@@ -180,7 +186,7 @@ public class CreateurPlateau
 		Zone zone1;
 		Zone zone2;
 		Zone zone3;
-		plato = new CreateurPlateau("Mario Odyssey 2 (DO NOT LEAK)", 3, 3, 5, null, null);
+		plato = new CreateurPlateau("Bah non frère c'est vraiment pas drôle", 3, 3, 5, null, null);
 		zone1 = new Zone(Color.BLUE);
 		zone2 = new Zone(Color.RED);
 		zone3 = new Zone(Color.GREEN);
@@ -200,9 +206,5 @@ public class CreateurPlateau
 		plato.lstActeurs.get(1).setPrincipal(Color.BLUE);
 
 		plato.CreerPlateau();
-		plato.exportZone();
-		plato.exportActeur();
-		plato.exportCasting();
-		plato.exportPlateau();
-	}
+	}*/
 }
