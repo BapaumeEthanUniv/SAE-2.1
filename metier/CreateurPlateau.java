@@ -180,7 +180,7 @@ public class CreateurPlateau
 		Zone zone1;
 		Zone zone2;
 		Zone zone3;
-		plato = new CreateurPlateau("squeezie", 3, 3, 5, null, null);
+		plato = new CreateurPlateau("Mario Odyssey 2 (DO NOT LEAK)", 3, 3, 5, null, null);
 		zone1 = new Zone(Color.BLUE);
 		zone2 = new Zone(Color.RED);
 		zone3 = new Zone(Color.GREEN);
@@ -196,9 +196,13 @@ public class CreateurPlateau
 
 		plato.ajouterActeur(Role.ANTAGONISTE, 0, 0);
 		plato.ajouterActeur(Role.FIGURANT, 1, 0);
+		plato.lstActeurs.get(0).setPrincipal(Color.RED);
+		plato.lstActeurs.get(1).setPrincipal(Color.BLUE);
 
 		plato.CreerPlateau();
 		plato.exportZone();
 		plato.exportActeur();
+		plato.exportCasting();
+		plato.exportPlateau();
 	}
 }
