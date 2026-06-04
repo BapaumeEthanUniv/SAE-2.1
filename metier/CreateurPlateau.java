@@ -139,4 +139,55 @@ public class CreateurPlateau
 		System.out.println(plato.getNbColonne());
 		plato.exportZone();
 	}
+
+	public void exportPlateau()
+	{
+		try
+		{
+			PrintWriter sortie = new PrintWriter( new FileOutputStream("../Plateau/" + nomPlateau + "/Plateau.data") );
+			sortie.print(String.format("%03d", nbLigne) + String.format("%03d", nbLigne) + String.format("%03d", tailleCase));
+			sortie.close();
+		}catch (Exception e){ e.printStackTrace(); }
+	}
+
+	public void exportCasting()
+	{
+		String sRet = "";
+
+		for (Acteur acteur : lstActeurs)
+		{
+			if (acteur.estPrincipal())
+				sRet += String.format("%03d", acteur.getCouleur().getRed()) + 
+			            String.format("%03d", acteur.getCouleur().getRed()) + 
+						String.format("%03d", acteur.getCouleur().getRed()) + 
+						String.format("%03d", acteur.getPosX()) + 
+						String.format("%03d", acteur.getPosY()) + "\n";
+		}
+
+		try
+		{
+			PrintWriter sortie = new PrintWriter( new FileOutputStream("../Plateau/" + nomPlateau + "/Casting.data") );
+			sortie.print(sRet);
+			sortie.close();
+		}catch (Exception e){ e.printStackTrace(); }
+	}
+
+	public void exportActeur()
+	{
+		String sRet = "";
+
+		for (Acteur acteur : lstActeurs)
+		{
+			sRet += acteur.getRole() + 
+			        String.format("%03d", acteur.getPosX()) + 
+			        String.format("%03d", acteur.getPosY()) + "\n";
+		}
+
+		try
+		{
+			PrintWriter sortie = new PrintWriter( new FileOutputStream("../Plateau/" + nomPlateau + "/Acteur.data") );
+			sortie.print(sRet);
+			sortie.close();
+		}catch (Exception e){ e.printStackTrace(); }
+	}
 }
