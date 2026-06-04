@@ -1,3 +1,5 @@
+./controleur/Controleur.java
+
 ./metier/Acteur.java
 ./metier/Carte.java
 ./metier/Pioche.java
@@ -7,3 +9,5 @@
 
 ./ihm/FrameSaisie.java
 ./ihm/PanelSaisie.java
+./ihm/PanelZone.java
+./ihm/PanelAccueil.java

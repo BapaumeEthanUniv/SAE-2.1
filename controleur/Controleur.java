@@ -2,13 +2,13 @@ package controleur;
 
 import ihm.FrameSaisie;
 
-import metier.Plateau;
+import metier.PlateauJeu;
 import metier.Casting;
 import metier.Role;
 
 public class Controleur
 {
-	private Plateau 	metier;
+	private PlateauJeu 	metier;
 	private FrameSaisie 	ihm;
 	
 	private Casting 	casting;

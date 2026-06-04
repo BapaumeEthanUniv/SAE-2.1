@@ -5,20 +5,20 @@ import java.awt.Color;
 
 public class PlateauJeu 
 {
-	private int      nbLigne;
-	private int      nbColonne;
+	private int      		nbLigne;
+	private int      		nbColonne;
 	
-	private Casting[] tabCastingActif;
+	private Casting[] 		tabCastingActif;
 
-	private Role[]    tabRoleActif;
+	private Role[]    		tabRoleActif;
 
-	private int[][]   tabZone;
+	private int[][]   		tabZone;
 
-	private Casting[][] tabArrete;
+	private Casting[][] 		tabArrete;
 
-	private int       tailleCase;
+	private int       		tailleCase;
 
-	private ArrayList<Acteur> lstActeurs;
+	private ArrayList<Acteur> 	lstActeurs;
 
 	public PlateauJeu()//a compléter ya absolument rien la dans le constructeur
 	{
