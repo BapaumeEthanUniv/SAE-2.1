@@ -1,6 +1,7 @@
 package metier;
 
 import java.util.ArrayList;
+import java.awt.Color;
 
 public class Acteur
 {
@@ -9,6 +10,7 @@ public class Acteur
 	
 	private Role role;
 	private boolean estPrincipal;
+	private Color   couleur;
 	
 	private ArrayList<Acteur> lstVoisins;
 	
@@ -35,10 +37,14 @@ public class Acteur
 	// Setters
 	public void   setrole    (Role role) { this.role = role; }
 	
-	public void   setPrincipal ()
+	public void   setPrincipal (Color c)
 	{
-		if (this.estPrincipal) 	{ this.estPrincipal = false; }
-		else			{ this.estPrincipal = true ; }
+		if (this.estPrincipal) { this.estPrincipal = false; }
+		else 
+		{ 
+			this.estPrincipal = true ; 
+			couleur = c;
+		}
 	}
 	
 	// MÃ©thodes utilitaires	

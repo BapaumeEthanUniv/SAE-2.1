@@ -44,7 +44,7 @@ public class CreateurPlateau
 		if (lig > this.nbLigne || lig < 0 || col > this.nbColonne || col < this.nbColonne)
 			return false;
 
-		this.tabZone[lig][col] = nZone;
+		this.tabZone[lig][col].setNumZone(nZone);
 		return true;
 	}
 

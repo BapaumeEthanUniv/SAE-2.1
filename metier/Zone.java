@@ -17,7 +17,9 @@ public class Zone
 		++Zone.compteur;
 	}
 	public Color getCouleur() {return this.couleur;}
-	public int getNumZone() {return this.numZone;}
+	public int   getNumZone() {return this.numZone;}
+
+	public void setNumZone(int numZone) {this.numZone = numZone;}
 
 	public String toString()
 	{
