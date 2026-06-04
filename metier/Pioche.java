@@ -1,10 +1,11 @@
-import metier.Plateau;
+package metier;
+
 import java.util.ArrayList;
 
 public class Pioche
 {
 	//private Controleur          ctrl        ;
-	private Plateau		    metier      ;
+	private PlateauJeu		        metier      ;
 
 	private String[]            lstRoleCarte;
 	private ArrayList<Carte>    lstCarte    ;

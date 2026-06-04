@@ -1,44 +1,53 @@
 package metier;
 
 import java.util.ArrayList;
+import java.awt.Color;
 
 public class Acteur
 {
 	private int posX;
 	private int posY;
 	
-	private String type;
+	private Role role;
 	private boolean estPrincipal;
+	private Color   couleur;
 	
 	private ArrayList<Acteur> lstVoisins;
 	
 	// Constructeur
-	public Acteur (int posX, int posY, String type)
+	public Acteur (int posX, int posY, Role role)
 	{
 		this.posX = posX;
 		this.posY = posY;
-		this.type = type;
+		this.role = role;
 		
 		this.lstVoisins = new ArrayList<Acteur>();   // 8 = vertic. + horiz. + diagonales
 		this.estPrincipal = false;
 	}
 	
 	// Getters
-	public String   getType    () 		 { return this.type;       	  }
+	public Role   getRole    () 		 { return this.role;       	  }
 	
 	public int      getPosX    () 		 { return this.posX;       	  }
 	public int      getPosY    () 		 { return this.posY;       	  }
+
+	public boolean estPrincipal() {return estPrincipal;}
+	public Color getCouleur() {return couleur;}
 	
 	public ArrayList<Acteur> getVoisins ()            { return this.lstVoisins; 	  }
 	public Acteur            getVoisin  (int indice)  { return this.lstVoisins.get(indice); }
 	
 	// Setters
-	public void   setType    (String type) { this.type = type; }
+	public void   setRole    (Role role) { this.role = role; }
 	
-	public void   setPrincipal ()
+	public void   setPrincipal (Color c)
 	{
-		if (this.estPrincipal) 	{ this.estPrincipal = false; }
-		else			{ this.estPrincipal = true ; }
+		if (this.estPrincipal) { this.estPrincipal = false; }
+		else 
+		{ 
+			this.estPrincipal = true ; 
+			couleur = c;
+		}
 	}
 	
 	// MÃ©thodes utilitaires	
@@ -97,5 +106,10 @@ public class Acteur
 	{
 		for (Acteur voisin : lstVoisins)
 			voisin.lstVoisins.remove(this);
+	}
+
+	public String toString()
+	{
+		return "" + this.role + String.format("%03d", this.posX) + String.format("%03d", this.posY);
 	}
 }

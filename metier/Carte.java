@@ -1,3 +1,5 @@
+package metier;
+
 public class Carte
 {
 	private String roleActeur;

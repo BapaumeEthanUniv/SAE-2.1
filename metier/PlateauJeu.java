@@ -1,6 +1,7 @@
 package metier;
 
 import java.util.ArrayList;
+import java.awt.Color;
 
 public class PlateauJeu 
 {
@@ -34,4 +35,23 @@ public class PlateauJeu
 
 	public Casting[] getTabCastingActif() {return tabCastingActif;}
 
+	public void majVoisin()
+	{
+		for (Acteur acteur : lstActeurs)
+			acteur.majVoisins(lstActeurs);
+	}
+
+	public boolean setPrincipal(Color c, int posX, int posY)
+	{
+		for (Acteur acteur : lstActeurs)
+		{
+			if (posX == acteur.getPosX() && posY == acteur.getPosY() )
+			{
+				acteur.setPrincipal(c);
+				return true;
+			}
+		}
+
+		return false;
+	}
 }
