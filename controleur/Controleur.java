@@ -36,6 +36,11 @@ public class Controleur
 	{
 		return Role.valueOf    ( indice ).getLibelle();
 	}
+
+	public void initCreateur(String nomPlateau, int nbLigne, int nbColonne, int tailleCase, Role[] tabRole, Casting[] tabCasting)
+	{
+		this.metier = new CreateurPlateau(nomPlateau, nbLigne, nbColonne, tailleCase, tabRole, tabCasting);
+	}
 	
 	public static void main (String[] args) { new Controleur(); }
 }
