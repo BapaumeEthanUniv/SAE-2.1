@@ -1,6 +1,9 @@
 package ihm;
 
 import controleur.Controleur;
+
+import metier.Zone;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -184,6 +187,21 @@ public class PanelZone extends JPanel implements ActionListener
 		if (a.getSource() == this.btnPrecedent)
 		{
 			this.frameCreation.setPnl(this.frameCreation.getPnl(this.indice-1));
+		}
+		
+		if (a.getSource() == this.btnZonePrecedent)
+		{
+			this.ctrl.zonePrecedente();
+		}
+		
+		if (a.getSource() == this.btnZoneSuivant)
+		{
+			this.ctrl.nouvelleZone();
+			
+			for (Zone zone : this.ctrl.getLstZones())
+			{
+				System.out.println(zone);
+			}
 		}
 
 		if (a.getSource() == this.jcbCouleur)
