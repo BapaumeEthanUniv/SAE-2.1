@@ -1,6 +1,7 @@
 package ihm;
 
 import controleur.Controleur;
+import metier.Couleur;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -12,52 +13,29 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import javax.swing.*;
 import java.awt.event.*;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class PanelZone extends JPanel implements ActionListener
 {
-	private final JPanel[][] cases;
+	private final JPanel[][] 	cases;
+	private Controleur 		ctrl;
+	private FrameCreation 		frameCreation;
 
-	private Controleur 	ctrl;
+	private JButton     		btnSuivant;
+	private JButton     		btnPrecedent;
+	private JButton     		btnZonePrecedent;
+	private JButton     		btnZoneSuivant;
+	private JLabel      		labelCouleur;
 	
-	private FrameCreation 	frameCreation;
+	private JComboBox<Couleur>  	jcbCouleur; 
 
-	private JButton     btnSuivant;
-	private JButton     btnPrecedent ;
-	private JButton     btnZonePrecedent;
-	private JButton     btnZoneSuivant;
-	private JLabel      labelCouleur;
-
-	private Color       couleurActuelle = new Color(109, 7 ,  26);
+	private Color       		couleurActuelle;
 	
-	private int         indice;
-	private int         tailleLargeur;
-	private int         tailleHauteur;
-    	private int         nbZone;
-	private boolean     modeDessin = false;
+	private int         		indice;
+	private int         		tailleLargeur;
+	private int         		tailleHauteur;
+	private int         		nbZone;
+	private boolean     		modeDessin = false;
 
-	private static final Map<String, Color> PALETTE = new LinkedHashMap<>();
-	static 
-	{
-		PALETTE.put("Effacer",      Color.WHITE);
-		PALETTE.put("Rouge",        new Color(109, 7 ,  26));
-		PALETTE.put("Rouge Colore", Color.RED);
-		PALETTE.put("Orange",       new Color(235, 130, 30));
-		PALETTE.put("Jaune",        new Color(240, 200, 20));
-		PALETTE.put("Vert",         new Color(50,  180, 80));
-		PALETTE.put("Bleu",         new Color(40,  110, 220));
-		PALETTE.put("Violet",       new Color(140, 60,  200));
-		PALETTE.put("Mauve",        Color.MAGENTA);
-		PALETTE.put("Rose",         new Color(230, 100, 160));
-		PALETTE.put("Marron",       new Color(140, 80,  30));
-		PALETTE.put("Noir",         Color.BLACK);
-		PALETTE.put("Gris",         new Color(150, 150, 150));
-		PALETTE.put("Cyan",         new Color(30,  200, 220));
-		PALETTE.put("Saumon",       new Color(240, 150, 120));
-		PALETTE.put("Vert citron",  new Color(140, 210, 40));
-	}
-	
 	public PanelZone(Controleur ctrl, FrameCreation f, int indice)
 	{
 		this.ctrl = ctrl;
@@ -66,45 +44,43 @@ public class PanelZone extends JPanel implements ActionListener
 		this.tailleLargeur = this.ctrl.getNbColonne();
 		this.tailleHauteur = this.ctrl.getNbLigne();
 		this.nbZone = 0;
+		this.couleurActuelle = Couleur.BORDEAUX.getCouleur(); 
 
 		this.cases = new JPanel[this.tailleLargeur][this.tailleHauteur];
-
 		this.setLayout(new BorderLayout());
 
 		/* ------------------------------ */
 		/* Création des composants        */
 		/* ------------------------------ */
-
-
-        	JPanel pnlBtnSuite = new JPanel(new FlowLayout());
+		JPanel pnlBtnSuite = new JPanel(new FlowLayout());
 
 		JPanel bandeau = new JPanel(new GridLayout(2,1));
-        	bandeau.setBorder(BorderFactory.createEmptyBorder(14, 20, 14, 20));
+		bandeau.setBorder(BorderFactory.createEmptyBorder(14, 20, 14, 20));
 
 		JPanel wrapper = new JPanel(new GridBagLayout());
-        	wrapper.setBorder(BorderFactory.createEmptyBorder(16, 16, 8, 16));
+		wrapper.setBorder(BorderFactory.createEmptyBorder(16, 16, 8, 16));
 
 		JLabel titre = new JLabel("Plateau " + tailleLargeur + "×" + tailleHauteur);
-        	titre.setFont(new Font("Monospaced", Font.BOLD, 18));
+		titre.setFont(new Font("Monospaced", Font.BOLD, 18));
 
-       		JLabel nbZone = new JLabel("Zone Numéro : " + this.nbZone);
+		JLabel lblNbZone = new JLabel("Zone Numéro : " + this.nbZone);
 
 		JButton btnEffacer = new JButton("Tout effacer");
 		btnEffacer.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		btnEffacer.setBackground(new Color(60, 60, 75));
 		btnEffacer.setForeground(new Color(200, 200, 220));
 		btnEffacer.setBorder(BorderFactory.createCompoundBorder(
-		        BorderFactory.createLineBorder(new Color(90, 90, 110), 1),
-		        BorderFactory.createEmptyBorder(5, 12, 5, 12)));
+				BorderFactory.createLineBorder(new Color(90, 90, 110), 1),
+				BorderFactory.createEmptyBorder(5, 12, 5, 12)));
 		
 		JPanel grille = new JPanel(new GridLayout(this.tailleLargeur, this.tailleHauteur, 1, 1));
-		grille.setBackground(new Color(60, 60, 75)); // couleur des séparateurs
+		grille.setBackground(new Color(60, 60, 75));
 
 		int tailleCase = Math.max(24, Math.min(64, 560 / ((this.tailleLargeur*this.tailleHauteur)/2)));
 
 		for (int i = 0; i < this.tailleLargeur; i++) 
 		{
-		    	for (int j = 0; j < this.tailleLargeur; j++) 
+			for (int j = 0; j < this.tailleLargeur; j++) 
 			{
 				JPanel cellule = new JPanel();
 				cellule.setBackground(Color.WHITE);
@@ -114,56 +90,51 @@ public class PanelZone extends JPanel implements ActionListener
 
 				final int fi = i, fj = j;
 
-		        	// Clic simple
-		        	cellule.addMouseListener(new MouseAdapter() 
-		        	{
-				    	public void mousePressed(MouseEvent e)
+				cellule.addMouseListener(new MouseAdapter() 
+				{
+					public void mousePressed(MouseEvent e)
 					{
-				        	modeDessin = true;
-				        	colorierCase(fi, fj);
-				    	}
-				    	
-				    	public void mouseReleased(MouseEvent e)
+						modeDessin = true;
+						colorierCase(fi, fj);
+					}
+					
+					public void mouseReleased(MouseEvent e)
 					{
-				        	modeDessin = false;
-				    	}
-				    	
-				    	public void mouseEntered(MouseEvent e)
+						modeDessin = false;
+					}
+					
+					public void mouseEntered(MouseEvent e)
 					{
 						if (modeDessin) colorierCase(fi, fj);
-						// Survol : légère teinte
 						if (!cases[fi][fj].getBackground().equals(couleurActuelle))
 						{
-						    cases[fi][fj].setBorder(BorderFactory.createLineBorder(couleurActuelle.darker(), 2));
+							cases[fi][fj].setBorder(BorderFactory.createLineBorder(couleurActuelle.darker(), 2));
 						}
-				    	}
-				    	
-				   	public void mouseExited(MouseEvent e)
+					}
+					
+					public void mouseExited(MouseEvent e)
 					{
-				        	cases[fi][fj].setBorder(BorderFactory.createLineBorder(new Color(200, 200, 210), 0));
-				    	}
-		        	}
-		        );
+						cases[fi][fj].setBorder(BorderFactory.createLineBorder(new Color(200, 200, 210), 0));
+					}
+				});
 
-			cases[i][j] = cellule;
-		        grille.add(cellule);
-		    }
+				cases[i][j] = cellule;
+				grille.add(cellule);
+			}
 		}
 
 		JLabel lblChoix = new JLabel("Couleur :");
 		lblChoix.setFont(new Font("SansSerif", Font.PLAIN, 13));
 		lblChoix.setForeground(new Color(170, 170, 200));
 
-		// Menu déroulant
-		String[] noms = PALETTE.keySet().toArray(new String[0]);
-		JComboBox<String> combo = new JComboBox<>(noms);
-		combo.setSelectedIndex(1); // Rouge par défaut
-		combo.setFont(new Font("SansSerif", Font.PLAIN, 13));
-		combo.setBackground(new Color(40, 40, 55));
-		combo.setForeground(new Color(220, 220, 240));
-		combo.setFocusable(false);
-		combo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		combo.setPreferredSize(new Dimension(160, 30));
+		this.jcbCouleur = new JComboBox<>(Couleur.values());
+		this.jcbCouleur.setSelectedIndex(3); // index 3 = Bordeaux (couleur par défaut)
+		this.jcbCouleur.setFont(new Font("SansSerif", Font.PLAIN, 13));
+		this.jcbCouleur.setBackground(new Color(40, 40, 55));
+		this.jcbCouleur.setForeground(new Color(220, 220, 240));
+		this.jcbCouleur.setFocusable(false);
+		this.jcbCouleur.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		this.jcbCouleur.setPreferredSize(new Dimension(160, 30));
 
 		// Aperçu de la couleur choisie
 		labelCouleur = new JLabel();
@@ -172,45 +143,36 @@ public class PanelZone extends JPanel implements ActionListener
 		labelCouleur.setPreferredSize(new Dimension(28, 28));
 		labelCouleur.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 130), 2));
 
-		// Listener combo
-		combo.addActionListener(e -> {
-		    String choix = (String) combo.getSelectedItem();
-		    if (choix != null) {
-		        couleurActuelle = PALETTE.get(choix);
-		        labelCouleur.setBackground(couleurActuelle);
-		    }
-		});
-
-		this.btnSuivant       = new JButton("Suivant"        );
-		this.btnPrecedent     = new JButton("Précédent "     );
+		this.btnSuivant       = new JButton("Suivant");
+		this.btnPrecedent     = new JButton("Précédent");
 		this.btnZonePrecedent = new JButton("Zone précédente");
-		this.btnZoneSuivant   = new JButton("Nouvelle Zone"  );
+		this.btnZoneSuivant   = new JButton("Nouvelle Zone");
 
 		/* ------------------------------ */
 		/* Positionnement des Composants  */
 		/* ------------------------------ */
-
-			
 		bandeau.add(titre);
-		bandeau.add(combo);
+		bandeau.add(this.jcbCouleur); 
 
 		wrapper.add(grille);
 
-        pnlBtnSuite.add(this.btnSuivant);
+		pnlBtnSuite.add(this.btnSuivant);
 		pnlBtnSuite.add(this.btnPrecedent);
 		pnlBtnSuite.add(this.btnZonePrecedent);
 		pnlBtnSuite.add(this.btnZoneSuivant);
 
 		this.add(bandeau, BorderLayout.NORTH);
 		this.add(wrapper, BorderLayout.CENTER);
-        this.add(pnlBtnSuite, BorderLayout.SOUTH);
+		this.add(pnlBtnSuite, BorderLayout.SOUTH);
 		
 		this.btnSuivant.addActionListener(this);
-		this.btnPrecedent .addActionListener(this);
+		this.btnPrecedent.addActionListener(this);
 		this.btnZonePrecedent.addActionListener(this);
 		this.btnZoneSuivant.addActionListener(this);
+		this.jcbCouleur.addActionListener(this); 
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent a)
 	{
 		if (a.getSource() == this.btnSuivant)
@@ -221,6 +183,16 @@ public class PanelZone extends JPanel implements ActionListener
 		if (a.getSource() == this.btnPrecedent)
 		{
 			this.frameCreation.setPnl(this.frameCreation.getPnl(this.indice-1));
+		}
+
+		if (a.getSource() == this.jcbCouleur)
+		{
+			Couleur choix = (Couleur) this.jcbCouleur.getSelectedItem();
+			if (choix != null) 
+			{
+				this.couleurActuelle = choix.getCouleur();
+				this.labelCouleur.setBackground(this.couleurActuelle);
+			}
 		}
 	}
 
