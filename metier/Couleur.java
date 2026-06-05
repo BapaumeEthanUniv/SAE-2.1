@@ -1,7 +1,5 @@
 package metier;
 
-import metier.Casting;
-
 import java.awt.Color;
 
 public enum Couleur
