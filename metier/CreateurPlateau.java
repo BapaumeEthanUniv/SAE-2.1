@@ -49,6 +49,11 @@ public class CreateurPlateau
 
 	public Role[] gettabRole() {return tabRole;}
 
+	public Zone getZoneActive() {return this.zoneActive;}
+
+	public void setZoneActive(Zone zone) {this.zoneActive = zone;}
+
+
 	public boolean modifierZone(int lig, int col, Zone zone)
 	{
 		boolean estPremier   = true;
@@ -107,6 +112,11 @@ public class CreateurPlateau
 		Zone zone = new Zone(Couleur.SAUMON.getCouleur());
 		this.lstZones.add(zone);
 		this.setZoneActive(zone);
+	}
+
+	public void zonePrecedente()
+	{
+		this.zoneActive = this.lstZones.get(this.lstZones.indexOf(this.zoneActive) - 1);
 	}
 
 	public boolean ajouterActeur  (Role role, int posX, int posY) 
@@ -232,9 +242,6 @@ public class CreateurPlateau
 			sortie.close();
 		}catch (Exception e){ e.printStackTrace(); }
 	}
-
-	public void setZoneActive(Zone zone) {this.zoneActive = zone;}
-	public Zone getZoneActive() {return this.zoneActive;}
 
 
 
