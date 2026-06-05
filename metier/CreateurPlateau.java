@@ -11,19 +11,22 @@ import java.util.Arrays;
 
 public class CreateurPlateau 
 {
-	private String   nomPlateau;
 
-	private int      nbLigne;
-	private int      nbColonne;
+	private String    nomPlateau;
+
+	private int       nbLigne;
+	private int       nbColonne;
 
 	private Role[]    tabRole;
 	private Casting[] tabCasting;
 
-	private Zone[][]   tabZone;
+	private Zone[][]  tabZone;
+	private Zone      zoneActive;
 
 	private int       tailleCase;
 
 	private ArrayList<Acteur> lstActeurs;
+	private ArrayList<Zone>   lstZones;
 
 	public CreateurPlateau(String nomPlateau, int nbLigne, int nbColonne, int tailleCase, Role[] tabRole, Casting[] tabCasting)
 	{
@@ -34,6 +37,7 @@ public class CreateurPlateau
 		this.tabRole         = tabRole;
 		this.tabCasting      = tabCasting;
 		this.tabZone = new Zone[this.nbLigne][this.nbColonne];
+		this.lstZones = new ArrayList<Zone>();
 		this.lstActeurs = new ArrayList<Acteur>();
 	}
 
@@ -221,6 +225,12 @@ public class CreateurPlateau
 			sortie.close();
 		}catch (Exception e){ e.printStackTrace(); }
 	}
+
+	public void setZoneActive(Zone zone) {this.zoneActive = zone;}
+	public Zone getZoneActive() {return this.zoneActive;}
+
+
+
 
 	/*main de test
 	public static void main(String[] args) 
