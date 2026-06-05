@@ -1,40 +1,29 @@
 package ihm;
 
 import controleur.Controleur;
-
-import metier.CreateurPlateau;
-import metier.Casting;
-import metier.Role;
-
-
-import java.io.File;
-
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.Image;
-
+import java.awt.Toolkit;
 import java.awt.event.*;
-
+import java.io.File;
 import javax.swing.*;
 
 public class PanelAccueilJeu extends JPanel implements ActionListener
 {
 	private Controleur 	ctrl;
-	private FrameSaisie 	frameSaisie;
+	private FrameCreation 	frame;
 	private int		indice;
 	
 	private Image 		imgFond;
 	
 	private JButton		btnCharger;
 	
-	public PanelAccueilJeu (Controleur ctrl, FrameSaisie f, int indice)
+	public PanelAccueilJeu (Controleur ctrl, FrameCreation f, int indice)
 	{
 		this.ctrl 		= ctrl;
-		this.frameSaisie 	= f;
+		this.frame 	= f;
 		this.indice 		= indice;
 	
 		this.setLayout(new GridLayout(10,1));
@@ -72,7 +61,7 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 			if (res == JFileChooser.APPROVE_OPTION) 
 			{
 				File fichier = chooser.getSelectedFile();
-				this.frameSaisie.setPnl(this.frameSaisie.getPnl(indice + 1));
+				this.frame.setPnl(this.frame.getPnl(indice + 1));
 			}
 		}
 	}

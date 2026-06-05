@@ -1,22 +1,16 @@
 package ihm;
 
 import controleur.Controleur;
-
-import metier.CreateurPlateau;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.*;
+import javax.swing.*;
 import metier.Casting;
 import metier.Role;
-
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.Color;
-import java.awt.Toolkit;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Font;
-
-import java.awt.event.*;
-
-import javax.swing.*;
 
 public class PanelSaisieCreation extends JPanel implements ActionListener
 {
@@ -245,6 +239,8 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 							TAILLE_CASE,
 							this.tabRoleActif,
 							this.tabCastingActif );
+
+				this.frame.CreerPanelZone();
 						
 				this.frame.setPnl(this.frame.getPnl(this.indice+1));
 			}
