@@ -34,6 +34,11 @@ public class Controleur
 
 	public int getNbLigne()   { return metier.getNbLigne();}
 	public int getNbColonne() { return metier.getNbColonne();}
+
+	public Role[]   getTabRole()     {return this.metier.getTabRole();}
+	public Casting[] getTabCasting() {return this.metier.getTabCasting();}
+
+	public ArrayList<Acteur> getLstActeurs() {return this.metier.getLstActeurs();}
 	
 	public String getCasting (int indice)
 	{ 
