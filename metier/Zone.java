@@ -15,6 +15,7 @@ public class Zone
 		this.numZone=++Zone.compteur;
 		this.couleur=couleur;
 	}
+	
 	public Color getCouleur() {return this.couleur;}
 	public int   getNumZone() {return this.numZone;}
 
