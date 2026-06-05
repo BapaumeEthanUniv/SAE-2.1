@@ -77,15 +77,18 @@ public class PanelZone extends JPanel implements ActionListener
 		JPanel grille = new JPanel(new GridLayout(this.tailleLargeur, this.tailleHauteur, 1, 1));
 		grille.setBackground(new Color(60, 60, 75));
 
-		int tailleCase = Math.max(24, Math.min(64, 560 / ((this.tailleLargeur*this.tailleHauteur)/2)));
+		// int tailleCase;
+
+		
+		// tailleCase = Math.max(24, Math.min(64, 560 / this.tailleHauteur));
 
 		for (int i = 0; i < this.tailleLargeur; i++) 
 		{
-			for (int j = 0; j < this.tailleLargeur; j++) 
+			for (int j = 0; j < this.tailleHauteur; j++) 
 			{
 				JPanel cellule = new JPanel();
 				cellule.setBackground(Color.WHITE);
-				cellule.setPreferredSize(new Dimension(tailleCase, tailleCase));
+				cellule.setPreferredSize(new Dimension(50, 50));
 				cellule.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 210), 0));
 				cellule.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 

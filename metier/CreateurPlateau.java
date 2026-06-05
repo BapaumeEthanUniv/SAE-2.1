@@ -124,7 +124,8 @@ public class CreateurPlateau
 
 	public void zonePrecedente()
 	{
-		this.zoneActive = this.lstZones.get(this.lstZones.indexOf(this.zoneActive) - 1);
+		if (lstZones.size() > 1)
+			this.zoneActive = this.lstZones.get(this.lstZones.indexOf(this.zoneActive) - 1);
 	}
 
 	public boolean ajouterActeur  (Role role, int posX, int posY) 
