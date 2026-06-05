@@ -1,18 +1,16 @@
 package ihm;
 
 import controleur.Controleur;
-import metier.Couleur;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import javax.swing.*;
 import java.awt.event.*;
+import javax.swing.*;
+import metier.Couleur;
 
 public class PanelZone extends JPanel implements ActionListener
 {
@@ -52,7 +50,7 @@ public class PanelZone extends JPanel implements ActionListener
 		/* ------------------------------ */
 		/* Création des composants        */
 		/* ------------------------------ */
-		JPanel pnlBtnSuite = new JPanel(new FlowLayout());
+		JPanel pnlBtnSuite = new JPanel(new GridLayout(2,2));
 
 		JPanel bandeau = new JPanel(new GridLayout(2,1));
 		bandeau.setBorder(BorderFactory.createEmptyBorder(14, 20, 14, 20));
@@ -156,8 +154,8 @@ public class PanelZone extends JPanel implements ActionListener
 
 		wrapper.add(grille);
 
-		pnlBtnSuite.add(this.btnSuivant);
 		pnlBtnSuite.add(this.btnPrecedent);
+		pnlBtnSuite.add(this.btnSuivant);
 		pnlBtnSuite.add(this.btnZonePrecedent);
 		pnlBtnSuite.add(this.btnZoneSuivant);
 
