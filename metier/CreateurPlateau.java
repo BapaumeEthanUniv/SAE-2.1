@@ -102,6 +102,11 @@ public class CreateurPlateau
 		return true;
 	}
 
+	public void zonePrecedente()
+	{
+		this.zoneActive = this.lstZones.get(this.lstZones.indexOf(this.zoneActive) - 1);
+	}
+
 	public boolean ajouterActeur  (Role role, int posX, int posY) 
 	{
 		Acteur acteur = new Acteur(posX, posY, role);
