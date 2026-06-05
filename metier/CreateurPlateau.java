@@ -89,6 +89,15 @@ public class CreateurPlateau
 		return true;
 	}
 
+	public boolean changerCouleurZone(Couleur couleur, Zone zone)
+	{
+		if (! Arrays.asList(Couleur.values()).contains(couleur))
+			return false;
+
+		zone.setCouleur(couleur.getCouleur());
+		return true;
+	}
+
 	public boolean ajouterActeur  (Role role, int posX, int posY) 
 	{
 		Acteur acteur = new Acteur(posX, posY, role);
