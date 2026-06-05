@@ -11,19 +11,22 @@ import java.util.Arrays;
 
 public class CreateurPlateau 
 {
-	private String   nomPlateau;
 
-	private int      nbLigne;
-	private int      nbColonne;
+	private String    nomPlateau;
+
+	private int       nbLigne;
+	private int       nbColonne;
 
 	private Role[]    tabRole;
 	private Casting[] tabCasting;
 
-	private Zone[][]   tabZone;
+	private Zone[][]  tabZone;
+	private Zone      zoneActive;
 
 	private int       tailleCase;
 
 	private ArrayList<Acteur> lstActeurs;
+	private ArrayList<Zone>   lstZones;
 
 	public CreateurPlateau(String nomPlateau, int nbLigne, int nbColonne, int tailleCase, Role[] tabRole, Casting[] tabCasting)
 	{
@@ -34,6 +37,7 @@ public class CreateurPlateau
 		this.tabRole         = tabRole;
 		this.tabCasting      = tabCasting;
 		this.tabZone = new Zone[this.nbLigne][this.nbColonne];
+		this.lstZones = new ArrayList<Zone>();
 		this.lstActeurs = new ArrayList<Acteur>();
 	}
 
@@ -45,13 +49,76 @@ public class CreateurPlateau
 
 	public Role[] gettabRole() {return tabRole;}
 
+	public Zone getZoneActive() {return this.zoneActive;}
+
+	public Zone[][] getTabZone() {return tabZone;}
+
+	public void setZoneActive(Zone zone) {this.zoneActive = zone;}
+
+
 	public boolean modifierZone(int lig, int col, Zone zone)
 	{
-		if (lig > this.nbLigne || lig < 0 || col > this.nbColonne || col < 0)
+		boolean estPremier   = true;
+		boolean adjacent     = false;
+		boolean coulAdjacent = false;
+
+		//verif que la zone est la première placée
+		for(int l = 0; l < this.tabZone.length; l++)
+		{
+			for(int c = 0; c < this.tabZone[l].length; c++)
+			{
+				if (zone == tabZone[l][c])
+					estPremier = false;
+			}
+		}
+
+		for(int l = lig - 1; l <= lig + 1; l++)
+		{
+			for(int c = col - 1; c <= col + 1; c++)
+			{
+				if (l < this.nbLigne && l >= 0 &&
+					c < this.nbColonne && c >= 0 &&
+				    c != col && l != lig)
+				{
+					//verif si il y a une même zone adjacente
+					if (tabZone[l][c] == zone)
+						adjacent = true;
+					//verif si une zone adjacente a la même couleur
+					if (zone.getCouleur() == tabZone[l][c].getCouleur())
+						coulAdjacent = true;
+				}
+			}
+		}
+
+		//verif qu'on ne place pas en dehors du plateau
+		if (lig > this.nbLigne || lig < 0 ||
+			col > this.nbColonne || col < 0 || 
+			(! estPremier && ! adjacent) || coulAdjacent)
 			return false;
 
 		this.tabZone[lig][col]=zone;
 		return true;
+	}
+
+	public boolean changerCouleurZone(Couleur couleur, Zone zone)
+	{
+		if (! Arrays.asList(Couleur.values()).contains(couleur))
+			return false;
+
+		zone.setCouleur(couleur.getCouleur());
+		return true;
+	}
+
+	public void nouvelleZone()
+	{
+		Zone zone = new Zone(Couleur.SAUMON.getCouleur());
+		this.lstZones.add(zone);
+		this.setZoneActive(zone);
+	}
+
+	public void zonePrecedente()
+	{
+		this.zoneActive = this.lstZones.get(this.lstZones.indexOf(this.zoneActive) - 1);
 	}
 
 	public boolean ajouterActeur  (Role role, int posX, int posY) 
@@ -177,6 +244,9 @@ public class CreateurPlateau
 			sortie.close();
 		}catch (Exception e){ e.printStackTrace(); }
 	}
+
+
+
 
 	/*main de test
 	public static void main(String[] args) 

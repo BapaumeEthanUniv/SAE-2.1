@@ -15,6 +15,7 @@ public class Zone
 		this.numZone=++Zone.compteur;
 		this.couleur=couleur;
 	}
+	
 	public Color getCouleur() {return this.couleur;}
 	public int   getNumZone() {return this.numZone;}
 
@@ -28,6 +29,12 @@ public class Zone
 		Sret+=        String.format("%03d" , this.couleur.getBlue());
 		return Sret;
 	}
+
+	public void setCouleur(Color couleur)
+	{
+		this.couleur = couleur;
+	}
+	
 	public static void main(String[] args)
 	{
 		Zone zone1 = new Zone(Color.RED);
@@ -36,9 +43,6 @@ public class Zone
 		System.out.println(zone1);
 		System.out.println(zone2);
 		System.out.println(zone3);
-
-
-		
 	}
 
 }
