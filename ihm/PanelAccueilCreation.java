@@ -1,0 +1,120 @@
+package ihm;
+
+import controleur.Controleur;
+
+import metier.CreateurPlateau;
+import metier.Casting;
+import metier.Role;
+
+
+import java.io.File;
+
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Dimension;
+
+import java.awt.event.*;
+
+import javax.swing.*;
+
+public class PanelAccueilCreation extends JPanel implements ActionListener
+{
+	private Controleur 		ctrl;
+	private FrameCreation 	frameSaisie;
+	private int			indice;
+	
+	private Image 			imgFond;
+	
+	private JButton			btnCreer;
+	private JButton			btnModifier;
+	private JButton			btnCopier;
+	
+	public PanelAccueilCreation (Controleur ctrl, FrameCreation f, int indice)
+	{
+		this.ctrl 		= ctrl;
+		this.frameSaisie 	= f;
+		this.indice 		= indice;
+	
+		this.setLayout(new GridLayout(14,1));
+		
+		this.imgFond      = Toolkit.getDefaultToolkit().getImage("./images/img-accueil-creation.png");
+		
+		JPanel pnlCreer 	= new JPanel();
+		pnlCreer		.setLayout(new FlowLayout(FlowLayout.CENTER));
+		pnlCreer		.setOpaque(false);
+		
+		JPanel pnlModifier 	= new JPanel();
+		pnlModifier		.setLayout(new FlowLayout(FlowLayout.CENTER));
+		pnlModifier		.setOpaque(false);
+		
+		JPanel pnlCopier 	= new JPanel();
+		pnlCopier		.setLayout(new FlowLayout(FlowLayout.CENTER));
+		pnlCopier		.setOpaque(false);
+		
+		this.btnCreer 		= new JButton("Créer un plateau");
+		this.btnCreer		.setOpaque(false);
+		
+		this.btnModifier 	= new JButton("Modifier un plateau");
+		this.btnModifier	.setOpaque(false);
+		
+		this.btnCopier 		= new JButton("Copier un plateau existant");
+		this.btnCopier		.setOpaque(false);
+		
+		pnlCreer.add	(this.btnCreer	 );
+		pnlModifier.add	(this.btnModifier);
+		pnlCopier.add	(this.btnCopier	 );
+		
+		this.add(new JLabel(""));
+		this.add(new JLabel(""));
+		this.add(new JLabel(""));
+		this.add(new JLabel(""));
+		this.add(new JLabel(""));
+		this.add(new JLabel(""));
+		this.add(new JLabel(""));
+		
+		this.add(pnlCreer);
+		this.add(pnlModifier);
+		this.add(pnlCopier);
+		
+		this.btnCreer.addActionListener(this);
+		
+		this.setVisible(true);
+	}
+	
+	public void actionPerformed ( ActionEvent e )
+	{
+		if ( e.getSource() == this.btnCreer )
+		{
+			this.frameSaisie.setPnl(this.frameSaisie.getPnl(indice + 1));
+		}
+		
+		if ( e.getSource() == this.btnModifier )
+		{
+			JFileChooser chooser = new JFileChooser("."); 
+			
+			int res = chooser.showOpenDialog(this); 
+			
+			if (res == JFileChooser.APPROVE_OPTION) 
+			{
+				File fichier = chooser.getSelectedFile();
+				this.frameSaisie.setPnl(this.frameSaisie.getPnl(indice + 1));
+			}
+		}
+	}
+	
+	@Override
+	protected void paintComponent(Graphics g) 
+	{
+		super.paintComponent(g);
+		if (this.imgFond != null) 
+		{
+			g.drawImage(this.imgFond, 0, 0, this.getWidth(), this.getHeight(), this);
+		}
+	}
+}
+
