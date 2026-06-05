@@ -8,11 +8,11 @@ public enum Couleur
 {
 	GOMME		( "Gomme"	, Color.WHITE		) ,
 	ROSE		( "Rose"	, new Color (230,100,160)),
-	ROUGE		( "Rouge"	, Casting.ROUGE		) ,
+	ROUGE		( "Rouge"	, Color.RED		) ,
 	BORDEAUX	( "Bordeaux"	, new Color (109,7  ,26 )),
 	ORANGE 		( "Orange"  	, new Color (255,149,9  )),
 	JAUNE		( "Jaune"	, Color.YELLOW		) ,
-	VERT_CITRON 	( "Vert Citron"	, new Color (140,210,40 )),
+	VERT_CITRON ( "Vert Citron"	, new Color (140,210,40 )),
 	VERT		( "Vert"	, Color.GREEN		) ,
 	CYAN		( "Cyan"	, Color.CYAN		) ,
 	MAGENTA		( "Magenta"	, Color.MAGENTA		) ,
@@ -21,11 +21,16 @@ public enum Couleur
 	SAUMON 		( "Saumon"	, new Color (240,150,120)),
 	MARRON 		( "Marron"	, new Color (140,80 ,30 )),
 	GRIS   		( "Gris"	, new Color (150,150,150));
+	
+	private String lib;
+	private Color couleur;
 	 
-	private String couleur;
+	Couleur (String lib, Color couleur) { this.lib = lib; this.couleur = couleur; }
 	 
-	public Couleur (String couleur) { this.couleur = couleur; }
-	 
+	public Color getCouleur() {return couleur;}
+
+	public String getLib() {return lib;}
+
 	public String toString()
 	{
 		return this.name();
