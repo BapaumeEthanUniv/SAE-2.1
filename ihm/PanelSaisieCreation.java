@@ -1,22 +1,16 @@
 package ihm;
 
 import controleur.Controleur;
-
-import metier.CreateurPlateau;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.*;
+import javax.swing.*;
 import metier.Casting;
 import metier.Role;
-
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.Color;
-import java.awt.Toolkit;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Font;
-
-import java.awt.event.*;
-
-import javax.swing.*;
 
 public class PanelSaisieCreation extends JPanel implements ActionListener
 {
@@ -32,16 +26,14 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 	
 	private Image 		imgFond;
 	
-	private JButton 	btnSuivant;
+	private JButton 	btnCreer;
 	
 	private JCheckBox[] 	tabCBCasting;
 	private JCheckBox[] 	tabCBRole;
 	
 	private Casting[]	tabCasting;
-	private Casting[]	tabCastingActif;
 	
 	private Role[]		tabRole;
-	private Role[]		tabRoleActif;
 	
 	// private JPanel	panelJoueur;
 	
@@ -87,7 +79,7 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 		panelLstRole.setLayout		(new GridLayout(2, 3));
 		panelLstRole.setOpaque		(false);
 		
-		this.btnSuivant			= new JButton("Suivant");
+		this.btnCreer			= new JButton("Suivant");
 		
 		
 		String[]  lstCasting	= new String[this.ctrl.getNbCasting()];
@@ -182,24 +174,27 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 		this.add(new JLabel(""));
 			
 		// Partie Bouton
-		this.add(btnSuivant);
+		this.add(btnCreer);
 		
 		/* ----------------------------- */
 		/* Activation des Composants     */
 		/* ----------------------------- */
 		
-		this.btnSuivant.addActionListener(this);
+		this.btnCreer.addActionListener(this);
 	}
 	
 	public void actionPerformed (ActionEvent e)
 	{
+		Casting[] 	tabCastingActif = new Casting[this.tabCBCasting.length];
+		Role[] 		tabRoleActif 	= new Role   [this.tabCBRole   .length];
+		
 		int nbLigne 	= 0;
 		int nbColonne 	= 0;
 		
 		int cptCasting 	= 0;
 		int cptRole 	= 0;
 		
-		if (e.getSource() == this.btnSuivant)
+		if (e.getSource() == this.btnCreer)
 		{	
 			if (this.verifier())
 			{
@@ -208,7 +203,7 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 				{
 					if (this.tabCBCasting[cpt].isSelected())
 					{
-						this.tabCastingActif[cpt] = tabCasting[cpt];
+						tabCastingActif[cpt] = tabCasting[cpt];
 						//cptCasting++;					
 					}
 				}
@@ -218,7 +213,7 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 				{
 					if (this.tabCBRole[cpt].isSelected())
 					{
-						this.tabRoleActif[cpt] = tabRole[cpt];
+						tabRoleActif[cpt] = tabRole[cpt];
 						//cptRole++;					
 					}
 				}
@@ -243,8 +238,10 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 							nbLigne,
 							nbColonne,
 							TAILLE_CASE,
-							this.tabRoleActif,
-							this.tabCastingActif );
+							tabRoleActif,
+							tabCastingActif );
+
+				this.frame.CreerPanelZone();
 						
 				this.frame.setPnl(this.frame.getPnl(this.indice+1));
 			}
