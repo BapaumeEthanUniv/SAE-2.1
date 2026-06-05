@@ -48,6 +48,8 @@ public class CreateurPlateau
 	public int getTailleCase() {return tailleCase;}
 
 	public Role[] gettabRole() {return tabRole;}
+	
+	public Casting[] getTabCasting() {return tabCasting;}
 
 	public Zone getZoneActive() {return this.zoneActive;}
 
