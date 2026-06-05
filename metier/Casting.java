@@ -7,7 +7,7 @@ public enum Casting
 	ROUGE 	("Rouge", Color.RED),
 	VERT	("Vert", Color.GREEN ),
 	BLEU	("Bleu", Color.BLUE ),
-	MAUVE	("Mauve", Color.MAGENTA),
+	MAGENTA	("Mauve", Color.MAGENTA),
 	JAUNE	("Jaune", Color.YELLOW),
 	CYAN	("Cyan", Color.CYAN );
 	
