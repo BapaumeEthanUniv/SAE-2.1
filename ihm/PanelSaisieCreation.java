@@ -24,6 +24,7 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 	public 	static 	int 	NB_ROLE_MIN 	= 2;
 	public  static  int	TAILLE_MIN	= 6;
 	public  static  int	TAILLE_MAX	= 10;
+	public  static  int	TAILLE_CASE	= 50;
 	
 	private Controleur 	ctrl;
 	private FrameCreation 	frame;
@@ -36,6 +37,12 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 	private JCheckBox[] 	tabCBCasting;
 	private JCheckBox[] 	tabCBRole;
 	
+	private Casting[]	tabCasting;
+	private Casting[]	tabCastingActif;
+	
+	private Role[]		tabRole;
+	private Role[]		tabRoleActif;
+	
 	// private JPanel	panelJoueur;
 	
 	private JTextField	txtNomPlateau;
@@ -45,7 +52,7 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 	
 	public PanelSaisieCreation (Controleur ctrl, FrameCreation f, int indice)
 	{	
-		this.setLayout (new GridLayout (12, 1));
+		this.setLayout (new GridLayout (13, 1));
 		
 		/*-------------------------------------------------*/
 		/*   Création et initialisation des composants     */
@@ -91,6 +98,7 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 		}
 		
 		this.tabCBCasting	= new JCheckBox[lstCasting.length];
+		this.tabCasting		= new Casting  [lstCasting.length];
 		
 		String[]  lstRole	= new String[this.ctrl.getNbRole()];
 		
@@ -100,6 +108,7 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 		}
 		
 		this.tabCBRole		= new JCheckBox[lstRole.length];
+		this.tabRole		= new Role     [lstRole.length];
 		
 		this.txtLigne		= new JTextField("", 5);
 		this.txtColonne		= new JTextField("", 5);
@@ -109,13 +118,15 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 		/*  Positionnement des composants           */
 		/*------------------------------------------*/
 		
-		// Partie Plateau
-		JLabel lblTitre = new JLabel ("Saisie des Informations");
-		lblTitre.setFont(new Font("SansSerif", Font.BOLD, 40));
+		this.add(new JLabel(""));
+		
+		JLabel lblTitre = new JLabel ("<html><u>Saisie des Informations</u></html>", JLabel.CENTER);
+		lblTitre.setFont(new Font("SansSerif", Font.BOLD, 25));
 		
 		this.add(lblTitre);
 		this.add(new JLabel(""));
 		
+		// Partie Plateau
 		this.add(new JLabel("<html><u>Nom du Plateau</u></html>", JLabel.CENTER));
 		
 			// Partie Nom du Plateau
@@ -142,7 +153,7 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 		
 		for (int cpt = 0; cpt < lstCasting.length; cpt++)
 		{
-			this.tabCBCasting[cpt] = new JCheckBox( "" + lstCasting[cpt], false);
+			this.tabCBCasting[cpt]  = new JCheckBox( "" + lstCasting[cpt], false);
 			this.tabCBCasting[cpt].setOpaque(false);
 			panelLstCasting.add(this.tabCBCasting[cpt]);
 		}
@@ -182,13 +193,14 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 	
 	public void actionPerformed (ActionEvent e)
 	{
+		int nbLigne 	= 0;
+		int nbColonne 	= 0;
+		
 		int cptCasting 	= 0;
 		int cptRole 	= 0;
 		
 		if (e.getSource() == this.btnSuivant)
-		{
-			this.frame.setPnl(this.frame.getPnl(this.indice+1));
-			
+		{	
 			if (this.verifier())
 			{
 				// Parcours pour compter nombre castings sélectionnés
@@ -196,7 +208,8 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 				{
 					if (this.tabCBCasting[cpt].isSelected())
 					{
-						cptCasting++;					
+						this.tabCastingActif[cpt] = tabCasting[cpt];
+						//cptCasting++;					
 					}
 				}
 				
@@ -205,10 +218,15 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 				{
 					if (this.tabCBRole[cpt].isSelected())
 					{
-						cptRole++;					
+						this.tabRoleActif[cpt] = tabRole[cpt];
+						//cptRole++;					
 					}
 				}
 				
+				nbLigne 	= Integer.parseInt(this.txtLigne.getText());
+				nbColonne 	= Integer.parseInt(this.txtColonne.getText());
+				
+				/*
 				// Affichage test
 				System.out.println ( "Nom du Plateau : " +
 				this.txtNomPlateau.getText());
@@ -219,6 +237,16 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 				System.out.println ( "Nombre de casting : " + cptCasting);
 				
 				System.out.println ( "Nombre de rôles   : " + cptRole);
+				*/
+				
+				this.ctrl.initCreateur(	this.txtNomPlateau.getText(),
+							nbLigne,
+							nbColonne,
+							TAILLE_CASE,
+							this.tabRoleActif,
+							this.tabCastingActif );
+						
+				this.frame.setPnl(this.frame.getPnl(this.indice+1));
 			}
 			else
 			{
