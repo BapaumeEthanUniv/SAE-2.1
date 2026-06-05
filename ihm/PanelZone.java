@@ -34,9 +34,9 @@ public class PanelZone extends JPanel implements ActionListener
 	private int         indice;
 	private int         tailleLargeur;
 	private int         tailleHauteur;
+    	private int         nbZone;
 	private boolean     modeDessin = false;
 
-<<<<<<< HEAD
 	private static final Map<String, Color> PALETTE = new LinkedHashMap<>();
 	static 
 	{
@@ -57,35 +57,6 @@ public class PanelZone extends JPanel implements ActionListener
 		PALETTE.put("Saumon",       new Color(240, 150, 120));
 		PALETTE.put("Vert citron",  new Color(140, 210, 40));
 	}
-	
-	public PanelZone(Controleur ctrl, FrameCreation f, int indice)
-	{
-=======
-	private int         indice;
-	private int         tailleLargeur;
-	private int         tailleHauteur;
-    private int         nbZone;
-	private boolean     modeDessin = false;
-
-	private static final Map<String, Color> PALETTE = new LinkedHashMap<>();
-    static {
-        PALETTE.put("Effacer",      Color.WHITE);
-        PALETTE.put("Rouge",        new Color(109, 7 ,  26));
-        PALETTE.put("Rouge Colore", Color.RED);
-        PALETTE.put("Orange",       new Color(235, 130, 30));
-        PALETTE.put("Jaune",        new Color(240, 200, 20));
-        PALETTE.put("Vert",         new Color(50,  180, 80));
-        PALETTE.put("Bleu",         new Color(40,  110, 220));
-        PALETTE.put("Violet",       new Color(140, 60,  200));
-        PALETTE.put("Mauve",        Color.MAGENTA);
-        PALETTE.put("Rose",         new Color(230, 100, 160));
-        PALETTE.put("Marron",       new Color(140, 80,  30));
-        PALETTE.put("Noir",         Color.BLACK);
-        PALETTE.put("Gris",         new Color(150, 150, 150));
-        PALETTE.put("Cyan",         new Color(30,  200, 220));
-        PALETTE.put("Saumon",       new Color(240, 150, 120));
-        PALETTE.put("Vert citron",  new Color(140, 210, 40));
-    }
 	
 	public PanelZone(Controleur ctrl, FrameCreation f, int indice)
 	{
