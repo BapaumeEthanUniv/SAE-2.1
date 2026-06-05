@@ -47,7 +47,42 @@ public class CreateurPlateau
 
 	public boolean modifierZone(int lig, int col, Zone zone)
 	{
-		if (lig > this.nbLigne || lig < 0 || col > this.nbColonne || col < 0)
+		boolean estPremier   = true;
+		boolean adjacent     = false;
+		boolean coulAdjacent = false;
+
+		//verif que la zone est la première placée
+		for(int l = 0; l < this.tabZone.length; l++)
+		{
+			for(int c = 0; c < this.tabZone[l].length; c++)
+			{
+				if (zone == tabZone[l][c])
+					estPremier = false;
+			}
+		}
+
+		for(int l = lig - 1; l <= lig + 1; l++)
+		{
+			for(int c = col - 1; c <= col + 1; c++)
+			{
+				if (l < this.nbLigne && l >= 0 &&
+					c < this.nbColonne && c >= 0 &&
+				    c != col && l != lig)
+				{
+					//verif si il y a une même zone adjacente
+					if (tabZone[l][c] == zone)
+						adjacent = true;
+					//verif si une zone adjacente a la même couleur
+					if (zone.getCouleur() == tabZone[l][c].getCouleur())
+						coulAdjacent = true;
+				}
+			}
+		}
+
+		//verif qu'on ne place pas en dehors du plateau
+		if (lig > this.nbLigne || lig < 0 ||
+			col > this.nbColonne || col < 0 || 
+			(! estPremier && ! adjacent) || coulAdjacent)
 			return false;
 
 		this.tabZone[lig][col]=zone;
