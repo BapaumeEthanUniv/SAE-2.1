@@ -10,6 +10,7 @@ import metier.CreateurPlateau;
 import metier.Role;
 import metier.Zone;
 import java.awt.Color;
+import java.util.ArrayList;
 
 public class Controleur
 {
@@ -27,7 +28,8 @@ public class Controleur
 	public int getNbCasting () { return Casting.getNbCasting(); }
 	public int getNbRole    () { return Role.getNbRole   (); }
 
-	public Zone[][] getTabZone() {return metier.getTabZone();}
+	public Zone[][] getTabZone() {return metier.getTabZone();}          //position des zones
+	public ArrayList<Zone> getLstZones() {return metier.getLstZones();} //listes des zones créées
 	public Zone     getZoneActive() {return metier.getZoneActive();}
 	
 	public String getCasting (int indice)

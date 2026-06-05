@@ -55,6 +55,8 @@ public class CreateurPlateau
 
 	public Zone[][] getTabZone() {return tabZone;}
 
+	public ArrayList<Zone> getLstZones() {return lstZones;}
+
 	public void setZoneActive(Zone zone) {this.zoneActive = zone;}
 
 
