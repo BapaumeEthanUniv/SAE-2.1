@@ -4,12 +4,14 @@ import ihm.FrameCreation;
 
 import metier.PlateauJeu;
 import metier.Casting;
+import metier.CreateurPlateau;
 import metier.Role;
+import metier.Zone;
 
 public class Controleur
 {
-	private PlateauJeu 		metier;
 	private FrameCreation 	ihm;
+	private CreateurPlateau metier;
 	
 	private Casting 		casting;
 	private Role			role;
@@ -19,8 +21,11 @@ public class Controleur
 		this.ihm = new FrameCreation(this);
 	}
 	
-	public int getNbCasting () { return this.casting.getNbCasting(); }
-	public int getNbRole    () { return this.role   .getNbRole   (); }
+	public int getNbCasting () { return Casting.getNbCasting(); }
+	public int getNbRole    () { return Role.getNbRole   (); }
+
+	public Zone[][] getTabZone() {return metier.getTabZone();}
+	public Zone     getZoneActive() {return metier.getZoneActive();}
 	
 	public String getCasting (int indice)
 	{ 

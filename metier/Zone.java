@@ -34,6 +34,7 @@ public class Zone
 	{
 		this.couleur = couleur;
 	}
+	
 	public static void main(String[] args)
 	{
 		Zone zone1 = new Zone(Color.RED);
