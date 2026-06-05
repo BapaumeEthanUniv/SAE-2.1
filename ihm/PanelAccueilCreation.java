@@ -105,6 +105,19 @@ public class PanelAccueilCreation extends JPanel implements ActionListener
 				this.frameSaisie.setPnl(this.frameSaisie.getPnl(indice + 1));
 			}
 		}
+		
+		if ( e.getSource() == this.btnCopier )
+		{
+			JFileChooser chooser = new JFileChooser("."); 
+			
+			int res = chooser.showOpenDialog(this); 
+			
+			if (res == JFileChooser.APPROVE_OPTION) 
+			{
+				File fichier = chooser.getSelectedFile();
+				this.frameSaisie.setPnl(this.frameSaisie.getPnl(indice + 1));
+			}
+		}
 	}
 	
 	@Override
