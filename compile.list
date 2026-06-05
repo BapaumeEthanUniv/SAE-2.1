@@ -6,8 +6,9 @@
 ./metier/PlateauJeu.java
 ./metier/Casting.java
 ./metier/Role.java
+./metier/Zone.java
 
-./ihm/FrameSaisie.java
-./ihm/PanelSaisie.java
+./ihm/FrameCreation.java
+./ihm/PanelSaisieCreation.java
 ./ihm/PanelZone.java
-./ihm/PanelAccueil.java
+./ihm/PanelAccueilCreation.java
