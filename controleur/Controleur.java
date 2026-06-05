@@ -52,7 +52,9 @@ public class Controleur
 	public void zonePrecedente() {this.metier.zonePrecedente();}
 
 	public void nouvelleZone() {this.metier.nouvelleZone();}
-	
+
+	//page 3
+	public void CreerPlateau() {this.metier.CreerPlateau();}
 
 	public static void main (String[] args) { new Controleur(); }
 }
