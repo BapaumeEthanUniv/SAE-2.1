@@ -48,7 +48,7 @@ public class CreateurPlateau
 	public int getTailleCase() {return tailleCase;}
 
 	public Role[] gettabRole() {return tabRole;}
-	
+
 	public Casting[] getTabCasting() {return tabCasting;}
 
 	public Zone getZoneActive() {return this.zoneActive;}
@@ -148,13 +148,15 @@ public class CreateurPlateau
 			if (posX == acteur.getPosX() && posY == acteur.getPosY() )
 			{
 				lstActeurs.remove(acteur);
-				acteur.supprimerVoisin();
 				return true;
 			}
 		}
 
 		return false;
 	}
+
+	public void   setPrincipal (Color c, Acteur a) {a.setPrincipal(c);}
+
 	public void CreerPlateau()
 	{
 		File filePrincipal = new File("Plateau");
