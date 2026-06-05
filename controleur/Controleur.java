@@ -31,6 +31,9 @@ public class Controleur
 	public Zone[][] getTabZone() {return metier.getTabZone();}          //position des zones
 	public ArrayList<Zone> getLstZones() {return metier.getLstZones();} //listes des zones créées
 	public Zone     getZoneActive() {return metier.getZoneActive();}
+
+	public int getNbLigne()   { return metier.getNbLigne();}
+	public int getNbColonne() { return metier.getNbColonne();}
 	
 	public String getCasting (int indice)
 	{ 
