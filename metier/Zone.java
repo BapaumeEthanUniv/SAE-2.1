@@ -28,6 +28,11 @@ public class Zone
 		Sret+=        String.format("%03d" , this.couleur.getBlue());
 		return Sret;
 	}
+
+	public void setCouleur(Color couleur)
+	{
+		this.couleur==couleur;
+	}
 	public static void main(String[] args)
 	{
 		Zone zone1 = new Zone(Color.RED);
