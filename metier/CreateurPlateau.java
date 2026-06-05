@@ -49,9 +49,13 @@ public class CreateurPlateau
 
 	public Role[] gettabRole() {return tabRole;}
 
+	public Casting[] getTabCasting() {return tabCasting;}
+
 	public Zone getZoneActive() {return this.zoneActive;}
 
 	public Zone[][] getTabZone() {return tabZone;}
+
+	public ArrayList<Zone> getLstZones() {return lstZones;}
 
 	public void setZoneActive(Zone zone) {this.zoneActive = zone;}
 
@@ -123,10 +127,18 @@ public class CreateurPlateau
 
 	public boolean ajouterActeur  (Role role, int posX, int posY) 
 	{
-		Acteur acteur = new Acteur(posX, posY, role);
-		if (! Arrays.asList(Role.values()).contains(role) || posX > this.nbLigne || posX < 0 || posY > this.nbColonne || posY < 0)
+		boolean placeLibre = true;
+
+		for (Acteur aExistant : lstActeurs)
+			if (aExistant.getPosX() == posX && aExistant.getPosY() == posY)
+				placeLibre = false;
+
+		if (posX > this.nbLigne || posX < 0 || 
+			posY > this.nbColonne || posY < 0 ||
+		    ! placeLibre)
 			return false;
 
+		Acteur acteur = new Acteur(posX, posY, role);
 		lstActeurs.add(acteur);
 		return true;
 	}
@@ -138,13 +150,15 @@ public class CreateurPlateau
 			if (posX == acteur.getPosX() && posY == acteur.getPosY() )
 			{
 				lstActeurs.remove(acteur);
-				acteur.supprimerVoisin();
 				return true;
 			}
 		}
 
 		return false;
 	}
+
+	public void   setPrincipal (Color c, Acteur a) {a.setPrincipal(c);}
+
 	public void CreerPlateau()
 	{
 		File filePrincipal = new File("Plateau");
