@@ -19,6 +19,7 @@ public class Controleur
 	
 	private Casting 		casting;
 	private Role			role;
+	private Couleur			couleur;
 	
 	public Controleur()
 	{
@@ -37,6 +38,8 @@ public class Controleur
 
 	public Role[]   getTabRole()     {return this.metier.getTabRole();}
 	public Casting[] getTabCasting() {return this.metier.getTabCasting();}
+	
+	public int getNbCouleur() { return Couleur.getNbCouleur(); }
 
 	public ArrayList<Acteur> getLstActeurs() {return this.metier.getLstActeurs();}
 	
