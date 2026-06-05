@@ -13,14 +13,14 @@ public class PanelZone extends JPanel implements ActionListener
 {
 	private Controleur 	ctrl;
 	
-	private FrameSaisie 	frameSaisie;
+	private FrameCreation 	frameSaisie;
 
 	private JButton 	btnSuivant;
 	private JButton 	btnPrecedent ;
 
 	private int indice;
 
-	public PanelZone(Controleur ctrl, FrameSaisie f, int indice)
+	public PanelZone(Controleur ctrl, FrameCreation f, int indice)
 	{
 		this.ctrl = ctrl;
 		this.frameSaisie = f;
