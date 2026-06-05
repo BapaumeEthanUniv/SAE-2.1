@@ -123,10 +123,18 @@ public class CreateurPlateau
 
 	public boolean ajouterActeur  (Role role, int posX, int posY) 
 	{
-		Acteur acteur = new Acteur(posX, posY, role);
-		if (! Arrays.asList(Role.values()).contains(role) || posX > this.nbLigne || posX < 0 || posY > this.nbColonne || posY < 0)
+		boolean placeLibre = true;
+
+		for (Acteur aExistant : lstActeurs)
+			if (aExistant.getPosX() == posX && aExistant.getPosY() == posY)
+				placeLibre = false;
+
+		if (posX > this.nbLigne || posX < 0 || 
+			posY > this.nbColonne || posY < 0 ||
+		    ! placeLibre)
 			return false;
 
+		Acteur acteur = new Acteur(posX, posY, role);
 		lstActeurs.add(acteur);
 		return true;
 	}
