@@ -42,7 +42,11 @@ public class FrameCreation extends JFrame
 		this.revalidate();
 	}
 
-	public void CreerPanelZone(){this.tabPanel[2] = new PanelZone(this.ctrl, this, 2);}
+	public void CreerPanelZone()
+	{
+		this.tabPanel[2] = new PanelZone(this.ctrl, this, 2);
+		this.tabPanel[3] = new PanelSymbole(this.ctrl, this, 3);
+	}
 	
 	public JPanel getPnl(int i) { return this.tabPanel[i]; }
 }
