@@ -47,7 +47,7 @@ public class CreateurPlateau
 
 	public int getTailleCase() {return tailleCase;}
 
-	public Role[] gettabRole() {return tabRole;}
+	public Role[] getTabRole() {return tabRole;}
 
 	public Casting[] getTabCasting() {return tabCasting;}
 
@@ -58,6 +58,8 @@ public class CreateurPlateau
 	public ArrayList<Zone> getLstZones() {return lstZones;}
 
 	public void setZoneActive(Zone zone) {this.zoneActive = zone;}
+
+	public ArrayList<Acteur> getLstActeurs() {return lstActeurs;}
 
 
 	public boolean modifierZone(int lig, int col, Zone zone)
