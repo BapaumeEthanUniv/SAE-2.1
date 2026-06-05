@@ -32,7 +32,7 @@ public class Zone
 
 	public void setCouleur(Color couleur)
 	{
-		this.couleur==couleur;
+		this.couleur=couleur;
 	}
 	public static void main(String[] args)
 	{
