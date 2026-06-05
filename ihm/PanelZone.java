@@ -1,18 +1,19 @@
 package ihm;
 
 import controleur.Controleur;
-import metier.Couleur;
+
+import metier.Zone;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import javax.swing.*;
 import java.awt.event.*;
+import javax.swing.*;
+import metier.Couleur;
 
 public class PanelZone extends JPanel implements ActionListener
 {
@@ -52,7 +53,7 @@ public class PanelZone extends JPanel implements ActionListener
 		/* ------------------------------ */
 		/* Création des composants        */
 		/* ------------------------------ */
-		JPanel pnlBtnSuite = new JPanel(new FlowLayout());
+		JPanel pnlBtnSuite = new JPanel(new GridLayout(2,2));
 
 		JPanel bandeau = new JPanel(new GridLayout(2,1));
 		bandeau.setBorder(BorderFactory.createEmptyBorder(14, 20, 14, 20));
@@ -156,10 +157,10 @@ public class PanelZone extends JPanel implements ActionListener
 
 		wrapper.add(grille);
 
-		pnlBtnSuite.add(this.btnSuivant);
-		pnlBtnSuite.add(this.btnPrecedent);
 		pnlBtnSuite.add(this.btnZonePrecedent);
 		pnlBtnSuite.add(this.btnZoneSuivant);
+		pnlBtnSuite.add(this.btnPrecedent);
+		pnlBtnSuite.add(this.btnSuivant);
 
 		this.add(bandeau, BorderLayout.NORTH);
 		this.add(wrapper, BorderLayout.CENTER);
@@ -183,6 +184,21 @@ public class PanelZone extends JPanel implements ActionListener
 		if (a.getSource() == this.btnPrecedent)
 		{
 			this.frameCreation.setPnl(this.frameCreation.getPnl(this.indice-1));
+		}
+		
+		if (a.getSource() == this.btnZonePrecedent)
+		{
+			this.ctrl.zonePrecedente();
+		}
+		
+		if (a.getSource() == this.btnZoneSuivant)
+		{
+			this.ctrl.nouvelleZone();
+			
+			for (Zone zone : this.ctrl.getLstZones())
+			{
+				System.out.println(zone);
+			}
 		}
 
 		if (a.getSource() == this.jcbCouleur)
