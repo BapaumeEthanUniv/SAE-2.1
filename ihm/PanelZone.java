@@ -6,19 +6,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
+import javax.swing.*;
+import java.awt.event.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import javax.swing.*;
 
 public class PanelZone extends JPanel implements ActionListener
 {
@@ -41,6 +36,7 @@ public class PanelZone extends JPanel implements ActionListener
 	private int         tailleHauteur;
 	private boolean     modeDessin = false;
 
+<<<<<<< HEAD
 	private static final Map<String, Color> PALETTE = new LinkedHashMap<>();
 	static 
 	{
@@ -64,11 +60,41 @@ public class PanelZone extends JPanel implements ActionListener
 	
 	public PanelZone(Controleur ctrl, FrameCreation f, int indice)
 	{
+=======
+	private int         indice;
+	private int         tailleLargeur;
+	private int         tailleHauteur;
+    private int         nbZone;
+	private boolean     modeDessin = false;
+
+	private static final Map<String, Color> PALETTE = new LinkedHashMap<>();
+    static {
+        PALETTE.put("Effacer",      Color.WHITE);
+        PALETTE.put("Rouge",        new Color(109, 7 ,  26));
+        PALETTE.put("Rouge Colore", Color.RED);
+        PALETTE.put("Orange",       new Color(235, 130, 30));
+        PALETTE.put("Jaune",        new Color(240, 200, 20));
+        PALETTE.put("Vert",         new Color(50,  180, 80));
+        PALETTE.put("Bleu",         new Color(40,  110, 220));
+        PALETTE.put("Violet",       new Color(140, 60,  200));
+        PALETTE.put("Mauve",        Color.MAGENTA);
+        PALETTE.put("Rose",         new Color(230, 100, 160));
+        PALETTE.put("Marron",       new Color(140, 80,  30));
+        PALETTE.put("Noir",         Color.BLACK);
+        PALETTE.put("Gris",         new Color(150, 150, 150));
+        PALETTE.put("Cyan",         new Color(30,  200, 220));
+        PALETTE.put("Saumon",       new Color(240, 150, 120));
+        PALETTE.put("Vert citron",  new Color(140, 210, 40));
+    }
+	
+	public PanelZone(Controleur ctrl, FrameCreation f, int indice)
+	{
 		this.ctrl = ctrl;
 		this.frameCreation = f;
 		this.indice = indice;
 		this.tailleLargeur = this.ctrl.getNbColonne();
 		this.tailleHauteur = this.ctrl.getNbLigne();
+		this.nbZone = 0;
 
 		this.cases = new JPanel[this.tailleLargeur][this.tailleHauteur];
 
@@ -78,17 +104,19 @@ public class PanelZone extends JPanel implements ActionListener
 		/* Création des composants        */
 		/* ------------------------------ */
 
-		JPanel bandeau = new JPanel(new BorderLayout());
-		bandeau.setBackground(new Color(20, 20, 28));
-		bandeau.setBorder(BorderFactory.createEmptyBorder(14, 20, 14, 20));
 
-			JPanel wrapper = new JPanel(new GridBagLayout());
-		wrapper.setBackground(new Color(28, 28, 35));
-		wrapper.setBorder(BorderFactory.createEmptyBorder(16, 16, 8, 16));
+        	JPanel pnlBtnSuite = new JPanel(new FlowLayout());
 
-			JLabel titre = new JLabel("✦ GRILLE " + tailleLargeur + "×" + tailleHauteur);
-		titre.setFont(new Font("Monospaced", Font.BOLD, 18));
-		titre.setForeground(new Color(210, 210, 240));
+		JPanel bandeau = new JPanel(new GridLayout(2,1));
+        	bandeau.setBorder(BorderFactory.createEmptyBorder(14, 20, 14, 20));
+
+		JPanel wrapper = new JPanel(new GridBagLayout());
+        	wrapper.setBorder(BorderFactory.createEmptyBorder(16, 16, 8, 16));
+
+		JLabel titre = new JLabel("Plateau " + tailleLargeur + "×" + tailleHauteur);
+        	titre.setFont(new Font("Monospaced", Font.BOLD, 18));
+
+       		JLabel nbZone = new JLabel("Zone Numéro : " + this.nbZone);
 
 		JButton btnEffacer = new JButton("Tout effacer");
 		btnEffacer.setFont(new Font("SansSerif", Font.PLAIN, 12));
@@ -185,7 +213,7 @@ public class PanelZone extends JPanel implements ActionListener
 		this.btnSuivant       = new JButton("Suivant"        );
 		this.btnPrecedent     = new JButton("Précédent "     );
 		this.btnZonePrecedent = new JButton("Zone précédente");
-		this.btnZoneSuivant   = new JButton("Zone suivante"  );
+		this.btnZoneSuivant   = new JButton("Nouvelle Zone"  );
 
 		/* ------------------------------ */
 		/* Positionnement des Composants  */
@@ -197,12 +225,15 @@ public class PanelZone extends JPanel implements ActionListener
 
 		wrapper.add(grille);
 
+        pnlBtnSuite.add(this.btnSuivant);
+		pnlBtnSuite.add(this.btnPrecedent);
+		pnlBtnSuite.add(this.btnZonePrecedent);
+		pnlBtnSuite.add(this.btnZoneSuivant);
+
 		this.add(bandeau, BorderLayout.NORTH);
 		this.add(wrapper, BorderLayout.CENTER);
-		this.add(this.btnSuivant, BorderLayout.SOUTH);
-		this.add(this.btnPrecedent, BorderLayout.SOUTH);
-		this.add(this.btnZonePrecedent, BorderLayout.SOUTH);
-		this.add(this.btnZoneSuivant, BorderLayout.SOUTH);
+        this.add(pnlBtnSuite, BorderLayout.SOUTH);
+		
 		this.btnSuivant.addActionListener(this);
 		this.btnPrecedent .addActionListener(this);
 		this.btnZonePrecedent.addActionListener(this);

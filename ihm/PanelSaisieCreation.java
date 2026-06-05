@@ -239,7 +239,7 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 							nbColonne,
 							TAILLE_CASE,
 							tabRoleActif,
-							tabCastingActif );
+							tabCastingActif );	
 
 				this.frame.CreerPanelZone();
 						
