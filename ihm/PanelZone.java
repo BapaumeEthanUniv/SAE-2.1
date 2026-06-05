@@ -154,10 +154,10 @@ public class PanelZone extends JPanel implements ActionListener
 
 		wrapper.add(grille);
 
-		pnlBtnSuite.add(this.btnPrecedent);
-		pnlBtnSuite.add(this.btnSuivant);
 		pnlBtnSuite.add(this.btnZonePrecedent);
 		pnlBtnSuite.add(this.btnZoneSuivant);
+		pnlBtnSuite.add(this.btnPrecedent);
+		pnlBtnSuite.add(this.btnSuivant);
 
 		this.add(bandeau, BorderLayout.NORTH);
 		this.add(wrapper, BorderLayout.CENTER);
