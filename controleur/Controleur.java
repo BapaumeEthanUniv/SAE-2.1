@@ -3,11 +3,14 @@ package controleur;
 import ihm.FrameCreation;
 
 import metier.PlateauJeu;
+import metier.Acteur;
 import metier.Casting;
 import metier.Couleur;
 import metier.CreateurPlateau;
 import metier.Role;
 import metier.Zone;
+import java.awt.Color;
+import java.util.ArrayList;
 
 public class Controleur
 {
@@ -25,8 +28,12 @@ public class Controleur
 	public int getNbCasting () { return Casting.getNbCasting(); }
 	public int getNbRole    () { return Role.getNbRole   (); }
 
-	public Zone[][] getTabZone() {return metier.getTabZone();}
+	public Zone[][] getTabZone() {return metier.getTabZone();}          //position des zones
+	public ArrayList<Zone> getLstZones() {return metier.getLstZones();} //listes des zones créées
 	public Zone     getZoneActive() {return metier.getZoneActive();}
+
+	public int getNbLigne()   { return metier.getNbLigne();}
+	public int getNbColonne() { return metier.getNbColonne();}
 	
 	public String getCasting (int indice)
 	{ 
@@ -55,6 +62,12 @@ public class Controleur
 
 	//page 3
 	public void CreerPlateau() {this.metier.CreerPlateau();}
+
+	public boolean ajouterActeur  (Role role, int posX, int posY) {return this.metier.ajouterActeur(role, posX, posY);}
+
+	public boolean supprimerActeur(int posX, int posY) {return supprimerActeur(posX, posY);}
+
+	public void   setPrincipal (Color c, Acteur a) {this.metier.setPrincipal(c, a);}
 
 	public static void main (String[] args) { new Controleur(); }
 }
