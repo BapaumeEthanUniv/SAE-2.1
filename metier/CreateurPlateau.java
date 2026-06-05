@@ -102,6 +102,13 @@ public class CreateurPlateau
 		return true;
 	}
 
+	public void nouvelleZone()
+	{
+		Zone zone = new Zone(Couleur.SAUMON.getCouleur());
+		this.lstZones.add(zone);
+		this.setZoneActive(zone);
+	}
+
 	public boolean ajouterActeur  (Role role, int posX, int posY) 
 	{
 		Acteur acteur = new Acteur(posX, posY, role);
