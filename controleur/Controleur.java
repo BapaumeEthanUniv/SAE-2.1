@@ -1,6 +1,6 @@
 package controleur;
 
-import ihm.FrameSaisie;
+import ihm.FrameCreation;
 
 import metier.PlateauJeu;
 import metier.Casting;
@@ -8,15 +8,15 @@ import metier.Role;
 
 public class Controleur
 {
-	private PlateauJeu 	metier;
-	private FrameSaisie 	ihm;
+	private PlateauJeu 		metier;
+	private FrameCreation 	ihm;
 	
-	private Casting 	casting;
-	private Role		role;
+	private Casting 		casting;
+	private Role			role;
 	
 	public Controleur()
 	{
-		this.ihm = new FrameSaisie(this);
+		this.ihm = new FrameCreation(this);
 	}
 	
 	public int getNbCasting () { return this.casting.getNbCasting(); }
