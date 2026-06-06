@@ -39,6 +39,8 @@ public class CreateurPlateau
 		this.tabZone = new Zone[this.nbLigne][this.nbColonne];
 		this.lstZones = new ArrayList<Zone>();
 		this.lstActeurs = new ArrayList<Acteur>();
+
+        this.nouvelleZone();
 	}
 
     public String getNomPlateau() { return this.nomPlateau; }
@@ -86,27 +88,36 @@ public class CreateurPlateau
 			{
 				if (l < this.nbLigne && l >= 0 &&
 					c < this.nbColonne && c >= 0 &&
-				    c != col && l != lig)
-				{
-					//verif si il y a une même zone adjacente
-					if (tabZone[l][c] == zone)
-						adjacent = true;
-					//verif si une zone adjacente a la même couleur
-					if (zone.getCouleur() == tabZone[l][c].getCouleur())
-						coulAdjacent = true;
-				}
+				    !(c == col && l == lig))
+                {
+                    //verif si il y a une zone posée avant de lire
+                    if (tabZone[l][c] != null)
+                    {
+                        //verif si il y a une même zone adjacente
+                        if (tabZone[l][c] == zone)
+                            adjacent = true;
+                        //verif si une zone adjacente a la même couleur
+                        if (zone.getCouleur() == tabZone[l][c].getCouleur())
+                            coulAdjacent = true;
+                    }
+                }
 			}
 		}
 
 		//verif qu'on ne place pas en dehors du plateau
-		if (lig > this.nbLigne || lig < 0 ||
-			col > this.nbColonne || col < 0 || 
+		if (lig >= this.nbLigne || lig < 0 ||
+			col >= this.nbColonne || col < 0 ||
 			(! estPremier && ! adjacent) || coulAdjacent)
 			return false;
 
 		this.tabZone[lig][col]=zone;
 		return true;
 	}
+
+    public void effacerZone(int lig, int col)
+    {
+        this.tabZone[lig][col] = null;
+    }
 
 	public boolean changerCouleurZone(Couleur couleur, Zone zone)
 	{
