@@ -1,6 +1,9 @@
 package ihm;
 
 import controleur.Controleur;
+import metier.Casting;
+import metier.Role;
+
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -9,8 +12,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.*;
 import javax.swing.*;
-import metier.Casting;
-import metier.Role;
 
 public class PanelSaisieCreation extends JPanel implements ActionListener
 {
@@ -49,40 +50,44 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 		/*-------------------------------------------------*/
 		/*   Création et initialisation des composants     */
 		/*-------------------------------------------------*/
-		this.ctrl 	= ctrl	;
+		this.ctrl 	    = ctrl	;
 		this.frame      = f ;
 		this.indice 	= indice;
 		
-		this.imgFond      = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
+		this.imgFond    = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
 		
-		JPanel	panelNomPlateau		= new JPanel();
-		panelNomPlateau.setLayout	(new FlowLayout(FlowLayout.CENTER));
-		panelNomPlateau.setOpaque	(false);
+		JPanel	pnlNomPlateau		= new JPanel();
+		pnlNomPlateau.setLayout	(new FlowLayout(FlowLayout.CENTER));
+		pnlNomPlateau.setOpaque	(false);
 		
-		JPanel	panelTaillePlateau 	= new JPanel();
-		panelTaillePlateau.setLayout	(new FlowLayout(FlowLayout.CENTER));
-		panelTaillePlateau.setOpaque	(false);
+		JPanel	pnlTaillePlateau 	= new JPanel();
+		pnlTaillePlateau.setLayout(new FlowLayout(FlowLayout.CENTER));
+		pnlTaillePlateau.setOpaque(false);
 		
-		JPanel	panelCasting 		= new JPanel();
-		panelCasting.setLayout		(new FlowLayout(FlowLayout.CENTER));
-		panelCasting.setOpaque		(false);
+		JPanel	pnlCasting 		= new JPanel();
+		pnlCasting.setLayout		(new FlowLayout(FlowLayout.CENTER));
+		pnlCasting.setOpaque		(false);
 		
-		JPanel 	panelLstCasting		= new JPanel();
-		panelLstCasting.setLayout	(new GridLayout(2, 3));
-		panelLstCasting.setOpaque	(false);
+		JPanel 	pnlLstCasting		= new JPanel();
+		pnlLstCasting.setLayout	(new GridLayout(2, 3));
+		pnlLstCasting.setOpaque	(false);
 		
-		JPanel	panelRole 		= new JPanel();
-		panelRole.setLayout		(new FlowLayout(FlowLayout.CENTER));
-		panelRole.setOpaque		(false);
+		JPanel	pnlRole 		    = new JPanel();
+		pnlRole.setLayout		    (new FlowLayout(FlowLayout.CENTER));
+		pnlRole.setOpaque		    (false);
 		
-		JPanel 	panelLstRole		= new JPanel();
-		panelLstRole.setLayout		(new GridLayout(2, 3));
-		panelLstRole.setOpaque		(false);
+		JPanel 	pnlLstRole	    = new JPanel();
+		pnlLstRole.setLayout	    (new GridLayout(2, 3));
+		pnlLstRole.setOpaque	    (false);
+
+        JPanel  pnlBouton         = new JPanel();
+        pnlBouton.setLayout       (new FlowLayout(FlowLayout.RIGHT, 20, 0));
+        pnlBouton.setOpaque	      (false);
+
+		this.btnCreer			    = new JButton("Suivant >>");
 		
-		this.btnCreer			= new JButton("Suivant");
 		
-		
-		String[]  lstCasting	= new String[this.ctrl.getNbCasting()];
+		String[]  lstCasting	    = new String[this.ctrl.getNbCasting()];
 		
 		for (int cpt = 0; cpt < lstCasting.length; cpt++)
 		{
@@ -113,60 +118,62 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 		this.add(new JLabel(""));
 		
 		JLabel lblTitre = new JLabel ("<html><u>Saisie des Informations</u></html>", JLabel.CENTER);
-		lblTitre.setFont(new Font("SansSerif", Font.BOLD, 25));
+		lblTitre.setFont(new Font("SansSerif", Font.BOLD, 22));
 		
 		this.add(lblTitre);
 		this.add(new JLabel(""));
 		
 		// Partie Plateau
-		this.add(new JLabel("<html><u>Nom du Plateau</u></html>", JLabel.CENTER));
+		JLabel lblNomPlateau = new JLabel ("<html><u>Nom du Plateau</u></html>", JLabel.CENTER);
+        lblNomPlateau.setFont(new Font("SansSerif", Font.BOLD, 12));
+        this.add(lblNomPlateau);
 		
 			// Partie Nom du Plateau
-			panelNomPlateau.add(new JLabel ("Nom du plateau : ", 10));
-			panelNomPlateau.add(this.txtNomPlateau);
+            pnlNomPlateau.add(new JLabel ("Nom du plateau : ", 10));
+            pnlNomPlateau.add(this.txtNomPlateau);
 		
-			this.add(panelNomPlateau);
+			this.add(pnlNomPlateau);
 			
 			// Partie Taille du Plateau
 			this.add(new JLabel("<html><u>Taille du Plateau</u></html>", JLabel.CENTER));
-		
-			panelTaillePlateau.add(new JLabel("Nombre de lignes : ", 10));
-			panelTaillePlateau.add(this.txtLigne);
+
+            pnlTaillePlateau.add(new JLabel("Nombre de lignes : ", 10));
+            pnlTaillePlateau.add(this.txtLigne);
+
+            pnlTaillePlateau.add(new JLabel("Nombre de colonnes : ", 10));
+            pnlTaillePlateau.add(this.txtColonne);
 			
-			panelTaillePlateau.add(new JLabel("Nombre de colonnes : ", 10));
-			panelTaillePlateau.add(this.txtColonne);
-			
-			this.add(panelTaillePlateau);
+			this.add(pnlTaillePlateau);
 		
 		// Partie Casting
 		this.add(new JLabel("<html><u>Casting</u></html>", JLabel.CENTER));
 		
-		panelCasting.add(new JLabel("Nombre de castings : "));
+		pnlCasting.add(new JLabel("Nombre de castings : "));
 		
 		for (int cpt = 0; cpt < lstCasting.length; cpt++)
 		{
 			this.tabCBCasting[cpt]  = new JCheckBox( "" + lstCasting[cpt], false);
 			this.tabCBCasting[cpt].setOpaque(false);
-			panelLstCasting.add(this.tabCBCasting[cpt]);
+			pnlLstCasting.add(this.tabCBCasting[cpt]);
 		}
 		
-		panelCasting.add(panelLstCasting);
-		this.add(panelCasting);
+		pnlCasting.add(pnlLstCasting);
+		this.add(pnlCasting);
 		
 		// Partie Role
 		this.add(new JLabel("<html><u>Rôles</u></html>", JLabel.CENTER));
 		
-		panelRole.add(new JLabel("Nombre de rôles : "));
+		pnlRole.add(new JLabel("Nombre de rôles : "));
 		
 		for (int cpt = 0; cpt < lstRole.length; cpt++)
 		{
 			this.tabCBRole[cpt] = new JCheckBox( "" + lstRole[cpt], false);
 			this.tabCBRole[cpt].setOpaque(false);
-			panelLstRole.add(this.tabCBRole[cpt]);
+			pnlLstRole.add(this.tabCBRole[cpt]);
 		}
 		
-		panelRole.add(panelLstRole);
-		this.add(panelRole);
+		pnlRole.add(pnlLstRole);
+		this.add(pnlRole);
 		
 		// Partie Joueur
 			// A voir + tard
@@ -174,7 +181,8 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 		this.add(new JLabel(""));
 			
 		// Partie Bouton
-		this.add(btnCreer);
+        pnlBouton.add(this.btnCreer);
+		this.add(pnlBouton);
 		
 		/* ----------------------------- */
 		/* Activation des Composants     */
