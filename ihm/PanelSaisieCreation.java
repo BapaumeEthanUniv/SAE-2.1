@@ -6,6 +6,7 @@ import metier.Role;
 
 import java.io.File;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -67,39 +68,51 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 		this.imgFond                = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
 		
 		// Partie Plateau
-        JPanel  pnlPlateau          = new JPanel();
-        pnlPlateau                  .setLayout(new BorderLayout());
-        pnlPlateau                  .setOpaque(false);
+        JPanel  pnlNomPlateau       = new JPanel();
+        pnlNomPlateau               .setLayout(new BorderLayout(0, 15));
+        pnlNomPlateau               .setOpaque(false);
 
-        JPanel	pnlNomPlateau		= new JPanel();
-		pnlNomPlateau.setLayout	    (new FlowLayout(FlowLayout.CENTER));
-		pnlNomPlateau.setOpaque	    (false);
+        JPanel	pnlSaisieNom		= new JPanel();
+		pnlSaisieNom                .setLayout (new FlowLayout(FlowLayout.CENTER));
+		pnlSaisieNom                .setOpaque(false);
 		
 		JPanel	pnlTaillePlateau 	= new JPanel();
-		pnlTaillePlateau            .setLayout(new FlowLayout(FlowLayout.CENTER));
+		pnlTaillePlateau            .setLayout(new BorderLayout(0, 15));
 		pnlTaillePlateau            .setOpaque(false);
+
+        JPanel  pnlSaisieTaille     = new JPanel();
+        pnlSaisieTaille             .setLayout(new FlowLayout(FlowLayout.CENTER));
+        pnlSaisieTaille             .setOpaque(false);
 
         // Partie Casting
 		JPanel	pnlCasting 		    = new JPanel();
-		pnlCasting.setLayout		(new FlowLayout(FlowLayout.CENTER));
+		pnlCasting.setLayout		(new BorderLayout(0, 10));
 		pnlCasting.setOpaque		(false);
 		
-		JPanel 	pnlLstCasting		= new JPanel();
+		JPanel  pnlSaisieCasting    = new JPanel();
+        pnlSaisieCasting            .setLayout(new FlowLayout(FlowLayout.CENTER));
+        pnlSaisieCasting            .setOpaque(false);
+
+        JPanel 	pnlLstCasting		= new JPanel();
 		pnlLstCasting.setLayout	    (new GridLayout(2, 3));
 		pnlLstCasting.setOpaque	    (false);
 
         // Partie Rôle
 		JPanel	pnlRole 		    = new JPanel();
-		pnlRole.setLayout		    (new FlowLayout(FlowLayout.CENTER));
+		pnlRole.setLayout		    (new BorderLayout(0, 10));
 		pnlRole.setOpaque		    (false);
-		
-		JPanel 	pnlLstRole	        = new JPanel();
+
+        JPanel  pnlSaisieRole      = new JPanel();
+        pnlSaisieRole              .setLayout(new FlowLayout(FlowLayout.CENTER));
+        pnlSaisieRole              .setOpaque(false);
+
+        JPanel 	pnlLstRole	        = new JPanel();
 		pnlLstRole.setLayout	    (new GridLayout(2, 3));
 		pnlLstRole.setOpaque	    (false);
 
         // Partie Bouton
         JPanel  pnlBouton           = new JPanel();
-        pnlBouton.setLayout         (new GridLayout(1,2));
+        pnlBouton.setLayout         (new FlowLayout(FlowLayout.CENTER, 50, 20));
         pnlBouton.setOpaque	        (false);
 
         this.btnPrecedent			= new JButton("<< Précédent" );
@@ -170,34 +183,34 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 		
 		// Partie Plateau
             // Partie Nom du Plateau
-            pnlNomPlateau.add(this.creerSousTitre("Nom du Plateau : "));
-            pnlNomPlateau.add(this.txtNomPlateau);
-		
-			this.add(pnlNomPlateau);
+            pnlNomPlateau.add(this.creerSousTitre("Nom du Plateau : "), BorderLayout.NORTH);
+
+            pnlSaisieNom.add(this.txtNomPlateau);
+
+			pnlNomPlateau.add(pnlSaisieNom, BorderLayout.CENTER);
+            pnlNomPlateau.add(this.creerSeparation(), BorderLayout.SOUTH);
+
+            this.add(pnlNomPlateau);
 			
 			// Partie Taille du Plateau
-			this.add(this.creerSeparation());
+            pnlTaillePlateau.add(this.creerSousTitre("Taille du Plateau"), BorderLayout.NORTH);
 
-            this.add(this.creerSousTitre("Taille du Plateau"));
+            pnlSaisieTaille.add(this.creerJLabel("Lignes : "));
+            pnlSaisieTaille.add(this.txtLigne);
+            pnlSaisieTaille.add(this.creerJLabel("Colonnes : "));
+            pnlSaisieTaille.add(this.txtColonne);
+            pnlSaisieTaille.add(this.creerJLabel("Taille Cases : "));
+            pnlSaisieTaille.add(this.txtTailleCase);
 
-            pnlTaillePlateau.add(this.creerJLabel("Lignes : "));
-            pnlTaillePlateau.add(this.txtLigne);
-
-            pnlTaillePlateau.add(this.creerJLabel("Colonnes : "));
-            pnlTaillePlateau.add(this.txtColonne);
-
-            pnlTaillePlateau.add(this.creerJLabel("Taille Cases : "));
-            pnlTaillePlateau.add(this.txtTailleCase);
-			
-			this.add(pnlTaillePlateau);
+            pnlTaillePlateau.add(pnlSaisieTaille, BorderLayout.CENTER);
+            pnlTaillePlateau.add(this.creerSeparation(), BorderLayout.SOUTH);
+            this.add(pnlTaillePlateau);
 		
 		// Partie Casting
-        this.add(this.creerSeparation());
+		pnlCasting.add(this.creerSousTitre("Castings"), BorderLayout.NORTH);
 
-		this.add(this.creerSousTitre("Castings"));
-		
-		pnlCasting.add(this.creerJLabel("Nombre de Castings : "));
-		
+        pnlSaisieCasting.add(this.creerJLabel("Nombre de Castings : "));
+
 		for (int cpt = 0; cpt < lstCasting.length; cpt++)
 		{
 			this.tabCBCasting[cpt]  = new JCheckBox( "" + lstCasting[cpt], false);
@@ -206,16 +219,18 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 
             pnlLstCasting.add(this.tabCBCasting[cpt]);
 		}
-		
-		pnlCasting.add(pnlLstCasting);
+
+        pnlSaisieCasting.add(pnlLstCasting);
+
+		pnlCasting.add(pnlSaisieCasting, BorderLayout.CENTER);
+        pnlCasting.add(this.creerSeparation(), BorderLayout.SOUTH);
+
 		this.add(pnlCasting);
 		
 		// Partie Role
-        this.add(this.creerSeparation());
+        pnlRole.add(this.creerSousTitre("Rôles"), BorderLayout.NORTH);
 
-		this.add(this.creerSousTitre("Rôles"));
-		
-		pnlRole.add(this.creerJLabel("Nombre de Rôles : "));
+        pnlSaisieRole.add(this.creerJLabel("Nombre de Rôles : "));
 		
 		for (int cpt = 0; cpt < lstRole.length; cpt++)
 		{
@@ -226,13 +241,15 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 			pnlLstRole.add(this.tabCBRole[cpt]);
 		}
 		
-		pnlRole.add(pnlLstRole);
+		pnlSaisieRole.add(pnlLstRole);
+
+        pnlRole.add(pnlSaisieRole, BorderLayout.CENTER);
+        pnlRole.add(this.creerSeparation(), BorderLayout.SOUTH);
+
 		this.add(pnlRole);
 		
 		// Partie Joueur
 			// A voir + tard
-		
-		this.add(this.creerSeparation());
 			
 		// Partie Bouton
         pnlBouton.add(this.btnPrecedent);
