@@ -1,9 +1,10 @@
 package ihm;
 
 import controleur.Controleur;
-
 import metier.Zone;
 import metier.Couleur;
+
+import java.io.File;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -11,230 +12,239 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+
 import java.awt.event.*;
 import javax.swing.*;
 
 public class PanelZone extends JPanel implements ActionListener
 {
-	private final JPanel[][] 	cases;
-	private Controleur 		    ctrl;
-	private FrameCreation 		frameCreation;
+    private final JPanel[][] 	tabPanelCases;
+    private Controleur 		    ctrl;
+    private FrameCreation 		frameCreation;
 
     private Image 		        imgFond;
 
-	private JButton     		btnSuivant;
-	private JButton     		btnPrecedent;
-	private JButton     		btnZonePrecedent;
-	private JButton     		btnZoneSuivant;
-	private JLabel      		labelCouleur;
-	
-	private JComboBox<Couleur>  	jcbCouleur; 
+    private JButton     		btnSuivant;
+    private JButton     		btnPrecedent;
+    private JButton     		btnZonePrecedent;
+    private JButton     		btnZoneSuivant;
+    private JLabel      		labelCouleur;
 
-	private Color       		couleurActuelle;
-	
-	private int         		indice;
-	private int         		tailleLargeur;
-	private int         		tailleHauteur;
-	private int         		nbZone;
-	private boolean     		modeDessin = false;
+    private JComboBox<Couleur>  jcbCouleur;
 
-	public PanelZone(Controleur ctrl, FrameCreation f, int indice)
-	{
-		this.ctrl = ctrl;
-		this.frameCreation = f;
-		this.indice = indice;
+    private Color       		couleurActuelle;
 
-        this.imgFond    = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
+    private int         		indice;
+    private int         		tailleLargeur;
+    private int         		tailleHauteur;
+    private int                 tailleCase;
 
-		this.tailleLargeur = this.ctrl.getNbColonne();
-		this.tailleHauteur = this.ctrl.getNbLigne();
-		this.nbZone = 0;
-		this.couleurActuelle = Couleur.SAUMON.getCouleur();
+    private String              nomPlateau;
+    private int         		nbZone;
+    private boolean     		modeDessin = false;
 
-		this.cases = new JPanel[this.tailleLargeur][this.tailleHauteur];
-		this.setLayout(new BorderLayout());
+    private Font                policeBandeau;
 
-		/* ------------------------------ */
-		/* Création des composants        */
-		/* ------------------------------ */
-		JPanel pnlBtnSuite = new JPanel(new GridLayout(2,2));
+    public PanelZone(Controleur ctrl, FrameCreation f, int indice)
+    {
+        this.ctrl = ctrl;
+        this.frameCreation = f;
+        this.indice = indice;
 
-		JPanel bandeau = new JPanel(new GridLayout(2,1));
-		bandeau.setBorder(BorderFactory.createEmptyBorder(14, 20, 14, 20));
+        this.imgFond = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
 
-		JPanel wrapper = new JPanel(new GridBagLayout());
-		wrapper.setBorder(BorderFactory.createEmptyBorder(16, 16, 8, 16));
+        this.tailleLargeur  = this.ctrl.getNbColonne();
+        this.tailleHauteur  = this.ctrl.getNbLigne();
+        this.tailleCase     = this.ctrl.getTailleCase();
+        this.nomPlateau     = this.ctrl.getNomPlateau();
 
-		JLabel titre = new JLabel("Plateau " + tailleLargeur + "×" + tailleHauteur);
-		titre.setFont(new Font("Monospaced", Font.BOLD, 18));
+        this.nbZone = 0;
+        this.couleurActuelle = Couleur.SAUMON.getCouleur();
 
-		JLabel lblNbZone = new JLabel("Zone Numéro : " + this.nbZone);
+        this.tabPanelCases = new JPanel[this.tailleLargeur][this.tailleHauteur];
 
-		JButton btnEffacer = new JButton("Tout effacer");
-		btnEffacer.setFont(new Font("SansSerif", Font.PLAIN, 12));
-		btnEffacer.setBackground(new Color(60, 60, 75));
-		btnEffacer.setForeground(new Color(200, 200, 220));
-		btnEffacer.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createLineBorder(new Color(90, 90, 110), 1),
-				BorderFactory.createEmptyBorder(5, 12, 5, 12)));
-		
-		JPanel grille = new JPanel(new GridLayout(this.tailleLargeur, this.tailleHauteur, 1, 1));
-		grille.setBackground(new Color(60, 60, 75));
+        // On ajoute un espacement vertical de 20px pour aérer sans utiliser de BorderFactory
+        this.setLayout(new BorderLayout(0, 10));
 
-		// int tailleCase;
+        try
+        {
+            File fichierTitre   = new File("./polices/TitreSaisieInfos/Shrikhand-Regular.ttf");
+            Font fontBase       = Font.createFont(Font.TRUETYPE_FONT, fichierTitre);
+            java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(fontBase);
+            this.policeBandeau  =  fontBase.deriveFont(Font.PLAIN, 16f);
+        }
+        catch (Exception e) {}
 
-		
-		// tailleCase = Math.max(24, Math.min(64, 560 / this.tailleHauteur));
+        /* ------------------------------ */
+        /* Création des composants        */
+        /* ------------------------------ */
+        JPanel pnlBtnSuite      = new JPanel(new GridLayout(2,2, 5, 5)); // 5px d'espace entre les boutons
+        pnlBtnSuite             .setOpaque(false);
 
-		for (int i = 0; i < this.tailleLargeur; i++) 
-		{
-			for (int j = 0; j < this.tailleHauteur; j++) 
-			{
-				JPanel cellule = new JPanel();
-				cellule.setBackground(Color.WHITE);
-				cellule.setPreferredSize(new Dimension(50, 50));
-				cellule.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 210), 0));
-				cellule.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        JPanel pnlBandeau       = new JPanel(new GridLayout(2,1, 5, 5));
+        pnlBandeau              .setOpaque(false);
 
-				final int fi = i, fj = j;
+        JPanel pnlTitre         = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        pnlTitre                .setOpaque(false);
 
-				cellule.addMouseListener(new MouseAdapter() 
-				{
-					public void mousePressed(MouseEvent e)
-					{
-						modeDessin = true;
-						colorierCase(fi, fj);
-					}
-					
-					public void mouseReleased(MouseEvent e)
-					{
-						modeDessin = false;
-					}
-					
-					public void mouseEntered(MouseEvent e)
-					{
-						if (modeDessin) colorierCase(fi, fj);
-						if (!cases[fi][fj].getBackground().equals(couleurActuelle))
-						{
-							cases[fi][fj].setBorder(BorderFactory.createLineBorder(couleurActuelle.darker(), 2));
-						}
-					}
-					
-					public void mouseExited(MouseEvent e)
-					{
-						cases[fi][fj].setBorder(BorderFactory.createLineBorder(new Color(200, 200, 210), 0));
-					}
-				});
+        JPanel pnlChoixCouleur  = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        pnlChoixCouleur         .setOpaque(false);
 
-				cases[i][j] = cellule;
-				grille.add(cellule);
-			}
-		}
+        JPanel pnlConteneur     = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 30));
+        pnlConteneur            .setOpaque(false);
 
-		JLabel lblChoix = new JLabel("Couleur :");
-		lblChoix.setFont(new Font("SansSerif", Font.PLAIN, 13));
-		lblChoix.setForeground(new Color(170, 170, 200));
+        JLabel lblTitre         = new JLabel("Plateau  " + this.tailleLargeur + " × " + this.tailleHauteur + "  :  " + this.nomPlateau);
+        lblTitre                .setFont(this.policeBandeau);
+        lblTitre                .setOpaque(false);
 
-		this.jcbCouleur = new JComboBox<>(Couleur.values());
-		this.jcbCouleur.setSelectedIndex(12); // Saumon (couleur par défaut)
-		this.jcbCouleur.setFont(new Font("SansSerif", Font.PLAIN, 13));
-		this.jcbCouleur.setBackground(new Color(40, 40, 55));
-		this.jcbCouleur.setForeground(new Color(220, 220, 240));
-		this.jcbCouleur.setFocusable(false);
-		this.jcbCouleur.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		this.jcbCouleur.setPreferredSize(new Dimension(160, 30));
+        JPanel pnlGrille        = new JPanel(new GridLayout(this.tailleLargeur, this.tailleHauteur, 2, 2));
+        pnlGrille               .setBackground(new Color(60, 60, 75));
 
-		// Aperçu de la couleur choisie
-		labelCouleur = new JLabel();
-		labelCouleur.setOpaque(true);
-		labelCouleur.setBackground(couleurActuelle);
-		labelCouleur.setPreferredSize(new Dimension(28, 28));
-		labelCouleur.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 130), 2));
+        for (int lig = 0; lig < this.tailleLargeur; lig++)
+        {
+            for (int col = 0; col < this.tailleHauteur; col++)
+            {
+                JPanel pnlCellule = new JPanel();
+                pnlCellule.setBackground(Color.WHITE);
+                pnlCellule.setPreferredSize(new Dimension(this.tailleCase, this.tailleCase));
+                pnlCellule.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-		this.btnSuivant       = new JButton("Suivant >>");
-		this.btnPrecedent     = new JButton("<< Précédent");
-		this.btnZonePrecedent = new JButton("Zone précédente");
-		this.btnZoneSuivant   = new JButton("Nouvelle Zone");
+                final int finalLig = lig, finalCol= col;
 
-		/* ------------------------------ */
-		/* Positionnement des Composants  */
-		/* ------------------------------ */
-		bandeau.add(titre);
-		bandeau.add(this.jcbCouleur); 
+                pnlCellule.addMouseListener(new MouseAdapter()
+                {
+                    public void mousePressed(MouseEvent e)
+                    {
+                        modeDessin = true;
+                        colorierCase(finalLig, finalCol);
+                    }
 
-		wrapper.add(grille);
+                    public void mouseReleased(MouseEvent e)
+                    {
+                        modeDessin = false;
+                    }
 
-		pnlBtnSuite.add(this.btnZonePrecedent);
-		pnlBtnSuite.add(this.btnZoneSuivant);
-		pnlBtnSuite.add(this.btnPrecedent);
-		pnlBtnSuite.add(this.btnSuivant);
+                    public void mouseEntered(MouseEvent e)
+                    {
+                        if (modeDessin) colorierCase(finalLig, finalCol);
 
-		this.add(bandeau, BorderLayout.NORTH);
-		this.add(wrapper, BorderLayout.CENTER);
-		this.add(pnlBtnSuite, BorderLayout.SOUTH);
-		
-		this.btnSuivant.addActionListener(this);
-		this.btnPrecedent.addActionListener(this);
-		this.btnZonePrecedent.addActionListener(this);
-		this.btnZoneSuivant.addActionListener(this);
-		this.jcbCouleur.addActionListener(this); 
-	}
+                        if (tabPanelCases[finalLig][finalCol].getBackground().equals(Color.WHITE))
+                        {
+                            tabPanelCases[finalLig][finalCol].setBackground(Color.LIGHT_GRAY);
+                        }
+                    }
 
-	@Override
-	public void actionPerformed(ActionEvent a)
-	{
-		if (a.getSource() == this.btnSuivant)
-		{
-			this.frameCreation.setPnl(this.frameCreation.getPnl(this.indice+1));
-		}
+                    public void mouseExited(MouseEvent e)
+                    {
+                        if (tabPanelCases[finalLig][finalCol].getBackground().equals(Color.LIGHT_GRAY))
+                        {
+                            tabPanelCases[finalLig][finalCol].setBackground(Color.WHITE);
+                        }
+                    }
+                });
 
-		if (a.getSource() == this.btnPrecedent)
-		{
-			this.frameCreation.setPnl(this.frameCreation.getPnl(this.indice-1));
-		}
-		
-		if (a.getSource() == this.btnZonePrecedent)
-		{
-			this.ctrl.zonePrecedente();
-		}
-		
-		if (a.getSource() == this.btnZoneSuivant)
-		{
-			this.ctrl.nouvelleZone();
-			
-			for (Zone zone : this.ctrl.getLstZones())
-			{
-				System.out.println(zone);
-			}
-		}
+                this.tabPanelCases[lig][col] = pnlCellule;
+                pnlGrille.add(pnlCellule);
+            }
+        }
 
-		if (a.getSource() == this.jcbCouleur)
-		{
-			Couleur choix = (Couleur) this.jcbCouleur.getSelectedItem();
-			if (choix != null) 
-			{
-				this.couleurActuelle = choix.getCouleur();
-				this.labelCouleur.setBackground(this.couleurActuelle);
-			}
-		}
-	}
+        JLabel lblChoix = new JLabel("Couleur :");
+        lblChoix.setFont(this.policeBandeau);
 
-	private void colorierCase(int i, int j)
-	{
-		cases[i][j].setBackground(couleurActuelle);
-		cases[i][j].repaint();
-	}
+        this.jcbCouleur = new JComboBox<>(Couleur.values());
+        this.jcbCouleur.setSelectedIndex(12); // Saumon (couleur par défaut)
+        this.jcbCouleur.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        this.jcbCouleur.setFocusable(false);
+        this.jcbCouleur.setOpaque(false);
+        this.jcbCouleur.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        this.jcbCouleur.setPreferredSize(new Dimension(450, 30));
+
+        this.btnSuivant       = new JButton("Suivant >>");
+        this.btnPrecedent     = new JButton("<< Précédent");
+        this.btnZonePrecedent = new JButton("Zone précédente");
+        this.btnZoneSuivant   = new JButton("Nouvelle Zone");
+
+        /* ------------------------------ */
+        /* Positionnement des Composants  */
+        /* ------------------------------ */
+        pnlTitre.add(lblTitre);
+        pnlChoixCouleur.add(lblChoix);
+        pnlChoixCouleur.add(this.jcbCouleur);
+
+        pnlBandeau.add(pnlTitre);
+        pnlBandeau.add(pnlChoixCouleur);
+
+        pnlConteneur.add(pnlGrille);
+
+        pnlBtnSuite.add(this.btnZonePrecedent);
+        pnlBtnSuite.add(this.btnZoneSuivant);
+        pnlBtnSuite.add(this.btnPrecedent);
+        pnlBtnSuite.add(this.btnSuivant);
+
+        this.add(pnlBandeau, BorderLayout.NORTH);
+        this.add(pnlConteneur   , BorderLayout.CENTER);
+        this.add(pnlBtnSuite    , BorderLayout.SOUTH);
+
+        this.btnSuivant.addActionListener(this);
+        this.btnPrecedent.addActionListener(this);
+        this.btnZonePrecedent.addActionListener(this);
+        this.btnZoneSuivant.addActionListener(this);
+        this.jcbCouleur.addActionListener(this);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent a)
+    {
+        if (a.getSource() == this.btnSuivant)
+        {
+            this.frameCreation.setPnl(this.frameCreation.getPnl(this.indice+1));
+        }
+
+        if (a.getSource() == this.btnPrecedent)
+        {
+            this.frameCreation.setPnl(this.frameCreation.getPnl(this.indice-1));
+        }
+
+        if (a.getSource() == this.btnZonePrecedent)
+        {
+            this.ctrl.zonePrecedente();
+        }
+
+        if (a.getSource() == this.btnZoneSuivant)
+        {
+            this.ctrl.nouvelleZone();
+
+            for (Zone zone : this.ctrl.getLstZones())
+            {
+                System.out.println(zone);
+            }
+        }
+
+        if (a.getSource() == this.jcbCouleur)
+        {
+            Couleur choix = (Couleur) this.jcbCouleur.getSelectedItem();
+            if (choix != null)
+            {
+                this.couleurActuelle = choix.getCouleur();
+            }
+        }
+    }
+
+    private void colorierCase(int lig, int col)
+    {
+        tabPanelCases[lig][col].setBackground(couleurActuelle);
+        tabPanelCases[lig][col].repaint();
+    }
 
     @Override
     protected void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        if (this.imgFond != null)
-        {
+        if (this.imgFond != null) {
             g.drawImage(this.imgFond, 0, 0, this.getWidth(), this.getHeight(), this);
         }
     }
