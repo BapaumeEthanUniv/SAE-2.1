@@ -4,6 +4,9 @@ import controleur.Controleur;
 import metier.Casting;
 import metier.Role;
 
+import java.io.File;
+
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -11,6 +14,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.*;
+
 import javax.swing.*;
 
 public class PanelSaisieCreation extends JPanel implements ActionListener
@@ -27,8 +31,9 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 	
 	private Image 		imgFond;
 	
-	private JButton 	btnCreer;
-	
+	private JButton 	btnSuivant;
+    private JButton     btnPrecedent;
+
 	private JCheckBox[] 	tabCBCasting;
 	private JCheckBox[] 	tabCBRole;
 	
@@ -42,10 +47,13 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 	private JTextField 	txtLigne;
 	private JTextField 	txtColonne;
 	// private JTextField 	txtJoueur;
+
+    private Font policeSousTitre;
+    private Font policeLabel;
 	
 	public PanelSaisieCreation (Controleur ctrl, FrameCreation f, int indice)
 	{	
-		this.setLayout (new GridLayout (13, 1));
+		this.setLayout (new GridLayout (12, 1));
 		
 		/*-------------------------------------------------*/
 		/*   Création et initialisation des composants     */
@@ -81,11 +89,12 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 		pnlLstRole.setOpaque	    (false);
 
         JPanel  pnlBouton         = new JPanel();
-        pnlBouton.setLayout       (new FlowLayout(FlowLayout.RIGHT, 20, 0));
+        pnlBouton.setLayout       (new FlowLayout(FlowLayout.CENTER, 20, 0));
         pnlBouton.setOpaque	      (false);
 
-		this.btnCreer			    = new JButton("Suivant >>");
-		
+		this.btnSuivant			    = new JButton("Suivant >>");
+
+        this.btnPrecedent			= new JButton("<< Précédent" );
 		
 		String[]  lstCasting	    = new String[this.ctrl.getNbCasting()];
 		
@@ -110,65 +119,84 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 		this.txtLigne		= new JTextField("", 5);
 		this.txtColonne		= new JTextField("", 5);
 		this.txtNomPlateau	= new JTextField("", 15);
+
+        JLabel lblTitre = new JLabel ("<html><u>Saisie des Informations</u></html>", JLabel.CENTER);
+
+        try
+        {
+            File fichierTitre       = new File("./polices/TitreSaisieInfos/Shrikhand-Regular.ttf");
+            Font fontTitreBase      = Font.createFont(Font.TRUETYPE_FONT, fichierTitre);
+            Font fontBase  = Font.createFont(Font.TRUETYPE_FONT, fichierTitre);
+
+            java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(fontTitreBase);
+            java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(fontBase);
+
+            Font fontTitreFinal     =  fontTitreBase.deriveFont(Font.BOLD, 22f);
+            this.policeSousTitre    =  fontBase.deriveFont(Font.PLAIN, 16f);
+            this.policeLabel        =  fontBase.deriveFont(Font.PLAIN, 12f);
+
+            lblTitre.setFont(fontTitreFinal);
+        }
+        catch (Exception e)
+        {
+            lblTitre.setFont(new Font("SansSerif", Font.BOLD, 22));
+        }
 		
 		/*------------------------------------------*/
 		/*  Positionnement des composants           */
 		/*------------------------------------------*/
 		
 		this.add(new JLabel(""));
-		
-		JLabel lblTitre = new JLabel ("<html><u>Saisie des Informations</u></html>", JLabel.CENTER);
-		lblTitre.setFont(new Font("SansSerif", Font.BOLD, 22));
-		
+
 		this.add(lblTitre);
-		this.add(new JLabel(""));
 		
 		// Partie Plateau
-		JLabel lblNomPlateau = new JLabel ("<html><u>Nom du Plateau</u></html>", JLabel.CENTER);
-        lblNomPlateau.setFont(new Font("SansSerif", Font.BOLD, 12));
-        this.add(lblNomPlateau);
+        this.add(this.creerSousTitre("Nom du Plateau"));
 		
 			// Partie Nom du Plateau
-            pnlNomPlateau.add(new JLabel ("Nom du plateau : ", 10));
             pnlNomPlateau.add(this.txtNomPlateau);
 		
 			this.add(pnlNomPlateau);
 			
 			// Partie Taille du Plateau
-			this.add(new JLabel("<html><u>Taille du Plateau</u></html>", JLabel.CENTER));
+			this.add(this.creerSousTitre("Taille du Plateau"));
 
-            pnlTaillePlateau.add(new JLabel("Nombre de lignes : ", 10));
+            pnlTaillePlateau.add(this.creerJLabel("Lignes : "));
             pnlTaillePlateau.add(this.txtLigne);
 
-            pnlTaillePlateau.add(new JLabel("Nombre de colonnes : ", 10));
+            pnlTaillePlateau.add(this.creerJLabel("Colonnes : "));
             pnlTaillePlateau.add(this.txtColonne);
 			
 			this.add(pnlTaillePlateau);
 		
 		// Partie Casting
-		this.add(new JLabel("<html><u>Casting</u></html>", JLabel.CENTER));
+		this.add(this.creerSousTitre("Castings"));
 		
-		pnlCasting.add(new JLabel("Nombre de castings : "));
+		pnlCasting.add(this.creerJLabel("Nombre de Castings : "));
 		
 		for (int cpt = 0; cpt < lstCasting.length; cpt++)
 		{
 			this.tabCBCasting[cpt]  = new JCheckBox( "" + lstCasting[cpt], false);
 			this.tabCBCasting[cpt].setOpaque(false);
-			pnlLstCasting.add(this.tabCBCasting[cpt]);
+            this.tabCBCasting[cpt].setFont(new Font("SansSerif", Font.ITALIC, 12));
+
+            pnlLstCasting.add(this.tabCBCasting[cpt]);
 		}
 		
 		pnlCasting.add(pnlLstCasting);
 		this.add(pnlCasting);
 		
 		// Partie Role
-		this.add(new JLabel("<html><u>Rôles</u></html>", JLabel.CENTER));
+		this.add(this.creerSousTitre("Rôles"));
 		
-		pnlRole.add(new JLabel("Nombre de rôles : "));
+		pnlRole.add(this.creerJLabel("Nombre de Rôles : "));
 		
 		for (int cpt = 0; cpt < lstRole.length; cpt++)
 		{
 			this.tabCBRole[cpt] = new JCheckBox( "" + lstRole[cpt], false);
 			this.tabCBRole[cpt].setOpaque(false);
+            this.tabCBRole[cpt].setFont(new Font("SansSerif", Font.ITALIC, 12));
+
 			pnlLstRole.add(this.tabCBRole[cpt]);
 		}
 		
@@ -181,14 +209,25 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 		this.add(new JLabel(""));
 			
 		// Partie Bouton
-        pnlBouton.add(this.btnCreer);
+        pnlBouton.add(this.btnPrecedent);
+        pnlBouton.add(new JLabel(""));
+        pnlBouton.add(new JLabel(""));
+        pnlBouton.add(new JLabel(""));
+        pnlBouton.add(new JLabel(""));
+        pnlBouton.add(new JLabel(""));
+        pnlBouton.add(new JLabel(""));
+        pnlBouton.add(new JLabel(""));
+        pnlBouton.add(new JLabel(""));
+        pnlBouton.add(this.btnSuivant);
+
 		this.add(pnlBouton);
 		
 		/* ----------------------------- */
 		/* Activation des Composants     */
 		/* ----------------------------- */
 		
-		this.btnCreer.addActionListener(this);
+		this.btnSuivant.addActionListener(this);
+        this.btnPrecedent.addActionListener(this);
 	}
 	
 	public void actionPerformed (ActionEvent e)
@@ -202,7 +241,7 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 		int cptCasting 	= 0;
 		int cptRole 	= 0;
 		
-		if (e.getSource() == this.btnCreer)
+		if (e.getSource() == this.btnSuivant)
 		{	
 			if (this.verifier())
 			{
@@ -258,6 +297,11 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 				System.out.println("Erreur : valeurs erronées.");
 			}
 		}
+
+        if (e.getSource() == this.btnPrecedent)
+        {
+            this.frame.setPnl(this.frame.getPnl(this.indice-1));
+        }
 	}
 	
 	public boolean verifier()
@@ -326,4 +370,20 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 			g.drawImage(this.imgFond, 0, 0, this.getWidth(), this.getHeight(), this);
 		}
 	}
+
+    private JLabel creerSousTitre(String texte)
+    {
+        JLabel lbl = new JLabel("<html><u>" + texte + "</u></html>", JLabel.CENTER);
+        lbl.setFont(this.policeSousTitre);
+
+        return lbl;
+    }
+
+    private JLabel creerJLabel(String texte)
+    {
+        JLabel lbl = new JLabel(texte, 10);
+        lbl.setFont(this.policeLabel);
+
+        return lbl;
+    }
 }
