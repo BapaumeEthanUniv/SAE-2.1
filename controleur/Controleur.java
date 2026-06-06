@@ -33,8 +33,10 @@ public class Controleur
 	public ArrayList<Zone> getLstZones() {return metier.getLstZones();} //listes des zones créées
 	public Zone     getZoneActive() {return metier.getZoneActive();}
 
-	public int getNbLigne()   { return metier.getNbLigne();}
+    public String getNomPlateau() { return metier.getNomPlateau(); }
+    public int getNbLigne()   { return metier.getNbLigne();}
 	public int getNbColonne() { return metier.getNbColonne();}
+    public int getTailleCase() { return metier.getTailleCase(); }
 
 	public Role[]   getTabRole()     {return this.metier.getTabRole();}
 	public Casting[] getTabCasting() {return this.metier.getTabCasting();}
