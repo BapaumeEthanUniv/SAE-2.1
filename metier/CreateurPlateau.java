@@ -41,6 +41,8 @@ public class CreateurPlateau
 		this.lstActeurs = new ArrayList<Acteur>();
 	}
 
+    public String getNomPlateau() { return this.nomPlateau; }
+
 	public int getNbLigne() {return nbLigne;}
 
 	public int getNbColonne() {return nbColonne;}
