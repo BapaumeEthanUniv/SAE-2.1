@@ -4,7 +4,6 @@ import java.awt.Color;
 
 public enum Couleur
 {
-	GOMME		( "Gomme"	, Color.WHITE		) ,
 	ROSE		( "Rose"	, new Color (230,100,160)),
 	ROUGE		( "Rouge"	, Color.RED		) ,
 	BORDEAUX	( "Bordeaux"	, new Color (109,7  ,26 )),
