@@ -2,15 +2,22 @@ package ihm;
 
 import javax.swing.*;
 import java.awt.GridLayout;
+import java.awt.FlowLayout;
 import java.awt.BorderLayout;
+import java.awt.Image;
+import java.awt.Graphics;
+import java.awt.Toolkit;
+import java.awt.event.*;
 
 import controleur.Controleur;
 
-public class PanelSymbole extends JPanel
+public class PanelSymbole extends JPanel implements ActionListener
 {
 	private Controleur    ctrl;
 	private FrameCreation frame;
 	private int           indice;
+
+    private Image 		        imgFond;
 
 	private JPanel pnlHaut;
 	private JPanel pnlCombo;
@@ -21,19 +28,20 @@ public class PanelSymbole extends JPanel
 
 	private JPanel grilleCentre; //a modifier si besoin, je sais pas comment la grille a été faite
 
-	private JPanel pnlBas;
+	private JPanel        pnlBouton;
 	private JButton       btnPrecedent;
 	private JButton       btnConfirmer;
 	public PanelSymbole(Controleur ctrl, FrameCreation f, int indice)
 	{
+        this.setLayout( new BorderLayout());
 
-		/*-------------------------------------------------*/
+        this.ctrl 	= ctrl	;
+        this.frame      = f ;
+        this.indice 	= indice;
+        this.imgFond    = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
+        /*-------------------------------------------------*/
 		/*   Création et initialisation des composants     */
 		/*-------------------------------------------------*/
-		this.ctrl 	= ctrl	;
-		this.frame      = f ;
-		this.indice 	= indice;
-		this.setLayout( new BorderLayout());
 
 		this.pnlHaut = new JPanel(new GridLayout(2,1));
 		this.pnlCombo = new JPanel();
@@ -45,9 +53,10 @@ public class PanelSymbole extends JPanel
 
 		this.grilleCentre = new JPanel(); // pareil bah c'est la place de la grille donc a modifier si besoin
 
-		this.pnlBas = new JPanel();
+		this.pnlBouton = new JPanel();
+        this.pnlBouton.setLayout(new FlowLayout());
 
-		this.btnPrecedent = new JButton("Précédent");
+		this.btnPrecedent = new JButton("<< Précédent");
 		this.btnConfirmer = new JButton("Confirmer");
 
 		/*------------------------------------------*/
@@ -64,16 +73,35 @@ public class PanelSymbole extends JPanel
 		this.add(this.pnlHaut,BorderLayout.NORTH);
 		this.add(this.grilleCentre); //toujours pareil HIHI j'aime le jafun
 
-		this.pnlBas.setLayout(new GridLayout(1,2));
-		this.pnlBas.add(this.btnPrecedent);
-		this.pnlBas.add(this.btnConfirmer);
-		this.add(pnlBas, BorderLayout.SOUTH);
+		this.pnlBouton.add(this.btnPrecedent, FlowLayout.LEFT);
+		this.pnlBouton.add(this.btnConfirmer, FlowLayout.CENTER);
+		this.add(this.pnlBouton, BorderLayout.SOUTH);
 	
 
 
 		/* ----------------------------- */
 		/* Activation des Composants     */
 		/* ----------------------------- */
-		this.setVisible(true);
+		this.btnPrecedent.addActionListener(this);
+
+        this.setVisible(true);
 	}
+
+    public void actionPerformed (ActionEvent e)
+    {
+        if (e.getSource() == this.btnPrecedent)
+        {
+            this.frame.setPnl(this.frame.getPnl(indice-1));
+        }
+    }
+
+    @Override
+    protected void paintComponent(Graphics g)
+    {
+        super.paintComponent(g);
+        if (this.imgFond != null)
+        {
+            g.drawImage(this.imgFond, 0, 0, this.getWidth(), this.getHeight(), this);
+        }
+    }
 }
