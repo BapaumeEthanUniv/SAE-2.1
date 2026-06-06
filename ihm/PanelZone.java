@@ -3,23 +3,28 @@ package ihm;
 import controleur.Controleur;
 
 import metier.Zone;
+import metier.Couleur;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.*;
 import javax.swing.*;
-import metier.Couleur;
 
 public class PanelZone extends JPanel implements ActionListener
 {
 	private final JPanel[][] 	cases;
-	private Controleur 		ctrl;
+	private Controleur 		    ctrl;
 	private FrameCreation 		frameCreation;
+
+    private Image 		        imgFond;
 
 	private JButton     		btnSuivant;
 	private JButton     		btnPrecedent;
@@ -42,10 +47,13 @@ public class PanelZone extends JPanel implements ActionListener
 		this.ctrl = ctrl;
 		this.frameCreation = f;
 		this.indice = indice;
+
+        this.imgFond    = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
+
 		this.tailleLargeur = this.ctrl.getNbColonne();
 		this.tailleHauteur = this.ctrl.getNbLigne();
 		this.nbZone = 0;
-		this.couleurActuelle = Couleur.BORDEAUX.getCouleur(); 
+		this.couleurActuelle = Couleur.SAUMON.getCouleur();
 
 		this.cases = new JPanel[this.tailleLargeur][this.tailleHauteur];
 		this.setLayout(new BorderLayout());
@@ -132,7 +140,7 @@ public class PanelZone extends JPanel implements ActionListener
 		lblChoix.setForeground(new Color(170, 170, 200));
 
 		this.jcbCouleur = new JComboBox<>(Couleur.values());
-		this.jcbCouleur.setSelectedIndex(3); // index 3 = Bordeaux (couleur par défaut)
+		this.jcbCouleur.setSelectedIndex(12); // Saumon (couleur par défaut)
 		this.jcbCouleur.setFont(new Font("SansSerif", Font.PLAIN, 13));
 		this.jcbCouleur.setBackground(new Color(40, 40, 55));
 		this.jcbCouleur.setForeground(new Color(220, 220, 240));
@@ -147,8 +155,8 @@ public class PanelZone extends JPanel implements ActionListener
 		labelCouleur.setPreferredSize(new Dimension(28, 28));
 		labelCouleur.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 130), 2));
 
-		this.btnSuivant       = new JButton("Suivant");
-		this.btnPrecedent     = new JButton("Précédent");
+		this.btnSuivant       = new JButton("Suivant >>");
+		this.btnPrecedent     = new JButton("<< Précédent");
 		this.btnZonePrecedent = new JButton("Zone précédente");
 		this.btnZoneSuivant   = new JButton("Nouvelle Zone");
 
@@ -220,4 +228,14 @@ public class PanelZone extends JPanel implements ActionListener
 		cases[i][j].setBackground(couleurActuelle);
 		cases[i][j].repaint();
 	}
+
+    @Override
+    protected void paintComponent(Graphics g)
+    {
+        super.paintComponent(g);
+        if (this.imgFond != null)
+        {
+            g.drawImage(this.imgFond, 0, 0, this.getWidth(), this.getHeight(), this);
+        }
+    }
 }
