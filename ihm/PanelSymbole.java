@@ -2,112 +2,209 @@ package ihm;
 
 import metier.Casting;
 import metier.Role;
+import metier.Zone;
+import controleur.Controleur;
 
-import java.awt.GridLayout;
-import java.awt.FlowLayout;
 import java.awt.BorderLayout;
-import java.awt.Image;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.*;
 
 import javax.swing.*;
 
-import controleur.Controleur;
-
 public class PanelSymbole extends JPanel implements ActionListener
 {
-	private Controleur          ctrl;
-	private FrameCreation       frame;
-	private int                 indice;
+    private Controleur          ctrl;
+    private FrameCreation       frame;
+    private int                 indice;
 
     private Image 		        imgFond;
 
-	private JPanel pnlHaut;
-	private JPanel pnlCombo;
+    private JLabel[][]          tabLblCases;
 
-	private JComboBox<Role>     jcbRole;
-	private JComboBox<Casting>  jcbCasting;
-	private JLabel              lblMessage;
+    private JComboBox<Role>     jcbRole;
+    private JComboBox<Casting>  jcbCasting;
 
-	private JPanel pnlGrille; //a modifier si besoin, je sais pas comment la grille a été faite
+    private JRadioButton        rbRole;
+    private JRadioButton        rbCasting;
 
-	private JPanel        pnlBouton;
-	private JButton       btnPrecedent;
-	private JButton       btnConfirmer;
+    private JButton             btnPrecedent;
+    private JButton             btnConfirmer;
 
-	public PanelSymbole(Controleur ctrl, FrameCreation f, int indice)
-	{
-        this.setLayout( new BorderLayout());
+    public PanelSymbole(Controleur ctrl, FrameCreation f, int indice)
+    {
+        this.ctrl       = ctrl;
+        this.frame      = f;
+        this.indice     = indice;
 
-        this.ctrl 	= ctrl	;
-        this.frame      = f ;
-        this.indice 	= indice;
         this.imgFond    = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
+
+        this.setLayout(new BorderLayout(0, 10));
+
         /*-------------------------------------------------*/
-		/*   Création et initialisation des composants     */
-		/*-------------------------------------------------*/
+        /* Création et initialisation des composants     */
+        /*-------------------------------------------------*/
 
-		this.pnlHaut = new JPanel(new GridLayout(2,1));
-        this.pnlHaut.setOpaque(false);
+        // --- HAUT : Titre et Outils ---
+        JPanel pnlHaut = new JPanel(new BorderLayout());
+        pnlHaut.setOpaque(false);
 
-		this.pnlCombo = new JPanel();
-        this.pnlCombo.setOpaque(false);
+        JPanel pnlOutils = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        pnlOutils.setOpaque(false);
 
-        Casting[] lstCasting    = this.ctrl.getTabCasting();
-        this.jcbCasting         = new JComboBox<Casting>(lstCasting);
+        // Les listes déroulantes
+        this.jcbRole    = new JComboBox<>(this.ctrl.getTabRole());
+        this.jcbCasting = new JComboBox<>(this.ctrl.getTabCasting());
 
-        Role[]  lstRole         = this.ctrl.getTabRole();
-        this.jcbRole            = new JComboBox<Role>(lstRole);
+        // Les boutons radio pour choisir le mode (Rôle ou Casting)
+        this.rbRole     = new JRadioButton("Placer un Rôle :", true);
+        this.rbCasting  = new JRadioButton("Assigner un Casting :", false);
+        this.rbRole.setOpaque(false);
+        this.rbCasting.setOpaque(false);
 
-		this.lblMessage = new JLabel("bha j'ai pas fait les action encore",JLabel.CENTER);
+        // On les groupe pour qu'un seul soit cochable à la fois
+        ButtonGroup bgMode = new ButtonGroup();
+        bgMode.add(this.rbRole);
+        bgMode.add(this.rbCasting);
 
-		this.pnlGrille = new JPanel();// pareil bah c'est la place de la grille donc a modifier si besoin
-        this.pnlGrille.setOpaque(false);
+        // --- CENTRE : La Grille ---
+        JPanel pnlConteneurGrille = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 30));
+        pnlConteneurGrille.setOpaque(false);
 
-		this.pnlBouton = new JPanel();
-        this.pnlBouton.setLayout(new FlowLayout());
-        this.pnlBouton.setOpaque(false);
+        int nbLigne = this.ctrl.getNbLigne();
+        int nbCol   = this.ctrl.getNbColonne();
+        int taille  = this.ctrl.getTailleCase();
 
-		this.btnPrecedent = new JButton("<< Précédent");
-		this.btnConfirmer = new JButton("Confirmer");
+        JPanel pnlGrille = new JPanel(new GridLayout(nbLigne, nbCol, 2, 2));
+        pnlGrille.setBackground(new Color(60, 60, 75)); // Lignes du quadrillage
 
-		/*------------------------------------------*/
-		/*  Positionnement des composants           */
-		/*------------------------------------------*/
-		this.pnlCombo.add(new JLabel("Role : "));
-		this.pnlCombo.add(this.jcbRole);
+        this.tabLblCases = new JLabel[nbLigne][nbCol];
 
-        this.pnlCombo.add(new JLabel(""));
+        for (int lig = 0; lig < nbLigne; lig++)
+        {
+            for (int col = 0; col < nbCol; col++)
+            {
+                // On utilise un JLabel pour pouvoir afficher du texte
+                JLabel lblCellule = new JLabel("", SwingConstants.CENTER);
+                lblCellule.setOpaque(true);
+                lblCellule.setPreferredSize(new Dimension(taille, taille));
+                lblCellule.setFont(new Font("SansSerif", Font.BOLD, taille / 2)); // Texte proportionnel
 
-		this.pnlCombo.add(new JLabel("Casting : "));
-		this.pnlCombo.add(this.jcbCasting);
+                // On récupère la couleur de fond depuis PanelZone !
+                Zone zoneDeLaCase = this.ctrl.getTabZone()[lig][col];
+                if (zoneDeLaCase != null) {
+                    lblCellule.setBackground(zoneDeLaCase.getCouleur());
+                } else {
+                    lblCellule.setBackground(Color.WHITE);
+                }
 
-		this.pnlHaut.add(this.pnlCombo);
-		this.pnlHaut.add(this.lblMessage);
+                final int finalLig = lig, finalCol = col;
 
-		this.add(this.pnlHaut,BorderLayout.NORTH);
-		this.add(this.pnlGrille); //toujours pareil HIHI j'aime le jafun
+                // Gestionnaire de clics
+                lblCellule.addMouseListener(new MouseAdapter()
+                {
+                    public void mousePressed(MouseEvent e)
+                    {
+                        // CLIC GAUCHE : Placer
+                        if (SwingUtilities.isLeftMouseButton(e))
+                        {
+                            if (rbRole.isSelected())
+                            {
+                                Role roleChoisi = (Role) jcbRole.getSelectedItem();
 
-		this.pnlBouton.add(this.btnPrecedent, FlowLayout.LEFT);
-		this.pnlBouton.add(this.btnConfirmer, FlowLayout.CENTER);
-		this.add(this.pnlBouton, BorderLayout.SOUTH);
-	
+                                // Ajout dans le backend
+                                boolean ok = ctrl.ajouterActeur(roleChoisi, finalLig, finalCol);
 
+                                if (ok) {
 
-		/* ----------------------------- */
-		/* Activation des Composants     */
-		/* ----------------------------- */
-		this.btnPrecedent.addActionListener(this);
+                                    lblCellule.setText(roleChoisi.name().substring(0, 1));
+                                    lblCellule.setForeground(Color.BLACK);
+                                }
+                            }
+                            else if (rbCasting.isSelected())
+                            {
+                                Casting castingChoisi = (Casting) jcbCasting.getSelectedItem();
 
-        this.setVisible(true);
-	}
+                                if (!lblCellule.getText().equals("")) {
+                                    lblCellule.setForeground(Color.WHITE);
+
+                                    // Note : Ici tu pourras appeler ta méthode ctrl.setPrincipal(...) plus tard !
+                                }
+                            }
+                        }
+                        // CLIC DROIT : Effacer
+                        else if (SwingUtilities.isRightMouseButton(e))
+                        {
+                            ctrl.supprimerActeur(finalLig, finalCol);
+                            lblCellule.setText("");
+                        }
+                    }
+                });
+
+                this.tabLblCases[lig][col] = lblCellule;
+                pnlGrille.add(lblCellule);
+            }
+        }
+
+        // --- BAS : Les Boutons ---
+        JPanel pnlBouton = new JPanel(new FlowLayout(FlowLayout.CENTER, 50, 20));
+        pnlBouton.setOpaque(false);
+
+        this.btnPrecedent = new JButton("<< Précédent");
+        this.btnConfirmer = new JButton("Créer le Plateau");
+
+        /*------------------------------------------*/
+        /* Positionnement des composants           */
+        /*------------------------------------------*/
+
+        pnlOutils.add(this.rbRole);
+        pnlOutils.add(this.jcbRole);
+        pnlOutils.add(new JLabel("      "));
+        pnlOutils.add(this.rbCasting);
+        pnlOutils.add(this.jcbCasting);
+
+        pnlHaut.add(pnlOutils, BorderLayout.CENTER);
+
+        JSeparator separateur = new JSeparator(SwingConstants.HORIZONTAL);
+        separateur.setForeground(new Color(150, 150, 150));
+        pnlHaut.add(separateur, BorderLayout.SOUTH);
+
+        pnlConteneurGrille.add(pnlGrille);
+
+        pnlBouton.add(this.btnPrecedent);
+        pnlBouton.add(this.btnConfirmer);
+
+        this.add(pnlHaut, BorderLayout.NORTH);
+        this.add(pnlConteneurGrille, BorderLayout.CENTER);
+        this.add(pnlBouton, BorderLayout.SOUTH);
+
+        /* ----------------------------- */
+        /* Activation des Composants     */
+        /* ----------------------------- */
+        this.btnPrecedent.addActionListener(this);
+        this.btnConfirmer.addActionListener(this);
+    }
 
     public void actionPerformed (ActionEvent e)
     {
         if (e.getSource() == this.btnPrecedent)
         {
-            this.frame.setPnl(this.frame.getPnl(indice-1));
+            this.frame.setPnl(this.frame.getPnl(indice - 1));
+        }
+
+        if (e.getSource() == this.btnConfirmer)
+        {
+            // Génère les dossiers et fichiers de sauvegarde !
+            this.ctrl.creerPlateau();
+            System.out.println("Plateau généré avec succès !");
+
+            this.frame.setPnl(this.frame.getPnl(0));
         }
     }
 
