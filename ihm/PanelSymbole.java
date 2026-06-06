@@ -1,6 +1,8 @@
 package ihm;
 
-import javax.swing.*;
+import metier.Casting;
+import metier.Role;
+
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
@@ -9,28 +11,31 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.*;
 
+import javax.swing.*;
+
 import controleur.Controleur;
 
 public class PanelSymbole extends JPanel implements ActionListener
 {
-	private Controleur    ctrl;
-	private FrameCreation frame;
-	private int           indice;
+	private Controleur          ctrl;
+	private FrameCreation       frame;
+	private int                 indice;
 
     private Image 		        imgFond;
 
 	private JPanel pnlHaut;
 	private JPanel pnlCombo;
 
-	private JComboBox<String> comboRole;
-	private JComboBox<String> comboCasting;
-	private JLabel            lblMessage;
+	private JComboBox<Role>     jcbRole;
+	private JComboBox<Casting>  jcbCasting;
+	private JLabel              lblMessage;
 
-	private JPanel grilleCentre; //a modifier si besoin, je sais pas comment la grille a été faite
+	private JPanel pnlGrille; //a modifier si besoin, je sais pas comment la grille a été faite
 
 	private JPanel        pnlBouton;
 	private JButton       btnPrecedent;
 	private JButton       btnConfirmer;
+
 	public PanelSymbole(Controleur ctrl, FrameCreation f, int indice)
 	{
         this.setLayout( new BorderLayout());
@@ -44,17 +49,25 @@ public class PanelSymbole extends JPanel implements ActionListener
 		/*-------------------------------------------------*/
 
 		this.pnlHaut = new JPanel(new GridLayout(2,1));
-		this.pnlCombo = new JPanel();
+        this.pnlHaut.setOpaque(false);
 
-		this.comboCasting = new JComboBox<String>();
-		this.comboRole    = new JComboBox<String>();
+		this.pnlCombo = new JPanel();
+        this.pnlCombo.setOpaque(false);
+
+        Casting[] lstCasting    = this.ctrl.getTabCasting();
+        this.jcbCasting         = new JComboBox<Casting>(lstCasting);
+
+        Role[]  lstRole         = this.ctrl.getTabRole();
+        this.jcbRole            = new JComboBox<Role>(lstRole);
 
 		this.lblMessage = new JLabel("bha j'ai pas fait les action encore",JLabel.CENTER);
 
-		this.grilleCentre = new JPanel(); // pareil bah c'est la place de la grille donc a modifier si besoin
+		this.pnlGrille = new JPanel();// pareil bah c'est la place de la grille donc a modifier si besoin
+        this.pnlGrille.setOpaque(false);
 
 		this.pnlBouton = new JPanel();
         this.pnlBouton.setLayout(new FlowLayout());
+        this.pnlBouton.setOpaque(false);
 
 		this.btnPrecedent = new JButton("<< Précédent");
 		this.btnConfirmer = new JButton("Confirmer");
@@ -63,15 +76,18 @@ public class PanelSymbole extends JPanel implements ActionListener
 		/*  Positionnement des composants           */
 		/*------------------------------------------*/
 		this.pnlCombo.add(new JLabel("Role : "));
-		this.pnlCombo.add(this.comboRole);
+		this.pnlCombo.add(this.jcbRole);
+
+        this.pnlCombo.add(new JLabel(""));
+
 		this.pnlCombo.add(new JLabel("Casting : "));
-		this.pnlCombo.add(this.comboCasting);
+		this.pnlCombo.add(this.jcbCasting);
 
 		this.pnlHaut.add(this.pnlCombo);
 		this.pnlHaut.add(this.lblMessage);
 
 		this.add(this.pnlHaut,BorderLayout.NORTH);
-		this.add(this.grilleCentre); //toujours pareil HIHI j'aime le jafun
+		this.add(this.pnlGrille); //toujours pareil HIHI j'aime le jafun
 
 		this.pnlBouton.add(this.btnPrecedent, FlowLayout.LEFT);
 		this.pnlBouton.add(this.btnConfirmer, FlowLayout.CENTER);
