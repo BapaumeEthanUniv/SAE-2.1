@@ -22,7 +22,7 @@ public enum Casting
 	
 	public String toString()
 	{
-		return this.name().toLowerCase();
+		return this.name();
 	}
 	
 	public static int getNbCasting() 
