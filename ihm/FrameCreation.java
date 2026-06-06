@@ -15,7 +15,7 @@ public class FrameCreation extends JFrame
 	{
 		this.ctrl = ctrl;
 		this.setTitle("Création/Modification des plateaux");
-		this.setSize(600, 650); 
+		this.setSize(600, 700);
 		this.setLayout(new BorderLayout());
 		
 		this.tabPanel	 = new JPanel[4];
@@ -42,7 +42,7 @@ public class FrameCreation extends JFrame
 		this.revalidate();
 	}
 
-	public void CreerPanelZone()
+	public void creerPanelZone()
 	{
 		this.tabPanel[2] = new PanelZone(this.ctrl, this, 2);
 		this.tabPanel[3] = new PanelSymbole(this.ctrl, this, 3);
