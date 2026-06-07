@@ -226,11 +226,14 @@ public class CreateurPlateau
 		ArrayList<Zone> ZonesDistinctes;
 
 		ZonesDistinctes = new ArrayList<Zone>();
-		for (int y=0; y<this.getNbColonne(); y++)
+		for (int x=0; x< this.nbLigne; x++)
 		{
-			for (int x=0; x<this.getNbLigne(); x++)
+			for (int y=0; y< this.nbColonne; y++)
 			{
-				outputAtributZonePlateau+=String.format("%03d",this.tabZone[x][y].getNumZone());
+				if (this.tabZone[x][y] != null)
+					outputAtributZonePlateau+=String.format("%03d",this.tabZone[x][y].getNumZone());
+				else
+					outputAtributZonePlateau+="000";
 				if (!ZonesDistinctes.contains(this.tabZone[x][y]))
 				{
 					ZonesDistinctes.add(tabZone[x][y]);
