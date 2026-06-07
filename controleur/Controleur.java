@@ -70,6 +70,8 @@ public class Controleur
 
 	public void zonePrecedente() {this.metier.zonePrecedente();}
 
+	public void zoneSuivante() {this.metier.zoneSuivante();}
+
 	public void nouvelleZone() {this.metier.nouvelleZone();}
 
 	//page 3

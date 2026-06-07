@@ -141,6 +141,12 @@ public class CreateurPlateau
 			this.zoneActive = this.lstZones.get(this.lstZones.indexOf(this.zoneActive) - 1);
 	}
 
+	public void zoneSuivante()
+	{
+		if (this.lstZones.indexOf(this.zoneActive) < this.lstZones.size() - 1)
+			this.zoneActive = this.lstZones.get(this.lstZones.indexOf(this.zoneActive) + 1);
+	}
+
 	public boolean ajouterActeur  (Role role, int posX, int posY) 
 	{
 		boolean placeLibre = true;

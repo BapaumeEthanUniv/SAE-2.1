@@ -32,7 +32,8 @@ public class PanelZone extends JPanel implements ActionListener
     private JButton     		btnSuivant;
     private JButton     		btnPrecedent;
     private JButton     		btnZonePrecedent;
-    private JButton     		btnZoneSuivant;
+    private JButton     		btnNouvZone;
+    private JButton             btnZoneSuivante;
     private JLabel      		labelCouleur;
     private JLabel              lblTitre;
 
@@ -84,6 +85,9 @@ public class PanelZone extends JPanel implements ActionListener
         /* ------------------------------ */
         /* Création des composants        */
         /* ------------------------------ */
+        JPanel pnlBtn           = new JPanel(new GridLayout(2,1, 5, 5)); // 5px d'espace entre les boutons
+        pnlBtn                  .setOpaque(false);
+
         JPanel pnlBtnSuite      = new JPanel(new GridLayout(2,2, 5, 5)); // 5px d'espace entre les boutons
         pnlBtnSuite             .setOpaque(false);
 
@@ -184,7 +188,8 @@ public class PanelZone extends JPanel implements ActionListener
         this.btnSuivant         = new JButton("Suivant >>");
         this.btnPrecedent       = new JButton("<< Précédent");
         this.btnZonePrecedent   = new JButton("Zone précédente");
-        this.btnZoneSuivant     = new JButton("Nouvelle Zone");
+        this.btnNouvZone        = new JButton("Nouvelle Zone");
+        this.btnZoneSuivante    = new JButton("Zone suivante");
 
         /* ------------------------------ */
         /* Positionnement des Composants  */
@@ -204,18 +209,22 @@ public class PanelZone extends JPanel implements ActionListener
         pnlConteneur.add(pnlGrille);
 
         pnlBtnSuite.add(this.btnZonePrecedent);
-        pnlBtnSuite.add(this.btnZoneSuivant);
+        pnlBtnSuite.add(this.btnZoneSuivante);
         pnlBtnSuite.add(this.btnPrecedent);
         pnlBtnSuite.add(this.btnSuivant);
 
+        pnlBtn.add(this.btnNouvZone);
+        pnlBtn.add(pnlBtnSuite);
+
         this.add(pnlHaut        , BorderLayout.NORTH);
         this.add(pnlConteneur   , BorderLayout.CENTER);
-        this.add(pnlBtnSuite    , BorderLayout.SOUTH);
+        this.add(pnlBtn         , BorderLayout.SOUTH);
 
         this.btnSuivant.addActionListener(this);
         this.btnPrecedent.addActionListener(this);
         this.btnZonePrecedent.addActionListener(this);
-        this.btnZoneSuivant.addActionListener(this);
+        this.btnZoneSuivante.addActionListener(this);
+        this.btnNouvZone.addActionListener(this);
         this.jcbCouleur.addActionListener(this);
     }
 
@@ -238,7 +247,13 @@ public class PanelZone extends JPanel implements ActionListener
             this.lblTitre.setText("Plateau  " + this.tailleLargeur + " × " + this.tailleHauteur + "  :  " + this.nomPlateau + " Zone Active :" + this.ctrl.getZoneActive().getNumZone());
         }
 
-        if (a.getSource() == this.btnZoneSuivant)
+        if (a.getSource() == this.btnZoneSuivante)
+        {
+            this.ctrl.zoneSuivante();
+            this.lblTitre.setText("Plateau  " + this.tailleLargeur + " × " + this.tailleHauteur + "  :  " + this.nomPlateau + " Zone Active :" + this.ctrl.getZoneActive().getNumZone());
+        }
+
+        if (a.getSource() == this.btnNouvZone)
         {
             this.ctrl.nouvelleZone();
             this.lblTitre.setText("Plateau  " + this.tailleLargeur + " × " + this.tailleHauteur + "  :  " + this.nomPlateau + " Zone Active :" + this.ctrl.getZoneActive().getNumZone());
