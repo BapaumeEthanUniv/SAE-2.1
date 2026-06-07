@@ -126,8 +126,26 @@ public class CreateurPlateau
 
 	public boolean changerCouleurZone(Couleur couleur, Zone zone)
 	{
-		if (! Arrays.asList(Couleur.values()).contains(couleur))
-			return false;
+		for (int lig = 0; lig < tabZone.length; lig ++)
+			for (int col = 0; col < tabZone[lig].length; col ++)
+				if (tabZone[lig][col] == zone)
+				{
+					for(int l = lig - 1; l <= lig + 1; l++)
+					{
+						for(int c = col - 1; c <= col + 1; c++)
+						{
+							if (l < this.nbLigne && l >= 0 &&
+								c < this.nbColonne && c >= 0 &&
+								!(c == col && l == lig)&&
+								!(c == col - 1 && l == lig - 1)&&
+								!(c == col + 1 && l == lig - 1)&&
+								!(c == col - 1 && l == lig + 1)&&
+								!(c == col + 1 && l == lig + 1))
+								if (tabZone[l][c] != null && couleur.getCouleur() == tabZone[l][c].getCouleur() && tabZone[l][c] != zone)
+									return false;
+						}
+					}
+				}
 
 		zone.setCouleur(couleur.getCouleur());
 		return true;
