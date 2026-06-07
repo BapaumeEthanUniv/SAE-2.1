@@ -42,8 +42,8 @@ public class PanelZone extends JPanel implements ActionListener
     private Color       		couleurActuelle;
 
     private int         		indice;
-    private int         		tailleLargeur;
-    private int         		tailleHauteur;
+    private int         		tailleColonne;
+    private int         		tailleLigne;
     private int                 tailleCase;
 
     private String              nomPlateau;
@@ -60,15 +60,15 @@ public class PanelZone extends JPanel implements ActionListener
 
         this.imgFond = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
 
-        this.tailleLargeur  = this.ctrl.getNbColonne();
-        this.tailleHauteur  = this.ctrl.getNbLigne();
+        this.tailleColonne  = this.ctrl.getNbColonne();
+        this.tailleLigne  = this.ctrl.getNbLigne();
         this.tailleCase     = this.ctrl.getTailleCase();
         this.nomPlateau     = this.ctrl.getNomPlateau();
 
         this.nbZone = 0;
         this.couleurActuelle = Couleur.SAUMON.getCouleur();
 
-        this.tabPanelCases = new JPanel[this.tailleLargeur][this.tailleHauteur];
+        this.tabPanelCases = new JPanel[this.tailleLigne][this.tailleColonne];
 
         // On ajoute un espacement vertical de 20px pour aérer sans utiliser de BorderFactory
         this.setLayout(new BorderLayout(0, 10));
@@ -107,20 +107,20 @@ public class PanelZone extends JPanel implements ActionListener
         JPanel pnlConteneur     = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 30));
         pnlConteneur            .setOpaque(false);
 
-        lblTitre                = new JLabel("Plateau  " + this.tailleLargeur + " × " + this.tailleHauteur + "  :  " + this.nomPlateau + " Zone Active :" + this.ctrl.getZoneActive().getNumZone());
+        lblTitre                = new JLabel("Plateau  " + this.tailleLigne + " × " + this.tailleColonne + "  :  " + this.nomPlateau + " Zone Active :" + this.ctrl.getZoneActive().getNumZone());
         lblTitre                .setFont(this.policeBandeau);
         lblTitre                .setOpaque(false);
 
-        JPanel pnlGrille        = new JPanel(new GridLayout(this.tailleLargeur, this.tailleHauteur, 2, 2));
+        JPanel pnlGrille        = new JPanel(new GridLayout(this.tailleLigne, this.tailleColonne, 2, 2));
         pnlGrille               .setBackground(new Color(60, 60, 75));
 
         JSeparator separateur   = new JSeparator(SwingConstants.HORIZONTAL);
         separateur              .setForeground(new Color(150, 150, 150));
         separateur              .setBackground(new Color(0, 0, 0, 0));
 
-        for (int lig = 0; lig < this.tailleLargeur; lig++)
+        for (int lig = 0; lig < this.tailleLigne; lig++)
         {
-            for (int col = 0; col < this.tailleHauteur; col++)
+            for (int col = 0; col < this.tailleColonne; col++)
             {
                 JPanel pnlCellule = new JPanel();
                 pnlCellule.setBackground(Color.WHITE);
@@ -244,19 +244,19 @@ public class PanelZone extends JPanel implements ActionListener
         if (a.getSource() == this.btnZonePrecedent)
         {
             this.ctrl.zonePrecedente();
-            this.lblTitre.setText("Plateau  " + this.tailleLargeur + " × " + this.tailleHauteur + "  :  " + this.nomPlateau + " Zone Active :" + this.ctrl.getZoneActive().getNumZone());
+            this.lblTitre.setText("Plateau  " + this.tailleLigne + " × " + this.tailleColonne + "  :  " + this.nomPlateau + " Zone Active :" + this.ctrl.getZoneActive().getNumZone());
         }
 
         if (a.getSource() == this.btnZoneSuivante)
         {
             this.ctrl.zoneSuivante();
-            this.lblTitre.setText("Plateau  " + this.tailleLargeur + " × " + this.tailleHauteur + "  :  " + this.nomPlateau + " Zone Active :" + this.ctrl.getZoneActive().getNumZone());
+            this.lblTitre.setText("Plateau  " + this.tailleLigne + " × " + this.tailleColonne + "  :  " + this.nomPlateau + " Zone Active :" + this.ctrl.getZoneActive().getNumZone());
         }
 
         if (a.getSource() == this.btnNouvZone)
         {
             this.ctrl.nouvelleZone();
-            this.lblTitre.setText("Plateau  " + this.tailleLargeur + " × " + this.tailleHauteur + "  :  " + this.nomPlateau + " Zone Active :" + this.ctrl.getZoneActive().getNumZone());
+            this.lblTitre.setText("Plateau  " + this.tailleLigne + " × " + this.tailleColonne + "  :  " + this.nomPlateau + " Zone Active :" + this.ctrl.getZoneActive().getNumZone());
 
             for (Zone zone : this.ctrl.getLstZones())
             {
@@ -299,7 +299,7 @@ public class PanelZone extends JPanel implements ActionListener
 
         if (placementValide)
         {
-            tabPanelCases[lig][col].setBackground(couleurActuelle);
+            tabPanelCases[lig][col].setBackground(zoneActuelle.getCouleur());
             tabPanelCases[lig][col].repaint();
         }
         else

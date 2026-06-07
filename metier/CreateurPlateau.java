@@ -97,7 +97,7 @@ public class CreateurPlateau
                         if (tabZone[l][c] == zone)
                             adjacent = true;
                         //verif si une zone adjacente a la même couleur
-                        if (zone.getCouleur() == tabZone[l][c].getCouleur())
+                        if (zone.getCouleur() == tabZone[l][c].getCouleur() && tabZone[l][c] != zone)
                             coulAdjacent = true;
                     }
                 }
