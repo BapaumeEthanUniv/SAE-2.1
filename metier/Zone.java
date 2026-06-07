@@ -34,6 +34,11 @@ public class Zone
 	{
 		this.couleur = couleur;
 	}
+
+	public static void resetCompteur()
+	{
+		Zone.compteur = 0;
+	}
 	
 	public static void main(String[] args)
 	{

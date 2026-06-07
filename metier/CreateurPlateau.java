@@ -38,6 +38,7 @@ public class CreateurPlateau
 		this.tabCasting      = tabCasting;
 		this.tabZone = new Zone[this.nbLigne][this.nbColonne];
 		this.lstZones = new ArrayList<Zone>();
+		Zone.resetCompteur();
 		this.lstActeurs = new ArrayList<Acteur>();
 
         this.nouvelleZone();
@@ -88,7 +89,11 @@ public class CreateurPlateau
 			{
 				if (l < this.nbLigne && l >= 0 &&
 					c < this.nbColonne && c >= 0 &&
-				    !(c == col && l == lig))
+				    !(c == col && l == lig)&&
+				    !(c == col - 1 && l == lig - 1)&&
+				    !(c == col + 1 && l == lig - 1)&&
+				    !(c == col - 1 && l == lig + 1)&&
+				    !(c == col + 1 && l == lig + 1))
                 {
                     //verif si il y a une zone posée avant de lire
                     if (tabZone[l][c] != null)
