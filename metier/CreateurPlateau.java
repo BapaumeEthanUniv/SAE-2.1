@@ -137,7 +137,7 @@ public class CreateurPlateau
 
 	public void zonePrecedente()
 	{
-		if (lstZones.size() > 1)
+		if (this.lstZones.indexOf(this.zoneActive) > 0)
 			this.zoneActive = this.lstZones.get(this.lstZones.indexOf(this.zoneActive) - 1);
 	}
 

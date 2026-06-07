@@ -34,6 +34,7 @@ public class PanelZone extends JPanel implements ActionListener
     private JButton     		btnZonePrecedent;
     private JButton     		btnZoneSuivant;
     private JLabel      		labelCouleur;
+    private JLabel              lblTitre;
 
     private JComboBox<Couleur>  jcbCouleur;
 
@@ -102,7 +103,7 @@ public class PanelZone extends JPanel implements ActionListener
         JPanel pnlConteneur     = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 30));
         pnlConteneur            .setOpaque(false);
 
-        JLabel lblTitre         = new JLabel("Plateau  " + this.tailleLargeur + " × " + this.tailleHauteur + "  :  " + this.nomPlateau);
+        lblTitre                = new JLabel("Plateau  " + this.tailleLargeur + " × " + this.tailleHauteur + "  :  " + this.nomPlateau + " Zone Active :" + this.ctrl.getZoneActive().getNumZone());
         lblTitre                .setFont(this.policeBandeau);
         lblTitre                .setOpaque(false);
 
@@ -234,11 +235,13 @@ public class PanelZone extends JPanel implements ActionListener
         if (a.getSource() == this.btnZonePrecedent)
         {
             this.ctrl.zonePrecedente();
+            this.lblTitre.setText("Plateau  " + this.tailleLargeur + " × " + this.tailleHauteur + "  :  " + this.nomPlateau + " Zone Active :" + this.ctrl.getZoneActive().getNumZone());
         }
 
         if (a.getSource() == this.btnZoneSuivant)
         {
             this.ctrl.nouvelleZone();
+            this.lblTitre.setText("Plateau  " + this.tailleLargeur + " × " + this.tailleHauteur + "  :  " + this.nomPlateau + " Zone Active :" + this.ctrl.getZoneActive().getNumZone());
 
             for (Zone zone : this.ctrl.getLstZones())
             {
