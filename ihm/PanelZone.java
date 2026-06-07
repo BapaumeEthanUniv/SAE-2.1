@@ -257,6 +257,7 @@ public class PanelZone extends JPanel implements ActionListener
         {
             this.ctrl.nouvelleZone();
             this.lblTitre.setText("Plateau  " + this.tailleLigne + " × " + this.tailleColonne + "  :  " + this.nomPlateau + " Zone Active :" + this.ctrl.getZoneActive().getNumZone());
+            this.jcbCouleur         .setSelectedIndex(11); // Saumon (couleur par défaut)
 
             for (Zone zone : this.ctrl.getLstZones())
             {
@@ -274,6 +275,7 @@ public class PanelZone extends JPanel implements ActionListener
                 if (this.ctrl.getZoneActive() != null)
                 {
                     this.ctrl.changerCouleurZone(choix, this.ctrl.getZoneActive());
+                    majZone();
                 }
             }
         }
@@ -299,13 +301,25 @@ public class PanelZone extends JPanel implements ActionListener
 
         if (placementValide)
         {
-            tabPanelCases[lig][col].setBackground(zoneActuelle.getCouleur());
-            tabPanelCases[lig][col].repaint();
+            majZone();
         }
         else
         {
             System.out.println("zone placé refusé."); // A changer par un JLabel ou autre
         }
+    }
+
+    private void majZone()
+    {
+            for (int lig = 0; lig < tabPanelCases.length; lig ++)
+                for (int col = 0; col < tabPanelCases[lig].length; col ++)
+                {
+                    if (this.ctrl.getTabZone()[lig][col] != null)
+                    {
+                        tabPanelCases[lig][col].setBackground(this.ctrl.getTabZone()[lig][col].getCouleur());
+                       tabPanelCases[lig][col].repaint();
+                    }
+                }
     }
 
     @Override
