@@ -89,12 +89,12 @@ public class PanelSymbole extends JPanel implements ActionListener
 		
 		Zone zoneCase = this.ctrl.getTabZone()[lig][col];
 		
-		if (zoneCase != null) 	{ pnlCellule.setBackground(zoneCase.getCouleur().getCouleur()); }
+		if (zoneCase != null) 	{ pnlCellule.setBackground(zoneCase.getCouleurAwt()); }
 		else			{ pnlCellule.setBackground( Color.WHITE ); }
 
 		JLabel lblImage = new JLabel();
 		lblImage.setPreferredSize(new Dimension(taille - 6, taille - 6));
-		lblImage.setOpaque(false); // Transparent par défaut pour laisser voir la Zone
+		lblImage.setOpaque(false); 
 		
 		pnlCellule.add(lblImage);
 
@@ -132,6 +132,8 @@ public class PanelSymbole extends JPanel implements ActionListener
 		                    lblImage.setOpaque(true);
 		                    pnlCellule.repaint();
 		                }
+		                
+		                //this.ctrl.setPrincipal (couleurCadre, 
 		            }
 		        }
 		        else if (SwingUtilities.isRightMouseButton(e))
@@ -200,7 +202,6 @@ public class PanelSymbole extends JPanel implements ActionListener
 
         if (e.getSource() == this.btnConfirmer)
         {
-            // Génère les dossiers et fichiers de sauvegarde !
             this.ctrl.creerPlateau();
             System.out.println("Plateau généré avec succès !");
 
