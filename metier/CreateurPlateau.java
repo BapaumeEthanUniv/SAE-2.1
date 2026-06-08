@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class CreateurPlateau 
 {
+	//Attribut
 	private String            nomPlateau; //Nom du plateau
 
 	private int               nbLigne;    //Nombre de ligne

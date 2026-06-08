@@ -1,31 +1,31 @@
 package metier;
 
 import java.awt.Color;
-import java.awt.color.*;
-import java.util.ArrayList;
 
 public class Zone
 {
+	//Attribut
 	private        Couleur couleur;
-	private static int compteur;
-	private        int numZone;
+	private static int     compteur;
+	private        int     numZone;  //Numéro auto-incrémenté
 
+	//Constructeur
 	public Zone(Couleur couleur)
 	{
-		this.numZone=++Zone.compteur; //incrémentation du nombre de Zone + attribution du numéro de zone
-		this.couleur=couleur;
+		this.numZone = ++Zone.compteur; //Incrémentation du nombre de Zone + attribution du numéro de zone
+		this.couleur = couleur;
 	}
 
-	//getters
-	public Couleur getCouleur ()    {return this.couleur;} // retourne la couleur de l'énum Couleur.java
-	public Color   getCouleurAwt () {return this.getCouleur().getCouleur();} //retourne la couleur en objet awt.Color
+	//Getters
+	public Couleur getCouleur ()    {return this.couleur;}                   //Retourne la couleur de l'énum Couleur.java
+	public Color   getCouleurAwt () {return this.getCouleur().getCouleur();} //Retourne la couleur en objet awt.Color
 	public int     getNumZone ()    {return this.numZone;}
 
-	//setters
+	//Setters
 	public void setNumZone(int numZone)     { this.numZone = numZone;}
 	public void setCouleur(Couleur couleur) { this.couleur = couleur;}
 
-	//autres méthodes
+	//Autres méthodes
 	public String toString()
 	{
 		String sRet = String.format("%03d" , this.numZone);
