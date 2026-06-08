@@ -317,7 +317,7 @@ public class PanelZone extends JPanel implements ActionListener
                 {
                     if (this.ctrl.getTabZone()[lig][col] != null)
                     {
-                        tabPanelCases[lig][col].setBackground(this.ctrl.getTabZone()[lig][col].getCouleur().getCouleur());
+                        tabPanelCases[lig][col].setBackground(this.ctrl.getTabZone()[lig][col].getCouleurAwt());
                 		tabPanelCases[lig][col].repaint();
                     }
                     else
