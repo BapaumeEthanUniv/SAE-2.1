@@ -24,23 +24,23 @@ public class PanelSymbole extends JPanel implements ActionListener
 {
 	private Controleur          	ctrl;
 	private FrameCreation       	frame;
-	private int                 	indice;
+	private int                 	indice;       // permet le changement des panels
 
-	private Image			imgFond;
+	private Image                   imgFond;
 
-	private JPanel[][]          	tabPnlCases;
+	private JPanel[][]              tabPnlCases;  // tableau de JPanel qui constituera le plateau
 
-    	private JComboBox<Role>     	jcbRole;
-    	private JComboBox<Casting>  	jcbCasting;
+    	private JComboBox<Role>         jcbRole;      // liste des rôles     choisis par le joueur
+    	private JComboBox<Casting>      jcbCasting;   // liste des castings  choisis par le joueur
 
-	private JRadioButton        	rbRole;
-	private JRadioButton        	rbCasting;
+	private JRadioButton            rbRole;       // permettra de choisir si on veut placer un rôle
+	private JRadioButton            rbCasting;    //                                           casting
 
-	private JButton             	btnPrecedent;
-	private JButton             	btnConfirmer;
-	private JButton			btnGomme;
+	private JButton                 btnPrecedent; 
+	private JButton                 btnConfirmer;
+	private JButton                 btnGomme;
 	
-	private ButtonGroup 		bgMode;
+	private ButtonGroup             bgMode;      // englobera les JRadioButton 
 
 	public PanelSymbole(Controleur ctrl, FrameCreation f, int indice)
 	{
@@ -56,24 +56,26 @@ public class PanelSymbole extends JPanel implements ActionListener
 		/* Création et initialisation des composants       */
 		/*-------------------------------------------------*/
 
+		// Partie Haut
 		JPanel pnlHaut = new JPanel(new BorderLayout());
 		pnlHaut.setOpaque(false);
 
-		JPanel pnlOutils = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
-		pnlOutils.setOpaque(false);
+			JPanel pnlOutils = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+			pnlOutils.setOpaque(false);
 
-		this.jcbRole    = new JComboBox<>(this.ctrl.getTabRole());
-		this.jcbCasting = new JComboBox<>(this.ctrl.getTabCasting());
+			this.jcbRole    = new JComboBox<>(this.ctrl.getTabRole());
+			this.jcbCasting = new JComboBox<>(this.ctrl.getTabCasting());
 
-		this.rbRole     = new JRadioButton("Placer un Rôle :", true);
-		this.rbCasting  = new JRadioButton("Assigner un Casting :", false);
-		this.rbRole.setOpaque(false);
-		this.rbCasting.setOpaque(false);
+			this.rbRole     = new JRadioButton("Placer un Rôle :", true);
+			this.rbCasting  = new JRadioButton("Assigner un Casting :", false);
+			this.rbRole.setOpaque(false);
+			this.rbCasting.setOpaque(false);
 
-		this.bgMode = new ButtonGroup();
-		bgMode.add(this.rbRole);
-		bgMode.add(this.rbCasting);
+			this.bgMode = new ButtonGroup();
+			bgMode.add(this.rbRole);
+			bgMode.add(this.rbCasting);
 
+		// Partie Centrale
 		JPanel pnlConteneurGrille = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 30));
 		pnlConteneurGrille.setOpaque(false);
 
@@ -86,6 +88,7 @@ public class PanelSymbole extends JPanel implements ActionListener
 
 		this.tabPnlCases = new JPanel[nbLigne][nbCol];
 
+		// Constitution de la grille
 		for (int lig = 0; lig < nbLigne; lig++)
 		{
 		    for (int col = 0; col < nbCol; col++)
