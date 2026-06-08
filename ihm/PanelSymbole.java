@@ -229,7 +229,8 @@ public class PanelSymbole extends JPanel implements ActionListener
 		    	this.frame.setPnl(this.frame.getPnl(indice - 1));
 		}
 
-		if (e.getSource() == this.btnConfirmer)
+		if (e.getSource() == this.btnConfirmer && 
+		    this. ctrl.principalPresent())
 		{
 			this.ctrl.creerPlateau();
 		    	System.out.println("Plateau généré avec succès !");

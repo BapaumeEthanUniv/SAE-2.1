@@ -12,40 +12,49 @@ import javax.swing.*;
 
 public class PanelAccueilCreation extends JPanel implements ActionListener
 {
-	private Controleur 		ctrl;
-	private FrameCreation 	frameSaisie;
-	private int		    	indice;
+	private Controleur 		ctrl;		
+	private FrameCreation 		frameSaisie;	
+	private int		    	indice; 	// permet le changement des panels
 	
 	private Image 			imgFond;
 	
 	private JButton			btnCreer;
-	//private JButton			btnModifier;
-	//private JButton			btnCopier;
+	
+	/* -- Pas eu le temps de concevoir les parties MODIFIER et COPIER... -- */
+	//private JButton		btnModifier;
+	//private JButton		btnCopier;
 	
 	public PanelAccueilCreation (Controleur ctrl, FrameCreation f, int indice)
 	{
+		
+		/*-------------------------------*/
+		/*   Création des composants     */
+		/*-------------------------------*/
+		
 		this.ctrl 		= ctrl;
 		this.frameSaisie 	= f;
 		this.indice 		= indice;
 	
-		this.setLayout(new GridLayout(14,1));
+		this.setLayout(new GridLayout(14,1)); 	// nombre de lignes conséquent --> permet de baisser le bouton pas rapport au titre
 		
-		this.imgFond      = Toolkit.getDefaultToolkit().getImage("./images/img-accueil-creation.png");
+		this.imgFond      = Toolkit.getDefaultToolkit().getImage("./images/img-accueil-creation.png"); // charge l'image du fond
 		
+		// Partie Bouton Creer
 		JPanel pnlCreer 	= new JPanel();
 		pnlCreer		.setLayout(new FlowLayout(FlowLayout.CENTER));
 		pnlCreer		.setOpaque(false);
 		
+		/*
 		JPanel pnlModifier 	= new JPanel();
 		pnlModifier		.setLayout(new FlowLayout(FlowLayout.CENTER));
 		pnlModifier		.setOpaque(false);
 		
 		JPanel pnlCopier 	= new JPanel();
 		pnlCopier		.setLayout(new FlowLayout(FlowLayout.CENTER));
-		pnlCopier		.setOpaque(false);
+		pnlCopier		.setOpaque(false);*/
 		
 		this.btnCreer 		= new JButton("Créer un plateau");
-		this.btnCreer		.setOpaque(false);
+		this.btnCreer		.setOpaque(false);			
 		
 		//this.btnModifier 	= new JButton("Modifier un plateau");
 		//this.btnModifier	.setOpaque(false);
