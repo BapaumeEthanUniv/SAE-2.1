@@ -206,6 +206,33 @@ public class CreateurPlateau
 	}
 
 	public void   setPrincipal (Color c, Acteur a) {a.setPrincipal(c);}
+	
+	// Méthode pour vérifier si une couleur de casting est déjà sur le plateau
+	public boolean estCastingUtilise(Color couleurAVerifier)
+	{
+	    for (Acteur acteur : this.lstActeurs)
+	    {
+		// S'il est principal et qu'il a déjà cette couleur --> le casting est pris
+		if (acteur.estPrincipal() && acteur.getCouleur().equals(couleurAVerifier))
+		{
+		    return true;
+		}
+	    }
+	    return false; // On a fini de chercher, la couleur est libre
+	}
+
+	// Méthode pour trouver quel acteur est à une position précise (X, Y)
+	public Acteur getActeur(int posX, int posY)
+	{
+	    for (Acteur acteur : this.lstActeurs)
+	    {
+		if (acteur.getPosX() == posX && acteur.getPosY() == posY)
+		{
+		    return acteur; // On a trouvé l'acteur sur lequel on a cliqué !
+		}
+	    }
+	    return null; // Il n'y a pas d'acteur ici
+	}
 
 	public void CreerPlateau()
 	{
