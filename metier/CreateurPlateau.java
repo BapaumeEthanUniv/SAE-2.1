@@ -121,6 +121,7 @@ public class CreateurPlateau
 
     public void effacerZone(Zone zone)
     {
+		System.out.println(zone);
 		for (int lig = 0; lig < tabZone.length; lig ++)
 			for (int col = 0; col < tabZone[lig].length; col ++)
 				if (this.tabZone[lig][col] == zone)
