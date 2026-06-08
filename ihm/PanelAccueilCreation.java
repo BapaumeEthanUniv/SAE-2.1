@@ -75,8 +75,8 @@ public class PanelAccueilCreation extends JPanel implements ActionListener
 		this.add(new JLabel(""));
 		
 		this.add(pnlCreer);
-		this.add(pnlModifier);
-		this.add(pnlCopier);
+		//this.add(pnlModifier);
+		//this.add(pnlCopier);
 		
 		this.btnCreer.addActionListener(this);
 		//this.btnCopier.addActionListener(this);
