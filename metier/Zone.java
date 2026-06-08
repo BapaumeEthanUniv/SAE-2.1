@@ -6,22 +6,26 @@ import java.util.ArrayList;
 
 public class Zone
 {
-	private  Couleur couleur;
+	private        Couleur couleur;
 	private static int compteur;
-	private int numZone;
+	private        int numZone;
 
 	public Zone(Couleur couleur)
 	{
-		this.numZone=++Zone.compteur;
+		this.numZone=++Zone.compteur; //incrémentation du nombre de Zone + attribution du numéro de zone
 		this.couleur=couleur;
 	}
-	
-	public Couleur getCouleur() {return this.couleur;}
-	public Color getCouleurAwt() {return this.getCouleur().getCouleur();}
-	public int   getNumZone() {return this.numZone;}
 
-	public void setNumZone(int numZone) {this.numZone = numZone;}
+	//getters
+	public Couleur getCouleur ()    {return this.couleur;} // retourne la couleur de l'énum Couleur.java
+	public Color   getCouleurAwt () {return this.getCouleur().getCouleur();} //retourne la couleur en objet awt.Color
+	public int     getNumZone ()    {return this.numZone;}
 
+	//setters
+	public void setNumZone(int numZone)     { this.numZone = numZone;}
+	public void setCouleur(Couleur couleur) { this.couleur = couleur;}
+
+	//autres méthodes
 	public String toString()
 	{
 		String sRet = String.format("%03d" , this.numZone);
@@ -30,12 +34,7 @@ public class Zone
 		sRet+=        String.format("%03d" , this.couleur.getCouleur().getBlue());
 		return sRet;
 	}
-
-	public void setCouleur(Couleur couleur)
-	{
-		this.couleur = couleur;
-	}
-
+	
 	public static void resetCompteur()
 	{
 		Zone.compteur = 0;
