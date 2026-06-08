@@ -39,7 +39,7 @@ public enum Couleur
 	                /* Méthodes */
 	                /*----------*/
 	
-	//Geters :
+	//Getters :
 	public Color      getCouleur() {return couleur;}
 
 	public String     getLib()     {return lib;}
@@ -49,6 +49,7 @@ public enum Couleur
 		return Couleur.values().length;
 	}
 
+	// autres méthodes :
 	public String     toString()
 	{
 		return this.name();
