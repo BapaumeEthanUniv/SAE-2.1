@@ -112,9 +112,9 @@ public class PanelSymbole extends JPanel implements ActionListener
 				        Role roleChoisi = (Role) jcbRole.getSelectedItem();
 				        ImageIcon imgRole = creerImgRole(roleChoisi); 
 
-				        boolean ok = ctrl.ajouterActeur(roleChoisi, finalLig, finalCol);
+				        boolean placementPossible = ctrl.ajouterActeur(roleChoisi, finalLig, finalCol);
 				        
-				        if (ok) 
+				        if (placementPossible) 
 				        {
 				            lblImage.setIcon(imgRole);
 				            lblImage.setOpaque(false); 
@@ -132,6 +132,7 @@ public class PanelSymbole extends JPanel implements ActionListener
 						if (ctrl.estCastingUtilise(couleurCadre))
 						{
 						    Acteur acteurActuel = ctrl.getActeur(finalLig, finalCol);
+						    
 						    if (acteurActuel != null && acteurActuel.estPrincipal() && acteurActuel.getCouleur().equals(couleurCadre)) 
 						    {
 							return; 
