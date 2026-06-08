@@ -108,7 +108,7 @@ public class PanelZone extends JPanel implements ActionListener
 		JPanel pnlConteneur     = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 30));
 		pnlConteneur            .setOpaque(false);
 
-		lblTitre                = new JLabel("Plateau  " + this.tailleLigne + " × " + this.tailleColonne + "  :  " + this.nomPlateau + "\t Zone Active :" + this.ctrl.getZoneActive().getNumZone());
+		lblTitre                = new JLabel("Plateau  " + this.tailleLigne + " × " + this.tailleColonne + "  :  '" + this.nomPlateau + "'        Zone Active :" + this.ctrl.getZoneActive().getNumZone());
 		lblTitre                .setFont(this.policeBandeau);
 		lblTitre                .setOpaque(false);
 
@@ -270,20 +270,20 @@ public class PanelZone extends JPanel implements ActionListener
         	{
             	this.ctrl		.zonePrecedente();
             	this.jcbCouleur	.setSelectedItem(this.ctrl.getZoneActive().getCouleur());
-            	this.lblTitre	.setText("Plateau  " + this.tailleLigne + " × " + this.tailleColonne + "  :  " + this.nomPlateau + "\t Zone Active :" + this.ctrl.getZoneActive().getNumZone());
+            	this.lblTitre	.setText("Plateau  " + this.tailleLigne + " × " + this.tailleColonne + "  :  '" + this.nomPlateau + "'        Zone Active :" + this.ctrl.getZoneActive().getNumZone());
         	}
 
         	if (a.getSource() == this.btnZoneSuivante)
         	{
             	this.ctrl		.zoneSuivante();
             	this.jcbCouleur	.setSelectedItem(this.ctrl.getZoneActive().getCouleur());
-            	this.lblTitre	.setText("Plateau  " + this.tailleLigne + " × " + this.tailleColonne + "  :  " + this.nomPlateau + "\t Zone Active :" + this.ctrl.getZoneActive().getNumZone());
+            	this.lblTitre	.setText("Plateau  " + this.tailleLigne + " × " + this.tailleColonne + "  :  '" + this.nomPlateau + "'        Zone Active :" + this.ctrl.getZoneActive().getNumZone());
         	}
 
         	if (a.getSource() == this.btnNouvZone)
         	{
             	this.ctrl		.nouvelleZone();
-            	this.lblTitre	.setText("Plateau  " + this.tailleLigne + " × " + this.tailleColonne + "  :  " + this.nomPlateau + "\t Zone Active :" + this.ctrl.getZoneActive().getNumZone());
+            	this.lblTitre	.setText("Plateau  " + this.tailleLigne + " × " + this.tailleColonne + "  :  '" + this.nomPlateau + "'        Zone Active :" + this.ctrl.getZoneActive().getNumZone());
             	this.jcbCouleur .setSelectedIndex(11); // Saumon (couleur par défaut)
         	}
 
