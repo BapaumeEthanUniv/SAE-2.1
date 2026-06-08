@@ -119,9 +119,12 @@ public class CreateurPlateau
 		return true;
 	}
 
-    public void effacerZone(int lig, int col)
+    public void effacerZone(Zone zone)
     {
-        this.tabZone[lig][col] = null;
+		for (int lig = 0; lig < tabZone.length; lig ++)
+			for (int col = 0; col < tabZone[lig].length; col ++)
+				if (this.tabZone[lig][col] == zone)
+					this.tabZone[lig][col] = null;
     }
 
 	public boolean changerCouleurZone(Couleur couleur, Zone zone)

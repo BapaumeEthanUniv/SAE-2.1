@@ -64,7 +64,7 @@ public class Controleur
 	//page 2
 	public boolean modifierZone(int lig, int col, Zone zone) {return this.metier.modifierZone(lig, col, zone);}
 
-    public void effacerZone(int lig, int col) { this.metier.effacerZone(lig, col); }
+    public void effacerZone(Zone zone) { this.metier.effacerZone(zone); }
 
 	public boolean changerCouleurZone(Couleur couleur, Zone zone) {return this.metier.changerCouleurZone(couleur, zone);}
 
