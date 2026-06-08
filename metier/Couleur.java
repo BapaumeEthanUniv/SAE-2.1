@@ -4,6 +4,7 @@ import java.awt.Color;
 
 public enum Couleur
 {
+
 	ROSE        ( "Rose"        , new Color (230,100,160)),
 	ROUGE       ( "Rouge"       , Color.RED) ,
 	ROUGE_CLAIR ( "Rouge Clair" , new Color (255,64 ,64 )),
