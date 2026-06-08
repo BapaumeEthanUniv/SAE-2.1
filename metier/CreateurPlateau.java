@@ -156,7 +156,7 @@ public class CreateurPlateau
 	//Crée une nouvelle zone
 	public void nouvelleZone()
 	{
-		Zone zone = new Zone(Couleur.SAUMON);
+		Zone zone = new Zone(Couleur.VIOLET);
 		this.lstZones.add(zone);
 		this.setZoneActive(zone);
 	}
