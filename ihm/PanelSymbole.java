@@ -94,7 +94,7 @@ public class PanelSymbole extends JPanel implements ActionListener
                 
                 if (zoneDeLaCase != null) 
                 {
-                    lblCellule.setBackground(zoneDeLaCase.getCouleur());
+                    lblCellule.setBackground(zoneDeLaCase.getCouleur().getCouleur());
                 } 
                 else 
                 {
@@ -128,9 +128,9 @@ public class PanelSymbole extends JPanel implements ActionListener
                             {
                                 Casting castingChoisi = (Casting) jcbCasting.getSelectedItem();
 
-                                if (!lblCellule.getText().equals("")) {
-                                    lblCellule.setForeground(Color.WHITE);
-
+                                if (!lblCellule.getIcon().equals(null)) 
+                                {
+                                    
                                 }
                             }
                         }
@@ -243,7 +243,7 @@ public class PanelSymbole extends JPanel implements ActionListener
 	    ImageIcon iconeOriginale = new ImageIcon(chemin);
 
 	    tailleCase = this.ctrl.getTailleCase();
-	    Image imgRedimensionnee = iconeOriginale.getImage().getScaledInstance(tailleCase, tailleCase, Image.SCALE_SMOOTH);
+	    Image imgRedimensionnee = iconeOriginale.getImage().getScaledInstance(tailleCase-5, tailleCase-5, Image.SCALE_SMOOTH);
 	   
 	    return new ImageIcon(imgRedimensionnee);
 	}
