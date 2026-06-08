@@ -1,32 +1,20 @@
 package ihm;
 
 import controleur.Controleur;
-
-import metier.CreateurPlateau;
-import metier.Casting;
-import metier.Role;
-
-
-import java.io.File;
-
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Dimension;
-
+import java.awt.Toolkit;
 import java.awt.event.*;
-
+import java.io.File;
 import javax.swing.*;
 
 public class PanelAccueilCreation extends JPanel implements ActionListener
 {
 	private Controleur 		ctrl;
 	private FrameCreation 	frameSaisie;
-	private int			indice;
+	private int		    	indice;
 	
 	private Image 			imgFond;
 	
@@ -82,6 +70,7 @@ public class PanelAccueilCreation extends JPanel implements ActionListener
 		this.add(pnlCopier);
 		
 		this.btnCreer.addActionListener(this);
+		this.btnCopier.addActionListener(this);
 		
 		this.setVisible(true);
 	}
@@ -108,7 +97,8 @@ public class PanelAccueilCreation extends JPanel implements ActionListener
 		
 		if ( e.getSource() == this.btnCopier )
 		{
-			JFileChooser chooser = new JFileChooser("."); 
+			JFileChooser chooser = new JFileChooser("./Plateau");
+			chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			
 			int res = chooser.showOpenDialog(this); 
 			
