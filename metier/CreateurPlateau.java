@@ -206,10 +206,8 @@ public class CreateurPlateau
 
 	public void CreerPlateau()
 	{
-		File filePrincipal = new File("Plateau");
         File filePlateau = new File("Plateau/" + this.nomPlateau);
 
-		filePrincipal.mkdir();
         filePlateau  .mkdir();
 
 		this.exportZone();

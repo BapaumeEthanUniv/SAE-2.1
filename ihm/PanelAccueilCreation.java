@@ -71,6 +71,7 @@ public class PanelAccueilCreation extends JPanel implements ActionListener
 		
 		this.btnCreer.addActionListener(this);
 		this.btnCopier.addActionListener(this);
+		this.btnModifier.addActionListener(this);
 		
 		this.setVisible(true);
 	}
@@ -85,13 +86,15 @@ public class PanelAccueilCreation extends JPanel implements ActionListener
 		
 		if ( e.getSource() == this.btnModifier )
 		{
-			JFileChooser chooser = new JFileChooser("."); 
-			
+			JFileChooser chooser = new JFileChooser("./Plateau"); 
+			chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
 			int res = chooser.showOpenDialog(this); 
 			
 			if (res == JFileChooser.APPROVE_OPTION) 
 			{
 				File fichier = chooser.getSelectedFile();
+				this.frameSaisie.creerPanelZone(this.indice + 1);
 				this.frameSaisie.setPnl(this.frameSaisie.getPnl(indice + 1));
 			}
 		}

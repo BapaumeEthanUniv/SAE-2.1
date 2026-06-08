@@ -2,6 +2,8 @@ package ihm;
 
 import controleur.Controleur;
 import java.awt.BorderLayout;
+import java.io.File;
+
 import javax.swing.*;
 
 public class FrameCreation extends JFrame
@@ -29,7 +31,9 @@ public class FrameCreation extends JFrame
 		this.add(this.panelActif, BorderLayout.CENTER);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        	this.setVisible(true); 
+        this.setVisible(true);
+		File filePrincipal = new File("Plateau");
+		filePrincipal.mkdir();
 	}
 	
 	public void setPnl(JPanel pnl)
