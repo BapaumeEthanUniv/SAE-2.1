@@ -22,10 +22,10 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 {
 	public 	static 	int 	NB_CASTING_MIN 	= 4;
 	public 	static 	int 	NB_ROLE_MIN 	= 2;
-	public  static  int	    TAILLE_MIN	= 6;
-	public  static  int	    TAILLE_MAX	= 10;
-	public  static  int	    TAILLE_CASE_MIN	= 20;
-    public  static  int     TAILLE_CASE_MAX = 45;
+	public  static  int	TAILLE_MIN	= 6;
+	public  static  int	TAILLE_MAX	= 10;
+	public  static  int	TAILLE_CASE_MIN	= 20;
+   	public  static  int     TAILLE_CASE_MAX = 45;
 
 	private Controleur 	ctrl;
 	private FrameCreation 	frame;
@@ -34,7 +34,7 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 	private Image 		imgFond;
 	
 	private JButton 	btnSuivant;
-    private JButton     btnPrecedent;
+    	private JButton     btnPrecedent;
 
 	private JCheckBox[] 	tabCBCasting;
 	private JCheckBox[] 	tabCBRole;
@@ -48,11 +48,11 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 	private JTextField	txtNomPlateau;
 	private JTextField 	txtLigne;
 	private JTextField 	txtColonne;
-    private JTextField  txtTailleCase;
+    	private JTextField  txtTailleCase;
 	// private JTextField 	txtJoueur;
 
-    private Font policeSousTitre;
-    private Font policeLabel;
+    	private Font policeSousTitre;
+    	private Font policeLabel;
 	
 	public PanelSaisieCreation (Controleur ctrl, FrameCreation f, int indice)
 	{	
@@ -68,11 +68,11 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 		this.imgFond                = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
 		
 		// Partie Plateau
-        JPanel  pnlNomPlateau       = new JPanel();
-        pnlNomPlateau               .setLayout(new BorderLayout(0, 15));
-        pnlNomPlateau               .setOpaque(false);
+		JPanel  pnlNomPlateau       = new JPanel();
+		pnlNomPlateau               .setLayout(new BorderLayout(0, 15));
+		pnlNomPlateau               .setOpaque(false);
 
-        JPanel	pnlSaisieNom		= new JPanel();
+        	JPanel	pnlSaisieNom		= new JPanel();
 		pnlSaisieNom                .setLayout (new FlowLayout(FlowLayout.CENTER));
 		pnlSaisieNom                .setOpaque(false);
 		
@@ -80,9 +80,9 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 		pnlTaillePlateau            .setLayout(new BorderLayout(0, 15));
 		pnlTaillePlateau            .setOpaque(false);
 
-        JPanel  pnlSaisieTaille     = new JPanel();
-        pnlSaisieTaille             .setLayout(new FlowLayout(FlowLayout.CENTER));
-        pnlSaisieTaille             .setOpaque(false);
+        	JPanel  pnlSaisieTaille     = new JPanel();
+        	pnlSaisieTaille             .setLayout(new FlowLayout(FlowLayout.CENTER));
+        	pnlSaisieTaille             .setOpaque(false);
 
         // Partie Casting
 		JPanel	pnlCasting 		    = new JPanel();
@@ -90,33 +90,33 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 		pnlCasting.setOpaque		(false);
 		
 		JPanel  pnlSaisieCasting    = new JPanel();
-        pnlSaisieCasting            .setLayout(new FlowLayout(FlowLayout.CENTER));
-        pnlSaisieCasting            .setOpaque(false);
+        	pnlSaisieCasting            .setLayout(new FlowLayout(FlowLayout.CENTER));
+        	pnlSaisieCasting            .setOpaque(false);
 
-        JPanel 	pnlLstCasting		= new JPanel();
+        	JPanel 	pnlLstCasting		= new JPanel();
 		pnlLstCasting.setLayout	    (new GridLayout(2, 3));
 		pnlLstCasting.setOpaque	    (false);
 
         // Partie Rôle
-		JPanel	pnlRole 		    = new JPanel();
-		pnlRole.setLayout		    (new BorderLayout(0, 10));
-		pnlRole.setOpaque		    (false);
+		JPanel	pnlRole 		= new JPanel();
+		pnlRole.setLayout		(new BorderLayout(0, 10));
+		pnlRole.setOpaque		(false);
 
-        JPanel  pnlSaisieRole      = new JPanel();
-        pnlSaisieRole              .setLayout(new FlowLayout(FlowLayout.CENTER));
-        pnlSaisieRole              .setOpaque(false);
+        	JPanel  pnlSaisieRole      	= new JPanel();
+        	pnlSaisieRole              	.setLayout(new FlowLayout(FlowLayout.CENTER));
+        	pnlSaisieRole              	.setOpaque(false);
 
-        JPanel 	pnlLstRole	        = new JPanel();
-		pnlLstRole.setLayout	    (new GridLayout(2, 3));
-		pnlLstRole.setOpaque	    (false);
+        	JPanel 	pnlLstRole	        = new JPanel();
+		pnlLstRole.setLayout	    	(new GridLayout(2, 3));
+		pnlLstRole.setOpaque	    	(false);
 
         // Partie Bouton
-        JPanel  pnlBouton           = new JPanel();
-        pnlBouton.setLayout         (new FlowLayout(FlowLayout.CENTER, 50, 20));
-        pnlBouton.setOpaque	        (false);
+        	JPanel  pnlBouton           	= new JPanel();
+        	pnlBouton.setLayout         	(new FlowLayout(FlowLayout.CENTER, 50, 20));
+        	pnlBouton.setOpaque	        (false);
 
-        this.btnPrecedent			= new JButton("<< Précédent" );
-		this.btnSuivant			    = new JButton("Suivant >>");
+        	this.btnPrecedent		= new JButton("<< Précédent" );
+		this.btnSuivant			= new JButton("Suivant >>");
 		
 		String[]  lstCasting	    = new String[this.ctrl.getNbCasting()];
 		
