@@ -251,6 +251,7 @@ public class PanelZone extends JPanel implements ActionListener
         if (a.getSource() == this.btnZoneSuivante)
         {
             this.ctrl.zoneSuivante();
+            this.jcbCouleur.setSelectedItem(this.ctrl.getZoneActive().getCouleur());
             this.lblTitre.setText("Plateau  " + this.tailleLigne + " × " + this.tailleColonne + "  :  " + this.nomPlateau + " Zone Active :" + this.ctrl.getZoneActive().getNumZone());
         }
 
