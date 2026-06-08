@@ -149,7 +149,7 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
         	JLabel lblTitre                    = new JLabel ("<html><u>Saisie des Informations</u></html>", JLabel.CENTER);
 
 		// Essai pour initialiser les polices en prenant la police téléchargée dans le dossier polices/
-        	try
+		try
         	{
 		    File fichierTitre              = new File("./polices/TitreSaisieInfos/Shrikhand-Regular.ttf");
 		    Font policeLbl                 = Font.createFont(Font.TRUETYPE_FONT, fichierTitre);   // crée la police
