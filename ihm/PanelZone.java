@@ -290,7 +290,7 @@ public class PanelZone extends JPanel implements ActionListener
 
         if (this.tglGomme.isSelected())
         {
-            this.ctrl.effacerZone(lig, col);
+            this.ctrl.effacerZone(this.ctrl.getZoneActive());
             tabPanelCases[lig][col].setBackground(Color.WHITE);
             tabPanelCases[lig][col].repaint();
             return;
