@@ -24,7 +24,7 @@ public class PanelSymbole extends JPanel implements ActionListener
     private FrameCreation       frame;
     private int                 indice;
 
-    private Image 		        imgFond;
+    private Image 		imgFond;
 
     private JLabel[][]          tabLblCases;
 
@@ -51,29 +51,24 @@ public class PanelSymbole extends JPanel implements ActionListener
         /* Création et initialisation des composants     */
         /*-------------------------------------------------*/
 
-        // --- HAUT : Titre et Outils ---
         JPanel pnlHaut = new JPanel(new BorderLayout());
         pnlHaut.setOpaque(false);
 
         JPanel pnlOutils = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         pnlOutils.setOpaque(false);
 
-        // Les listes déroulantes
         this.jcbRole    = new JComboBox<>(this.ctrl.getTabRole());
         this.jcbCasting = new JComboBox<>(this.ctrl.getTabCasting());
 
-        // Les boutons radio pour choisir le mode (Rôle ou Casting)
         this.rbRole     = new JRadioButton("Placer un Rôle :", true);
         this.rbCasting  = new JRadioButton("Assigner un Casting :", false);
         this.rbRole.setOpaque(false);
         this.rbCasting.setOpaque(false);
 
-        // On les groupe pour qu'un seul soit cochable à la fois
         ButtonGroup bgMode = new ButtonGroup();
         bgMode.add(this.rbRole);
         bgMode.add(this.rbCasting);
 
-        // --- CENTRE : La Grille ---
         JPanel pnlConteneurGrille = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 30));
         pnlConteneurGrille.setOpaque(false);
 
@@ -82,7 +77,7 @@ public class PanelSymbole extends JPanel implements ActionListener
         int taille  = this.ctrl.getTailleCase();
 
         JPanel pnlGrille = new JPanel(new GridLayout(nbLigne, nbCol, 2, 2));
-        pnlGrille.setBackground(new Color(60, 60, 75)); // Lignes du quadrillage
+        pnlGrille.setBackground(new Color(60, 60, 75));
 
         this.tabLblCases = new JLabel[nbLigne][nbCol];
 
@@ -90,41 +85,43 @@ public class PanelSymbole extends JPanel implements ActionListener
         {
             for (int col = 0; col < nbCol; col++)
             {
-                // On utilise un JLabel pour pouvoir afficher du texte
                 JLabel lblCellule = new JLabel("", SwingConstants.CENTER);
                 lblCellule.setOpaque(true);
                 lblCellule.setPreferredSize(new Dimension(taille, taille));
-                lblCellule.setFont(new Font("SansSerif", Font.BOLD, taille / 2)); // Texte proportionnel
+                lblCellule.setFont(new Font("SansSerif", Font.BOLD, taille / 2)); 
 
-                // On récupère la couleur de fond depuis PanelZone !
                 Zone zoneDeLaCase = this.ctrl.getTabZone()[lig][col];
-                if (zoneDeLaCase != null) {
+                
+                if (zoneDeLaCase != null) 
+                {
                     lblCellule.setBackground(zoneDeLaCase.getCouleur());
-                } else {
+                } 
+                else 
+                {
                     lblCellule.setBackground(Color.WHITE);
                 }
 
                 final int finalLig = lig, finalCol = col;
 
-                // Gestionnaire de clics
                 lblCellule.addMouseListener(new MouseAdapter()
                 {
                     public void mousePressed(MouseEvent e)
                     {
-                        // CLIC GAUCHE : Placer
                         if (SwingUtilities.isLeftMouseButton(e))
                         {
                             if (rbRole.isSelected())
                             {
                                 Role roleChoisi = (Role) jcbRole.getSelectedItem();
-
-                                // Ajout dans le backend
+                                //System.out.println(roleChoisi);
+                                ImageIcon imgRole = creerImgRole(roleChoisi);
+				
                                 boolean ok = ctrl.ajouterActeur(roleChoisi, finalLig, finalCol);
 
                                 if (ok) {
 
-                                    lblCellule.setText(roleChoisi.name().substring(0, 1));
-                                    lblCellule.setForeground(Color.BLACK);
+                                    //lblCellule.setText(roleChoisi.name().substring(0, 1));
+                                    lblCellule.setIcon(imgRole);
+                                    //lblCellule.setForeground(Color.BLACK);
                                 }
                             }
                             else if (rbCasting.isSelected())
@@ -134,7 +131,6 @@ public class PanelSymbole extends JPanel implements ActionListener
                                 if (!lblCellule.getText().equals("")) {
                                     lblCellule.setForeground(Color.WHITE);
 
-                                    // Note : Ici tu pourras appeler ta méthode ctrl.setPrincipal(...) plus tard !
                                 }
                             }
                         }
@@ -152,7 +148,6 @@ public class PanelSymbole extends JPanel implements ActionListener
             }
         }
 
-        // --- BAS : Les Boutons ---
         JPanel pnlBouton = new JPanel(new FlowLayout(FlowLayout.CENTER, 50, 20));
         pnlBouton.setOpaque(false);
 
@@ -217,4 +212,39 @@ public class PanelSymbole extends JPanel implements ActionListener
             g.drawImage(this.imgFond, 0, 0, this.getWidth(), this.getHeight(), this);
         }
     }
+    
+    private ImageIcon creerImgRole(Role role)
+    {
+	    String chemin = "";
+	    int tailleCase;
+	    
+	    switch (role.name()) 
+	    {
+		case "CASCADEUR":   
+		    chemin = "./images/cascadeur.png"; 
+		    break;
+		    
+		case "EMOTION": 
+		    chemin = "./images/emotionnel.png"; 
+		    break;
+		    
+		case "ANTAGONISTE": 
+		    chemin = "./images/antagoniste.png"; 
+		    break;
+		    
+		case "FIGURANT":    
+		    chemin = "./images/figurant.png"; 
+		    break;
+		    
+		default: 
+		    return new ImageIcon(); 
+	    }
+	    
+	    ImageIcon iconeOriginale = new ImageIcon(chemin);
+
+	    tailleCase = this.ctrl.getTailleCase();
+	    Image imgRedimensionnee = iconeOriginale.getImage().getScaledInstance(tailleCase, tailleCase, Image.SCALE_SMOOTH);
+	   
+	    return new ImageIcon(imgRedimensionnee);
+	}
 }
