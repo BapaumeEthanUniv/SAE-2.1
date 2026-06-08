@@ -23,32 +23,32 @@ import javax.swing.*;
 public class PanelZone extends JPanel implements ActionListener
 {
     private final JPanel[][] 	tabPanelCases;
-    private Controleur 		    ctrl;
-    private FrameCreation 		frameCreation;
+    private Controleur 		ctrl;
+    private FrameCreation 	frameCreation;
 
-    private Image 		        imgFond;
+    private Image 		imgFond;
 
     private JButton             btnGomme;
-    private JButton     		btnSuivant;
-    private JButton     		btnPrecedent;
-    private JButton     		btnZonePrecedent;
-    private JButton     		btnNouvZone;
+    private JButton     	btnSuivant;
+    private JButton     	btnPrecedent;
+    private JButton     	btnZonePrecedent;
+    private JButton     	btnNouvZone;
     private JButton             btnZoneSuivante;
-    private JLabel      		labelCouleur;
+    private JLabel      	labelCouleur;
     private JLabel              lblTitre;
 
     private JComboBox<Couleur>  jcbCouleur;
 
-    private Color       		couleurActuelle;
+    private Color       	couleurActuelle;
 
-    private int         		indice;
-    private int         		tailleColonne;
-    private int         		tailleLigne;
+    private int         	indice;
+    private int         	tailleColonne;
+    private int         	tailleLigne;
     private int                 tailleCase;
 
     private String              nomPlateau;
-    private int         		nbZone;
-    private boolean     		modeDessin = false;
+    private int         	nbZone;
+    private boolean     	modeDessin = false;
 
     private Font                policeBandeau;
 
@@ -226,7 +226,7 @@ public class PanelZone extends JPanel implements ActionListener
         this.btnZoneSuivante.addActionListener(this);
         this.btnNouvZone.addActionListener(this);
         this.jcbCouleur.addActionListener(this);
-		this.btnGomme.addActionListener(this);
+	this.btnGomme.addActionListener(this);
     }
 
     @Override
@@ -312,8 +312,8 @@ public class PanelZone extends JPanel implements ActionListener
 
     private void majZone()
     {
-            for (int lig = 0; lig < tabPanelCases.length; lig ++)
-                for (int col = 0; col < tabPanelCases[lig].length; col ++)
+    	for (int lig = 0; lig < tabPanelCases.length; lig ++)
+        	for (int col = 0; col < tabPanelCases[lig].length; col ++)
                 {
                     if (this.ctrl.getTabZone()[lig][col] != null)
                     {
