@@ -37,7 +37,7 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 	private Image           imgFond;
 	
 	private JButton         btnSuivant;
-    	private JButton         btnPrecedent;
+        private JButton         btnPrecedent;
 
 	private JCheckBox[]     tabCBCasting;     // tableau de CheckBox pour choisir les castings
 	private JCheckBox[]     tabCBRole;        // tableau de CheckBox pour choisir les rôles
