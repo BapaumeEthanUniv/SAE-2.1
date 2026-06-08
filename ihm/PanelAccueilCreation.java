@@ -40,7 +40,7 @@ public class PanelAccueilCreation extends JPanel implements ActionListener
 	
 		this.setLayout(new GridLayout(14,1)); 	// nombre de lignes conséquent --> permet de baisser le bouton pas rapport au titre
 		
-		this.imgFond      = Toolkit.getDefaultToolkit().getImage("./images/img-accueil-creation.png"); // charge l'image du fond
+		this.imgFond            = Toolkit.getDefaultToolkit().getImage("./images/img-accueil-creation.png"); // charge l'image du fond
 		
 		// Partie Bouton Creer
 		JPanel pnlCreer 	= new JPanel();
