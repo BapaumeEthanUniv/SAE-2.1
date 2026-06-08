@@ -266,8 +266,8 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 	
 	public void actionPerformed (ActionEvent e)
 	{
-		Casting[] 	tabCastingActif = new Casting[this.tabCBCasting.length];   // tableau de Casting --> sera en attribut de initCreateur
-                Role[] 		tabRoleActif 	= new Role   [this.tabCBRole   .length];   // tableau de Casting --> sera en attribut de initCreateur
+		Casting[] tabCastingActif = new Casting[this.getNbCasting() ];   // tableau de Casting --> sera en attribut de initCreateur
+		 Role[]   tabRoleActif    = new Role   [this.getNbRole()    ];   // tableau de Role --> sera en attribut de initCreateur
 		
 		int cptLigne   = 0;                                                        // compteur de lignes   saisies par le joueur --> sera en attribut de initCreateur
 		int cptColonne = 0;                                                        // compteur de colonnes saisies par le joueur --> sera en attribut de initCreateur
@@ -276,21 +276,23 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 		{	
 			if (this.verifier())
 			{
+				int cptCastingActif = 0;
 				// Parcours pour ajouter les castings sélectionnés dans le tableau tabCastingActif
 				for (int cpt = 0; cpt < this.tabCBCasting.length; cpt++)
 				{
 					if (this.tabCBCasting[cpt].isSelected())
 					{
-						tabCastingActif[cpt] = tabCasting[cpt];
+						tabCastingActif[cptCastingActif++] = tabCasting[cpt];
 					}
 				}
 				
+				int cptRoleActif = 0;
 				// Parcours pour ajouter les rôles sélectionnés dans le tableau tabRoleActif
 				for (int cpt = 0; cpt < this.tabCBRole.length; cpt++)
 				{
 					if (this.tabCBRole[cpt].isSelected())
 					{
-						tabRoleActif[cpt]   = tabRole[cpt];
+						tabRoleActif[cptRoleActif++]   = tabRole[cpt];
 					}
 				}
 				
@@ -382,6 +384,34 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 		}
 		
 		return true;
+	}
+
+	//Retourne le nombre de roles sélectionnés
+	public int getNbRole()
+	{
+		int cptRole = 0;
+		for (int cpt = 0; cpt < this.tabCBRole.length; cpt++)
+			{
+				if (this.tabCBRole[cpt].isSelected())
+				{
+					cptRole++;					
+				}
+			}
+		return cptRole;
+	}
+
+	//Retourne le nombre de castings sélectionnés
+	public int getNbCasting()
+	{
+		int cptCasting = 0;
+		for (int cpt = 0; cpt < this.tabCBCasting.length; cpt++)
+			{
+				if (this.tabCBCasting[cpt].isSelected())
+				{
+					cptCasting++;					
+				}
+			}
+			return cptCasting;
 	}
 	
 	// Méthode permettant de changer le fond du panel par imgFond
