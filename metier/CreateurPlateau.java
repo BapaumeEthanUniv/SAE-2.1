@@ -112,6 +112,7 @@ public class CreateurPlateau
 		//verif qu'on ne place pas en dehors du plateau
 		if (lig >= this.nbLigne || lig < 0 ||
 			col >= this.nbColonne || col < 0 ||
+			tabZone[lig][col] != null ||
 			(! estPremier && ! adjacent) || coulAdjacent)
 			return false;
 
@@ -121,6 +122,7 @@ public class CreateurPlateau
 
     public void effacerZone(Zone zone)
     {
+		System.out.println(zone);
 		for (int lig = 0; lig < tabZone.length; lig ++)
 			for (int col = 0; col < tabZone[lig].length; col ++)
 				if (this.tabZone[lig][col] == zone)

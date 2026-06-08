@@ -28,7 +28,7 @@ public class PanelZone extends JPanel implements ActionListener
 
     private Image 		        imgFond;
 
-    private JToggleButton       tglGomme;
+    private JButton             btnGomme;
     private JButton     		btnSuivant;
     private JButton     		btnPrecedent;
     private JButton     		btnZonePrecedent;
@@ -177,13 +177,13 @@ public class PanelZone extends JPanel implements ActionListener
         this.jcbCouleur         .setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         this.jcbCouleur         .setPreferredSize(new Dimension(300, 30));
 
-        this.tglGomme           = new JToggleButton("");
-        this.tglGomme           .setFocusable(false);
-        this.tglGomme           .setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        this.btnGomme           = new JButton("");
+        this.btnGomme           .setFocusable(false);
+        this.btnGomme           .setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         ImageIcon iconeOriginale = new ImageIcon("./images/gomme.png");
         Image imageRedimensionnee = iconeOriginale.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-        this.tglGomme.setIcon(new ImageIcon(imageRedimensionnee));
+        this.btnGomme.setIcon(new ImageIcon(imageRedimensionnee));
 
         this.btnSuivant         = new JButton("Suivant >>");
         this.btnPrecedent       = new JButton("<< Précédent");
@@ -198,7 +198,7 @@ public class PanelZone extends JPanel implements ActionListener
 
         pnlChoixCouleur.add(lblChoix);
         pnlChoixCouleur.add(this.jcbCouleur);
-        pnlChoixCouleur.add(this.tglGomme);
+        pnlChoixCouleur.add(this.btnGomme);
 
         pnlBandeau.add(pnlTitre);
         pnlBandeau.add(pnlChoixCouleur);
@@ -226,11 +226,18 @@ public class PanelZone extends JPanel implements ActionListener
         this.btnZoneSuivante.addActionListener(this);
         this.btnNouvZone.addActionListener(this);
         this.jcbCouleur.addActionListener(this);
+		this.btnGomme.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent a)
     {
+        if (a.getSource() == this.btnGomme)
+        {
+            this.ctrl.effacerZone(this.ctrl.getZoneActive());
+            majZone();
+        }
+
         if (a.getSource() == this.btnSuivant)
         {
             this.frameCreation.setPnl(this.frameCreation.getPnl(this.indice+1));
@@ -288,14 +295,6 @@ public class PanelZone extends JPanel implements ActionListener
         Zone    zoneActuelle;
         boolean placementValide;
 
-        if (this.tglGomme.isSelected())
-        {
-            this.ctrl.effacerZone(this.ctrl.getZoneActive());
-            tabPanelCases[lig][col].setBackground(Color.WHITE);
-            tabPanelCases[lig][col].repaint();
-            return;
-        }
-
         zoneActuelle = this.ctrl.getZoneActive();
         if (zoneActuelle == null) { return; }
 
@@ -318,8 +317,13 @@ public class PanelZone extends JPanel implements ActionListener
                 {
                     if (this.ctrl.getTabZone()[lig][col] != null)
                     {
-                        tabPanelCases[lig][col].setBackground(this.ctrl.getTabZone()[lig][col].getCouleur().getCouleur());
-                       tabPanelCases[lig][col].repaint();
+                        tabPanelCases[lig][col].setBackground(this.ctrl.getTabZone()[lig][col].getCouleurAwt());
+                		tabPanelCases[lig][col].repaint();
+                    }
+                    else
+                    {
+                        tabPanelCases[lig][col].setBackground(Color.WHITE);
+                        tabPanelCases[lig][col].repaint();
                     }
                 }
     }
