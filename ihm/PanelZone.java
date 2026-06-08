@@ -240,7 +240,14 @@ public class PanelZone extends JPanel implements ActionListener
 
         if (a.getSource() == this.btnSuivant)
         {
-            this.frameCreation.setPnl(this.frameCreation.getPnl(this.indice+1));
+            	JPanel pnlSuivant = this.frameCreation.getPnl(this.indice+1);
+            
+            	if (pnlSuivant instanceof PanelSymbole)
+    		{
+        		((PanelSymbole) pnlSuivant).majZone();
+   	 	}
+   	 	
+   	 	this.frameCreation.setPnl(pnlSuivant);
         }
 
         if (a.getSource() == this.btnPrecedent)
@@ -310,7 +317,7 @@ public class PanelZone extends JPanel implements ActionListener
         }
     }
 
-    private void majZone()
+    public void majZone()
     {
     	for (int lig = 0; lig < tabPanelCases.length; lig ++)
         	for (int col = 0; col < tabPanelCases[lig].length; col ++)
