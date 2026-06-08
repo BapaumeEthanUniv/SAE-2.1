@@ -79,6 +79,7 @@ public class PanelAccueilCreation extends JPanel implements ActionListener
 	{
 		if ( e.getSource() == this.btnCreer )
 		{
+			this.frameSaisie.creerPanelSaisie(this.indice + 1);
 			this.frameSaisie.setPnl(this.frameSaisie.getPnl(indice + 1));
 		}
 		

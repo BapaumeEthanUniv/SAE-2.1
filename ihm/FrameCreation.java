@@ -21,7 +21,7 @@ public class FrameCreation extends JFrame
 		this.tabPanel	 = new JPanel[4];
 		
 		this.tabPanel[0] = new PanelAccueilCreation(ctrl, this, 0);
-		this.tabPanel[1] = new PanelSaisieCreation (ctrl, this, 1);
+		//this.tabPanel[1] = new PanelSaisieCreation (ctrl, this, 1);
 		//this.tabPanel[2] = new PanelSymbole(this, 2);
 
 		this.panelActif = this.tabPanel[0];
@@ -42,10 +42,15 @@ public class FrameCreation extends JFrame
 		this.revalidate();
 	}
 
-	public void creerPanelZone()
+	public void creerPanelSaisie(int indice)
 	{
-		this.tabPanel[2] = new PanelZone(this.ctrl, this, 2);
-		this.tabPanel[3] = new PanelSymbole(this.ctrl, this, 3);
+		this.tabPanel[indice] = new PanelSaisieCreation(ctrl, this, indice);
+	}
+
+	public void creerPanelZone(int indice)
+	{
+		this.tabPanel[indice] = new PanelZone(this.ctrl, this, indice);
+		this.tabPanel[indice + 1] = new PanelSymbole(this.ctrl, this, indice + 1);
 	}
 	
 	public JPanel getPnl(int i) { return this.tabPanel[i]; }
