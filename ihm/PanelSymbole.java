@@ -26,7 +26,7 @@ public class PanelSymbole extends JPanel implements ActionListener
 
     private Image 		imgFond;
 
-    private JLabel[][]          tabLblCases;
+    private JPanel[][]          tabPnlCases;
 
     private JComboBox<Role>     jcbRole;
     private JComboBox<Casting>  jcbCasting;
@@ -79,75 +79,80 @@ public class PanelSymbole extends JPanel implements ActionListener
         JPanel pnlGrille = new JPanel(new GridLayout(nbLigne, nbCol, 2, 2));
         pnlGrille.setBackground(new Color(60, 60, 75));
 
-        this.tabLblCases = new JLabel[nbLigne][nbCol];
+	this.tabPnlCases = new JPanel[nbLigne][nbCol];
 
-        for (int lig = 0; lig < nbLigne; lig++)
-        {
-            for (int col = 0; col < nbCol; col++)
-            {
-                JLabel lblCellule = new JLabel("", SwingConstants.CENTER);
-                lblCellule.setOpaque(true);
-                lblCellule.setPreferredSize(new Dimension(taille, taille));
-                lblCellule.setFont(new Font("SansSerif", Font.BOLD, taille / 2)); 
+	for (int lig = 0; lig < nbLigne; lig++)
+	{
+	    for (int col = 0; col < nbCol; col++)
+	    {
+		JPanel pnlCellule = new JPanel(new FlowLayout(FlowLayout.CENTER, 3, 3));
+		
+		Zone zoneCase = this.ctrl.getTabZone()[lig][col];
+		
+		if (zoneCase != null) 	{ pnlCellule.setBackground(zoneCase.getCouleur().getCouleur()); }
+		else			{ pnlCellule.setBackground( Color.WHITE ); }
 
-                Zone zoneDeLaCase = this.ctrl.getTabZone()[lig][col];
-                
-                if (zoneDeLaCase != null) 
-                {
-                    lblCellule.setBackground(zoneDeLaCase.getCouleur().getCouleur());
-                } 
-                else 
-                {
-                    lblCellule.setBackground(Color.WHITE);
-                }
+		JLabel lblImage = new JLabel();
+		lblImage.setPreferredSize(new Dimension(taille - 6, taille - 6));
+		lblImage.setOpaque(false); // Transparent par défaut pour laisser voir la Zone
+		
+		pnlCellule.add(lblImage);
 
-                final int finalLig = lig, finalCol = col;
+		final int finalLig = lig, finalCol = col;
 
-                lblCellule.addMouseListener(new MouseAdapter()
-                {
-                    public void mousePressed(MouseEvent e)
-                    {
-                        if (SwingUtilities.isLeftMouseButton(e))
-                        {
-                            if (rbRole.isSelected())
-                            {
-                                Role roleChoisi = (Role) jcbRole.getSelectedItem();
-                                //System.out.println(roleChoisi);
-                                ImageIcon imgRole = creerImgRole(roleChoisi);
-				
-                                boolean ok = ctrl.ajouterActeur(roleChoisi, finalLig, finalCol);
+		MouseAdapter clicSouris = new MouseAdapter()
+		{
+		    public void mousePressed(MouseEvent e)
+		    {
+		        if (SwingUtilities.isLeftMouseButton(e))
+		        {
+		            if (rbRole.isSelected())
+		            {
+		                Role roleChoisi = (Role) jcbRole.getSelectedItem();
+		                ImageIcon imgRole = creerImgRole(roleChoisi); 
 
-                                if (ok) {
+		                boolean ok = ctrl.ajouterActeur(roleChoisi, finalLig, finalCol);
+		                
+		                if (ok) 
+		                {
+		                    lblImage.setIcon(imgRole);
+		                    lblImage.setOpaque(false); 
+		                    pnlCellule.repaint();
+		                }
+		            }
+		            else if (rbCasting.isSelected())
+		            {
+		                Casting castingChoisi = (Casting) jcbCasting.getSelectedItem();
 
-                                    //lblCellule.setText(roleChoisi.name().substring(0, 1));
-                                    lblCellule.setIcon(imgRole);
-                                    //lblCellule.setForeground(Color.BLACK);
-                                }
-                            }
-                            else if (rbCasting.isSelected())
-                            {
-                                Casting castingChoisi = (Casting) jcbCasting.getSelectedItem();
+		                if (lblImage.getIcon() != null) 
+		                {
+		                    Color couleurCadre = castingChoisi.getCouleur(); 
+		                    
+		                    lblImage.setBackground(couleurCadre);
+		                    lblImage.setOpaque(true);
+		                    pnlCellule.repaint();
+		                }
+		            }
+		        }
+		        else if (SwingUtilities.isRightMouseButton(e))
+		        {
+		            ctrl.supprimerActeur(finalLig, finalCol);
+		            
+		            lblImage.setIcon(null);
+		            lblImage.setOpaque(false); 
+		            pnlCellule.repaint();
+		        }
+		    }
+		};
 
-                                if (!lblCellule.getIcon().equals(null)) 
-                                {
-                                    
-                                }
-                            }
-                        }
-                        // CLIC DROIT : Effacer
-                        else if (SwingUtilities.isRightMouseButton(e))
-                        {
-                            ctrl.supprimerActeur(finalLig, finalCol);
-                            lblCellule.setText("");
-                        }
-                    }
-                });
+		pnlCellule.addMouseListener(clicSouris);
+		lblImage.addMouseListener(clicSouris);
 
-                this.tabLblCases[lig][col] = lblCellule;
-                pnlGrille.add(lblCellule);
-            }
-        }
-
+		this.tabPnlCases[lig][col] = pnlCellule;
+		pnlGrille.add(pnlCellule);
+	    }
+	}
+	
         JPanel pnlBouton = new JPanel(new FlowLayout(FlowLayout.CENTER, 50, 20));
         pnlBouton.setOpaque(false);
 
