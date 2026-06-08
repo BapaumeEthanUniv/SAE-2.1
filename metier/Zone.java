@@ -23,11 +23,11 @@ public class Zone
 
 	public String toString()
 	{
-		String Sret = String.format("%03d" , this.numZone);
-		Sret+=        String.format("%03d" , this.couleur.getCouleur().getRed());
-		Sret+=        String.format("%03d" , this.couleur.getCouleur().getGreen());
-		Sret+=        String.format("%03d" , this.couleur.getCouleur().getBlue());
-		return Sret;
+		String sRet = String.format("%03d" , this.numZone);
+		sRet+=        String.format("%03d" , this.couleur.getCouleur().getRed());
+		sRet+=        String.format("%03d" , this.couleur.getCouleur().getGreen());
+		sRet+=        String.format("%03d" , this.couleur.getCouleur().getBlue());
+		return sRet;
 	}
 
 	public void setCouleur(Couleur couleur)
