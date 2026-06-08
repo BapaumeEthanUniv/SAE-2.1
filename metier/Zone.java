@@ -35,7 +35,7 @@ public class Zone
 		return sRet;
 	}
 	
-	public static void resetCompteur()
+	public static void resetCompteur() // permet de reset le nombre de zones lors ce que la création du tableau est fini
 	{
 		Zone.compteur = 0;
 	}
