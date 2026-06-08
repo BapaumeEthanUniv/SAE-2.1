@@ -6,6 +6,7 @@ public enum Couleur
 {
 	ROSE		( "Rose"	, new Color (230,100,160)),
 	ROUGE		( "Rouge"	, Color.RED		) ,
+	ROUGE_PRINCIPAL ( "Rouge Principal"	, new Color (255,64  ,64 )),
 	BORDEAUX	( "Bordeaux"	, new Color (109,7  ,26 )),
 	ORANGE 		( "Orange"  	, new Color (255,149,9  )),
 	JAUNE		( "Jaune"	, Color.YELLOW		) ,
