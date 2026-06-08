@@ -244,6 +244,7 @@ public class PanelZone extends JPanel implements ActionListener
         if (a.getSource() == this.btnZonePrecedent)
         {
             this.ctrl.zonePrecedente();
+            this.jcbCouleur.setSelectedItem(this.ctrl.getZoneActive().getCouleur());
             this.lblTitre.setText("Plateau  " + this.tailleLigne + " × " + this.tailleColonne + "  :  " + this.nomPlateau + " Zone Active :" + this.ctrl.getZoneActive().getNumZone());
         }
 
@@ -316,7 +317,7 @@ public class PanelZone extends JPanel implements ActionListener
                 {
                     if (this.ctrl.getTabZone()[lig][col] != null)
                     {
-                        tabPanelCases[lig][col].setBackground(this.ctrl.getTabZone()[lig][col].getCouleur());
+                        tabPanelCases[lig][col].setBackground(this.ctrl.getTabZone()[lig][col].getCouleur().getCouleur());
                        tabPanelCases[lig][col].repaint();
                     }
                 }

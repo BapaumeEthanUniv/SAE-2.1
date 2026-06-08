@@ -141,19 +141,19 @@ public class CreateurPlateau
 								!(c == col + 1 && l == lig - 1)&&
 								!(c == col - 1 && l == lig + 1)&&
 								!(c == col + 1 && l == lig + 1))
-								if (tabZone[l][c] != null && couleur.getCouleur() == tabZone[l][c].getCouleur() && tabZone[l][c] != zone)
+								if (tabZone[l][c] != null && couleur == tabZone[l][c].getCouleur() && tabZone[l][c] != zone)
 									return false;
 						}
 					}
 				}
 
-		zone.setCouleur(couleur.getCouleur());
+		zone.setCouleur(couleur);
 		return true;
 	}
 
 	public void nouvelleZone()
 	{
-		Zone zone = new Zone(Couleur.SAUMON.getCouleur());
+		Zone zone = new Zone(Couleur.SAUMON);
 		this.lstZones.add(zone);
 		this.setZoneActive(zone);
 	}
@@ -206,8 +206,10 @@ public class CreateurPlateau
 
 	public void CreerPlateau()
 	{
+		File filePrincipal = new File("Plateau");
         File filePlateau = new File("Plateau/" + this.nomPlateau);
 
+		filePrincipal.mkdir();
         filePlateau  .mkdir();
 
 		this.exportZone();
