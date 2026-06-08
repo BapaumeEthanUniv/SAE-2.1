@@ -326,7 +326,7 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 							tabRoleActif,
 							tabCastingActif );	
 
-				this.frame.creerPanelZone();
+				this.frame.creerPanelZone(this.indice + 1);
 						
 				this.frame.setPnl(this.frame.getPnl(this.indice+1));
 			}
