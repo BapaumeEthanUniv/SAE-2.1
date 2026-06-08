@@ -64,7 +64,7 @@ public class Controleur
 	//page 2
 	public boolean modifierZone(int lig, int col, Zone zone) {return this.metier.modifierZone(lig, col, zone);}
 
-    public void effacerZone(Zone zone) { this.metier.effacerZone(zone); }
+    	public void effacerZone(Zone zone) { this.metier.effacerZone(zone); }
 
 	public boolean changerCouleurZone(Couleur couleur, Zone zone) {return this.metier.changerCouleurZone(couleur, zone);}
 
@@ -81,7 +81,11 @@ public class Controleur
 
 	public boolean supprimerActeur(int posX, int posY) {return supprimerActeur(posX, posY);}
 
-	public void   setPrincipal (Color c, Acteur a) {this.metier.setPrincipal(c, a);}
+	public void    setPrincipal (Color c, Acteur a) {this.metier.setPrincipal(c, a);}
+	
+	public boolean estCastingUtilise(Color c) { return this.metier.estCastingUtilise(c); }
+
+	public Acteur getActeur(int posX, int posY) { return this.metier.getActeur(posX, posY); }
 
 	public static void main (String[] args) { new Controleur(); }
 }
