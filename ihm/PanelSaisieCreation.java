@@ -209,7 +209,7 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 		// Partie Casting
 		pnlCasting.add(this.creerSousTitre("Castings"), BorderLayout.NORTH);
 
-        pnlSaisieCasting.add(this.creerJLabel("Nombre de Castings : "));
+        pnlSaisieCasting.add(this.creerJLabel("Castings séléctionnés : "));
 
 		for (int cpt = 0; cpt < lstCasting.length; cpt++)
 		{
@@ -230,7 +230,7 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 		// Partie Role
         pnlRole.add(this.creerSousTitre("Rôles"), BorderLayout.NORTH);
 
-        pnlSaisieRole.add(this.creerJLabel("Nombre de Rôles : "));
+        pnlSaisieRole.add(this.creerJLabel("Rôles séléctionnés : "));
 		
 		for (int cpt = 0; cpt < lstRole.length; cpt++)
 		{
