@@ -112,6 +112,7 @@ public class CreateurPlateau
 		//verif qu'on ne place pas en dehors du plateau
 		if (lig >= this.nbLigne || lig < 0 ||
 			col >= this.nbColonne || col < 0 ||
+			tabZone[lig][col] != null ||
 			(! estPremier && ! adjacent) || coulAdjacent)
 			return false;
 
