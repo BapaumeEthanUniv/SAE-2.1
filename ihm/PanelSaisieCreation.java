@@ -24,7 +24,6 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 	public 	static 	int 	NB_ROLE_MIN 	= 2;
 	public  static  int	TAILLE_MIN	= 6;
 	public  static  int	TAILLE_MAX	= 10;
-	public  static  int	TAILLE_CASE_MIN	= 20;
    	public  static  int     TAILLE_CASE_MAX = 45;
 
 	private Controleur 	ctrl;
@@ -48,7 +47,6 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 	private JTextField	txtNomPlateau;
 	private JTextField 	txtLigne;
 	private JTextField 	txtColonne;
-    	private JTextField  txtTailleCase;
 	// private JTextField 	txtJoueur;
 
     	private Font policeSousTitre;
@@ -151,7 +149,6 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
         this.txtNomPlateau	        = new JTextField("", 15);
 		this.txtLigne		        = new JTextField("", 5);
 		this.txtColonne		        = new JTextField("", 5);
-        this.txtTailleCase          = new JTextField("", 5);
 
         JLabel lblTitre             = new JLabel ("<html><u>Saisie des Informations</u></html>", JLabel.CENTER);
 
@@ -199,8 +196,6 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
             pnlSaisieTaille.add(this.txtLigne);
             pnlSaisieTaille.add(this.creerJLabel("Colonnes : "));
             pnlSaisieTaille.add(this.txtColonne);
-            pnlSaisieTaille.add(this.creerJLabel("Taille Cases : "));
-            pnlSaisieTaille.add(this.txtTailleCase);
 
             pnlTaillePlateau.add(pnlSaisieTaille, BorderLayout.CENTER);
             pnlTaillePlateau.add(this.creerSeparation(), BorderLayout.SOUTH);
@@ -275,7 +270,6 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 		
 		int nbLigne 	= 0;
 		int nbColonne 	= 0;
-        int tailleCase  = 0;
 		
 		int cptCasting 	= 0;
 		int cptRole 	= 0;
@@ -306,14 +300,13 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 				
 				nbLigne 	= Integer.parseInt(this.txtLigne.getText());
 				nbColonne 	= Integer.parseInt(this.txtColonne.getText());
-                tailleCase  = Integer.parseInt(this.txtTailleCase.getText());
 
 				// Affichage test
 				System.out.println ( "Nom du Plateau : " +
 				this.txtNomPlateau.getText());
 				
 				System.out.println ( "Taille : " + 
-				this.txtLigne.getText() + " " + this.txtColonne.getText() + " " + this.txtTailleCase.getText());
+				this.txtLigne.getText() + " " + this.txtColonne.getText());
 				
 				System.out.println ( "Casting : " + sCasting);
 				
@@ -322,7 +315,7 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 				this.ctrl.initCreateur(	this.txtNomPlateau.getText(),
 							nbLigne,
 							nbColonne,
-							tailleCase,
+							TAILLE_CASE_MAX,
 							tabRoleActif,
 							tabCastingActif );	
 
@@ -346,13 +339,12 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 	{	
 		int nbLigne 	= 0;
 		int nbColonne 	= 0;
-        int tailleCase  = 0;
 		
 		int cptCasting 	= 0;
 		int cptRole 	= 0;
 		
 		if (this.txtNomPlateau  .equals("") || this.txtLigne        .equals("") ||
-		    this.txtColonne     .equals("")	|| this.txtTailleCase   .equals("")	    )
+		    this.txtColonne     .equals("")	    )
 		{
 			return false;
 		}
@@ -362,7 +354,6 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 			{
 				nbLigne     = Integer.parseInt(this.txtLigne        .getText());
 				nbColonne   = Integer.parseInt(this.txtColonne      .getText());
-                tailleCase  = Integer.parseInt(this.txtTailleCase   .getText());
 			}
 			catch (Exception e)
 			{
@@ -371,8 +362,7 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 			}
 			
 			if (nbLigne     < TAILLE_MIN        || nbLigne      > TAILLE_MAX ||
-			    nbColonne   < TAILLE_MIN        || nbColonne    > TAILLE_MAX ||
-                tailleCase  < TAILLE_CASE_MIN   || tailleCase   > TAILLE_CASE_MAX)
+			    nbColonne   < TAILLE_MIN        || nbColonne    > TAILLE_MAX)
 			{
 				System.out.println ("Erreur : la saisie de la taille du plateau est erronée. Réessayer.");
 				return false;
