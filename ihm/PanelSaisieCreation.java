@@ -24,7 +24,7 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 	public 	static 	int 	NB_ROLE_MIN 	= 2;
 	public  static  int	TAILLE_MIN	= 6;
 	public  static  int	TAILLE_MAX	= 10;
-   	public  static  int     TAILLE_CASE_MAX = 45;
+   	public  static  int     TAILLE_CASE_MAX = 40;
 
 	private Controleur 	ctrl;
 	private FrameCreation 	frame;
