@@ -30,27 +30,23 @@ public enum Couleur
 	GRIS_CLAIR  ( "Gris clair"  , new Color (200,200,200)),
 	GRIS        ( "Gris"        , new Color (150,150,150));
 	
+	//Attribut
 	private String lib;
 	private Color couleur;
 	
 	Couleur (String lib, Color couleur) { this.lib = lib; this.couleur = couleur; }
 	
-	                /*----------*/
-	                /* Méthodes */
-	                /*----------*/
+	/*----------*/
+	/* Méthodes */
+	/*----------*/
 	
 	//Getters :
-	public Color      getCouleur() {return couleur;}
-
-	public String     getLib()     {return lib;}
-
-	public static int getNbCouleur() 
-	{
-		return Couleur.values().length;
-	}
+	public        Color      getCouleur()   {return couleur;}
+	public        String     getLib()       {return lib;}
+	public static int        getNbCouleur() {return Couleur.values().length;}
 
 	// autres méthodes :
-	public String     toString()
+	public String toString()
 	{
 		return this.name();
 	}
