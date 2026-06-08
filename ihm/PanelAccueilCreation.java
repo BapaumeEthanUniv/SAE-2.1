@@ -19,8 +19,8 @@ public class PanelAccueilCreation extends JPanel implements ActionListener
 	private Image 			imgFond;
 	
 	private JButton			btnCreer;
-	private JButton			btnModifier;
-	private JButton			btnCopier;
+	//private JButton			btnModifier;
+	//private JButton			btnCopier;
 	
 	public PanelAccueilCreation (Controleur ctrl, FrameCreation f, int indice)
 	{
@@ -47,15 +47,15 @@ public class PanelAccueilCreation extends JPanel implements ActionListener
 		this.btnCreer 		= new JButton("Créer un plateau");
 		this.btnCreer		.setOpaque(false);
 		
-		this.btnModifier 	= new JButton("Modifier un plateau");
-		this.btnModifier	.setOpaque(false);
+		//this.btnModifier 	= new JButton("Modifier un plateau");
+		//this.btnModifier	.setOpaque(false);
 		
-		this.btnCopier 		= new JButton("Copier un plateau existant");
-		this.btnCopier		.setOpaque(false);
+		//this.btnCopier 		= new JButton("Copier un plateau existant");
+		//this.btnCopier		.setOpaque(false);
 		
 		pnlCreer.add	(this.btnCreer	 );
-		pnlModifier.add	(this.btnModifier);
-		pnlCopier.add	(this.btnCopier	 );
+		//pnlModifier.add	(this.btnModifier);
+		//pnlCopier.add	(this.btnCopier	 );
 		
 		this.add(new JLabel(""));
 		this.add(new JLabel(""));
@@ -70,8 +70,8 @@ public class PanelAccueilCreation extends JPanel implements ActionListener
 		this.add(pnlCopier);
 		
 		this.btnCreer.addActionListener(this);
-		this.btnCopier.addActionListener(this);
-		this.btnModifier.addActionListener(this);
+		//this.btnCopier.addActionListener(this);
+		//this.btnModifier.addActionListener(this);
 		
 		this.setVisible(true);
 	}
@@ -84,7 +84,7 @@ public class PanelAccueilCreation extends JPanel implements ActionListener
 			this.frameSaisie.setPnl(this.frameSaisie.getPnl(indice + 1));
 		}
 		
-		if ( e.getSource() == this.btnModifier )
+		/*if ( e.getSource() == this.btnModifier )
 		{
 			JFileChooser chooser = new JFileChooser("./Plateau"); 
 			chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -97,9 +97,9 @@ public class PanelAccueilCreation extends JPanel implements ActionListener
 				this.frameSaisie.creerPanelZone(this.indice + 1);
 				this.frameSaisie.setPnl(this.frameSaisie.getPnl(indice + 1));
 			}
-		}
+		}*/
 		
-		if ( e.getSource() == this.btnCopier )
+		/*if ( e.getSource() == this.btnCopier )
 		{
 			JFileChooser chooser = new JFileChooser("./Plateau");
 			chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -111,7 +111,7 @@ public class PanelAccueilCreation extends JPanel implements ActionListener
 				File fichier = chooser.getSelectedFile();
 				this.frameSaisie.setPnl(this.frameSaisie.getPnl(indice + 1));
 			}
-		}
+		}*/
 	}
 	
 	@Override
