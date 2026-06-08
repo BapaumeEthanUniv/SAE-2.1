@@ -88,7 +88,7 @@ public class PanelSymbole extends JPanel implements ActionListener
 
 		this.tabPnlCases = new JPanel[nbLigne][nbCol];
 
-		// Constitution de la grille
+		// Constitution du Plateau
 		for (int lig = 0; lig < nbLigne; lig++)
 		{
 		    for (int col = 0; col < nbCol; col++)
@@ -97,81 +97,90 @@ public class PanelSymbole extends JPanel implements ActionListener
 			
 			Zone zoneCase = this.ctrl.getTabZone()[lig][col];
 			
+			// Colorie la case selon la couleur de zone définie dans PanelZone
 			if (zoneCase != null) 	{ pnlCellule.setBackground(zoneCase.getCouleurAwt()); }
 			else			{ pnlCellule.setBackground( Color.WHITE ); }
 
+			// Création d'un label par Panel pour mettre l'icône du rôle
 			JLabel lblImage = new JLabel();
 			lblImage.setPreferredSize(new Dimension(taille - 6, taille - 6));
 			lblImage.setOpaque(false); 
 			
 			pnlCellule.add(lblImage);
-
+			
 			final int finalLig = lig, finalCol = col;
 
+			// Variable MouseAdapter afin de gérer le placement des castings et rôles
 			MouseAdapter clicSouris = new MouseAdapter()
 			{
-			    public void mousePressed(MouseEvent e)
-			    {
-				if (rbRole.isSelected())
-				{
-					Role roleChoisi = (Role) jcbRole.getSelectedItem();
-				    	ImageIcon imgRole = creerImgRole(roleChoisi); 
+				    public void mousePressed(MouseEvent e)
+				    {
+				    	// Placement Role
+					if (rbRole.isSelected())
+					{
+						Role roleChoisi = (Role) jcbRole.getSelectedItem();
+					    	ImageIcon imgRole = creerImgRole(roleChoisi); 
 
-				        boolean placementPossible = ctrl.ajouterActeur(roleChoisi, finalLig, finalCol);
-				        
-				        if (placementPossible) 
-				        {
-						lblImage.setIcon(imgRole);
-				        	lblImage.setOpaque(false); 
-				        	pnlCellule.repaint();
-				        }
-				}
-				
-				else if (rbCasting.isSelected())
-				{
-					    Casting castingChoisi = (Casting) jcbCasting.getSelectedItem();
-
-					    if (lblImage.getIcon() != null) 
-					    {
-							Color couleurCadre = castingChoisi.getCouleur(); 
+						boolean placementPossible = ctrl.ajouterActeur(roleChoisi, finalLig, finalCol);
 						
-							if (ctrl.estCastingUtilise(couleurCadre))
-							{
-						    		Acteur acteurActuel = ctrl.getActeur(finalLig, finalCol);
-						    
-						    		if (acteurActuel != null && acteurActuel.estPrincipal() && acteurActuel.getCouleur().equals(couleurCadre)) 
-						    		{
-									return; 
-						    		}
-							
-						    	return; 
-						}
-						
-						lblImage.setBackground(couleurCadre);
-						lblImage.setOpaque(true);
-						pnlCellule.repaint();
-						
-						metier.Acteur acteurCible = ctrl.getActeur(finalLig, finalCol);
-						if (acteurCible != null) 
+						if (placementPossible) 
 						{
-							ctrl.setPrincipal(couleurCadre, acteurCible);
+							lblImage.setIcon(imgRole);
+							lblImage.setOpaque(false); 
+							pnlCellule.repaint();
 						}
-					    }
-				}
-				else
-				{
-					ctrl.supprimerActeur(finalLig, finalCol);
-				    
-				    	lblImage.setIcon(null);
-				    	lblImage.setOpaque(false); 
-				    	pnlCellule.repaint();
-				}
-			    }
+					}
+					
+					// Placement Casting
+					else if (rbCasting.isSelected())
+					{
+						    Casting castingChoisi = (Casting) jcbCasting.getSelectedItem();
+
+							
+							if (lblImage.getIcon() != null) 
+						    	{
+								Color couleurCadre = castingChoisi.getCouleur(); 
+								if (ctrl.estCastingUtilise(couleurCadre))         
+								{
+							    		Acteur acteurActuel = ctrl.getActeur(finalLig, finalCol);
+							    
+							    		if (acteurActuel != null && acteurActuel.estPrincipal() && acteurActuel.getCouleur().equals(couleurCadre)) 
+							    		{
+										return; 
+							    		}
+								
+							    	return; 
+							}
+							
+							// Ajoute la couleur du Casting à l'image
+							lblImage.setBackground(couleurCadre);
+							lblImage.setOpaque(true);
+							pnlCellule.repaint();
+							
+							// Ajoute l'acteur en tant qu'acteur principal (point de départ)
+							Acteur acteurCible = ctrl.getActeur(finalLig, finalCol);
+							if (acteurCible != null) 
+							{
+								ctrl.setPrincipal(couleurCadre, acteurCible);
+							}
+						    }
+					}
+					else
+					{
+						// Supprime l'icône + l'acteur dans le métier 
+						ctrl.supprimerActeur(finalLig, finalCol);
+					    
+					    	lblImage.setIcon(null);
+					    	lblImage.setOpaque(false); 
+					    	pnlCellule.repaint();
+					}
+				    }
 			};
 
-			pnlCellule.addMouseListener(clicSouris);
-			lblImage.addMouseListener(clicSouris);
+				pnlCellule.addMouseListener(clicSouris);
+				lblImage.addMouseListener(clicSouris);
 
+			// Ajout du panel dans le tableau de panels
 			this.tabPnlCases[lig][col] = pnlCellule;
 			pnlGrille.add(pnlCellule);
 		    }
@@ -184,9 +193,10 @@ public class PanelSymbole extends JPanel implements ActionListener
 		this.btnConfirmer 	= new JButton("Créer le Plateau");
 		
 		this.btnGomme           = new JButton("");
-		this.btnGomme           .setFocusable(false);
-        	this.btnGomme           .setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		this.btnGomme           .setFocusable(false);                                         // bouton non-focalisable
+        	this.btnGomme           .setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));   // change l'icône du curseur
 
+        	// Ajoute l'icône de la gomme dans le bouton Gomme, et redimensionne l'image
         	ImageIcon iconeOriginale = new ImageIcon("./images/gomme.png");
         	Image imageRedimensionnee = iconeOriginale.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
         	this.btnGomme.setIcon(new ImageIcon(imageRedimensionnee));
@@ -204,6 +214,7 @@ public class PanelSymbole extends JPanel implements ActionListener
 
 		pnlHaut.add(pnlOutils, BorderLayout.CENTER);
 
+		// Ajout d'un separateur pour la propreté
 		JSeparator separateur = new JSeparator(SwingConstants.HORIZONTAL);
 		separateur.setForeground(new Color(150, 150, 150));
 		pnlHaut.add(separateur, BorderLayout.SOUTH);
@@ -247,7 +258,7 @@ public class PanelSymbole extends JPanel implements ActionListener
 		}
 	}
 
-	@Override
+	// Méthode permettant de changer le fond du panel par imgFond
 	protected void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
@@ -257,13 +268,14 @@ public class PanelSymbole extends JPanel implements ActionListener
 		}
 	}
 	    
+	// Méthode permettant de choisir l'icône selon le rôle choisi de façon plus optimisé
 	private ImageIcon creerImgRole(Role role)
 	{
-		    String chemin = "";
-		    int tailleCase;
+		String chemin = "";
+		int tailleCase;
 		    
-		    switch (role.name()) 
-		    {
+		switch (role.name()) 
+		{
 			case "CASCADEUR":   
 			    chemin = "./images/cascadeur.png"; 
 			    break;
@@ -282,16 +294,18 @@ public class PanelSymbole extends JPanel implements ActionListener
 			    
 			default: 
 			    return new ImageIcon(); 
-		    }
+		}
 		    
-		    ImageIcon iconeOriginale = new ImageIcon(chemin);
+		ImageIcon iconeOriginale = new ImageIcon(chemin);
 
-		    tailleCase = this.ctrl.getTailleCase();
-		    Image imgRedimensionnee = iconeOriginale.getImage().getScaledInstance(tailleCase-5, tailleCase-5, Image.SCALE_SMOOTH);
+		// Redimensionne l'image 
+		tailleCase = this.ctrl.getTailleCase();
+		Image imgRedimensionnee = iconeOriginale.getImage().getScaledInstance(tailleCase-5, tailleCase-5, Image.SCALE_SMOOTH);
 		   
-		    return new ImageIcon(imgRedimensionnee);
+		return new ImageIcon(imgRedimensionnee);
 	}
 	
+	// Méthode permettant de mettre à jour la grille
 	public void majZone()
 	{
 	    	for (int lig = 0; lig < tabPnlCases.length; lig ++)
