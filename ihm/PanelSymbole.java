@@ -269,4 +269,22 @@ public class PanelSymbole extends JPanel implements ActionListener
 		   
 		    return new ImageIcon(imgRedimensionnee);
 	}
+	
+	public void majZone()
+	{
+	    	for (int lig = 0; lig < tabPnlCases.length; lig ++)
+			for (int col = 0; col < tabPnlCases[lig].length; col ++)
+		        {
+		            if (this.ctrl.getTabZone()[lig][col] != null)
+		            {
+		                tabPnlCases[lig][col].setBackground(this.ctrl.getTabZone()[lig][col].getCouleurAwt());
+		        	tabPnlCases[lig][col].repaint();
+		            }
+		            else
+		            {
+		                tabPnlCases[lig][col].setBackground(Color.WHITE);
+		                tabPnlCases[lig][col].repaint();
+		            }
+		        }
+    	}
 }
