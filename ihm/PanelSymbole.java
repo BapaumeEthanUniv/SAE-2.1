@@ -8,6 +8,7 @@ import controleur.Controleur;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -21,22 +22,25 @@ import javax.swing.*;
 
 public class PanelSymbole extends JPanel implements ActionListener
 {
-	private Controleur          ctrl;
-	private FrameCreation       frame;
-	private int                 indice;
+	private Controleur          	ctrl;
+	private FrameCreation       	frame;
+	private int                 	indice;
 
-	private Image 		imgFond;
+	private Image			imgFond;
 
-	private JPanel[][]          tabPnlCases;
+	private JPanel[][]          	tabPnlCases;
 
-    	private JComboBox<Role>     jcbRole;
-    	private JComboBox<Casting>  jcbCasting;
+    	private JComboBox<Role>     	jcbRole;
+    	private JComboBox<Casting>  	jcbCasting;
 
-	private JRadioButton        rbRole;
-	private JRadioButton        rbCasting;
+	private JRadioButton        	rbRole;
+	private JRadioButton        	rbCasting;
 
-	private JButton             btnPrecedent;
-	private JButton             btnConfirmer;
+	private JButton             	btnPrecedent;
+	private JButton             	btnConfirmer;
+	private JButton			btnGomme;
+	
+	private ButtonGroup 		bgMode;
 
 	public PanelSymbole(Controleur ctrl, FrameCreation f, int indice)
 	{
@@ -55,7 +59,7 @@ public class PanelSymbole extends JPanel implements ActionListener
 		JPanel pnlHaut = new JPanel(new BorderLayout());
 		pnlHaut.setOpaque(false);
 
-		JPanel pnlOutils = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+		JPanel pnlOutils = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
 		pnlOutils.setOpaque(false);
 
 		this.jcbRole    = new JComboBox<>(this.ctrl.getTabRole());
@@ -66,7 +70,7 @@ public class PanelSymbole extends JPanel implements ActionListener
 		this.rbRole.setOpaque(false);
 		this.rbCasting.setOpaque(false);
 
-		ButtonGroup bgMode = new ButtonGroup();
+		this.bgMode = new ButtonGroup();
 		bgMode.add(this.rbRole);
 		bgMode.add(this.rbCasting);
 
@@ -105,40 +109,39 @@ public class PanelSymbole extends JPanel implements ActionListener
 			{
 			    public void mousePressed(MouseEvent e)
 			    {
-				if (SwingUtilities.isLeftMouseButton(e))
+				if (rbRole.isSelected())
 				{
-				    if (rbRole.isSelected())
-				    {
-				        Role roleChoisi = (Role) jcbRole.getSelectedItem();
-				        ImageIcon imgRole = creerImgRole(roleChoisi); 
+					Role roleChoisi = (Role) jcbRole.getSelectedItem();
+				    	ImageIcon imgRole = creerImgRole(roleChoisi); 
 
 				        boolean placementPossible = ctrl.ajouterActeur(roleChoisi, finalLig, finalCol);
 				        
 				        if (placementPossible) 
 				        {
-				            lblImage.setIcon(imgRole);
-				            lblImage.setOpaque(false); 
-				            pnlCellule.repaint();
+						lblImage.setIcon(imgRole);
+				        	lblImage.setOpaque(false); 
+				        	pnlCellule.repaint();
 				        }
-				    }
-				    else if (rbCasting.isSelected())
-				    {
+				}
+				
+				else if (rbCasting.isSelected())
+				{
 					    Casting castingChoisi = (Casting) jcbCasting.getSelectedItem();
 
 					    if (lblImage.getIcon() != null) 
 					    {
-						Color couleurCadre = castingChoisi.getCouleur(); 
+							Color couleurCadre = castingChoisi.getCouleur(); 
 						
-						if (ctrl.estCastingUtilise(couleurCadre))
-						{
-						    Acteur acteurActuel = ctrl.getActeur(finalLig, finalCol);
+							if (ctrl.estCastingUtilise(couleurCadre))
+							{
+						    		Acteur acteurActuel = ctrl.getActeur(finalLig, finalCol);
 						    
-						    if (acteurActuel != null && acteurActuel.estPrincipal() && acteurActuel.getCouleur().equals(couleurCadre)) 
-						    {
-							return; 
-						    }
+						    		if (acteurActuel != null && acteurActuel.estPrincipal() && acteurActuel.getCouleur().equals(couleurCadre)) 
+						    		{
+									return; 
+						    		}
 							
-						    return; 
+						    	return; 
 						}
 						
 						lblImage.setBackground(couleurCadre);
@@ -148,18 +151,17 @@ public class PanelSymbole extends JPanel implements ActionListener
 						metier.Acteur acteurCible = ctrl.getActeur(finalLig, finalCol);
 						if (acteurCible != null) 
 						{
-						    ctrl.setPrincipal(couleurCadre, acteurCible);
+							ctrl.setPrincipal(couleurCadre, acteurCible);
 						}
 					    }
-					}
 				}
-				else if (SwingUtilities.isRightMouseButton(e))
+				else
 				{
-				    ctrl.supprimerActeur(finalLig, finalCol);
+					ctrl.supprimerActeur(finalLig, finalCol);
 				    
-				    lblImage.setIcon(null);
-				    lblImage.setOpaque(false); 
-				    pnlCellule.repaint();
+				    	lblImage.setIcon(null);
+				    	lblImage.setOpaque(false); 
+				    	pnlCellule.repaint();
 				}
 			    }
 			};
@@ -175,8 +177,16 @@ public class PanelSymbole extends JPanel implements ActionListener
 		JPanel pnlBouton = new JPanel(new FlowLayout(FlowLayout.CENTER, 50, 20));
 		pnlBouton.setOpaque(false);
 
-		this.btnPrecedent = new JButton("<< Précédent");
-		this.btnConfirmer = new JButton("Créer le Plateau");
+		this.btnPrecedent 	= new JButton("<< Précédent");
+		this.btnConfirmer 	= new JButton("Créer le Plateau");
+		
+		this.btnGomme           = new JButton("");
+		this.btnGomme           .setFocusable(false);
+        	this.btnGomme           .setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        	ImageIcon iconeOriginale = new ImageIcon("./images/gomme.png");
+        	Image imageRedimensionnee = iconeOriginale.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+        	this.btnGomme.setIcon(new ImageIcon(imageRedimensionnee));
 
 		/*------------------------------------------*/
 		/* Positionnement des composants           */
@@ -184,9 +194,10 @@ public class PanelSymbole extends JPanel implements ActionListener
 
 		pnlOutils.add(this.rbRole);
 		pnlOutils.add(this.jcbRole);
-		pnlOutils.add(new JLabel("      "));
+		pnlOutils.add(new JLabel("  "));
 		pnlOutils.add(this.rbCasting);
 		pnlOutils.add(this.jcbCasting);
+		pnlOutils.add(this.btnGomme);
 
 		pnlHaut.add(pnlOutils, BorderLayout.CENTER);
 
@@ -206,23 +217,29 @@ public class PanelSymbole extends JPanel implements ActionListener
 		/* ----------------------------- */
 		/* Activation des Composants     */
 		/* ----------------------------- */
-		this.btnPrecedent.addActionListener(this);
-		this.btnConfirmer.addActionListener(this);
-	    }
+		this.btnPrecedent	.addActionListener(this);
+		this.btnConfirmer	.addActionListener(this);
+		this.btnGomme		.addActionListener(this);
+	}
 
 	public void actionPerformed (ActionEvent e)
 	{
 		if (e.getSource() == this.btnPrecedent)
 		{
-		    this.frame.setPnl(this.frame.getPnl(indice - 1));
+		    	this.frame.setPnl(this.frame.getPnl(indice - 1));
 		}
 
 		if (e.getSource() == this.btnConfirmer)
 		{
-		    this.ctrl.creerPlateau();
-		    System.out.println("Plateau généré avec succès !");
+			this.ctrl.creerPlateau();
+		    	System.out.println("Plateau généré avec succès !");
 
-		    this.frame.setPnl(this.frame.getPnl(0));
+		    	this.frame.setPnl(this.frame.getPnl(0));
+		}
+		
+		if (e.getSource() == this.btnGomme)
+		{
+			this.bgMode.clearSelection();
 		}
 	}
 
