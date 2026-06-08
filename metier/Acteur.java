@@ -5,6 +5,7 @@ import java.awt.Color;
 
 public class Acteur
 {
+	// Attribut
 	private int     posX;
 	private int     posY;
 	
@@ -37,9 +38,8 @@ public class Acteur
 	public Acteur            getVoisin  (int indice)  { return this.lstVoisins.get(indice); } // retourne le voisin d'indice entré en paramètre
 	
 	// Setters
-	public void   setRole    (Role role) { this.role = role; } // définis le rôle de l'acteur par le rôle entré en paramètre
-	
-	public void   setPrincipal (Color c) // définis cet acteur comme acteur principal du casting à la couleur entré en paramètre
+	public void setRole      (Role role) { this.role = role; } // Définis le rôle de l'acteur par le rôle entré en paramètre
+	public void setPrincipal (Color c)                         // Définis cet acteur comme acteur principal du casting à la couleur entré en paramètre
 	{
 		if (this.estPrincipal) { this.estPrincipal = false; }
 		else 
