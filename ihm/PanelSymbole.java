@@ -94,7 +94,7 @@ public class PanelSymbole extends JPanel implements ActionListener
                 
                 if (zoneDeLaCase != null) 
                 {
-                    lblCellule.setBackground(zoneDeLaCase.getCouleur());
+                    lblCellule.setBackground(zoneDeLaCase.getCouleur().getCouleur());
                 } 
                 else 
                 {
