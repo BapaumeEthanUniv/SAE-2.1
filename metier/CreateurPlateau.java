@@ -211,6 +211,16 @@ public class CreateurPlateau
 
 	//Rend un acteur principal et lui donne une couleur
 	public void setPrincipal (Color c, Acteur a) {a.setPrincipal(c);}
+
+	//Vérifie qu'il y a au moins un acteur principal
+	public boolean principalPresent()
+	{
+		for (Acteur aExistant : this.lstActeurs)
+			if (aExistant.estPrincipal())
+				return true;
+
+		return false;
+	}
 	
 	// Méthode pour vérifier si une couleur de casting est déjà sur le plateau
 	public boolean estCastingUtilise(Color couleurAVerifier)
