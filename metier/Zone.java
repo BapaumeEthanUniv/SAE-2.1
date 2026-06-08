@@ -17,6 +17,7 @@ public class Zone
 	}
 	
 	public Couleur getCouleur() {return this.couleur;}
+	public Color getCouleurAwt() {return this.getCouleur().getCouleur();}
 	public int   getNumZone() {return this.numZone;}
 
 	public void setNumZone(int numZone) {this.numZone = numZone;}
