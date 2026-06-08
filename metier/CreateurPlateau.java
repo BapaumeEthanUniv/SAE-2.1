@@ -281,7 +281,7 @@ public class CreateurPlateau
 			}
 			outputZonePlateau += "\n";        //Chaque case du plateau contient un numéro
 		}
-		
+
 		for (Zone zone : this.lstZones)
 		{
 			outputAtributZone += zone + "\n"; //Les attributs sont sous la forme : numéro, CouleurR, CouleurG, CouleurB
@@ -352,37 +352,4 @@ public class CreateurPlateau
 			sortie.close();
 		} catch (Exception e) { e.printStackTrace(); }
 	}
-
-
-
-
-	/*main de test
-	public static void main(String[] args) 
-	{
-		 
-		CreateurPlateau plato;
-		Zone zone1;
-		Zone zone2;
-		Zone zone3;
-		plato = new CreateurPlateau("Bah non frère c'est vraiment pas drôle", 3, 3, 5, null, null);
-		zone1 = new Zone(Color.BLUE);
-		zone2 = new Zone(Color.RED);
-		zone3 = new Zone(Color.GREEN);
-		plato.modifierZone(1-1, 1-1, zone1);
-		plato.modifierZone(1-1, 2-1, zone1);
-		plato.modifierZone(2-1, 2-1, zone1);
-		plato.modifierZone(2-1, 1-1, zone2);
-		plato.modifierZone(3-1, 1-1, zone2);
-		plato.modifierZone(3-1, 2-1, zone2);
-		plato.modifierZone(1-1, 3-1, zone3);
-		plato.modifierZone(2-1, 3-1, zone3);
-		plato.modifierZone(3-1, 3-1, zone3);
-
-		plato.ajouterActeur(Role.ANTAGONISTE, 0, 0);
-		plato.ajouterActeur(Role.FIGURANT, 1, 0);
-		plato.lstActeurs.get(0).setPrincipal(Color.RED);
-		plato.lstActeurs.get(1).setPrincipal(Color.BLUE);
-
-		plato.CreerPlateau();
-	}*/
 }
