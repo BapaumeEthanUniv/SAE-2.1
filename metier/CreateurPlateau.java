@@ -9,7 +9,6 @@ import java.awt.Color;
 import java.io.FileOutputStream;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class CreateurPlateau 
 {
