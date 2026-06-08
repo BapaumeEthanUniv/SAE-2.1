@@ -79,7 +79,7 @@ public class Controleur
 
 	public boolean ajouterActeur  (Role role, int posX, int posY) {return this.metier.ajouterActeur(role, posX, posY);}
 
-	public boolean supprimerActeur(int posX, int posY) {return supprimerActeur(posX, posY);}
+	public boolean supprimerActeur(int posX, int posY) {return this.metier.supprimerActeur(posX, posY);}
 
 	public void    setPrincipal (Color c, Acteur a) {this.metier.setPrincipal(c, a);}
 	
