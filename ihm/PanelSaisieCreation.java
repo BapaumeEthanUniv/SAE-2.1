@@ -20,152 +20,146 @@ import javax.swing.*;
 
 public class PanelSaisieCreation extends JPanel implements ActionListener
 {
+	/* -- Constantes -- */
+	
 	public 	static 	int 	NB_CASTING_MIN 	= 4;
 	public 	static 	int 	NB_ROLE_MIN 	= 2;
 	public  static  int	TAILLE_MIN	= 6;
 	public  static  int	TAILLE_MAX	= 10;
-   	public  static  int     TAILLE_CASE_MAX = 45;
+   	public  static  int     TAILLE_CASE_MAX = 40;
 
+	/* -- Attributs -- */
+	
 	private Controleur 	ctrl;
 	private FrameCreation 	frame;
-	private int 		indice;
+	private int 		indice;		// permet le changement des panels
 	
 	private Image 		imgFond;
 	
 	private JButton 	btnSuivant;
-    	private JButton     btnPrecedent;
+    	private JButton     	btnPrecedent;
 
-	private JCheckBox[] 	tabCBCasting;
-	private JCheckBox[] 	tabCBRole;
+	private JCheckBox[] 	tabCBCasting;	// tableau de CheckBox pour choisir les castings
+	private JCheckBox[] 	tabCBRole;	// tableau de CheckBox pour choisir les rôles
 	
-	private Casting[]	tabCasting;
-	
-	private Role[]		tabRole;
-	
-	// private JPanel	panelJoueur;
+	private Casting[]	tabCasting;	// tableau de Casting  pour récupérer sous forme de Casting les castings sélectionnés
+	private Role[]		tabRole;	// tableau de Role     pour récupérer sous forme de Role    les rôles    sélectionnés
 	
 	private JTextField	txtNomPlateau;
 	private JTextField 	txtLigne;
 	private JTextField 	txtColonne;
-	// private JTextField 	txtJoueur;
 
-    	private Font policeSousTitre;
-    	private Font policeLabel;
+    	private Font policeSousTitre;		// permet la personnalisation des sous-titres
+    	private Font policeLabel;		// permet la personnalisation des labels
 	
 	public PanelSaisieCreation (Controleur ctrl, FrameCreation f, int indice)
 	{	
 		this.setLayout (new GridLayout (6, 1, 0, 10));
 		
-		/*-------------------------------------------------*/
-		/*   Création et initialisation des composants     */
-		/*-------------------------------------------------*/
-		this.ctrl 	                = ctrl;
-		this.frame                  = f ;
-		this.indice 	            = indice;
+		/*-------------------------------*/
+		/*   Création des composants     */
+		/*-------------------------------*/
 		
-		this.imgFond                = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
+		this.ctrl				= ctrl;
+		this.frame                  		= f ;
+		this.indice 	            		= indice;
+		
+		this.imgFond                		= Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
 		
 		// Partie Plateau
-		JPanel  pnlNomPlateau       = new JPanel();
-		pnlNomPlateau               .setLayout(new BorderLayout(0, 15));
-		pnlNomPlateau               .setOpaque(false);
+			JPanel  pnlNomPlateau		= new JPanel();
+			pnlNomPlateau               	.setLayout(new BorderLayout(0, 15));
+			pnlNomPlateau               	.setOpaque(false);
 
-        	JPanel	pnlSaisieNom		= new JPanel();
-		pnlSaisieNom                .setLayout (new FlowLayout(FlowLayout.CENTER));
-		pnlSaisieNom                .setOpaque(false);
+			JPanel	pnlSaisieNom		= new JPanel();
+			pnlSaisieNom                	.setLayout (new FlowLayout(FlowLayout.CENTER));
+			pnlSaisieNom                	.setOpaque(false);
+			
+			JPanel	pnlTaillePlateau 	= new JPanel();
+			pnlTaillePlateau            	.setLayout(new BorderLayout(0, 15));
+			pnlTaillePlateau            	.setOpaque(false);
+
+			JPanel  pnlSaisieTaille     	= new JPanel();
+			pnlSaisieTaille             	.setLayout(new FlowLayout(FlowLayout.CENTER));
+			pnlSaisieTaille             	.setOpaque(false);
+
+		// Partie Casting
+			JPanel	pnlCasting 		= new JPanel();
+			pnlCasting.setLayout		(new BorderLayout(0, 10));
+			pnlCasting.setOpaque		(false);
+			
+			JPanel  pnlSaisieCasting    	= new JPanel();
+			pnlSaisieCasting            	.setLayout(new FlowLayout(FlowLayout.CENTER));
+			pnlSaisieCasting            	.setOpaque(false);
+
+			JPanel 	pnlLstCasting		= new JPanel();
+			pnlLstCasting.setLayout	    	(new GridLayout(2, 3));
+			pnlLstCasting.setOpaque	    	(false);
+
+		// Partie Rôle
+			JPanel	pnlRole 		= new JPanel();
+			pnlRole.setLayout		(new BorderLayout(0, 10));
+			pnlRole.setOpaque		(false);
+
+			JPanel  pnlSaisieRole      	= new JPanel();
+			pnlSaisieRole              	.setLayout(new FlowLayout(FlowLayout.CENTER));
+			pnlSaisieRole              	.setOpaque(false);
+
+			JPanel 	pnlLstRole	        = new JPanel();
+			pnlLstRole.setLayout	    	(new GridLayout(2, 3));
+			pnlLstRole.setOpaque	    	(false);
+
+		// Partie Bouton
+			JPanel  pnlBouton           	= new JPanel();
+			pnlBouton.setLayout         	(new FlowLayout(FlowLayout.CENTER, 50, 20));
+			pnlBouton.setOpaque	        (false);
+
+			this.btnPrecedent		= new JButton("<< Précédent" );
+			this.btnSuivant			= new JButton("Suivant >>");
 		
-		JPanel	pnlTaillePlateau 	= new JPanel();
-		pnlTaillePlateau            .setLayout(new BorderLayout(0, 15));
-		pnlTaillePlateau            .setOpaque(false);
-
-        	JPanel  pnlSaisieTaille     = new JPanel();
-        	pnlSaisieTaille             .setLayout(new FlowLayout(FlowLayout.CENTER));
-        	pnlSaisieTaille             .setOpaque(false);
-
-        // Partie Casting
-		JPanel	pnlCasting 		    = new JPanel();
-		pnlCasting.setLayout		(new BorderLayout(0, 10));
-		pnlCasting.setOpaque		(false);
-		
-		JPanel  pnlSaisieCasting    = new JPanel();
-        	pnlSaisieCasting            .setLayout(new FlowLayout(FlowLayout.CENTER));
-        	pnlSaisieCasting            .setOpaque(false);
-
-        	JPanel 	pnlLstCasting		= new JPanel();
-		pnlLstCasting.setLayout	    (new GridLayout(2, 3));
-		pnlLstCasting.setOpaque	    (false);
-
-        // Partie Rôle
-		JPanel	pnlRole 		= new JPanel();
-		pnlRole.setLayout		(new BorderLayout(0, 10));
-		pnlRole.setOpaque		(false);
-
-        	JPanel  pnlSaisieRole      	= new JPanel();
-        	pnlSaisieRole              	.setLayout(new FlowLayout(FlowLayout.CENTER));
-        	pnlSaisieRole              	.setOpaque(false);
-
-        	JPanel 	pnlLstRole	        = new JPanel();
-		pnlLstRole.setLayout	    	(new GridLayout(2, 3));
-		pnlLstRole.setOpaque	    	(false);
-
-        // Partie Bouton
-        	JPanel  pnlBouton           	= new JPanel();
-        	pnlBouton.setLayout         	(new FlowLayout(FlowLayout.CENTER, 50, 20));
-        	pnlBouton.setOpaque	        (false);
-
-        	this.btnPrecedent		= new JButton("<< Précédent" );
-		this.btnSuivant			= new JButton("Suivant >>");
-		
-		String[]  lstCasting	    = new String[this.ctrl.getNbCasting()];
+		// permet de donner une limite plus propre plutôt qu'en dur lors des parcours
+		String[]  lstCasting	    		= new String[this.ctrl.getNbCasting()];	
 		
 		for (int cpt = 0; cpt < lstCasting.length; cpt++)
-		{
 			lstCasting[cpt]         = this.ctrl.getCasting(cpt);
-		}
 		
 		this.tabCBCasting	        = new JCheckBox[lstCasting.length];
 		this.tabCasting		        = new Casting  [lstCasting.length];
 
 		for (int cpt = 0; cpt < lstCasting.length; cpt++)
-		{
-		    this.tabCasting[cpt]    = Casting.valueOf(cpt);
-		}
+		    	this.tabCasting[cpt]    = Casting.valueOf(cpt);
 		
+		
+		// permet de donner une limite plus propre plutôt qu'en dur lors des parcours
 		String[]  lstRole	        = new String[this.ctrl.getNbRole()];
-		
 		for (int cpt = 0; cpt < lstRole.length; cpt++)
-		{
 			lstRole[cpt] 	        = this.ctrl.getRole(cpt);
-		}
 		
 		this.tabCBRole		        = new JCheckBox[lstRole.length];
 		this.tabRole		        = new Role     [lstRole.length];
 
 		for (int cpt = 0; cpt < lstRole.length; cpt++)
-		{
-		    this.tabRole[cpt]       = Role.valueOf(cpt);
-		}
+		    	this.tabRole[cpt]       = Role.valueOf(cpt);
 
         	this.txtNomPlateau	        = new JTextField("", 15);
 		this.txtLigne		        = new JTextField("", 5);
 		this.txtColonne		        = new JTextField("", 5);
 
-        	JLabel lblTitre             = new JLabel ("<html><u>Saisie des Informations</u></html>", JLabel.CENTER);
+        	JLabel lblTitre             	= new JLabel ("<html><u>Saisie des Informations</u></html>", JLabel.CENTER);
 
+		// Essai pour initialiser les polices en prenant la police téléchargée dans le dossier polices/
         	try
         	{
-		    File fichierTitre       = new File("./polices/TitreSaisieInfos/Shrikhand-Regular.ttf");
-		    Font fontTitreBase      = Font.createFont(Font.TRUETYPE_FONT, fichierTitre);
-		    Font fontBase  = Font.createFont(Font.TRUETYPE_FONT, fichierTitre);
+		    File fichierTitre       	= new File("./polices/TitreSaisieInfos/Shrikhand-Regular.ttf");
+		    Font policeLbl     		= Font.createFont(Font.TRUETYPE_FONT, fichierTitre); 		// crée la police
+		    
+		    java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(policeLbl);		// enregistre la police dans le système Java
 
-		    java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(fontTitreBase);
-		    java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(fontBase);
+		    Font policeTitre     	=  policeLbl.deriveFont(Font.BOLD, 22f);			// police du titre 		modifié en Gras + taille 22
+		    this.policeSousTitre    	=  policeLbl.deriveFont(Font.PLAIN, 16f);			// police du sous-titre 	modifié en Gras + taille 16
+		    this.policeLabel        	=  policeLbl.deriveFont(Font.PLAIN, 12f);			// police des autres labels 	modifié en Gras + taille 12
 
-		    Font fontTitreFinal     =  fontTitreBase.deriveFont(Font.BOLD, 22f);
-		    this.policeSousTitre    =  fontBase.deriveFont(Font.PLAIN, 16f);
-		    this.policeLabel        =  fontBase.deriveFont(Font.PLAIN, 12f);
-
-		    lblTitre.setFont(fontTitreFinal);
+		    lblTitre.setFont(policeTitre);								// police du label du titre changé
 		}
 		catch (Exception e)
 		{
