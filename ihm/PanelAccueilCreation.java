@@ -1,13 +1,16 @@
 package ihm;
 
 import controleur.Controleur;
+
+import java.io.File;
+
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.*;
-import java.io.File;
+
 import javax.swing.*;
 
 public class PanelAccueilCreation extends JPanel implements ActionListener
@@ -123,7 +126,7 @@ public class PanelAccueilCreation extends JPanel implements ActionListener
 		}*/
 	}
 	
-	@Override
+	// Méthode permettant de changer le fond du panel par imgFond
 	protected void paintComponent(Graphics g) 
 	{
 		super.paintComponent(g);
