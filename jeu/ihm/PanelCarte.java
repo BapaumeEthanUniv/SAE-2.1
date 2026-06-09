@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.*;
+
 import javax.swing.*;
 
 public class PanelCarte extends JPanel implements ActionListener
@@ -28,7 +29,7 @@ public class PanelCarte extends JPanel implements ActionListener
         panelAfficheCarte = new JPanel(new GridLayout());
         panelAfficheScore = new JPanel(new GridLayout(2, 2));
 
-        this.imgPersonnage = new ImageIcon("../images/" + image + ".png");
+        this.imgPersonnage = new ImageIcon("./images/" + image + ".png");
         this.imageRedimensionnee = this.imgPersonnage.getImage()
                 .getScaledInstance(largeur, hauteur, Image.SCALE_SMOOTH);
         this.iconeFinale = new ImageIcon(this.imageRedimensionnee);
@@ -51,15 +52,14 @@ public class PanelCarte extends JPanel implements ActionListener
         this.btnChangerImage.addActionListener(this);
     }
 
-
-    @Override
     public void actionPerformed(ActionEvent e)
     {
         int image = ((int)(Math.random() * 10) + 1);
-        this.imgPersonnage = new ImageIcon("../images/" + image + ".png");
-        this.imageRedimensionnee = this.imgPersonnage.getImage()
-                .getScaledInstance(350, 500, Image.SCALE_SMOOTH);
+        
+        this.imgPersonnage = new ImageIcon("./images/" + image + ".png");
+        this.imageRedimensionnee = this.imgPersonnage.getImage().getScaledInstance(350, 500, Image.SCALE_SMOOTH);
         this.iconeFinale = new ImageIcon(this.imageRedimensionnee);
+        
         this.label.setIcon(this.iconeFinale);
     }
 }
