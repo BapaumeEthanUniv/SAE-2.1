@@ -62,20 +62,32 @@ public class PlateauJeu
 		return false;
 	}
 
-	public void importActeur()
+	public boolean importActeur(File filePlateau)
 	{
 		FileReader fr;
+		Role       role;
+		int        posX;
+		int        posY;
 
 		try
 		{
-			fr = new FileReader ( "paroles.data" );
+			fr = new FileReader ( filePlateau.getPath() + File.separator + "Acteur.data" );
 			Scanner sc = new Scanner ( fr );
 
 			while ( sc.hasNextLine() )
-				System.out.println ( sc.nextLine() );
+			{
+				role = Role   .getRole (sc.nextLine().substring(0, 3));
+				posX = Integer.parseInt(sc.nextLine().substring(3, 6));
+				posY = Integer.parseInt(sc.nextLine().substring(3, 6));
+
+				this.lstActeurs.add(new Acteur(posX, posY, role));
+			}
 
 			fr.close();
+			sc.close();
 		}
-		catch (Exception e){ e.printStackTrace(); }
+		catch (Exception e){ return false; }
+
+		return true;
 	}
 }
