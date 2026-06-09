@@ -4,6 +4,7 @@ import controleur.Controleur;
 
 import java.io.File;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -139,12 +140,32 @@ public class PanelJeu extends JPanel implements ActionListener
 	}
 	
 	// Méthode permettant de dessiner les contacts entre les acteurs
-	protected void paint        (Graphics2D g2)
+	protected void peindreContacts(Graphics g)
 	{
-		super.paint(g2);
+		super.paint(g);
+		
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setColor(Color.BLACK);
 		
 		//if (this.tabPnlCases == null || this.pnlPlateau == null) return;
 		// Dessiner les lignes 
+		/* for (Acteur acteur : ctrl.getLstActeurs()) 
+		
+			for (Acteur voisin : acteur.getVoisins()) 
+			{
+			    JPanel case1 = tabPnlCases[acteur.getPosX()][acteur.getPosY()];
+			    JPanel case2 = tabPnlCases[voisin.getPosX()][voisin.getPosY()];
+			    
+			    int centreX1 = this.pnlGrille.getX() + case1.getX() + (case1.getWidth() / 2);
+			    int centreY1 = this.pnlGrille.getY() + case1.getY() + (case1.getHeight() / 2);
+
+			    int centreX2 = this.pnlGrille.getX() + case2.getX() + (case2.getWidth() / 2);
+			    int centreY2 = this.pnlGrille.getY() + case2.getY() + (case2.getHeight() / 2);
+
+			    // On trace la ligne entre les deux !
+			    g2.drawLine(centreX1, centreY1, centreX2, centreY2);
+			}
+    		*/
 		
 	}
 }
