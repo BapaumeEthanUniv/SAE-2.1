@@ -19,8 +19,8 @@ public class PanelCarte extends JPanel implements ActionListener
     	{
 		JPanel panelAfficheCarte;
 		JPanel panelAfficheScore;
-		int hauteur = 500;
-		int largeur = 350;
+		int hauteur = 350;
+		int largeur = 250;
 
 		this.setLayout(new BorderLayout());
 
@@ -57,7 +57,7 @@ public class PanelCarte extends JPanel implements ActionListener
 		int image = ((int)(Math.random() * 10) + 1);
 		
 		this.imgPersonnage = new ImageIcon("./images/" + image + ".png");
-		this.imageRedimensionnee = this.imgPersonnage.getImage().getScaledInstance(350, 500, Image.SCALE_SMOOTH);
+		this.imageRedimensionnee = this.imgPersonnage.getImage().getScaledInstance(250, 350, Image.SCALE_SMOOTH);
 		this.iconeFinale = new ImageIcon(this.imageRedimensionnee);
 		
 		this.label.setIcon(this.iconeFinale);
