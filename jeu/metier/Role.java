@@ -28,4 +28,15 @@ public enum Role
 	{
 		return Role.values()[ordinal];
 	}
+
+	public static Role getRole(String role)
+	{
+		for (Role r : Role.values())
+		{
+			if (r.toString().equals(role))
+				return r;
+		}
+
+		return null;
+	}
 }
