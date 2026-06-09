@@ -10,10 +10,19 @@ public class Zone
 	private        int     numZone;  //Numéro auto-incrémenté
 
 	//Constructeur
-	public Zone(Couleur couleur)
+	public Zone (Couleur couleur)
 	{
 		this.numZone = ++Zone.compteur; //Incrémentation du nombre de Zone + attribution du numéro de zone
 		this.couleur = couleur;
+	}
+	public Zone (int num, Couleur couleur)
+	{
+		this.numZone = num;
+		this.couleur = couleur;
+	}
+	public Zone (int num, Color couleur)
+	{
+		this(num,Couleur.couleurCorrespondante(couleur));
 	}
 
 	//Getters

@@ -55,4 +55,18 @@ public enum Couleur
 	{
 		return Couleur.values()[ordinal];
 	}
+	
+	public static Couleur couleurCorrespondante(Color color)
+	{
+		
+		Couleur[] lstCouleurs = Couleur.values();
+		for (Couleur c : lstCouleurs)
+		{
+			if (c.getCouleur().equals(color))
+			{
+				return c;
+			}
+		}
+		return null;
+	}
 }

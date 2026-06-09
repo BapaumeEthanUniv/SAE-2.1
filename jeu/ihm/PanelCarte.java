@@ -1,10 +1,12 @@
 package ihm;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.*;
-
 import javax.swing.*;
 
 public class PanelCarte extends JPanel implements ActionListener
@@ -13,53 +15,86 @@ public class PanelCarte extends JPanel implements ActionListener
     	private JButton   btnChangerImage;
     	private Image     imageRedimensionnee;
     	private ImageIcon iconeFinale;
-    	private JLabel    label;
+    	private JLabel    lblImage;
+    	
+    	private Image 	  imgFond;
+    	
+    	private int       nomImage;
+    	private int       largeurImage;
+    	private int       hauteurImage;
 
     	public PanelCarte()
     	{
-		JPanel panelAfficheCarte;
-		JPanel panelAfficheScore;
-		int hauteur = 350;
-		int largeur = 250;
-
 		this.setLayout(new BorderLayout());
 
-		int image = (int)(Math.random() * 10) + 1;
-
-		panelAfficheCarte = new JPanel(new GridLayout());
-		panelAfficheScore = new JPanel(new GridLayout(2, 2));
-
-		this.imgPersonnage = new ImageIcon("./images/" + image + ".png");
-		this.imageRedimensionnee = this.imgPersonnage.getImage()
-		        .getScaledInstance(largeur, hauteur, Image.SCALE_SMOOTH);
-		this.iconeFinale = new ImageIcon(this.imageRedimensionnee);
-		this.label = new JLabel(this.iconeFinale);
-
-
-		this.btnChangerImage = new JButton("Changer l'image");
-
+		/*-------------------------------*/
+		/*   Création des composants     */
+		/*-------------------------------*/
+		
+		JPanel panelAfficheCarte = new JPanel(new GridLayout());
 		panelAfficheCarte.setOpaque(false);
-		panelAfficheCarte.add(this.label);
+		
+		JPanel panelAfficheScore = new JPanel(new GridLayout(2, 2));
+		panelAfficheScore.setOpaque(false);
+		
+		this.nomImage            = (int)(Math.random() * 10) + 1;
+		this.largeurImage        = 250;
+		this.hauteurImage        = 350;
+		
+		this.piocheAleatoire();
+		this.lblImage = new JLabel(this.iconeFinale);
+		
+		this.imgFond             = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
 
-		panelAfficheScore.add(new JLabel("manche : "));
-		panelAfficheScore.add(new JLabel("tour : "));
-		panelAfficheScore.add(new JLabel("score joueur : "));
+		this.btnChangerImage     = new JButton("Changer l'image");
+		
+		
+		/*-------------------------------*/
+		/* Positionnement des composants */
+		/*-------------------------------*/
+		
+		panelAfficheCarte.add(this.lblImage);
 
-		this.add(panelAfficheCarte, BorderLayout.CENTER);
-		this.add(panelAfficheScore, BorderLayout.SOUTH);
+		panelAfficheScore.add(new JLabel("Manche : "));
+		panelAfficheScore.add(new JLabel("Tour : "));
+		panelAfficheScore.add(new JLabel("Score joueur : "));
+
 		this.add(this.btnChangerImage, BorderLayout.NORTH);
+		this.add(panelAfficheCarte   , BorderLayout.CENTER);
+		this.add(panelAfficheScore   , BorderLayout.SOUTH);
+
+		/* ----------------------------- */
+		/* Activation des Composants     */
+		/* ----------------------------- */
 
 		this.btnChangerImage.addActionListener(this);
     	}
 
     	public void actionPerformed(ActionEvent e)
    	{
-		int image = ((int)(Math.random() * 10) + 1);
-		
-		this.imgPersonnage = new ImageIcon("./images/" + image + ".png");
-		this.imageRedimensionnee = this.imgPersonnage.getImage().getScaledInstance(250, 350, Image.SCALE_SMOOTH);
-		this.iconeFinale = new ImageIcon(this.imageRedimensionnee);
-		
-		this.label.setIcon(this.iconeFinale);
+		if (e.getSource() == this.btnChangerImage)
+		{	
+			this.piocheAleatoire();
+			this.lblImage.setIcon(this.iconeFinale);
+		}
     	}
+    	
+    	// Méthode permettant de simuler une pioche aléatoire et d'afficher les cartes de façon optimisé
+    	private void piocheAleatoire ()
+    	{
+    		this.imgPersonnage = new ImageIcon("./images/" + this.nomImage + ".png");
+			this.imageRedimensionnee = this.imgPersonnage.getImage()
+		        .getScaledInstance(this.largeurImage, this.hauteurImage, Image.SCALE_SMOOTH);
+			this.iconeFinale = new ImageIcon(this.imageRedimensionnee);
+    	}
+    	
+    	// Méthode permettant de changer le fond du panel par imgFond + dessiner les liens sur le plateau
+	protected void paintComponent(Graphics g) 
+	{
+		super.paintComponent(g);
+		if (this.imgFond != null) 
+		{
+			g.drawImage(this.imgFond, 0, 0, this.getWidth(), this.getHeight(), this);
+		}
+	}
 }
