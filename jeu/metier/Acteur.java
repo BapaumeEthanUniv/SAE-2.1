@@ -1,6 +1,9 @@
 package metier;
 
 import java.util.ArrayList;
+
+import metier.PlateauJeu;
+
 import java.awt.Color;
 
 public class Acteur
@@ -110,5 +113,10 @@ public class Acteur
 	public String toString()
 	{
 		return "" + this.role + String.format("%03d", this.posX) + String.format("%03d", this.posY);
+	}
+
+	public void ajouterArette(PlateauJeu plateau, Acteur voisin, Casting casting)
+	{
+		plateau.ajouterArette(this, voisin, casting);
 	}
 }

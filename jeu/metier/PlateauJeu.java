@@ -203,6 +203,24 @@ public class PlateauJeu
 		return true;
 	}
 
+	public void ajouterArette(Acteur voisin1, Acteur voisin2, Casting casting)
+	{
+		int x;
+		int y;
+		x = voisin1.getPosX();
+		y = voisin1.getPosY();
+		while (x!= voisin2.getPosX())
+		{
+			x+=Integer.compare(voisin1.getPosX(), voisin2.getPosX());
+			y+=Integer.compare(voisin2.getPosX(), voisin2.getPosX());
+			if (x!=voisin1.getPosX() && y!=voisin1.getPosY() &&
+			    x!=voisin2.getPosX() && y!=voisin2.getPosY() )
+			{
+				this.tabArrete[x][y]=casting;
+			}
+		}
+	}
+
 	//main de test
 	// public static void main(String[] args) 
 	// {
