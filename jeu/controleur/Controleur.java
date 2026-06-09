@@ -18,7 +18,7 @@ public class Controleur
 {
 	private FrameJeu        frameJeu;
 	private FrameCarte	frameCarte;
-	//private PlateauJeu      metier;
+	private PlateauJeu      metier;
 	
 	int l, lJeu, lCarte;
 	int h;
