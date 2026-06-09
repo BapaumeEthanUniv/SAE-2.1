@@ -25,45 +25,59 @@ public class PanelJeu extends JPanel implements ActionListener
 	
 	public PanelJeu (Controleur ctrl, FrameJeu f, int indice)
 	{
+		
+		this.setLayout(new BorderLayout());
+		
+		/*-------------------------------*/
+		/*   Création des composants     */
+		/*-------------------------------*/
+		
 		this.ctrl 		= ctrl;
 		this.frame 		= f;
 		this.indice 		= indice;
-	
-		this.setLayout(new BorderLayout());
 		
-		this.imgFond      = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
+		this.imgFond            = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
 		
-		JPanel pnlPrincipal = new JPanel();
-		pnlPrincipal.setLayout(new FlowLayout(FlowLayout.CENTER));
+		JPanel pnlHaut          = new JPanel();
+		pnlHaut                 .setLayout(new FlowLayout(FlowLayout.CENTER));
+		pnlHaut                 .setOpaque(false);
+		
+		JPanel pnlPrincipal     = new JPanel();
+		pnlPrincipal            .setLayout(new FlowLayout(FlowLayout.CENTER));
 		pnlPrincipal.setOpaque(false);
 		
-		this.btnCharger = new JButton("Charger Niveau");
-		this.btnCharger.setOpaque(false);
+		JPanel pnlPlateau       = new JPanel();
+		//pnlPlateau              .setLayout(new GridLayout(/* nbLigne, nbColonne, gapX, gapY */));
+		pnlPlateau              .setOpaque(false);
 		
-		pnlPrincipal.add(this.btnCharger);
-		this.add(pnlPrincipal);
+		this.btnScore = new JButton("Voir les Scores >>");
+		this.btnScore.setOpaque(false);
 		
-		this.btnCharger.addActionListener(this);
+		/*-------------------------------*/
+		/* Positionnement des composants */
+		/*-------------------------------*/
+		
+		/*
+		pnlPrincipal.add(this.btnScore);
+		this.add(pnlPrincipal); */
+		
+		/* ----------------------------- */
+		/* Activation des Composants     */
+		/* ----------------------------- */
+		this.btnScore.addActionListener(this);
 		
 		this.setVisible(true);
 	}
 	
 	public void actionPerformed ( ActionEvent e )
 	{
-		if ( e.getSource() == this.btnCharger )
+		if ( e.getSource() == this.btnScore )
 		{
-			JFileChooser chooser = new JFileChooser("."); 
-			
-			int res = chooser.showOpenDialog(this); 
-			
-			if (res == JFileChooser.APPROVE_OPTION) 
-			{
-				File fichier = chooser.getSelectedFile();
-				this.frame.setPnl(this.frame.getPnl(indice + 1));
-			}
+			this.frame.setPnl(this.frame.getPnl(indice + 1));
 		}
 	}
 	
+	// Méthode permettant de changer le fond du panel par imgFond + dessiner les liens sur le plateau
 	protected void paintComponent(Graphics g) 
 	{
 		super.paintComponent(g);

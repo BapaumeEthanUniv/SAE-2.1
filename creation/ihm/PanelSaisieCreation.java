@@ -386,7 +386,7 @@ public class PanelSaisieCreation extends JPanel implements ActionListener
 		return true;
 	}
 
-	//Retourne le nombre de roles sélectionnés
+	// Retourne le nombre de roles sélectionnés
 	public int getNbRole()
 	{
 		int cptRole = 0;

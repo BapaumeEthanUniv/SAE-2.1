@@ -31,7 +31,7 @@ public class FrameCreation extends JFrame
 		this.add(this.panelActif, BorderLayout.CENTER);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setVisible(true);
+        	this.setVisible(true);
 		File filePrincipal = new File("Plateau");
 		filePrincipal.mkdir();
 	}

@@ -60,21 +60,89 @@ public class PlateauJeu
 		return false;
 	}
 
-	public void importActeur()
+	public boolean importActeur(File filePlateau)
+	{
+		FileReader fr;
+		Role       role;
+		int        posX;
+		int        posY;
+
+		try
+		{
+			fr = new FileReader ( filePlateau.getPath() + File.separator + "Acteur.data" );
+			Scanner sc = new Scanner ( fr );
+
+			while ( sc.hasNextLine() )
+			{
+				role = Role   .getRole (sc.nextLine().substring(0, 3));
+				posX = Integer.parseInt(sc.nextLine().substring(3, 6));
+				posY = Integer.parseInt(sc.nextLine().substring(3, 6));
+
+				this.lstActeurs.add(new Acteur(posX, posY, role));
+			}
+
+			fr.close();
+			sc.close();
+		}
+		catch (Exception e){ return false; }
+
+		return true;
+	}
+
+	public boolean importCasting(File filePlateau)
+	{
+		FileReader fr;
+		Color      couleur;
+		int        posX;
+		int        posY;
+
+		try
+		{
+			fr = new FileReader ( filePlateau.getPath() + File.separator + "Casting.data" );
+			Scanner sc = new Scanner ( fr );
+
+			while ( sc.hasNextLine() )
+			{
+				couleur = new Color(Integer.parseInt(sc.nextLine().substring(0, 3)),
+				                    Integer.parseInt(sc.nextLine().substring(3, 6)),
+									Integer.parseInt(sc.nextLine().substring(6, 9)));
+				posX = Integer.parseInt(sc.nextLine().substring(9, 12));
+				posY = Integer.parseInt(sc.nextLine().substring(12, 15));
+
+				this.lstCasting.add(Casting.getCasting(couleur));
+				this.setPrincipal(couleur, posX, posY);
+			}
+
+			fr.close();
+			sc.close();
+		}
+		catch (Exception e){ return false; }
+
+		return true;
+	}
+
+	public boolean importPlateau(File filePlateau)
 	{
 		FileReader fr;
 
 		try
 		{
-			fr = new FileReader ( "paroles.data" );
+			fr = new FileReader ( filePlateau.getPath() + File.separator + "Plateau.data" );
 			Scanner sc = new Scanner ( fr );
 
 			while ( sc.hasNextLine() )
-				System.out.println ( sc.nextLine() );
+			{
+				this.nbLigne    = Integer.parseInt(sc.nextLine().substring(0, 3));
+				this.nbColonne  = Integer.parseInt(sc.nextLine().substring(3, 6));
+				this.tailleCase = Integer.parseInt(sc.nextLine().substring(6, 9));
+			}
 
 			fr.close();
+			sc.close();
 		}
-		catch (Exception e){ e.printStackTrace(); }
+		catch (Exception e){ return false; }
+
+		return true;
 	}
 	public boolean importZone(File filePlateau)
 	{
