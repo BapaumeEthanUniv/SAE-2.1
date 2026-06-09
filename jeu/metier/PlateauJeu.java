@@ -2,6 +2,7 @@ package metier;
 
 import java.util.ArrayList;
 import java.awt.Color;
+import java.io.File;
 
 public class PlateauJeu 
 {
@@ -10,7 +11,7 @@ public class PlateauJeu
 	
 	private ArrayList<Casting> lstCasting;
 
-	private int[][]            tabZone;
+	private Zone[][]           tabZone;
 
 	private Casting[][]        tabArrete;
 
@@ -20,7 +21,7 @@ public class PlateauJeu
 
 	private ArrayList<Acteur> lstActeurs;
 
-	public PlateauJeu()
+	public PlateauJeu(File filePlateau)
 	{
 
 	}
@@ -33,7 +34,7 @@ public class PlateauJeu
 
 	public ArrayList<Casting> getLstCasting() {return lstCasting;}
 
-	public int[][]            getTabZone()    {return tabZone;}
+	public Zone[][]           getTabZone()    {return tabZone;}
 
 	public Casting[][]        getTabArrete()  {return tabArrete;}
 
@@ -58,4 +59,6 @@ public class PlateauJeu
 
 		return false;
 	}
+
+
 }
