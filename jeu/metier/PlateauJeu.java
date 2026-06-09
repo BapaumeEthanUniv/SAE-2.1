@@ -170,7 +170,7 @@ public class PlateauJeu
 					numZone = Integer.parseInt(Ligne.substring(0,3));
 					colorZone = new Color(Integer.parseInt(Ligne.substring(3,6)),
 					                      Integer.parseInt(Ligne.substring(6,9)),
-					                      Integer.parseInt(Ligne.substring(9,12)));
+					                      Integer.parseInt(Ligne.substring(9)));
 					
 					lstZones.add(new Zone(numZone, colorZone));
 				}
