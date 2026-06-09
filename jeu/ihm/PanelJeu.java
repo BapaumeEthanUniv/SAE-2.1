@@ -6,14 +6,14 @@ import java.io.File;
 
 import java.awt.FlowLayout;
 import java.awt.Graphics;
-import java.awt.GridLayout;
+import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.*;
 
 import javax.swing.*;
 
-public class PanelAccueilJeu extends JPanel implements ActionListener
+public class PanelJeu extends JPanel implements ActionListener
 {
 	private Controleur 	ctrl;
 	private FrameJeu 	frame;
@@ -21,17 +21,17 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 	
 	private Image 		imgFond;
 	
-	private JButton		btnCharger;
+	private JButton		btnScore;
 	
-	public PanelAccueilJeu (Controleur ctrl, FrameJeu f, int indice)
+	public PanelJeu (Controleur ctrl, FrameJeu f, int indice)
 	{
 		this.ctrl 		= ctrl;
 		this.frame 		= f;
 		this.indice 		= indice;
 	
-		this.setLayout(new GridLayout(10,1));
+		this.setLayout(new BorderLayout());
 		
-		this.imgFond      = Toolkit.getDefaultToolkit().getImage("./images/img-accueil-jeu.png");
+		this.imgFond      = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
 		
 		JPanel pnlPrincipal = new JPanel();
 		pnlPrincipal.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -40,11 +40,6 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 		this.btnCharger = new JButton("Charger Niveau");
 		this.btnCharger.setOpaque(false);
 		
-		this.add(new JLabel(""));
-		this.add(new JLabel(""));
-		this.add(new JLabel(""));
-		this.add(new JLabel(""));
-		this.add(new JLabel(""));
 		pnlPrincipal.add(this.btnCharger);
 		this.add(pnlPrincipal);
 		
