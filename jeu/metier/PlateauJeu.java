@@ -108,7 +108,8 @@ public class PlateauJeu
 			{
 				couleur = new Color(Integer.parseInt(sc.nextLine().substring(0, 3)),
 				                    Integer.parseInt(sc.nextLine().substring(3, 6)),
-									Integer.parseInt(sc.nextLine().substring(6, 9)));
+						    Integer.parseInt(sc.nextLine().substring(6, 9)));
+						    
 				posX = Integer.parseInt(sc.nextLine().substring(9, 12));
 				posY = Integer.parseInt(sc.nextLine().substring(12, 15));
 
