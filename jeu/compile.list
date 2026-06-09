@@ -1,14 +1,4 @@
 ./controleur/Controleur.java
 
-./metier/Acteur.java
-./metier/Carte.java
-./metier/Pioche.java
-./metier/PlateauJeu.java
-./metier/Casting.java
-./metier/Role.java
-./metier/Zone.java
-
-./ihm/FrameCreation.java
-./ihm/PanelSaisieCreation.java
-./ihm/PanelZone.java
-./ihm/PanelAccueilCreation.java
+./ihm/FrameJeu.java
+./ihm/PanelAccueilJeu.java
