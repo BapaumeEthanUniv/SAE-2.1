@@ -57,13 +57,14 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 	{
 		if ( e.getSource() == this.btnCharger )
 		{
-			JFileChooser chooser = new JFileChooser("."); 
+			JFileChooser fcRepertoire = new JFileChooser("."); 
+			fcRepertoire.setFileSelectionMode(fcRepertoire.DIRECTORIES_ONLY);
 			
-			int res = chooser.showOpenDialog(this); 
+			int res = fcRepertoire.showOpenDialog(this); 
 			
 			if (res == JFileChooser.APPROVE_OPTION) 
 			{
-				File fichier = chooser.getSelectedFile();
+				File fichier = fcRepertoire.getSelectedFile();
 				this.frame.setPnl(this.frame.getPnl(indice + 1));
 			}
 		}

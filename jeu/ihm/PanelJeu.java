@@ -21,6 +21,8 @@ public class PanelJeu extends JPanel implements ActionListener
 	
 	private Image 		imgFond;
 	
+	private JPanel		pnlPlateau;
+	
 	private JButton		btnScore;
 	
 	public PanelJeu (Controleur ctrl, FrameJeu f, int indice)
@@ -37,30 +39,25 @@ public class PanelJeu extends JPanel implements ActionListener
 		pnlPrincipal.setLayout(new FlowLayout(FlowLayout.CENTER));
 		pnlPrincipal.setOpaque(false);
 		
-		this.btnCharger = new JButton("Charger Niveau");
-		this.btnCharger.setOpaque(false);
 		
-		pnlPrincipal.add(this.btnCharger);
-		this.add(pnlPrincipal);
 		
-		this.btnCharger.addActionListener(this);
+		this.btnScore = new JButton("Voir les Scores >>");
+		this.btnScore.setOpaque(false);
+		
+		/*
+		pnlPrincipal.add(this.btnScore);
+		this.add(pnlPrincipal); */
+		
+		this.btnScore.addActionListener(this);
 		
 		this.setVisible(true);
 	}
 	
 	public void actionPerformed ( ActionEvent e )
 	{
-		if ( e.getSource() == this.btnCharger )
+		if ( e.getSource() == this.btnScore )
 		{
-			JFileChooser chooser = new JFileChooser("."); 
-			
-			int res = chooser.showOpenDialog(this); 
-			
-			if (res == JFileChooser.APPROVE_OPTION) 
-			{
-				File fichier = chooser.getSelectedFile();
-				this.frame.setPnl(this.frame.getPnl(indice + 1));
-			}
+			this.frame.setPnl(this.frame.getPnl(indice + 1));
 		}
 	}
 	
