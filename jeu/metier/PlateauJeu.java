@@ -111,21 +111,12 @@ public class PlateauJeu
 
 			while ( sc.hasNextLine() )
 			{
-<<<<<<< HEAD
 				Ligne = sc.nextLine();
 				couleur = new Color(Integer.parseInt(Ligne.substring(0, 3)),
 				                    Integer.parseInt(Ligne.substring(3, 6)),
 									Integer.parseInt(Ligne.substring(6, 9)));
 				posX = Integer.parseInt(Ligne.substring(9, 12));
 				posY = Integer.parseInt(Ligne.substring(12, 15));
-=======
-				couleur = new Color(Integer.parseInt(sc.nextLine().substring(0, 3)),
-				                    Integer.parseInt(sc.nextLine().substring(3, 6)),
-						    Integer.parseInt(sc.nextLine().substring(6, 9)));
-						    
-				posX = Integer.parseInt(sc.nextLine().substring(9, 12));
-				posY = Integer.parseInt(sc.nextLine().substring(12, 15));
->>>>>>> 282c61b254ce35f2c8e2cbda8bc17373efc3d35c
 
 				this.lstCasting.add(Casting.getCasting(couleur));
 				this.setPrincipal(couleur, posX, posY);
@@ -213,30 +204,30 @@ public class PlateauJeu
 	}
 
 	//main de test
-	public static void main(String[] args) 
-	{
-		PlateauJeu p = new PlateauJeu(new File("../creation/Plateau/plateauTest"));
+	// public static void main(String[] args) 
+	// {
+	// 	PlateauJeu p = new PlateauJeu(new File("../creation/Plateau/plateauTest"));
 
-		System.out.println("Plateau : " + p.getNbLigne() + " " + p.getNbColonne() + " " + p.getTailleCase());
+	// 	System.out.println("Plateau : " + p.getNbLigne() + " " + p.getNbColonne() + " " + p.getTailleCase());
 		
-		for (Casting c : p.getLstCasting())
-			System.out.println("Casting : " + c.getLibelle());
+	// 	for (Casting c : p.getLstCasting())
+	// 		System.out.println("Casting : " + c.getLibelle());
 
-		for (Acteur a : p.getLstActeurs())
-			System.out.println("Acteur : " + a.getRole().getLibelle() + " " + a.getPosX() + " " + a.getPosY() + " " + a.getCouleur());
+	// 	for (Acteur a : p.getLstActeurs())
+	// 		System.out.println("Acteur : " + a.getRole().getLibelle() + " " + a.getPosX() + " " + a.getPosY() + " " + a.getCouleur());
 
-		System.out.println("Zone : ");
-		for (int lig = 0; lig < p.getTabZone().length; lig ++)
-		{
-			for (int col = 0; col < p.getTabZone()[lig].length; col ++)
-			{
-				if (p.getTabZone()[lig][col] != null)
-					System.out.print(String.format("%3d", p.getTabZone()[lig][col].getNumZone()));
-				else
-					System.out.print("  0");
-			}
-			System.out.println();
-		}
+	// 	System.out.println("Zone : ");
+	// 	for (int lig = 0; lig < p.getTabZone().length; lig ++)
+	// 	{
+	// 		for (int col = 0; col < p.getTabZone()[lig].length; col ++)
+	// 		{
+	// 			if (p.getTabZone()[lig][col] != null)
+	// 				System.out.print(String.format("%3d", p.getTabZone()[lig][col].getNumZone()));
+	// 			else
+	// 				System.out.print("  0");
+	// 		}
+	// 		System.out.println();
+	// 	}
 	
-	}
+	// }
 }
