@@ -19,13 +19,14 @@ public class PlateauJeu
 
 	private int                tailleCase;
 
-	private Zone[][]           tabZones;
-
 	private ArrayList<Acteur> lstActeurs;
 
 	public PlateauJeu(File filePlateau)
 	{
-
+		this.importActeur (filePlateau);
+		this.importCasting(filePlateau);
+		this.importPlateau(filePlateau);
+		this.importZone   (filePlateau);
 	}
 
 	public int                getNbLigne()    {return nbLigne;}
@@ -145,5 +146,32 @@ public class PlateauJeu
 		catch (Exception e){ return false; }
 
 		return true;
+	}
+
+	//main de test
+	public static void main(String[] args) 
+	{
+		PlateauJeu p = new PlateauJeu(new File("../creation/Plateau/PlateauTest"));
+
+		System.out.println("Plateau : " + p.getNbLigne() + " " + p.getNbColonne() + " " + p.getTailleCase());
+		
+		for (Casting c : p.getLstCasting())
+			System.out.println("Casting : " + c.getLibelle());
+
+		for (Acteur a : p.getLstActeurs())
+			System.out.println("Acteur : " + a.getRole().getLibelle() + " " + a.getPosX() + " " + a.getPosY() + " " + a.getCouleur());
+
+		System.out.println("Zone : ");
+		for (int lig = 0; lig < p.getTabZone().length; lig ++)
+		{
+			for (int col = 0; col < p.getTabZone()[lig].length; col ++)
+			{
+				if (p.getTabZone()[lig][col] != null)
+					System.out.print(String.format("%3d", p.getTabZone()[lig][col].getNumZone()));
+				else
+					System.out.print("000");
+			}
+			System.out.println();
+		}
 	}
 }
