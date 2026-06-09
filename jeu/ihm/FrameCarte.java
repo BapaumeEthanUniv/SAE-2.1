@@ -1,17 +1,19 @@
 package ihm;
 
+import controleur.Controleur;
+
 import javax.swing.JFrame;
 
 public class FrameCarte extends JFrame
 {
-	// private Controleur   ctrl;
+	private Controleur   ctrl;
 	private PanelCarte panelCarte;
 
-	public FrameCarte()
+	public FrameCarte(Controleur ctrl)
 	{
-		// this.ctrl = ctrl;
+		this.ctrl = ctrl;
 		this.setTitle("Carte pioché");
-		this.setSize(500, 600);
+		this.setSize(500, 700);
 		this.setLocation(10, 320);
 
 		this.panelCarte = new PanelCarte();
@@ -21,10 +23,5 @@ public class FrameCarte extends JFrame
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		this.setVisible(true);
-	}
-
-	public static void main(String[] args)
-	{
-		new FrameCarte();
 	}
 }
