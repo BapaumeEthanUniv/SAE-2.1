@@ -12,7 +12,7 @@ public class FrameJeu extends JFrame
 	private Controleur ctrl;
 	private JPanel[] tabPanel;
 
-	private JPanel panelActif;
+	public static JPanel panelActif;
 	
 	public FrameJeu (Controleur ctrl)
 	{
@@ -20,7 +20,7 @@ public class FrameJeu extends JFrame
 		this.setTitle("Acte de Présence");
 		this.setSize(600, 700);
 		this.setLayout(new BorderLayout());
-		
+
 		this.tabPanel	 = new JPanel[4];
 		
 		this.tabPanel[0] = new PanelAccueilJeu(ctrl, this, 0);
