@@ -57,7 +57,7 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 	{
 		if ( e.getSource() == this.btnCharger )
 		{
-			JFileChooser fcRepertoire = new JFileChooser("."); 
+			JFileChooser fcRepertoire = new JFileChooser("../creation/Plateau/"); 
 			fcRepertoire.setFileSelectionMode(fcRepertoire.DIRECTORIES_ONLY);
 			
 			int res = fcRepertoire.showOpenDialog(this); 

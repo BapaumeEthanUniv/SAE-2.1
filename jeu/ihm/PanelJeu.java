@@ -21,33 +21,49 @@ public class PanelJeu extends JPanel implements ActionListener
 	
 	private Image 		imgFond;
 	
-	private JPanel		pnlPlateau;
-	
 	private JButton		btnScore;
 	
 	public PanelJeu (Controleur ctrl, FrameJeu f, int indice)
 	{
+		
+		this.setLayout(new BorderLayout());
+		
+		/*-------------------------------*/
+		/*   Création des composants     */
+		/*-------------------------------*/
+		
 		this.ctrl 		= ctrl;
 		this.frame 		= f;
 		this.indice 		= indice;
-	
-		this.setLayout(new BorderLayout());
 		
-		this.imgFond      = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
+		this.imgFond            = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
 		
-		JPanel pnlPrincipal = new JPanel();
-		pnlPrincipal.setLayout(new FlowLayout(FlowLayout.CENTER));
+		JPanel pnlHaut          = new JPanel();
+		pnlHaut                 .setLayout(new FlowLayout(FlowLayout.CENTER));
+		pnlHaut                 .setOpaque(false);
+		
+		JPanel pnlPrincipal     = new JPanel();
+		pnlPrincipal            .setLayout(new FlowLayout(FlowLayout.CENTER));
 		pnlPrincipal.setOpaque(false);
 		
-		
+		JPanel pnlPlateau       = new JPanel();
+		//pnlPlateau              .setLayout(new GridLayout(/* nbLigne, nbColonne, gapX, gapY */));
+		pnlPlateau              .setOpaque(false);
 		
 		this.btnScore = new JButton("Voir les Scores >>");
 		this.btnScore.setOpaque(false);
+		
+		/*-------------------------------*/
+		/* Positionnement des composants */
+		/*-------------------------------*/
 		
 		/*
 		pnlPrincipal.add(this.btnScore);
 		this.add(pnlPrincipal); */
 		
+		/* ----------------------------- */
+		/* Activation des Composants     */
+		/* ----------------------------- */
 		this.btnScore.addActionListener(this);
 		
 		this.setVisible(true);
@@ -61,6 +77,7 @@ public class PanelJeu extends JPanel implements ActionListener
 		}
 	}
 	
+	// Méthode permettant de changer le fond du panel par imgFond + dessiner les liens sur le plateau
 	protected void paintComponent(Graphics g) 
 	{
 		super.paintComponent(g);
