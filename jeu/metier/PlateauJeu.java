@@ -19,8 +19,6 @@ public class PlateauJeu
 
 	private int                tailleCase;
 
-	private Zone[][]           tabZones;
-
 	private ArrayList<Acteur> lstActeurs;
 
 	public PlateauJeu(File filePlateau)
@@ -77,5 +75,50 @@ public class PlateauJeu
 			fr.close();
 		}
 		catch (Exception e){ e.printStackTrace(); }
+	}
+	public boolean importZone(File filePlateau)
+	{
+		FileReader fr;
+		String Ligne;
+		ArrayList<Zone> lstZones;
+		int numZone;
+		Color colorZone;
+		int numLig;
+		int numCol;
+		lstZones = new ArrayList<Zone>();
+		try
+		{
+			fr = new FileReader ( filePlateau.getPath() + File.separator + "Plateau.data" );
+			Scanner sc = new Scanner ( fr );
+			Ligne = sc.nextLine();
+			while (!Ligne.equals("Plateau :"))
+			{
+				if (!Ligne.equals("null"))
+				{
+					numZone = Integer.parseInt(Ligne.substring(0,3));
+					colorZone = new Color(Integer.parseInt(Ligne.substring(3,6)),
+					                      Integer.parseInt(Ligne.substring(6,9)),
+					                      Integer.parseInt(Ligne.substring(9,12)));
+					
+					lstZones.add(new Zone(numZone, colorZone));
+				}
+				Ligne = sc.nextLine();
+			}
+			numLig = 0;
+			while (sc.hasNextLine())
+			{
+				for (int i=0; i<Ligne.length(); i+=3)
+				{
+					numCol = i/3;
+					numZone = Integer.parseInt(Ligne.substring(i,i+3))-1;
+					this.tabZone[numLig][numCol] = lstZones.get(numZone);
+				}
+			}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 }
