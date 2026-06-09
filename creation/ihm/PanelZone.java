@@ -140,7 +140,7 @@ public class PanelZone extends JPanel implements ActionListener
 		                		colorierCase(finalLig, finalCol);
 		            		}
 
-							// On relache = on ne dessine plus
+					// On relache = on ne dessine plus
 		            		public void mouseReleased(MouseEvent e)
 		            		{
 		                		modeDessin = false;
@@ -177,7 +177,7 @@ public class PanelZone extends JPanel implements ActionListener
 		lblChoix                .setFont(this.policeBandeau);
 
 		this.jcbCouleur         = new JComboBox<>(Couleur.values());
-		this.jcbCouleur         .setSelectedIndex(11); // Saumon (couleur par défaut)
+		this.jcbCouleur         .setSelectedIndex(10); // Saumon (couleur par défaut)
 		this.jcbCouleur         .setFont(new Font("SansSerif", Font.PLAIN, 13));
 		this.jcbCouleur         .setFocusable(false);
 		this.jcbCouleur         .setOpaque(false);
@@ -243,69 +243,69 @@ public class PanelZone extends JPanel implements ActionListener
 
     public void actionPerformed(ActionEvent a)
     {
-        	if (a.getSource() == this.btnGomme)
+		if (a.getSource() == this.btnGomme)
         	{
-            	this.ctrl.effacerZone(this.ctrl.getZoneActive());
-            	majZone();
+		    	this.ctrl.effacerZone(this.ctrl.getZoneActive());
+		    	majZone();
         	}
 
         	if (a.getSource() == this.btnSuivant)
         	{
-            	JPanel pnlSuivant = this.frameCreation.getPnl(this.indice+1);
+            		JPanel pnlSuivant = this.frameCreation.getPnl(this.indice+1);
             
-            	if (pnlSuivant instanceof PanelSymbole)
-    			{
-        			((PanelSymbole) pnlSuivant).majZone();
-   	 			}
+		    	if (pnlSuivant instanceof PanelSymbole)
+	    		{
+				((PanelSymbole) pnlSuivant).majZone();
+	   	 	}
    	 	
-   	 			this.frameCreation.setPnl(pnlSuivant);
+   	 		this.frameCreation.setPnl(pnlSuivant);
         	}
 
         	if (a.getSource() == this.btnPrecedent)
        		{
-            	this.frameCreation.setPnl(this.frameCreation.getPnl(this.indice-1));
+            		this.frameCreation.setPnl(this.frameCreation.getPnl(this.indice-1));
         	}	
 
         	if (a.getSource() == this.btnZonePrecedent)
         	{
-            	this.ctrl		.zonePrecedente();
-            	this.jcbCouleur	.setSelectedItem(this.ctrl.getZoneActive().getCouleur());
-            	this.lblTitre	.setText("Plateau  " + this.tailleLigne + " × " + this.tailleColonne + "  :  '" + this.nomPlateau + "'        Zone Active :" + this.ctrl.getZoneActive().getNumZone());
+		    	this.ctrl		.zonePrecedente();
+		    	this.jcbCouleur	.setSelectedItem(this.ctrl.getZoneActive().getCouleur());
+		    	this.lblTitre	.setText("Plateau  " + this.tailleLigne + " × " + this.tailleColonne + "  :  '" + this.nomPlateau + "'        Zone Active :" + this.ctrl.getZoneActive().getNumZone());
         	}
 
         	if (a.getSource() == this.btnZoneSuivante)
         	{
-            	this.ctrl		.zoneSuivante();
-            	this.jcbCouleur	.setSelectedItem(this.ctrl.getZoneActive().getCouleur());
-            	this.lblTitre	.setText("Plateau  " + this.tailleLigne + " × " + this.tailleColonne + "  :  '" + this.nomPlateau + "'        Zone Active :" + this.ctrl.getZoneActive().getNumZone());
+		    	this.ctrl		.zoneSuivante();
+		    	this.jcbCouleur	.setSelectedItem(this.ctrl.getZoneActive().getCouleur());
+		    	this.lblTitre	.setText("Plateau  " + this.tailleLigne + " × " + this.tailleColonne + "  :  '" + this.nomPlateau + "'        Zone Active :" + this.ctrl.getZoneActive().getNumZone());
         	}
 
         	if (a.getSource() == this.btnNouvZone)
         	{
-            	this.ctrl		.nouvelleZone();
-            	this.lblTitre	.setText("Plateau  " + this.tailleLigne + " × " + this.tailleColonne + "  :  '" + this.nomPlateau + "'        Zone Active :" + this.ctrl.getZoneActive().getNumZone());
-            	this.jcbCouleur .setSelectedIndex(11); // Saumon (couleur par défaut)
+		    	this.ctrl		.nouvelleZone();
+		    	this.lblTitre	.setText("Plateau  " + this.tailleLigne + " × " + this.tailleColonne + "  :  '" + this.nomPlateau + "'        Zone Active :" + this.ctrl.getZoneActive().getNumZone());
+		    	this.jcbCouleur .setSelectedIndex(11); // Saumon (couleur par défaut)
         	}
 
         	if (a.getSource() == this.jcbCouleur)
         	{
 		    	Couleur choix = (Couleur) this.jcbCouleur.getSelectedItem();
 		    	if (choix != null)
-            	{
-                	this.couleurActuelle = choix.getCouleur();
+            		{
+                		this.couleurActuelle = choix.getCouleur();
 
-                	if (this.ctrl.getZoneActive() != null)
-                	{
-                    		this.ctrl.changerCouleurZone(choix, this.ctrl.getZoneActive());
-                    		majZone();
-                	}
-            	}
+		        	if (this.ctrl.getZoneActive() != null)
+		        	{
+		            		this.ctrl.changerCouleurZone(choix, this.ctrl.getZoneActive());
+		            		majZone();
+		        	}
+            		}
         	}
-    }
+    	}
 
 	// Méthode permettant de colorier la zone si le placement est valide
 	private void colorierCase(int lig, int col)
-    {
+    	{
 		Zone    zoneActuelle;
 		boolean placementValide;
 
@@ -316,13 +316,13 @@ public class PanelZone extends JPanel implements ActionListener
 
 		if (placementValide)
 		{
-				majZone();
+			majZone();
 		}
 		else
 		{
 		    	System.out.println("Zone placé refusé.");
 		}
-    }
+    	}
 
 	// Méthode permettant de mettre à jour le plateau afin que le joueur puisse voir la case se dessiner
 	public void majZone()
@@ -341,15 +341,15 @@ public class PanelZone extends JPanel implements ActionListener
                         		tabPnlCases[lig][col].repaint();
                     		}
                 	}
-    }
+    	}
 
-    // Méthode permettant de modifier le fond du panel par imgFond
-    protected void paintComponent(Graphics g)
-    {
+    	// Méthode permettant de modifier le fond du panel par imgFond
+    	protected void paintComponent(Graphics g)
+    	{
         	super.paintComponent(g);
         	if (this.imgFond != null) 
         	{
             		g.drawImage(this.imgFond, 0, 0, this.getWidth(), this.getHeight(), this);
         	}
-    }
+    	}
 }
