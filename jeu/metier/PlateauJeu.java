@@ -198,7 +198,7 @@ public class PlateauJeu
 	//main de test
 	public static void main(String[] args) 
 	{
-		PlateauJeu p = new PlateauJeu(new File("../creation/Plateau/PlateauTest"));
+		PlateauJeu p = new PlateauJeu(new File("../creation/Plateau/plateauTest"));
 
 		System.out.println("Plateau : " + p.getNbLigne() + " " + p.getNbColonne() + " " + p.getTailleCase());
 		
