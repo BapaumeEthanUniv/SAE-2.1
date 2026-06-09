@@ -7,6 +7,7 @@ import java.io.File;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.*;
@@ -22,6 +23,8 @@ public class PanelJeu extends JPanel implements ActionListener
 	private Image 		imgFond;
 	
 	private JButton		btnScore;
+	
+	private Font            policeBandeau;
 	
 	public PanelJeu (Controleur ctrl, FrameJeu f, int indice)
 	{
@@ -42,13 +45,41 @@ public class PanelJeu extends JPanel implements ActionListener
 		pnlHaut                 .setLayout(new FlowLayout(FlowLayout.CENTER));
 		pnlHaut                 .setOpaque(false);
 		
-		JPanel pnlPrincipal     = new JPanel();
-		pnlPrincipal            .setLayout(new FlowLayout(FlowLayout.CENTER));
-		pnlPrincipal.setOpaque(false);
+		JPanel pnlCentre        = new JPanel();
+		pnlCentre               .setLayout(new BorderLayout(0, 30));
+		pnlCentre               .setOpaque(false);
+		
+		JPanel pnlBas           = new JPanel();
+		pnlBas                  .setLayout(new FlowLayout(FlowLayout.RIGHT ));
+		pnlBas                  .setOpaque(false);
 		
 		JPanel pnlPlateau       = new JPanel();
 		//pnlPlateau              .setLayout(new GridLayout(/* nbLigne, nbColonne, gapX, gapY */));
 		pnlPlateau              .setOpaque(false);
+		
+		JLabel lblBandeau       = new JLabel("Bandeau", JLabel.CENTER);
+		JLabel lblPlateau       = new JLabel("Plateau", JLabel.CENTER);
+		JLabel lblBouton        = new JLabel("Bouton ", JLabel.RIGHT );
+		
+		// Essai pour initialiser les polices en prenant la police téléchargée dans le dossier polices/
+		try
+        	{
+		    File fichierTitre              = new File("./polices/TitreSaisieInfos/Shrikhand-Regular.ttf");
+		    Font policeLbl                 = Font.createFont(Font.TRUETYPE_FONT, fichierTitre);   // crée la police
+		    
+		    java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(policeLbl);   // enregistre la police dans le système Java
+
+		    this.policeBandeau            =  policeLbl.deriveFont(Font.BOLD, 18f);                // police du bandeau 	modifié en Gras + taille 18
+
+		    lblBandeau.setFont(policeBandeau);                                                    // police du bandeau changé
+		}
+		// Si fichier non trouvé, la police est en SansSerif Gras par défaut
+		catch (Exception e)
+		{
+		    lblBandeau.setFont(new Font("SansSerif", Font.BOLD, 18));
+		    lblPlateau.setFont(new Font("SansSerif", Font.BOLD, 18));
+		    lblBouton .setFont(new Font("SansSerif", Font.BOLD, 18));
+		}
 		
 		this.btnScore = new JButton("Voir les Scores >>");
 		this.btnScore.setOpaque(false);
@@ -57,9 +88,15 @@ public class PanelJeu extends JPanel implements ActionListener
 		/* Positionnement des composants */
 		/*-------------------------------*/
 		
-		/*
-		pnlPrincipal.add(this.btnScore);
-		this.add(pnlPrincipal); */
+		pnlHaut.add(lblBandeau);
+		
+		pnlCentre.add(lblPlateau, BorderLayout.CENTER);
+		
+		pnlBas.add(lblBouton);
+		
+		this.add(pnlHaut     , BorderLayout.NORTH);
+		this.add(pnlCentre   , BorderLayout.CENTER);
+		this.add(pnlBas      , BorderLayout.SOUTH); 
 		
 		/* ----------------------------- */
 		/* Activation des Composants     */
