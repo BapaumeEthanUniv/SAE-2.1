@@ -122,4 +122,28 @@ public class PlateauJeu
 
 		return true;
 	}
+
+	public boolean importPlateau(File filePlateau)
+	{
+		FileReader fr;
+
+		try
+		{
+			fr = new FileReader ( filePlateau.getPath() + File.separator + "Plateau.data" );
+			Scanner sc = new Scanner ( fr );
+
+			while ( sc.hasNextLine() )
+			{
+				this.nbLigne    = Integer.parseInt(sc.nextLine().substring(0, 3));
+				this.nbColonne  = Integer.parseInt(sc.nextLine().substring(3, 6));
+				this.tailleCase = Integer.parseInt(sc.nextLine().substring(6, 9));
+			}
+
+			fr.close();
+			sc.close();
+		}
+		catch (Exception e){ return false; }
+
+		return true;
+	}
 }
