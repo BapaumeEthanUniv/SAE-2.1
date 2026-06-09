@@ -134,7 +134,7 @@ public class PanelZone extends JPanel implements ActionListener
 		        	pnlCellule.addMouseListener(new MouseAdapter()
 		        	{
 		            		// Si l'on reste appuyé, la cellule en finalLig finalCol se colorie en couleur choisi
-							public void mousePressed(MouseEvent e)
+					public void mousePressed(MouseEvent e)
 		            		{
 		                		modeDessin = true;
 		                		colorierCase(finalLig, finalCol);
@@ -149,21 +149,21 @@ public class PanelZone extends JPanel implements ActionListener
 							
 		            		public void mouseEntered(MouseEvent e)
 		            		{
-				        		if (modeDessin) colorierCase(finalLig, finalCol);
+				        	if (modeDessin) colorierCase(finalLig, finalCol);
 
-								// Ajoute un cadre gris clair autour de la cellule quand on est dessus
+						// Ajoute un cadre gris clair autour de la cellule quand on est dessus
 		                		if (tabPnlCases[finalLig][finalCol].getBackground().equals(Color.WHITE))
 		                		{
-		                    		tabPnlCases[finalLig][finalCol].setBackground(Color.LIGHT_GRAY);
+		                    			tabPnlCases[finalLig][finalCol].setBackground(Color.LIGHT_GRAY);
 		                		}
 		            		}
 
 		            		public void mouseExited(MouseEvent e)
 		            		{
-								// Enleve le cadre gris clair lorsqu'on sort de la cellule
+						// Enleve le cadre gris clair lorsqu'on sort de la cellule
 		                		if (tabPnlCases[finalLig][finalCol].getBackground().equals(Color.LIGHT_GRAY))
 		                		{
-		                    		tabPnlCases[finalLig][finalCol].setBackground(Color.WHITE);
+		                    			tabPnlCases[finalLig][finalCol].setBackground(Color.WHITE);
 		                		}
 		            		}
 		        	});

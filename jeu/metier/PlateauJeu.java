@@ -111,12 +111,21 @@ public class PlateauJeu
 
 			while ( sc.hasNextLine() )
 			{
+<<<<<<< HEAD
 				Ligne = sc.nextLine();
 				couleur = new Color(Integer.parseInt(Ligne.substring(0, 3)),
 				                    Integer.parseInt(Ligne.substring(3, 6)),
 									Integer.parseInt(Ligne.substring(6, 9)));
 				posX = Integer.parseInt(Ligne.substring(9, 12));
 				posY = Integer.parseInt(Ligne.substring(12, 15));
+=======
+				couleur = new Color(Integer.parseInt(sc.nextLine().substring(0, 3)),
+				                    Integer.parseInt(sc.nextLine().substring(3, 6)),
+						    Integer.parseInt(sc.nextLine().substring(6, 9)));
+						    
+				posX = Integer.parseInt(sc.nextLine().substring(9, 12));
+				posY = Integer.parseInt(sc.nextLine().substring(12, 15));
+>>>>>>> 282c61b254ce35f2c8e2cbda8bc17373efc3d35c
 
 				this.lstCasting.add(Casting.getCasting(couleur));
 				this.setPrincipal(couleur, posX, posY);

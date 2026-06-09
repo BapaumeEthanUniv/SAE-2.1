@@ -6,6 +6,7 @@ import java.io.File;
 
 import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.Image;
@@ -16,15 +17,22 @@ import javax.swing.*;
 
 public class PanelJeu extends JPanel implements ActionListener
 {
-	private Controleur 	ctrl;
-	private FrameJeu 	frame;
-	private int		indice;
+	//private final JPanel[][] tabPnlCases;
 	
-	private Image 		imgFond;
+	private Controleur 	 ctrl;
+	private FrameJeu 	 frame;
+	private int		 indice;
 	
-	private JButton		btnScore;
+	private int              nbLigne;
+	private int              nbColonne;
 	
-	private Font            policeBandeau;
+	private Image 		 imgFond;
+	
+	private JPanel		 pnlPlateau;
+	
+	private JButton		 btnScore;
+	
+	private Font             policeBandeau;
 	
 	public PanelJeu (Controleur ctrl, FrameJeu f, int indice)
 	{
@@ -38,6 +46,9 @@ public class PanelJeu extends JPanel implements ActionListener
 		this.ctrl 		= ctrl;
 		this.frame 		= f;
 		this.indice 		= indice;
+		
+		//this.nbLigne            = this.ctrl.getNbLigne();
+		//this.nbColonne          = this.ctrl.getNbColonne();
 		
 		this.imgFond            = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
 		
@@ -53,9 +64,12 @@ public class PanelJeu extends JPanel implements ActionListener
 		pnlBas                  .setLayout(new FlowLayout(FlowLayout.RIGHT ));
 		pnlBas                  .setOpaque(false);
 		
-		JPanel pnlPlateau       = new JPanel();
+		this.pnlPlateau         = new JPanel();
 		//pnlPlateau              .setLayout(new GridLayout(/* nbLigne, nbColonne, gapX, gapY */));
 		pnlPlateau              .setOpaque(false);
+		
+		
+		
 		
 		JLabel lblBandeau       = new JLabel("Bandeau", JLabel.CENTER);
 		JLabel lblPlateau       = new JLabel("Plateau", JLabel.CENTER);
@@ -114,7 +128,7 @@ public class PanelJeu extends JPanel implements ActionListener
 		}
 	}
 	
-	// Méthode permettant de changer le fond du panel par imgFond + dessiner les liens sur le plateau
+	// Méthode permettant de changer le fond du panel par imgFond
 	protected void paintComponent(Graphics g) 
 	{
 		super.paintComponent(g);
@@ -122,6 +136,16 @@ public class PanelJeu extends JPanel implements ActionListener
 		{
 			g.drawImage(this.imgFond, 0, 0, this.getWidth(), this.getHeight(), this);
 		}
+	}
+	
+	// Méthode permettant de dessiner les contacts entre les acteurs
+	protected void paint        (Graphics2D g2)
+	{
+		super.paint(g2);
+		
+		//if (this.tabPnlCases == null || this.pnlPlateau == null) return;
+		// Dessiner les lignes 
+		
 	}
 }
 
