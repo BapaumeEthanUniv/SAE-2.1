@@ -54,12 +54,15 @@ public class PanelCarte extends JPanel implements ActionListener
 
     	public void actionPerformed(ActionEvent e)
    	{
-		int image = ((int)(Math.random() * 10) + 1);
-		
-		this.imgPersonnage = new ImageIcon("./images/" + image + ".png");
-		this.imageRedimensionnee = this.imgPersonnage.getImage().getScaledInstance(250, 350, Image.SCALE_SMOOTH);
-		this.iconeFinale = new ImageIcon(this.imageRedimensionnee);
-		
-		this.label.setIcon(this.iconeFinale);
+		if (e.getSource() == this.btnChangerImage)
+		{	
+			int image = ((int)(Math.random() * 10) + 1);
+			
+			this.imgPersonnage = new ImageIcon("./images/" + image + ".png");
+			this.imageRedimensionnee = this.imgPersonnage.getImage().getScaledInstance(250, 350, Image.SCALE_SMOOTH);
+			this.iconeFinale = new ImageIcon(this.imageRedimensionnee);
+			
+			this.label.setIcon(this.iconeFinale);
+		}
     	}
 }
