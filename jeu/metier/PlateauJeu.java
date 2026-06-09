@@ -69,6 +69,8 @@ public class PlateauJeu
 		Role       role;
 		int        posX;
 		int        posY;
+		
+		this.lstActeurs = new ArrayList<Acteur>();
 
 		try
 		{
@@ -99,6 +101,7 @@ public class PlateauJeu
 		int        posX;
 		int        posY;
 
+		this.lstCasting = new ArrayList<Casting>();
 		try
 		{
 			fr = new FileReader ( filePlateau.getPath() + File.separator + "Casting.data" );
@@ -161,7 +164,7 @@ public class PlateauJeu
 		lstZones = new ArrayList<Zone>();
 		try
 		{
-			fr = new FileReader ( filePlateau.getPath() + File.separator + "Plateau.data" );
+			fr = new FileReader ( filePlateau.getPath() + File.separator + "Zone.data" );
 			Scanner sc = new Scanner ( fr );
 			Ligne = sc.nextLine();
 			while (!Ligne.equals("Plateau :"))
@@ -171,7 +174,7 @@ public class PlateauJeu
 					numZone = Integer.parseInt(Ligne.substring(0,3));
 					colorZone = new Color(Integer.parseInt(Ligne.substring(3,6)),
 					                      Integer.parseInt(Ligne.substring(6,9)),
-					                      Integer.parseInt(Ligne.substring(9,12)));
+					                      Integer.parseInt(Ligne.substring(9)));
 					
 					lstZones.add(new Zone(numZone, colorZone));
 				}
