@@ -90,4 +90,36 @@ public class PlateauJeu
 
 		return true;
 	}
+
+	public boolean importCasting(File filePlateau)
+	{
+		FileReader fr;
+		Color      couleur;
+		int        posX;
+		int        posY;
+
+		try
+		{
+			fr = new FileReader ( filePlateau.getPath() + File.separator + "Casting.data" );
+			Scanner sc = new Scanner ( fr );
+
+			while ( sc.hasNextLine() )
+			{
+				couleur = new Color(Integer.parseInt(sc.nextLine().substring(0, 3)),
+				                    Integer.parseInt(sc.nextLine().substring(3, 6)),
+									Integer.parseInt(sc.nextLine().substring(6, 9)));
+				posX = Integer.parseInt(sc.nextLine().substring(9, 12));
+				posY = Integer.parseInt(sc.nextLine().substring(12, 15));
+
+				this.lstCasting.add(Casting.getCasting(couleur));
+				this.setPrincipal(couleur, posX, posY);
+			}
+
+			fr.close();
+			sc.close();
+		}
+		catch (Exception e){ return false; }
+
+		return true;
+	}
 }

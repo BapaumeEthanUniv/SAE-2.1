@@ -33,4 +33,15 @@ public enum Casting
 	{
 		return Casting.values()[ordinal];
 	}
+
+	public static Casting getCasting(Color couleur)
+	{
+		for (Casting c : Casting.values())
+		{
+			if (c.getCouleur().equals(couleur))
+				return c;
+		}
+
+		return null;
+	}
 }
