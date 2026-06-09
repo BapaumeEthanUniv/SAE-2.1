@@ -216,7 +216,7 @@ public class PlateauJeu
 			if (x!=voisin1.getPosX() && y!=voisin1.getPosY() &&
 			    x!=voisin2.getPosX() && y!=voisin2.getPosY() )
 			{
-				tabArrete[x][y]=casting;
+				this.tabArrete[x][y]=casting;
 			}
 		}
 	}
