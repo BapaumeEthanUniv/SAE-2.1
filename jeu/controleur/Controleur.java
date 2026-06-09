@@ -2,7 +2,7 @@ package controleur;
 
 import ihm.FrameJeu;
 
-import metier.PlateauJeu;
+//import metier.PlateauJeu;
 
 public class Controleur
 {
