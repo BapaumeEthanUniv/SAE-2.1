@@ -7,7 +7,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.*;
-
 import javax.swing.*;
 
 public class PanelCarte extends JPanel implements ActionListener
@@ -84,9 +83,9 @@ public class PanelCarte extends JPanel implements ActionListener
     	private void piocheAleatoire ()
     	{
     		this.imgPersonnage = new ImageIcon("./images/" + this.nomImage + ".png");
-		this.imageRedimensionnee = this.imgPersonnage.getImage()
+			this.imageRedimensionnee = this.imgPersonnage.getImage()
 		        .getScaledInstance(this.largeurImage, this.hauteurImage, Image.SCALE_SMOOTH);
-		this.iconeFinale = new ImageIcon(this.imageRedimensionnee);
+			this.iconeFinale = new ImageIcon(this.imageRedimensionnee);
     	}
     	
     	// Méthode permettant de changer le fond du panel par imgFond + dessiner les liens sur le plateau
