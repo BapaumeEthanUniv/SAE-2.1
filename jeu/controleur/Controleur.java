@@ -16,5 +16,5 @@ public class Controleur
 
 	//getters
 	
-	public static void main (String[] args) { new Controleur(); } //Démarage de l'application
+	public static void main (String[] args) { new Controleur(); } //Démarrage de l'application
 }
