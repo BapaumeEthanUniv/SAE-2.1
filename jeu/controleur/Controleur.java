@@ -12,14 +12,15 @@ import metier.Casting;
 import metier.PlateauJeu;
 import metier.Zone;
 
-//import metier.PlateauJeu;
+//import frameJeu.PlateauJeu;
 
 public class Controleur
 {
 	private FrameJeu        frameJeu;
 	private FrameCarte	frameCarte;
-	//private PlateauJeu      metier;
+	private PlateauJeu      metier;
 	
+	Dimension tailleEcran;
 	int l, lJeu, lCarte;
 	int h;
 	int xCarte, yCarte;
@@ -27,11 +28,9 @@ public class Controleur
 	
 	public Controleur()
 	{
-		this.frameJeu   = new FrameJeu(this);
-		this.frameCarte = new FrameCarte(this);
+		this.frameJeu   = new FrameJeu  (this);
 		
-		Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-		System.out.println(tailleEcran);
+		tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 
 		h = (int) tailleEcran.getHeight() - 100 - 100;
 		l = (int) tailleEcran.getWidth () - 335 - 20 - 335;
@@ -40,7 +39,6 @@ public class Controleur
 		lCarte = (int) (l * 0.40);
 		
 		this.frameJeu  .setSize(lJeu  , h);
-		this.frameCarte.setSize(lCarte, h);
 		
 		xCarte   = 335;
 		xPlateau = xCarte + lCarte + 20;
@@ -48,10 +46,12 @@ public class Controleur
 		yCarte   = yPlateau = 100;
 		
 		this.frameJeu  .setLocation(xPlateau, yPlateau);
-		this.frameCarte.setLocation(xCarte  , yCarte  );
+		
 	}
 
 	public void initPlateau(File filePlateau) { metier = new PlateauJeu(filePlateau);}
+	
+	public void creerFrameCarte ()            { frameCarte = new FrameCarte(this); this.frameCarte.setSize(lCarte, h); this.frameCarte.setLocation(xCarte,yCarte); }
 
 	//getters
 	public int                getNbLigne()    {return this.metier.getNbLigne();}
