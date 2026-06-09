@@ -1,0 +1,326 @@
+package ihm;
+
+import metier.Acteur;
+import metier.Casting;
+import metier.Role;
+import metier.Zone;
+import controleur.Controleur;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.*;
+
+import javax.swing.*;
+
+public class PanelSymbole extends JPanel implements ActionListener
+{
+	private Controleur          	ctrl;
+	private FrameCreation       	frame;
+	private int                 	indice;       // permet le changement des panels
+
+	private Image                   imgFond;
+
+	private JPanel[][]              tabPnlCases;  // tableau de JPanel qui constituera le plateau
+
+    	private JComboBox<Role>         jcbRole;      // liste des rôles     choisis par le joueur
+    	private JComboBox<Casting>      jcbCasting;   // liste des castings  choisis par le joueur
+
+	private JRadioButton            rbRole;       // permettra de choisir si on veut placer un rôle
+	private JRadioButton            rbCasting;    //                                           casting
+
+	private JButton                 btnPrecedent; 
+	private JButton                 btnConfirmer;
+	private JButton                 btnGomme;
+	
+	private ButtonGroup             bgMode;      // englobera les JRadioButton 
+
+	public PanelSymbole(Controleur ctrl, FrameCreation f, int indice)
+	{
+		this.ctrl       = ctrl;
+		this.frame      = f;
+		this.indice     = indice;
+
+		this.imgFond    = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
+
+		this.setLayout(new BorderLayout(0, 10));
+
+		/*-------------------------------------------------*/
+		/* Création et initialisation des composants       */
+		/*-------------------------------------------------*/
+
+		// Partie Haut
+		JPanel pnlHaut = new JPanel(new BorderLayout());
+		pnlHaut.setOpaque(false);
+
+			JPanel pnlOutils = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+			pnlOutils.setOpaque(false);
+
+			this.jcbRole    = new JComboBox<>(this.ctrl.getTabRole());
+			this.jcbCasting = new JComboBox<>(this.ctrl.getTabCasting());
+
+			this.rbRole     = new JRadioButton("Placer un Rôle :", true);
+			this.rbCasting  = new JRadioButton("Assigner un Casting :", false);
+			this.rbRole.setOpaque(false);
+			this.rbCasting.setOpaque(false);
+
+			this.bgMode = new ButtonGroup();
+			bgMode.add(this.rbRole);
+			bgMode.add(this.rbCasting);
+
+		// Partie Centrale
+		JPanel pnlConteneurGrille = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 30));
+		pnlConteneurGrille.setOpaque(false);
+
+		int nbLigne = this.ctrl.getNbLigne();
+		int nbCol   = this.ctrl.getNbColonne();
+		int taille  = this.ctrl.getTailleCase();
+
+		JPanel pnlGrille = new JPanel(new GridLayout(nbLigne, nbCol, 2, 2));
+		pnlGrille.setBackground(new Color(60, 60, 75));
+
+		this.tabPnlCases = new JPanel[nbLigne][nbCol];
+
+		// Constitution du Plateau
+		for (int lig = 0; lig < nbLigne; lig++)
+		{
+		    for (int col = 0; col < nbCol; col++)
+		    {
+			JPanel pnlCellule = new JPanel(new FlowLayout(FlowLayout.CENTER, 3, 3));
+			
+			Zone zoneCase = this.ctrl.getTabZone()[lig][col];
+			
+			// Colorie la case selon la couleur de zone définie dans PanelZone
+			if (zoneCase != null) 	{ pnlCellule.setBackground(zoneCase.getCouleurAwt()); }
+			else			{ pnlCellule.setBackground( Color.WHITE ); }
+
+			// Création d'un label par Panel pour mettre l'icône du rôle
+			JLabel lblImage = new JLabel();
+			lblImage.setPreferredSize(new Dimension(taille - 6, taille - 6));
+			lblImage.setOpaque(false); 
+			
+			pnlCellule.add(lblImage);
+			
+			final int finalLig = lig, finalCol = col;
+
+			// Variable MouseAdapter afin de gérer le placement des castings et rôles
+			MouseAdapter clicSouris = new MouseAdapter()
+			{
+				    public void mousePressed(MouseEvent e)
+				    {
+				    	// Placement Role
+					if (rbRole.isSelected())
+					{
+						Role roleChoisi = (Role) jcbRole.getSelectedItem();
+					    	ImageIcon imgRole = creerImgRole(roleChoisi); 
+
+						boolean placementPossible = ctrl.ajouterActeur(roleChoisi, finalLig, finalCol);
+						
+						if (placementPossible) 
+						{
+							lblImage.setIcon(imgRole);
+							lblImage.setOpaque(false); 
+							pnlCellule.repaint();
+						}
+					}
+					
+					// Placement Casting
+					else if (rbCasting.isSelected())
+					{
+						    Casting castingChoisi = (Casting) jcbCasting.getSelectedItem();
+
+							
+							if (lblImage.getIcon() != null) 
+						    	{
+								Color couleurCadre = castingChoisi.getCouleur(); 
+								if (ctrl.estCastingUtilise(couleurCadre))         
+								{
+							    		Acteur acteurActuel = ctrl.getActeur(finalLig, finalCol);
+							    
+							    		if (acteurActuel != null && acteurActuel.estPrincipal() && acteurActuel.getCouleur().equals(couleurCadre)) 
+							    		{
+										return; 
+							    		}
+								
+							    	return; 
+							}
+							
+							// Ajoute la couleur du Casting à l'image
+							lblImage.setBackground(couleurCadre);
+							lblImage.setOpaque(true);
+							pnlCellule.repaint();
+							
+							// Ajoute l'acteur en tant qu'acteur principal (point de départ)
+							Acteur acteurCible = ctrl.getActeur(finalLig, finalCol);
+							if (acteurCible != null) 
+							{
+								ctrl.setPrincipal(couleurCadre, acteurCible);
+							}
+						    }
+					}
+					else
+					{
+						// Supprime l'icône + l'acteur dans le métier 
+						ctrl.supprimerActeur(finalLig, finalCol);
+					    
+					    	lblImage.setIcon(null);
+					    	lblImage.setOpaque(false); 
+					    	pnlCellule.repaint();
+					}
+				    }
+			};
+
+				pnlCellule.addMouseListener(clicSouris);
+				lblImage.addMouseListener(clicSouris);
+
+			// Ajout du panel dans le tableau de panels
+			this.tabPnlCases[lig][col] = pnlCellule;
+			pnlGrille.add(pnlCellule);
+		    }
+		}
+		
+		JPanel pnlBouton = new JPanel(new FlowLayout(FlowLayout.CENTER, 50, 20));
+		pnlBouton.setOpaque(false);
+
+		this.btnPrecedent 	= new JButton("<< Précédent");
+		this.btnConfirmer 	= new JButton("Créer le Plateau");
+		
+		this.btnGomme           = new JButton("");
+		this.btnGomme           .setFocusable(false);                                         // bouton non-focalisable
+        	this.btnGomme           .setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));   // change l'icône du curseur
+
+        	// Ajoute l'icône de la gomme dans le bouton Gomme, et redimensionne l'image
+        	ImageIcon iconeOriginale = new ImageIcon("./images/gomme.png");
+        	Image imageRedimensionnee = iconeOriginale.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+        	this.btnGomme.setIcon(new ImageIcon(imageRedimensionnee));
+
+		/*------------------------------------------*/
+		/* Positionnement des composants           */
+		/*------------------------------------------*/
+
+		pnlOutils.add(this.rbRole);
+		pnlOutils.add(this.jcbRole);
+		pnlOutils.add(new JLabel("  "));
+		pnlOutils.add(this.rbCasting);
+		pnlOutils.add(this.jcbCasting);
+		pnlOutils.add(this.btnGomme);
+
+		pnlHaut.add(pnlOutils, BorderLayout.CENTER);
+
+		// Ajout d'un separateur pour la propreté
+		JSeparator separateur = new JSeparator(SwingConstants.HORIZONTAL);
+		separateur.setForeground(new Color(150, 150, 150));
+		pnlHaut.add(separateur, BorderLayout.SOUTH);
+
+		pnlConteneurGrille.add(pnlGrille);
+
+		pnlBouton.add(this.btnPrecedent);
+		pnlBouton.add(this.btnConfirmer);
+
+		this.add(pnlHaut, BorderLayout.NORTH);
+		this.add(pnlConteneurGrille, BorderLayout.CENTER);
+		this.add(pnlBouton, BorderLayout.SOUTH);
+
+		/* ----------------------------- */
+		/* Activation des Composants     */
+		/* ----------------------------- */
+		this.btnPrecedent	.addActionListener(this);
+		this.btnConfirmer	.addActionListener(this);
+		this.btnGomme		.addActionListener(this);
+	}
+
+	public void actionPerformed (ActionEvent e)
+	{
+		if (e.getSource() == this.btnPrecedent)
+		{
+		    	this.frame.setPnl(this.frame.getPnl(indice - 1));
+		}
+
+		if (e.getSource() == this.btnConfirmer && 
+		    this. ctrl.principalPresent())
+		{
+			this.ctrl.creerPlateau();
+		    	System.out.println("Plateau généré avec succès !");
+
+		    	this.frame.setPnl(this.frame.getPnl(0));
+		}
+		
+		if (e.getSource() == this.btnGomme)
+		{
+			this.bgMode.clearSelection();
+		}
+	}
+
+	// Méthode permettant de changer le fond du panel par imgFond
+	protected void paintComponent(Graphics g)
+	{
+		super.paintComponent(g);
+		if (this.imgFond != null)
+		{
+		    g.drawImage(this.imgFond, 0, 0, this.getWidth(), this.getHeight(), this);
+		}
+	}
+	    
+	// Méthode permettant de choisir l'icône selon le rôle choisi de façon plus optimisé
+	private ImageIcon creerImgRole(Role role)
+	{
+		String chemin = "";
+		int tailleCase;
+		    
+		switch (role.name()) 
+		{
+			case "CASCADEUR":   
+			    chemin = "./images/cascadeur.png"; 
+			    break;
+			    
+			case "EMOTION": 
+			    chemin = "./images/emotionnel.png"; 
+			    break;
+			    
+			case "ANTAGONISTE": 
+			    chemin = "./images/antagoniste.png"; 
+			    break;
+			    
+			case "FIGURANT":    
+			    chemin = "./images/figurant.png"; 
+			    break;
+			    
+			default: 
+			    return new ImageIcon(); 
+		}
+		    
+		ImageIcon iconeOriginale = new ImageIcon(chemin);
+
+		// Redimensionne l'image 
+		tailleCase = this.ctrl.getTailleCase();
+		Image imgRedimensionnee = iconeOriginale.getImage().getScaledInstance(tailleCase-5, tailleCase-5, Image.SCALE_SMOOTH);
+		   
+		return new ImageIcon(imgRedimensionnee);
+	}
+	
+	// Méthode permettant de mettre à jour la grille
+	public void majZone()
+	{
+	    	for (int lig = 0; lig < tabPnlCases.length; lig ++)
+			for (int col = 0; col < tabPnlCases[lig].length; col ++)
+		        {
+		            if (this.ctrl.getTabZone()[lig][col] != null)
+		            {
+		                tabPnlCases[lig][col].setBackground(this.ctrl.getTabZone()[lig][col].getCouleurAwt());
+		        	tabPnlCases[lig][col].repaint();
+		            }
+		            else
+		            {
+		                tabPnlCases[lig][col].setBackground(Color.WHITE);
+		                tabPnlCases[lig][col].repaint();
+		            }
+		        }
+    	}
+}
