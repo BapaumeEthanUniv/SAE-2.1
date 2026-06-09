@@ -18,9 +18,9 @@ public class FrameCarte extends JFrame
 
 		this.add(this.panelCarte);
 
-		this.setVisible(true);
-
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		this.setVisible(true);
 	}
 
 	public static void main(String[] args)
