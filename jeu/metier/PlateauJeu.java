@@ -3,6 +3,8 @@ package metier;
 import java.util.ArrayList;
 import java.awt.Color;
 import java.io.File;
+import java.util.Scanner;
+import java.io.FileReader;
 
 public class PlateauJeu 
 {
@@ -60,5 +62,20 @@ public class PlateauJeu
 		return false;
 	}
 
+	public void importActeur()
+	{
+		FileReader fr;
 
+		try
+		{
+			fr = new FileReader ( "paroles.data" );
+			Scanner sc = new Scanner ( fr );
+
+			while ( sc.hasNextLine() )
+				System.out.println ( sc.nextLine() );
+
+			fr.close();
+		}
+		catch (Exception e){ e.printStackTrace(); }
+	}
 }
