@@ -67,25 +67,38 @@ public class PanelCarte extends JPanel implements ActionListener
 		/* ----------------------------- */
 
 		this.btnChangerImage.addActionListener(this);
-    }
+    	}
 
     	public void actionPerformed(ActionEvent e)
+<<<<<<< HEAD
+   	{
+		if (e.getSource() == this.btnChangerImage)
+		{	
+			this.piocheAleatoire();
+			this.lblImage.setIcon(this.iconeFinale);
+		}
+=======
    		{
 			if (e.getSource() == this.btnChangerImage)
 			{	
 				this.piocheAleatoire();
 				this.lblImage.setIcon(this.iconeFinale);
 			}
+>>>>>>> refs/remotes/origin/main
     	}
     	
     	// Méthode permettant de simuler une pioche aléatoire et d'afficher les cartes de façon optimisé
     	private void piocheAleatoire ()
     	{
-			this.nomImage            = (int)(Math.random() * 10) + 1;
+		this.nomImage            = (int)(Math.random() * 10) + 1;
     		this.imgPersonnage       = new ImageIcon("./images/" + this.nomImage + ".png");
-			this.imageRedimensionnee = this.imgPersonnage.getImage()
+		this.imageRedimensionnee = this.imgPersonnage.getImage()
 		        .getScaledInstance(this.largeurImage, this.hauteurImage, Image.SCALE_SMOOTH);
+<<<<<<< HEAD
+		this.iconeFinale         = new ImageIcon(imageRedimensionnee);
+=======
 			this.iconeFinale         = new ImageIcon(this.imageRedimensionnee);
+>>>>>>> refs/remotes/origin/main
     	}
     	
     	// Méthode permettant de changer le fond du panel par imgFond + dessiner les liens sur le plateau

@@ -225,7 +225,7 @@ public class PlateauJeu
 	{
 		for (Acteur acteur : lstActeurs)
 		{
-			if (acteur.estPrincipal() && acteur.getCouleur()==casting.getCouleur())
+			if (acteur.estPrincipal() && acteur.getCouleur().equals(casting.getCouleur()))
 				return acteur;
 		}
 		return null;

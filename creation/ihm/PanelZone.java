@@ -314,14 +314,8 @@ public class PanelZone extends JPanel implements ActionListener
 
 		placementValide = this.ctrl.modifierZone(lig, col, zoneActuelle);
 
-		if (placementValide)
-		{
-			majZone();
-		}
-		else
-		{
-		    	System.out.println("Zone placé refusé.");
-		}
+		if (placementValide) { majZone(); }
+		else                 { System.out.println("Zone placé refusé."); }
     	}
 
 	// Méthode permettant de mettre à jour le plateau afin que le joueur puisse voir la case se dessiner

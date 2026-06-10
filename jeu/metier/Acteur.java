@@ -107,10 +107,12 @@ public class Acteur
 	public void supprimerVoisin(Acteur voisin) //supprime le voisin de la liste
 	{
 		this.lstVoisins.remove(voisin);
+		
 		try
 		{
 			voisin.supprimerVoisin(this);
-		}catch(Exception e){}
+		}
+		catch(Exception e){}
 	}
 
 

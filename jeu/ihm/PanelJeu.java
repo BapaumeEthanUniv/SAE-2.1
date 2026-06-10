@@ -56,7 +56,7 @@ public class PanelJeu extends JPanel implements ActionListener
 		
 		this.nbLigne            = this.ctrl.getNbLigne();
 		this.nbColonne          = this.ctrl.getNbColonne();
-		this.tailleCase         = this.ctrl.getTailleCase();
+		this.tailleCase         = 500 / Math.max(this.nbLigne, this.nbColonne);
 		
 		this.imgFond            = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
 		
@@ -67,7 +67,7 @@ public class PanelJeu extends JPanel implements ActionListener
 		pnlHaut                 .setOpaque(false);
 		
 		JPanel pnlCentre        = new JPanel();
-		pnlCentre               .setLayout(new FlowLayout(FlowLayout.CENTER, 10, 30));
+		pnlCentre               .setLayout(new FlowLayout(FlowLayout.CENTER, 0, 100));
 		pnlCentre               .setOpaque(false);
 		
 		JPanel pnlBas           = new JPanel();
@@ -77,9 +77,9 @@ public class PanelJeu extends JPanel implements ActionListener
 		this.pnlPlateau         = new JPanel();
 		pnlPlateau              .setLayout(new GridLayout(this.nbLigne, this.nbColonne, 2, 2));
 		pnlPlateau              .setBackground(new Color(60, 60, 75));
+		pnlPlateau              .setSize(400, 400);
 		
 		JLabel lblBandeau       = new JLabel("Bandeau", JLabel.CENTER);
-		JLabel lblPlateau       = new JLabel("Plateau", JLabel.CENTER);
 		JLabel lblBouton        = new JLabel("Bouton ", JLabel.RIGHT );
 		
 		// Essai pour initialiser les polices en prenant la police téléchargée dans le dossier polices/
@@ -98,7 +98,6 @@ public class PanelJeu extends JPanel implements ActionListener
 		catch (Exception e)
 		{
 		    lblBandeau.setFont(new Font("SansSerif", Font.BOLD, 18));
-		    lblPlateau.setFont(new Font("SansSerif", Font.BOLD, 18));
 		    lblBouton .setFont(new Font("SansSerif", Font.BOLD, 18));
 		}
 		
