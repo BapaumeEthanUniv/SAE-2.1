@@ -2,7 +2,6 @@ package metier;
 
 import java.util.ArrayList;
 import java.awt.Color;
-import java.awt.Point;
 import java.io.File;
 import java.util.Scanner;
 import java.io.FileReader;
@@ -13,6 +12,10 @@ public class PlateauJeu
 	private int                nbColonne;
 	
 	private ArrayList<Casting> lstCasting;
+
+	private ArrayList<Role>    lstRole;
+
+	private Casting            manche;
 
 	private Zone[][]           tabZone;
 
@@ -35,6 +38,8 @@ public class PlateauJeu
 		this.tabArretePoint = new boolean[this.nbLigne - 1][this.nbColonne - 1];
 		
 		this.majVoisin();
+
+		this.manche = this.lstCasting.getFirst();
 	}
 
 	public int                getNbLigne()        {return nbLigne;}
@@ -52,6 +57,10 @@ public class PlateauJeu
 	public boolean[][]        getTabArretePoint() {return tabArretePoint;}
 
 	public ArrayList<Acteur>  getLstActeurs()     {return lstActeurs;}
+
+	public Casting            getManche()         {return manche;}
+
+	public ArrayList<Role>    getLstRole()        {return lstRole;}
 
 	public Acteur getActeur(int posX, int posY)
 	{
