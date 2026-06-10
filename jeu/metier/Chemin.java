@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Chemin 
 {
 	private ArrayList<Acteur> chemin;
-	private Casting          couleur;
-	private PlateauJeu       plateau;
+	private Casting           couleur;
+	private PlateauJeu        plateau;
 
 	public Chemin(Casting couleur, PlateauJeu plateau)
 	{
@@ -16,22 +16,25 @@ public class Chemin
 		this.chemin.add(this.plateau.getPrincipal(couleur));
 	}
 
-	public boolean ajouterChemin(Acteur acteurAjouté, ArrayList<Acteur> lstActeurs)
+	public boolean ajouterChemin(Acteur acteurAjouté, ArrayList<Acteur> lstActeurs, Role rolePioche)
 	{
-		if (this.chemin.getFirst().getVoisins().contains(acteurAjouté) && 
-		    this.plateau.entreDeux(this.chemin.getFirst(), acteurAjouté))
+		if (acteurAjouté.getRole().equals(rolePioche)) 
 		{
-			this.chemin.addFirst(acteurAjouté);
-			this.plateau.ajouterArette(this.chemin.getFirst(), acteurAjouté);
-			return true;
-		}
+			if (this.chemin.getLast().getVoisins().contains(acteurAjouté) &&
+	            this.plateau.entreDeux(this.chemin.getLast(), acteurAjouté))
+			{
+				this.chemin.addLast(acteurAjouté);
+				this.plateau.ajouterArette(this.chemin.getLast(), acteurAjouté);
+				return true;
+			}
 
-		if (this.chemin.getLast().getVoisins().contains(acteurAjouté) &&
-	        this.plateau.entreDeux(this.chemin.getLast(), acteurAjouté))
-		{
-			this.chemin.addLast(acteurAjouté);
-			this.plateau.ajouterArette(this.chemin.getLast(), acteurAjouté);
-			return true;
+			if (this.chemin.getFirst().getVoisins().contains(acteurAjouté) && 
+			    this.plateau.entreDeux(this.chemin.getFirst(), acteurAjouté))
+			{
+				this.chemin.addFirst(acteurAjouté);
+				this.plateau.ajouterArette(this.chemin.getFirst(), acteurAjouté);
+				return true;
+			}
 		}
 
 		return false;
