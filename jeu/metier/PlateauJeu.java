@@ -17,6 +17,8 @@ public class PlateauJeu
 	private Zone[][]           tabZone;
 
 	private boolean[][]        tabArrete;
+	
+	private boolean[][]        tabArretePoint;
 
 	private int                tailleCase;
 
@@ -28,23 +30,28 @@ public class PlateauJeu
 		this.importCasting(filePlateau);
 		this.importPlateau(filePlateau);
 		this.importZone   (filePlateau);
+
+		this.tabArrete      = new boolean[this.nbLigne]    [this.nbColonne];
+		this.tabArretePoint = new boolean[this.nbLigne - 1][this.nbColonne - 1];
 		
 		this.majVoisin();
 	}
 
-	public int                getNbLigne()    {return nbLigne;}
+	public int                getNbLigne()        {return nbLigne;}
 
-	public int                getNbColonne()  {return nbColonne;}
+	public int                getNbColonne()      {return nbColonne;}
 
-	public int                getTailleCase() {return tailleCase;}
+	public int                getTailleCase()     {return tailleCase;}
 
-	public ArrayList<Casting> getLstCasting() {return lstCasting;}
+	public ArrayList<Casting> getLstCasting()     {return lstCasting;}
 
-	public Zone[][]           getTabZone()    {return tabZone;}
+	public Zone[][]           getTabZone()        {return tabZone;}
 
-	public boolean[][]        getTabArrete()  {return tabArrete;}
+	public boolean[][]        getTabArrete()      {return tabArrete;}
 
-	public ArrayList<Acteur>  getLstActeurs() {return lstActeurs;}
+	public boolean[][]        getTabArretePoint() {return tabArretePoint;}
+
+	public ArrayList<Acteur>  getLstActeurs()     {return lstActeurs;}
 
 	public Acteur getActeur(int posX, int posY)
 	{
@@ -219,23 +226,35 @@ public class PlateauJeu
 		return true;
 	}
 
-	public void ajouterArette(Acteur voisin1, Acteur voisin2)
+	public void ajouterArette(Acteur ActeurDepart, Acteur ActeurArrive)
 	{
-		int x;
-		int y;
-		x = voisin1.getPosX();
-		y = voisin1.getPosY();
-		while (x!= voisin2.getPosX())
+		int deltaY = Integer.compare(ActeurArrive.getPosY(), ActeurDepart.getPosY());
+		int deltaX = Integer.compare(ActeurArrive.getPosX(), ActeurDepart.getPosX());
+		
+		int x = ActeurDepart.getPosX();
+		int y = ActeurDepart.getPosY();
+
+		while (x != ActeurArrive.getPosX() || y != ActeurArrive.getPosY())
 		{
-			x+=Integer.compare(voisin1.getPosX(), voisin2.getPosX());
-			y+=Integer.compare(voisin2.getPosX(), voisin2.getPosX());
-			if (x!=voisin1.getPosX() && y!=voisin1.getPosY() &&
-			    x!=voisin2.getPosX() && y!=voisin2.getPosY() )
-			{
-				this.tabArrete[x][y]=true;
-			}
+			if (deltaX < 0 && deltaY < 0)
+				this.tabArretePoint[x - 1][y - 1] = true;
+
+			if (deltaX > 0 && deltaY > 0)
+				this.tabArretePoint[x][y]         = true;
+
+			if (deltaX > 0 && deltaY < 0)
+				this.tabArretePoint[x][y - 1]     = true;
+
+			if (deltaX < 0 && deltaY > 0)
+				this.tabArretePoint[x - 1][y]     = true;
+
+			x += deltaX;
+			y += deltaY;
+
+			if (x != ActeurArrive.getPosX() || y != ActeurArrive.getPosY())
+				this.tabArrete[x][y] = true;
 		}
-		voisin1.supprimerVoisin(voisin2);
+		ActeurDepart.supprimerVoisin(ActeurArrive);
 	}
 
 	//Vérifie si des arrêtes déjà remplis se trouve entre deux acteurs
@@ -244,16 +263,28 @@ public class PlateauJeu
 		int deltaY = Integer.compare(acteurArrive.getPosY(), acteurDepart.getPosY());
 		int deltaX = Integer.compare(acteurArrive.getPosX(), acteurDepart.getPosX());
 		
-		int y = acteurDepart.getPosY() + deltaY;
-		int x = acteurDepart.getPosX() + deltaX;
+		int y = acteurDepart.getPosY();
+		int x = acteurDepart.getPosX();
 
 		while ( y != acteurArrive.getPosY() || x != acteurArrive.getPosX() )
 		{
-			if (tabArrete[x][y])
+			if (deltaX < 0 && deltaY < 0 && this.tabArretePoint[x - 1][y - 1])
 				return true;
-			
+
+			if (deltaX > 0 && deltaY > 0 && this.tabArretePoint[x][y])
+				return true;
+
+			if (deltaX > 0 && deltaY < 0 && this.tabArretePoint[x][y - 1])
+				return true;
+
+			if (deltaX < 0 && deltaY > 0 && this.tabArretePoint[x - 1][y])
+				return true;
+
 			y += deltaY;
 			x += deltaX;
+
+			if (this.tabArrete[x][y] && (x != acteurArrive.getPosX() || y != acteurArrive.getPosY()))
+				return true;
 		}
 		
 		return false;
@@ -272,7 +303,7 @@ public class PlateauJeu
 	//main de test
 	public static void main(String[] args) 
 	{
-		PlateauJeu p = new PlateauJeu(new File("../creation/Plateau/plateauTest4"));
+		PlateauJeu p = new PlateauJeu(new File("../creation/Plateau/plateauArsene"));
 
 		System.out.println("Plateau : " + p.getNbLigne() + " " + p.getNbColonne() + " " + p.getTailleCase());
 		

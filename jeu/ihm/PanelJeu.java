@@ -1,26 +1,22 @@
 package ihm;
 
-import metier.Acteur;
-import metier.Role;
-import metier.Zone;
-
 import controleur.Controleur;
-
-import java.io.File;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
-import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.*;
-
+import java.io.File;
 import javax.swing.*;
+import metier.Acteur;
+import metier.Role;
+import metier.Zone;
 
 public class PanelJeu extends JPanel implements ActionListener
 {
@@ -54,9 +50,9 @@ public class PanelJeu extends JPanel implements ActionListener
 		/*   Création des composants     */
 		/*-------------------------------*/
 		
-		this.ctrl 		= ctrl;
-		this.frame 		= f;
-		this.indice 		= indice;
+		this.ctrl 	        	= ctrl;
+		this.frame 		        = f;
+		this.indice 		    = indice;
 		
 		this.nbLigne            = this.ctrl.getNbLigne();
 		this.nbColonne          = this.ctrl.getNbColonne();

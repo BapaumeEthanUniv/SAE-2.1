@@ -22,6 +22,7 @@ public class Chemin
 		    this.plateau.entreDeux(this.chemin.getFirst(), acteurAjouté))
 		{
 			this.chemin.addFirst(acteurAjouté);
+			this.plateau.ajouterArette(this.chemin.getFirst(), acteurAjouté);
 			return true;
 		}
 
@@ -29,6 +30,7 @@ public class Chemin
 	        this.plateau.entreDeux(this.chemin.getLast(), acteurAjouté))
 		{
 			this.chemin.addLast(acteurAjouté);
+			this.plateau.ajouterArette(this.chemin.getLast(), acteurAjouté);
 			return true;
 		}
 
