@@ -13,9 +13,13 @@ public class PlateauJeu
 	
 	private ArrayList<Casting> lstCasting;
 
+	private int                idManche;
+
 	private ArrayList<Role>    lstRole;
 
 	private Casting            manche;
+
+	private Chemin             cheminActif;
 
 	private Zone[][]           tabZone;
 
@@ -25,7 +29,9 @@ public class PlateauJeu
 
 	private int                tailleCase;
 
-	private ArrayList<Acteur> lstActeurs;
+	private ArrayList<Acteur>  lstActeurs;
+
+	private int[]              scores;
 
 	public PlateauJeu(File filePlateau)
 	{
@@ -38,8 +44,7 @@ public class PlateauJeu
 		this.tabArretePoint = new boolean[this.nbLigne - 1][this.nbColonne - 1];
 		
 		this.majVoisin();
-
-		this.manche = this.lstCasting.getFirst();
+		this.nouvelleManche();
 	}
 
 	public int                getNbLigne()        {return nbLigne;}
@@ -61,6 +66,17 @@ public class PlateauJeu
 	public Casting            getManche()         {return manche;}
 
 	public ArrayList<Role>    getLstRole()        {return lstRole;}
+
+	public Chemin             getCheminActif()    {return cheminActif;}
+
+	public int[]              getScores()         {return scores;}
+
+
+	public void nouvelleManche()
+	{
+		this.manche      = this.lstCasting.get(this.idManche++);
+		this.cheminActif = new Chemin(manche, this);
+	}
 
 	public Acteur getActeur(int posX, int posY)
 	{
@@ -100,8 +116,10 @@ public class PlateauJeu
 		Role       role;
 		int        posX;
 		int        posY;
-		String ligne;
+		String     ligne;
+
 		this.lstActeurs = new ArrayList<Acteur>();
+		this.lstRole    = new ArrayList<Role>();
 
 		try
 		{
@@ -116,6 +134,9 @@ public class PlateauJeu
 				posY = Integer.parseInt(ligne.substring(6));
 
 				this.lstActeurs.add(new Acteur(posX, posY, role));
+
+				if (! this.lstRole.contains(role))
+					this.lstRole.add(role);
 			}
 
 			fr.close();
@@ -307,6 +328,11 @@ public class PlateauJeu
 				return acteur;
 		}
 		return null;
+	}
+
+	public boolean ajouterChemin(Acteur acteurAjouté, Role rolePioche) 
+	{
+		return this.cheminActif.ajouterChemin(acteurAjouté, this.lstActeurs, rolePioche);
 	}
 
 	//main de test
