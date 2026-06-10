@@ -330,9 +330,9 @@ public class PlateauJeu
 		return null;
 	}
 
-	public boolean ajouterChemin(Acteur acteurAjouté, Role rolePioche) 
+	public boolean ajouterChemin(int posX, int posY, Role rolePioche) 
 	{
-		return this.cheminActif.ajouterChemin(acteurAjouté, this.lstActeurs, rolePioche);
+		return this.cheminActif.ajouterChemin(this.getActeur(posX, posY), this.lstActeurs, rolePioche);
 	}
 
 	//main de test
