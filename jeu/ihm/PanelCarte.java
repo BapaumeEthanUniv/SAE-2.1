@@ -1,9 +1,8 @@
 package ihm;
 
 import java.awt.BorderLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.*;
@@ -46,7 +45,7 @@ public class PanelCarte extends JPanel implements ActionListener
 		
 		this.imgFond             = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
 
-		this.btnChangerImage     = new JButton("Changer l'image");
+		this.btnChangerImage     = new JButton("Piocher Carte");
 		
 		
 		/*-------------------------------*/
@@ -68,24 +67,25 @@ public class PanelCarte extends JPanel implements ActionListener
 		/* ----------------------------- */
 
 		this.btnChangerImage.addActionListener(this);
-    	}
+    }
 
     	public void actionPerformed(ActionEvent e)
-   	{
-		if (e.getSource() == this.btnChangerImage)
-		{	
-			this.piocheAleatoire();
-			this.lblImage.setIcon(this.iconeFinale);
-		}
+   		{
+			if (e.getSource() == this.btnChangerImage)
+			{	
+				this.piocheAleatoire();
+				this.lblImage.setIcon(this.iconeFinale);
+			}
     	}
     	
     	// Méthode permettant de simuler une pioche aléatoire et d'afficher les cartes de façon optimisé
     	private void piocheAleatoire ()
     	{
-    		this.imgPersonnage = new ImageIcon("./images/" + this.nomImage + ".png");
+			this.nomImage            = (int)(Math.random() * 10) + 1;
+    		this.imgPersonnage       = new ImageIcon("./images/" + this.nomImage + ".png");
 			this.imageRedimensionnee = this.imgPersonnage.getImage()
 		        .getScaledInstance(this.largeurImage, this.hauteurImage, Image.SCALE_SMOOTH);
-			this.iconeFinale = new ImageIcon(this.imageRedimensionnee);
+			this.iconeFinale         = new ImageIcon(this.imageRedimensionnee);
     	}
     	
     	// Méthode permettant de changer le fond du panel par imgFond + dessiner les liens sur le plateau
