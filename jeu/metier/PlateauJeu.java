@@ -15,7 +15,7 @@ public class PlateauJeu
 
 	private Zone[][]           tabZone;
 
-	private Casting[][]        tabArrete;
+	private boolean[][]        tabArrete;
 
 	private int                tailleCase;
 
@@ -203,7 +203,7 @@ public class PlateauJeu
 		return true;
 	}
 
-	public void ajouterArette(Acteur voisin1, Acteur voisin2, Casting casting)
+	public void ajouterArette(Acteur voisin1, Acteur voisin2)
 	{
 		int x;
 		int y;
@@ -216,7 +216,7 @@ public class PlateauJeu
 			if (x!=voisin1.getPosX() && y!=voisin1.getPosY() &&
 			    x!=voisin2.getPosX() && y!=voisin2.getPosY() )
 			{
-				this.tabArrete[x][y]=casting;
+				this.tabArrete[x][y]=true;
 			}
 		}
 		voisin1.supprimerVoisin(voisin2);

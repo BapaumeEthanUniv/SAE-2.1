@@ -9,8 +9,8 @@ import java.awt.Color;
 public class Acteur
 {
 	// Attribut
-	private int     posX;
-	private int     posY;
+	private int     posX; //ligne
+	private int     posY; //colone
 	
 	private Role    role;
 	private boolean estPrincipal;
