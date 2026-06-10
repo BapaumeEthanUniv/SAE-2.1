@@ -27,6 +27,8 @@ public class PlateauJeu
 		this.importCasting(filePlateau);
 		this.importPlateau(filePlateau);
 		this.importZone   (filePlateau);
+		
+		this.majVoisin();
 	}
 
 	public int                getNbLigne()    {return nbLigne;}
