@@ -1,4 +1,12 @@
+./metier/PlateauJeu.java
+./metier/Casting.java
+./metier/Couleur.java
+./metier/Role.java
+
 ./controleur/Controleur.java
 
 ./ihm/FrameJeu.java
+./ihm/FrameCarte.java
 ./ihm/PanelAccueilJeu.java
+./ihm/PanelJeu.java
+./ihm/PanelCarte.java

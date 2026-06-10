@@ -65,7 +65,13 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 			if (res == JFileChooser.APPROVE_OPTION) 
 			{
 				File fichier = fcRepertoire.getSelectedFile();
-				this.frame.setPnl(this.frame.getPnl(indice + 1));
+				
+				this.ctrl.initPlateau(fichier);
+				
+				this.ctrl.creerFrameCarte();
+				
+				this.frame.creerPanelJeu();
+				this.frame.setPnl(this.frame.getPnl(this.indice + 1));
 			}
 		}
 	}
