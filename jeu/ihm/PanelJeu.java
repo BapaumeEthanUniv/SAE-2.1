@@ -4,11 +4,13 @@ import controleur.Controleur;
 
 import java.io.File;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -18,7 +20,7 @@ import javax.swing.*;
 
 public class PanelJeu extends JPanel implements ActionListener
 {
-	//private final JPanel[][] tabPnlCases;
+	private final JPanel[][] tabPnlCases;
 	
 	private Controleur 	 ctrl;
 	private FrameJeu 	 frame;
@@ -26,6 +28,7 @@ public class PanelJeu extends JPanel implements ActionListener
 	
 	private int              nbLigne;
 	private int              nbColonne;
+	private int              tailleCase;
 	
 	private Image 		 imgFond;
 	
@@ -48,17 +51,20 @@ public class PanelJeu extends JPanel implements ActionListener
 		this.frame 		= f;
 		this.indice 		= indice;
 		
-		//this.nbLigne            = this.ctrl.getNbLigne();
-		//this.nbColonne          = this.ctrl.getNbColonne();
+		this.nbLigne            = this.ctrl.getNbLigne();
+		this.nbColonne          = this.ctrl.getNbColonne();
+		this.tailleCase         = this.ctrl.getTailleCase();
 		
 		this.imgFond            = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
+		
+		this.tabPnlCases        = new JPanel[nbLigne][nbColonne];
 		
 		JPanel pnlHaut          = new JPanel();
 		pnlHaut                 .setLayout(new FlowLayout(FlowLayout.CENTER));
 		pnlHaut                 .setOpaque(false);
 		
 		JPanel pnlCentre        = new JPanel();
-		pnlCentre               .setLayout(new BorderLayout(0, 30));
+		pnlCentre               .setLayout(new FlowLayout(FlowLayout.CENTER, 10, 30));
 		pnlCentre               .setOpaque(false);
 		
 		JPanel pnlBas           = new JPanel();
@@ -66,11 +72,8 @@ public class PanelJeu extends JPanel implements ActionListener
 		pnlBas                  .setOpaque(false);
 		
 		this.pnlPlateau         = new JPanel();
-		//pnlPlateau              .setLayout(new GridLayout(/* nbLigne, nbColonne, gapX, gapY */));
-		pnlPlateau              .setOpaque(false);
-		
-		
-		
+		pnlPlateau              .setLayout(new GridLayout(this.nbLigne, this.nbColonne, 2, 2));
+		pnlPlateau              .setBackground(new Color(60, 60, 75));
 		
 		JLabel lblBandeau       = new JLabel("Bandeau", JLabel.CENTER);
 		JLabel lblPlateau       = new JLabel("Plateau", JLabel.CENTER);
@@ -96,6 +99,19 @@ public class PanelJeu extends JPanel implements ActionListener
 		    lblBouton .setFont(new Font("SansSerif", Font.BOLD, 18));
 		}
 		
+		for (int lig = 0; lig < this.nbLigne; lig++)
+		{
+		    	for (int col = 0; col < this.nbColonne; col++)
+		    	{
+		        	JPanel pnlCellule = new JPanel();
+		        	pnlCellule.setBackground(Color.WHITE);
+		        	pnlCellule.setPreferredSize(new Dimension(this.tailleCase, this.tailleCase));
+		        
+		        	this.tabPnlCases[lig][col] = pnlCellule;
+		        	pnlPlateau.add(pnlCellule);
+		        }
+		}
+		
 		this.btnScore = new JButton("Voir les Scores >>");
 		this.btnScore.setOpaque(false);
 		
@@ -105,7 +121,7 @@ public class PanelJeu extends JPanel implements ActionListener
 		
 		pnlHaut.add(lblBandeau);
 		
-		pnlCentre.add(lblPlateau, BorderLayout.CENTER);
+		pnlCentre.add(pnlPlateau, BorderLayout.CENTER);
 		
 		pnlBas.add(lblBouton);
 		

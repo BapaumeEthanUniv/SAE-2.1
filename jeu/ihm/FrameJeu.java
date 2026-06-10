@@ -12,7 +12,7 @@ public class FrameJeu extends JFrame
 	private Controleur ctrl;
 	private JPanel[] tabPanel;
 
-	public static JPanel panelActif;
+	private JPanel panelActif;
 	
 	public FrameJeu (Controleur ctrl)
 	{
@@ -24,7 +24,7 @@ public class FrameJeu extends JFrame
 		this.tabPanel	 = new JPanel[4];
 		
 		this.tabPanel[0] = new PanelAccueilJeu(ctrl, this, 0);
-		this.tabPanel[1] = new PanelJeu       (ctrl, this, 1);
+		//this.tabPanel[1] = new PanelJeu       (ctrl, this, 1);
 
 		this.panelActif = this.tabPanel[0];
 		
@@ -42,6 +42,11 @@ public class FrameJeu extends JFrame
 			
 		this.repaint();
 		this.revalidate();
+	}
+	
+	public void creerPanelJeu()
+	{
+		this.tabPanel[1] = new PanelJeu (ctrl, this, 1);
 	}
 	
 	public JPanel getPnl(int i) { return this.tabPanel[i]; }
