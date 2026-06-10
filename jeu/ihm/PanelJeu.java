@@ -196,6 +196,7 @@ public class PanelJeu extends JPanel implements ActionListener
 		}
 	}
 	
+	// Méthode permettant de créer les images selon le rôle de l'acteur de façon optimisé
 	private ImageIcon creerImgRole(Role role)
 	{
 		String chemin = "";
@@ -228,7 +229,7 @@ public class PanelJeu extends JPanel implements ActionListener
 
 	    	Graphics2D g2 = (Graphics2D) g;
 	    	g2.setStroke(new java.awt.BasicStroke(2));
-	    	g2.setColor(Color.BLACK);
+	    	g2.setColor(new Color (90, 94, 107));
 
 	    	decalageX = this.pnlCentre.getX() + this.pnlPlateau.getX();
 	    	decalageY = this.pnlCentre.getY() + this.pnlPlateau.getY();
