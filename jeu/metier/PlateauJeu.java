@@ -39,7 +39,7 @@ public class PlateauJeu
 
 	public Zone[][]           getTabZone()    {return tabZone;}
 
-	public Casting[][]        getTabArrete()  {return tabArrete;}
+	public boolean[][]        getTabArrete()  {return tabArrete;}
 
 	public ArrayList<Acteur>  getLstActeurs() {return lstActeurs;}
 
