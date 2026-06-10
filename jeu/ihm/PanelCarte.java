@@ -1,11 +1,13 @@
 package ihm;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.*;
+import java.io.File;
 import javax.swing.*;
 
 public class PanelCarte extends JPanel implements ActionListener
@@ -15,12 +17,17 @@ public class PanelCarte extends JPanel implements ActionListener
     	private Image     imageRedimensionnee;
     	private ImageIcon iconeFinale;
     	private JLabel    lblImage;
+		private JLabel    lblManche;
+		private JLabel    lblScore;
+		private JLabel    lblTour;
     	
     	private Image 	  imgFond;
     	
     	private int       nomImage;
     	private int       largeurImage;
     	private int       hauteurImage;
+
+		private Font             policeBandeau;
 
     	public PanelCarte()
     	{
@@ -46,7 +53,32 @@ public class PanelCarte extends JPanel implements ActionListener
 		this.imgFond             = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
 
 		this.btnChangerImage     = new JButton("Piocher Carte");
-		
+
+
+		this.lblManche = new JLabel("Manche : ");
+		this.lblTour = new JLabel("Tour : ");
+		this.lblScore = new JLabel("Score joueur : ");
+
+		try
+        	{
+		    File fichierTitre              = new File("./polices/TitreSaisieInfos/Shrikhand-Regular.ttf");
+		    Font policeLbl                 = Font.createFont(Font.TRUETYPE_FONT, fichierTitre);   // crée la police
+		    
+		    java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(policeLbl);   // enregistre la police dans le système Java
+
+		    this.policeBandeau            =  policeLbl.deriveFont(Font.BOLD, 18f);                // police du bandeau 	modifié en Gras + taille 18
+
+		    lblManche.setFont(policeBandeau); 
+			lblTour.setFont(policeBandeau);
+			lblScore.setFont(policeBandeau);                                                    // police du bandeau changé
+		}
+		// Si fichier non trouvé, la police est en SansSerif Gras par défaut
+		catch (Exception e)
+		{
+		    lblManche.setFont(new Font("SansSerif", Font.BOLD, 18));
+		    lblTour  .setFont(new Font("SansSerif", Font.BOLD, 18));
+			lblScore .setFont(new Font("SansSerif", Font.BOLD, 18));
+		}
 		
 		/*-------------------------------*/
 		/* Positionnement des composants */
@@ -54,9 +86,10 @@ public class PanelCarte extends JPanel implements ActionListener
 		
 		panelAfficheCarte.add(this.lblImage);
 
-		panelAfficheScore.add(new JLabel("Manche : "));
-		panelAfficheScore.add(new JLabel("Tour : "));
-		panelAfficheScore.add(new JLabel("Score joueur : "));
+		
+		panelAfficheScore.add(this.lblManche);
+		panelAfficheScore.add(this.lblTour);
+		panelAfficheScore.add(this.lblScore);
 
 		this.add(this.btnChangerImage, BorderLayout.NORTH);
 		this.add(panelAfficheCarte   , BorderLayout.CENTER);
