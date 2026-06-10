@@ -43,6 +43,18 @@ public class PlateauJeu
 
 	public ArrayList<Acteur>  getLstActeurs() {return lstActeurs;}
 
+	public Acteur getActeur(int posX, int posY)
+	{
+		for (Acteur acteur : this.lstActeurs)
+		{
+			if (acteur.getPosX() == posX && acteur.getPosY() == posY)
+			{
+				return acteur; // On a trouvé l'acteur sur lequel on a cliqué !
+			}
+		}
+		return null; // Il n'y a pas d'acteur ici
+	}
+
 	public void majVoisin()
 	{
 		for (Acteur acteur : lstActeurs)
