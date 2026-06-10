@@ -203,9 +203,10 @@ public class PlateauJeu
 				for (int i=0; i<Ligne.length(); i+=3)
 				{
 					numCol = i/3;
-
 					numZone = Integer.parseInt(Ligne.substring(i,i+3))-1;
-					this.tabZone[numLig][numCol] = lstZones.get(numZone);
+					if (numZone !=-1)
+						this.tabZone[numLig][numCol] = lstZones.get(numZone);
+
 				}
 				numLig++;
 			}
@@ -269,30 +270,30 @@ public class PlateauJeu
 	}
 
 	//main de test
-	// public static void main(String[] args) 
-	// {
-	// 	PlateauJeu p = new PlateauJeu(new File("../creation/Plateau/plateauTest"));
+	public static void main(String[] args) 
+	{
+		PlateauJeu p = new PlateauJeu(new File("../creation/Plateau/plateauTest4"));
 
-	// 	System.out.println("Plateau : " + p.getNbLigne() + " " + p.getNbColonne() + " " + p.getTailleCase());
+		System.out.println("Plateau : " + p.getNbLigne() + " " + p.getNbColonne() + " " + p.getTailleCase());
 		
-	// 	for (Casting c : p.getLstCasting())
-	// 		System.out.println("Casting : " + c.getLibelle());
+		for (Casting c : p.getLstCasting())
+			System.out.println("Casting : " + c.getLibelle());
 
-	// 	for (Acteur a : p.getLstActeurs())
-	// 		System.out.println("Acteur : " + a.getRole().getLibelle() + " " + a.getPosX() + " " + a.getPosY() + " " + a.getCouleur());
+		for (Acteur a : p.getLstActeurs())
+			System.out.println("Acteur : " + a.getRole().getLibelle() + " " + a.getPosX() + " " + a.getPosY() + " " + a.getCouleur());
 
-	// 	System.out.println("Zone : ");
-	// 	for (int lig = 0; lig < p.getTabZone().length; lig ++)
-	// 	{
-	// 		for (int col = 0; col < p.getTabZone()[lig].length; col ++)
-	// 		{
-	// 			if (p.getTabZone()[lig][col] != null)
-	// 				System.out.print(String.format("%3d", p.getTabZone()[lig][col].getNumZone()));
-	// 			else
-	// 				System.out.print("  0");
-	// 		}
-	// 		System.out.println();
-	// 	}
-	
-	// }
+		System.out.println("Zone : ");
+		for (int lig = 0; lig < p.getTabZone().length; lig ++)
+		{
+			for (int col = 0; col < p.getTabZone()[lig].length; col ++)
+			{
+				if (p.getTabZone()[lig][col] != null)
+					System.out.print(String.format("%3d", p.getTabZone()[lig][col].getNumZone()));
+				else
+					System.out.print("  0");
+			}
+			System.out.println();
+		}
+
+	}
 }
