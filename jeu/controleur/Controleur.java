@@ -59,7 +59,7 @@ public class Controleur
 	public int                getTailleCase() {return this.metier.getTailleCase();}
 	public ArrayList<Casting> getLstCasting() {return this.metier.getLstCasting();}
 	public Zone[][]           getTabZone()    {return this.metier.getTabZone();}
-	public Casting[][]        getTabArrete()  {return this.metier.getTabArrete();}
+	//public Casting[][]        getTabArrete()  {return this.metier.getTabArrete();}
 	public ArrayList<Acteur>  getLstActeurs() {return this.metier.getLstActeurs();}
 	
 	public static void main (String[] args) { new Controleur(); } //Démarrage de l'application

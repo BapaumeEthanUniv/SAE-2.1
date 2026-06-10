@@ -1,6 +1,7 @@
 package ihm;
 
 import metier.Acteur;
+import metier.Role;
 import metier.Zone;
 
 import controleur.Controleur;
@@ -36,6 +37,7 @@ public class PanelJeu extends JPanel implements ActionListener
 	private Image 		 imgFond;
 	
 	private JPanel		 pnlPlateau;
+	private JPanel           pnlCentre;
 	
 	private JButton		 btnScore;
 	
@@ -66,9 +68,9 @@ public class PanelJeu extends JPanel implements ActionListener
 		pnlHaut                 .setLayout(new FlowLayout(FlowLayout.CENTER));
 		pnlHaut                 .setOpaque(false);
 		
-		JPanel pnlCentre        = new JPanel();
-		pnlCentre               .setLayout(new FlowLayout(FlowLayout.CENTER, 0, 100));
-		pnlCentre               .setOpaque(false);
+		this.pnlCentre          = new JPanel();
+		this.pnlCentre          .setLayout(new FlowLayout(FlowLayout.CENTER, 0, 100));
+		this.pnlCentre          .setOpaque(false);
 		
 		JPanel pnlBas           = new JPanel();
 		pnlBas                  .setLayout(new FlowLayout(FlowLayout.RIGHT ));
@@ -193,16 +195,16 @@ public class PanelJeu extends JPanel implements ActionListener
 		peindreContacts(g); 
 	}
 	
-	private ImageIcon creerImgRole(metier.Role role)
+	private ImageIcon creerImgRole(Role role)
 	{
 		String chemin = "";
 		    
 		switch (role.name()) 
 		{
-			case "CASCADEUR":   chemin = "./images/cascadeur.png"; break;
-			case "EMOTION":     chemin = "./images/emotionnel.png"; break;
+			case "CASCADEUR":   chemin = "./images/cascadeur.png";   break;
+			case "EMOTION":     chemin = "./images/emotionnel.png";  break;
 			case "ANTAGONISTE": chemin = "./images/antagoniste.png"; break;
-			case "FIGURANT":    chemin = "./images/figurant.png"; break;
+			case "FIGURANT":    chemin = "./images/figurant.png";    break;
 			default: return new ImageIcon(); 
 		}
 		    
@@ -218,23 +220,23 @@ public class PanelJeu extends JPanel implements ActionListener
 	    	if (this.ctrl.getLstActeurs() == null) return;
 
 	    	Graphics2D g2 = (Graphics2D) g;
-	    	g2.setStroke(new java.awt.BasicStroke(4)); // Épaisseur du trait
+	    	g2.setStroke(new java.awt.BasicStroke(1)); // Épaisseur du trait
 	    	g2.setColor(new Color(40, 40, 40)); 
 
 	    	for (Acteur acteur : this.ctrl.getLstActeurs()) 
 	    	{
 			if (acteur.getVoisins() != null) 
 			{
-		    		for (metier.Acteur voisin : acteur.getVoisins()) 
+		    		for (Acteur voisin : acteur.getVoisins()) 
 		    		{
 		        		JPanel case1 = tabPnlCases[acteur.getPosX()][acteur.getPosY()];
 		        		JPanel case2 = tabPnlCases[voisin.getPosX()][voisin.getPosY()];
 		        
 					int centreX1 = this.pnlPlateau.getX() + case1.getX() + (case1.getWidth() / 2);
-					int centreY1 = this.pnlPlateau.getY() + case1.getY() + (case1.getHeight() / 2);
+					int centreY1 = this.pnlPlateau.getY() + case1.getY() + (case1.getHeight());
 
 					int centreX2 = this.pnlPlateau.getX() + case2.getX() + (case2.getWidth() / 2);
-					int centreY2 = this.pnlPlateau.getY() + case2.getY() + (case2.getHeight() / 2);
+					int centreY2 = this.pnlPlateau.getY() + case2.getY() + (case2.getHeight());
 
 					g2.drawLine(centreX1, centreY1, centreX2, centreY2);
 		    		}
