@@ -1,3 +1,4 @@
+./metier/Acteur.java
 ./metier/PlateauJeu.java
 ./metier/Casting.java
 ./metier/Couleur.java
