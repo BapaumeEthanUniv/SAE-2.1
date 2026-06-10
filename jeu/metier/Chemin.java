@@ -18,47 +18,17 @@ public class Chemin
 
 	public boolean ajouterChemin(Acteur acteurAjouté, ArrayList<Acteur> lstActeurs)
 	{
-		if (this.estAdjacentQueue(acteurAjouté))
+		if (this.chemin.getFirst().getVoisins().contains(acteurAjouté))
 		{
 			this.chemin.addLast(acteurAjouté);
 			return true;
 		}
 
-		if (this.estAdjacentTete(acteurAjouté))
+		if (this.chemin.getLast().getVoisins().contains(acteurAjouté))
 		{
 			this.chemin.addFirst(acteurAjouté);
 			return true;
 		}
-
-		return false;
-	}
-
-	public boolean estAdjacentTete(Acteur acteur)
-	{
-		int ligActeur = acteur.getPosX();
-		int colActeur = acteur.getPosY();
-
-		int ligTete   = this.chemin.getFirst().getPosX();
-		int colTete   = this.chemin.getFirst().getPosY();
-
-		if ( Math.abs(ligActeur - ligTete) <= 1 &&
-		     Math.abs(colActeur - colTete) <= 1)
-			 return true;
-
-		return false;
-	}
-
-	public boolean estAdjacentQueue(Acteur acteur)
-	{
-		int ligActeur = acteur.getPosX();
-		int colActeur = acteur.getPosY();
-
-		int ligQueue  = this.chemin.getLast().getPosX();
-		int colQueue  = this.chemin.getLast().getPosY();
-
-		if ( Math.abs(ligActeur - ligQueue) <= 1 &&
-		     Math.abs(colActeur - colQueue) <= 1)
-			 return true;
 
 		return false;
 	}
