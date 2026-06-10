@@ -14,7 +14,7 @@ public class FrameCarte extends JFrame
 		this.ctrl = ctrl;
 		this.setTitle("Pioche");
 
-		this.panelCarte = new PanelCarte();
+		this.panelCarte = new PanelCarte(ctrl);
 
 		this.add(this.panelCarte);
 

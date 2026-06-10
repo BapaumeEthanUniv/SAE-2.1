@@ -1,5 +1,6 @@
 package ihm;
 
+import controleur.Controleur;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -9,28 +10,34 @@ import java.awt.Toolkit;
 import java.awt.event.*;
 import java.io.File;
 import javax.swing.*;
+import metier.Carte;
 
 public class PanelCarte extends JPanel implements ActionListener
 {
-	private ImageIcon imgPersonnage;
-    	private JButton   btnChangerImage;
-    	private Image     imageRedimensionnee;
-    	private ImageIcon iconeFinale;
-    	private JLabel    lblImage;
-		private JLabel    lblManche;
-		private JLabel    lblScore;
-		private JLabel    lblTour;
-    	
-    	private Image 	  imgFond;
-    	
-    	private int       nomImage;
-    	private int       largeurImage;
-    	private int       hauteurImage;
+	private Controleur ctrl;
 
-		private Font             policeBandeau;
+	private ImageIcon  imgPersonnage;
+    private JButton    btnChangerImage;
+    private Image      imageRedimensionnee;
+    private ImageIcon  iconeFinale;
+    private JLabel     lblImage;
+	private JLabel     lblManche;
+	private JLabel     lblScore;
+	private JLabel     lblTour;
+    	
+    private Image 	   imgFond;
+    	
+    private int        nomImage;
+    private int        largeurImage;
+    private int        hauteurImage;
 
-    	public PanelCarte()
-    	{
+	private Font       policeBandeau;
+
+    public PanelCarte(Controleur ctrl)
+    {
+		this.ctrl = ctrl;
+
+		
 		this.setLayout(new BorderLayout());
 
 		/*-------------------------------*/
@@ -114,12 +121,38 @@ public class PanelCarte extends JPanel implements ActionListener
     	// Méthode permettant de simuler une pioche aléatoire et d'afficher les cartes de façon optimisé
     	private void piocheAleatoire ()
     	{
-		this.nomImage            = (int)(Math.random() * 10) + 1;
+			Carte carteAffiche = this.ctrl.getCartePioche();
+			if(carteAffiche.getType() == "Clair")
+			{
+				switch (carteAffiche.getRole()) 
+				{
+					case CASCADEUR   : this.nomImage = 5;
+					case EMOTION     : this.nomImage = 7;
+					case FIGURANT    : this.nomImage = 9;
+					case ANTAGONISTE : this.nomImage = 3;
+
+					default:
+						this.nomImage = 1;
+				}
+			}
+			else
+			{
+				switch (carteAffiche.getRole()) 
+				{
+					case CASCADEUR   : this.nomImage = 6;
+					case EMOTION     : this.nomImage = 8;
+					case FIGURANT    : this.nomImage = 10;
+					case ANTAGONISTE : this.nomImage = 4;
+
+					default:
+						this.nomImage = 2;
+				}
+			}
+
     		this.imgPersonnage       = new ImageIcon("./images/" + this.nomImage + ".png");
-		this.imageRedimensionnee = this.imgPersonnage.getImage()
-		        .getScaledInstance(this.largeurImage, this.hauteurImage, Image.SCALE_SMOOTH);
-		        
-		this.iconeFinale         = new ImageIcon(this.imageRedimensionnee);
+			this.imageRedimensionnee = this.imgPersonnage.getImage()
+		        .getScaledInstance(this.largeurImage, this.hauteurImage, Image.SCALE_SMOOTH);    
+			this.iconeFinale         = new ImageIcon(this.imageRedimensionnee);
     	}
     	
     	// Méthode permettant de changer le fond du panel par imgFond + dessiner les liens sur le plateau
