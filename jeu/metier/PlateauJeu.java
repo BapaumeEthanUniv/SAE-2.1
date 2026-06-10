@@ -100,7 +100,8 @@ public class PlateauJeu
 		Role       role;
 		int        posX;
 		int        posY;
-		String ligne;
+		String     ligne;
+		
 		this.lstActeurs = new ArrayList<Acteur>();
 
 		try
