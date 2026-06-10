@@ -22,6 +22,7 @@ public class PanelAccueilCreation extends JPanel implements ActionListener
 	private Image 			imgFond;
 	
 	private JButton			btnCreer;
+	private JButton			btnQuitter;
 	
 	/* -- Pas eu le temps de concevoir les parties MODIFIER et COPIER... -- */
 	//private JButton		btnModifier;
@@ -56,6 +57,10 @@ public class PanelAccueilCreation extends JPanel implements ActionListener
 		pnlCopier		.setLayout(new FlowLayout(FlowLayout.CENTER));
 		pnlCopier		.setOpaque(false);*/
 		
+		JPanel pnlQuitter       = new JPanel();
+		pnlQuitter              .setLayout(new FlowLayout(FlowLayout.CENTER));
+		pnlQuitter		.setOpaque(false);
+		
 		this.btnCreer 		= new JButton("Créer un plateau");
 		this.btnCreer		.setOpaque(false);			
 		
@@ -65,9 +70,13 @@ public class PanelAccueilCreation extends JPanel implements ActionListener
 		//this.btnCopier 		= new JButton("Copier un plateau existant");
 		//this.btnCopier		.setOpaque(false);
 		
+		this.btnQuitter         = new JButton("Quitter");
+		this.btnQuitter         .setOpaque(false);
+		
 		pnlCreer.add	(this.btnCreer	 );
 		//pnlModifier.add	(this.btnModifier);
 		//pnlCopier.add	(this.btnCopier	 );
+		pnlQuitter.add  (this.btnQuitter );
 		
 		this.add(new JLabel(""));
 		this.add(new JLabel(""));
@@ -80,10 +89,12 @@ public class PanelAccueilCreation extends JPanel implements ActionListener
 		this.add(pnlCreer);
 		//this.add(pnlModifier);
 		//this.add(pnlCopier);
+		this.add(pnlQuitter);
 		
 		this.btnCreer.addActionListener(this);
 		//this.btnCopier.addActionListener(this);
 		//this.btnModifier.addActionListener(this);
+		this.btnQuitter.addActionListener(this);
 		
 		this.setVisible(true);
 	}
@@ -124,6 +135,11 @@ public class PanelAccueilCreation extends JPanel implements ActionListener
 				this.frameSaisie.setPnl(this.frameSaisie.getPnl(indice + 1));
 			}
 		}*/
+		
+		if (e.getSource() == this.btnQuitter)
+		{
+			System.exit(0);
+		}
 	}
 	
 	// Méthode permettant de changer le fond du panel par imgFond
