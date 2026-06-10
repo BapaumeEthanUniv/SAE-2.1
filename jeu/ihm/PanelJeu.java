@@ -216,12 +216,17 @@ public class PanelJeu extends JPanel implements ActionListener
 	// Méthode permettant de dessiner les contacts entre les acteurs
 	protected void peindreContacts(Graphics g)
 	{
+		
+		
 		if (this.tabPnlCases == null || this.pnlPlateau == null) return;
 	    	if (this.ctrl.getLstActeurs() == null) return;
 
 	    	Graphics2D g2 = (Graphics2D) g;
 	    	g2.setStroke(new java.awt.BasicStroke(1)); // Épaisseur du trait
 	    	g2.setColor(Color.BLACK); 
+	    	
+	    	int decalageX = this.pnlCentre.getX() + this.pnlPlateau.getX();
+		int decalageY = this.pnlCentre.getY() + this.pnlPlateau.getY();
 
 	    	for (Acteur acteur : this.ctrl.getLstActeurs()) 
 	    	{
@@ -232,11 +237,11 @@ public class PanelJeu extends JPanel implements ActionListener
 		        		JPanel case1 = tabPnlCases[acteur.getPosX()][acteur.getPosY()];
 		        		JPanel case2 = tabPnlCases[voisin.getPosX()][voisin.getPosY()];
 		        
-					int centreX1 = this.pnlPlateau.getX() + case1.getX() + (case1.getWidth() / 2);
-					int centreY1 = this.pnlPlateau.getY() + case1.getY() + (case1.getHeight());
+					int centreX1 = decalageX + case1.getX() + (case1.getWidth() / 2);
+					int centreY1 = decalageY + case1.getY() + (case1.getHeight()/ 2);
 
-					int centreX2 = this.pnlPlateau.getX() + case2.getX() + (case2.getWidth() / 2);
-					int centreY2 = this.pnlPlateau.getY() + case2.getY() + (case2.getHeight());
+					int centreX2 = decalageX + case2.getX() + (case2.getWidth() / 2);
+					int centreY2 = decalageY + case2.getY() + (case2.getHeight()/ 2);
 
 					g2.drawLine(centreX1, centreY1, centreX2, centreY2);
 		    		}
