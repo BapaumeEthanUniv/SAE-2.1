@@ -1,5 +1,8 @@
 package ihm;
 
+import metier.Acteur;
+import metier.Zone;
+
 import controleur.Controleur;
 
 import java.io.File;
@@ -101,15 +104,44 @@ public class PanelJeu extends JPanel implements ActionListener
 		
 		for (int lig = 0; lig < this.nbLigne; lig++)
 		{
-		    	for (int col = 0; col < this.nbColonne; col++)
+			for (int col = 0; col < this.nbColonne; col++)
 		    	{
-		        	JPanel pnlCellule = new JPanel();
-		        	pnlCellule.setBackground(Color.WHITE);
-		        	pnlCellule.setPreferredSize(new Dimension(this.tailleCase, this.tailleCase));
-		        
-		        	this.tabPnlCases[lig][col] = pnlCellule;
-		        	pnlPlateau.add(pnlCellule);
-		        }
+				JPanel pnlCellule = new JPanel(new FlowLayout(FlowLayout.CENTER, 3, 3));
+				
+				Zone zoneCase = this.ctrl.getTabZone()[lig][col];
+				if (zoneCase != null) { pnlCellule.setBackground(zoneCase.getCouleurAwt()); } 			
+				else                  { pnlCellule.setBackground(Color.WHITE); }
+
+				JLabel lblImage = new JLabel();
+				lblImage.setPreferredSize(new Dimension(this.tailleCase - 6, this.tailleCase - 6));
+				lblImage.setOpaque(false); // Transparent par défaut
+				
+				pnlCellule.add(lblImage);
+				
+				this.tabPnlCases[lig][col] = pnlCellule;
+				pnlPlateau.add(pnlCellule);
+		    	}
+		}
+
+		if (this.ctrl.getLstActeurs() != null)
+		{
+			for (Acteur acteur : this.ctrl.getLstActeurs()) 
+		    	{
+				int lig = acteur.getPosX();
+				int col = acteur.getPosY();
+				
+				JPanel pnlCellule = this.tabPnlCases[lig][col];
+				JLabel lblImage   = (JLabel) pnlCellule.getComponent(0); 
+				
+				ImageIcon imgRole = creerImgRole(acteur.getRole());
+				lblImage.setIcon(imgRole);
+				
+				if (acteur.estPrincipal()) 
+				{
+				    lblImage.setBackground(acteur.getCouleur());
+				    lblImage.setOpaque(true);
+				}
+		    	}
 		}
 		
 		this.btnScore = new JButton("Voir les Scores >>");
@@ -155,34 +187,60 @@ public class PanelJeu extends JPanel implements ActionListener
 		}
 	}
 	
+	// On surcharge paint() pour dessiner après que les cases aient été posées
+	public void paint(Graphics g) 
+	{
+		super.paint(g); 
+		peindreContacts(g); 
+	}
+	
+	private ImageIcon creerImgRole(metier.Role role)
+	{
+		String chemin = "";
+		    
+		switch (role.name()) 
+		{
+			case "CASCADEUR":   chemin = "./images/cascadeur.png"; break;
+			case "EMOTION":     chemin = "./images/emotionnel.png"; break;
+			case "ANTAGONISTE": chemin = "./images/antagoniste.png"; break;
+			case "FIGURANT":    chemin = "./images/figurant.png"; break;
+			default: return new ImageIcon(); 
+		}
+		    
+		ImageIcon iconeOriginale = new ImageIcon(chemin);
+		Image imgRedimensionnee = iconeOriginale.getImage().getScaledInstance(this.tailleCase - 5, this.tailleCase - 5, Image.SCALE_SMOOTH);
+		return new ImageIcon(imgRedimensionnee);
+	}
+	
 	// Méthode permettant de dessiner les contacts entre les acteurs
 	protected void peindreContacts(Graphics g)
 	{
-		super.paint(g);
-		
-		Graphics2D g2 = (Graphics2D) g;
-		g2.setColor(Color.BLACK);
-		
-		//if (this.tabPnlCases == null || this.pnlPlateau == null) return;
-		// Dessiner les lignes 
-		/* for (Acteur acteur : ctrl.getLstActeurs()) 
-		
-			for (Acteur voisin : acteur.getVoisins()) 
+		if (this.tabPnlCases == null || this.pnlPlateau == null) return;
+	    	if (this.ctrl.getLstActeurs() == null) return;
+
+	    	Graphics2D g2 = (Graphics2D) g;
+	    	g2.setStroke(new java.awt.BasicStroke(4)); // Épaisseur du trait
+	    	g2.setColor(new Color(40, 40, 40)); 
+
+	    	for (Acteur acteur : this.ctrl.getLstActeurs()) 
+	    	{
+			if (acteur.getVoisins() != null) 
 			{
-			    JPanel case1 = tabPnlCases[acteur.getPosX()][acteur.getPosY()];
-			    JPanel case2 = tabPnlCases[voisin.getPosX()][voisin.getPosY()];
-			    
-			    int centreX1 = this.pnlGrille.getX() + case1.getX() + (case1.getWidth() / 2);
-			    int centreY1 = this.pnlGrille.getY() + case1.getY() + (case1.getHeight() / 2);
+		    		for (metier.Acteur voisin : acteur.getVoisins()) 
+		    		{
+		        		JPanel case1 = tabPnlCases[acteur.getPosX()][acteur.getPosY()];
+		        		JPanel case2 = tabPnlCases[voisin.getPosX()][voisin.getPosY()];
+		        
+					int centreX1 = this.pnlPlateau.getX() + case1.getX() + (case1.getWidth() / 2);
+					int centreY1 = this.pnlPlateau.getY() + case1.getY() + (case1.getHeight() / 2);
 
-			    int centreX2 = this.pnlGrille.getX() + case2.getX() + (case2.getWidth() / 2);
-			    int centreY2 = this.pnlGrille.getY() + case2.getY() + (case2.getHeight() / 2);
+					int centreX2 = this.pnlPlateau.getX() + case2.getX() + (case2.getWidth() / 2);
+					int centreY2 = this.pnlPlateau.getY() + case2.getY() + (case2.getHeight() / 2);
 
-			    // On trace la ligne entre les deux !
-			    g2.drawLine(centreX1, centreY1, centreX2, centreY2);
+					g2.drawLine(centreX1, centreY1, centreX2, centreY2);
+		    		}
 			}
-    		*/
-		
+	    	}
 	}
 }
 
