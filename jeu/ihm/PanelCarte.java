@@ -85,6 +85,7 @@ public class PanelCarte extends JPanel implements ActionListener
     		this.imgPersonnage       = new ImageIcon("./images/" + this.nomImage + ".png");
 		this.imageRedimensionnee = this.imgPersonnage.getImage()
 		        .getScaledInstance(this.largeurImage, this.hauteurImage, Image.SCALE_SMOOTH);
+		        
 		this.iconeFinale         = new ImageIcon(this.imageRedimensionnee);
     	}
     	
