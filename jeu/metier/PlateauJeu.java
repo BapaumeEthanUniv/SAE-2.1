@@ -237,25 +237,25 @@ public class PlateauJeu
 		voisin1.supprimerVoisin(voisin2);
 	}
 
-	public ArrayList<Point> getArette(Acteur voisin1, Acteur voisin2)
+	//Vérifie si des arrêtes déjà remplis se trouve entre deux acteurs
+	public boolean entreDeux(Acteur acteurDepart, Acteur acteurArrive)
 	{
-		int x;
-		int y;
-		ArrayList<Point> lstArrete = new ArrayList<Point>();
+		int deltaY = Integer.compare(acteurArrive.getPosY(), acteurDepart.getPosY());
+		int deltaX = Integer.compare(acteurArrive.getPosX(), acteurDepart.getPosX());
+		
+		int y = acteurDepart.getPosY() + deltaY;
+		int x = acteurDepart.getPosX() + deltaX;
 
-		x = voisin1.getPosX();
-		y = voisin1.getPosY();
-		while (x!= voisin2.getPosX())
+		while ( y != acteurArrive.getPosY() || x != acteurArrive.getPosX() )
 		{
-			x+=Integer.compare(voisin1.getPosX(), voisin2.getPosX());
-			y+=Integer.compare(voisin2.getPosX(), voisin2.getPosX());
-			if (x!=voisin1.getPosX() && y!=voisin1.getPosY() &&
-			    x!=voisin2.getPosX() && y!=voisin2.getPosY() )
-			{
-				lstArrete.add(new Point(x, y));
-			}
+			if (tabArrete[x][y])
+				return true;
+			
+			y += deltaY;
+			x += deltaX;
 		}
-		return lstArrete;
+		
+		return false;
 	}
 
 	public Acteur getPrincipal(Casting casting)
