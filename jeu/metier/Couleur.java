@@ -9,15 +9,11 @@ public enum Couleur
 	ROUGE_CLAIR ( "Rouge Clair" , new Color (255,64 ,64 )),
 	BORDEAUX    ( "Bordeaux"    , new Color (109,7  ,26 )),
 	ORANGE      ( "Orange"      , new Color (255,149,9  )),
-	JAUNE       ( "Jaune"       , Color.YELLOW),
+	JAUNE       ( "Jaune"       , new Color (252,220,18 )),
 	VERT_CITRON ( "Vert Citron" , new Color (140,210,40 )),
-	VERT        ( "Vert"        , Color.GREEN),
 	VERT_FONCE  ( "Vert Foncé"  , new Color (0  ,128,0  )),
-	CYAN        ( "Cyan"        , Color.CYAN) ,
-	MAGENTA     ( "Magenta"     , Color.MAGENTA) ,
 	VIOLET      ( "Violet"      , new Color (140,60 ,200)),
 	BLEU        ( "Bleu"        , new Color (40 ,110,220)),
-	BLEU_FONCE  ( "Bleu Foncé"  , new Color (0  ,0  ,255)),
 	SAUMON      ( "Saumon"      , new Color (240,150,120)),
 	MARRON      ( "Marron"      , new Color (140,80 ,30 )),
 	VIOLET_PALE ( "Violet Pâle" , new Color (230,180,255)),
@@ -47,7 +43,7 @@ public enum Couleur
 	// autres méthodes :
 	public String toString()
 	{
-		return this.lib;;
+		return this.lib;
 	}
 	
 	public static Couleur valueOf(int ordinal)
