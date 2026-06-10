@@ -119,8 +119,8 @@ public class Acteur
 		return "" + this.role + String.format("%03d", this.posX) + String.format("%03d", this.posY);
 	}
 
-	public void ajouterArette(PlateauJeu plateau, Acteur voisin, Casting casting)
+	public void ajouterArette(PlateauJeu plateau, Acteur voisin)
 	{
-		plateau.ajouterArette(this, voisin, casting);
+		plateau.ajouterArette(this, voisin);
 	}
 }
