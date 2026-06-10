@@ -2,6 +2,7 @@
 ./metier/Casting.java
 ./metier/Couleur.java
 ./metier/Role.java
+./metier/Zone.java
 
 ./controleur/Controleur.java
 
