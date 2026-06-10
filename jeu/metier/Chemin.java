@@ -18,15 +18,17 @@ public class Chemin
 
 	public boolean ajouterChemin(Acteur acteurAjouté, ArrayList<Acteur> lstActeurs)
 	{
-		if (this.chemin.getFirst().getVoisins().contains(acteurAjouté))
+		if (this.chemin.getFirst().getVoisins().contains(acteurAjouté) && 
+		    this.plateau.entreDeux(this.chemin.getFirst(), acteurAjouté))
 		{
-			this.chemin.addLast(acteurAjouté);
+			this.chemin.addFirst(acteurAjouté);
 			return true;
 		}
 
-		if (this.chemin.getLast().getVoisins().contains(acteurAjouté))
+		if (this.chemin.getLast().getVoisins().contains(acteurAjouté) &&
+	        this.plateau.entreDeux(this.chemin.getLast(), acteurAjouté))
 		{
-			this.chemin.addFirst(acteurAjouté);
+			this.chemin.addLast(acteurAjouté);
 			return true;
 		}
 
