@@ -64,8 +64,10 @@ public class Controleur
 	public Zone[][]           getTabZone()    {return this.metier.getTabZone();}
 	//public Casting[][]        getTabArrete()  {return this.metier.getTabArrete();}
 	public ArrayList<Acteur>  getLstActeurs() {return this.metier.getLstActeurs();}
-	public ArrayList<Role> getLstRole() {return this.metier.getLstRole();}
-	public Carte getCartePioche(){return this.pioche.getCarte((int)(Math.random() * 10) + 1);}
+	public ArrayList<Role>    getLstRole() {return this.metier.getLstRole();}
+	public Carte              getCartePioche(){return this.pioche.getCarte((int)(Math.random() * 10) + 1);}
+
+	public boolean ajouterChemin(Acteur acteurAjouté, Role rolePioche) {return this.metier.ajouterChemin(acteurAjouté, rolePioche);}
 	
 	public static void main (String[] args) { new Controleur(); } //Démarrage de l'application
 }
