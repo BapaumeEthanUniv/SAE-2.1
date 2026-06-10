@@ -1,33 +1,32 @@
 package metier;
 
 import java.util.ArrayList;
-import java.awt.Point;
 
 public class Chemin 
 {
-	private ArrayList<Point> chemin;
+	private ArrayList<Acteur> chemin;
 	private Casting          couleur;
 	private PlateauJeu       plateau;
 
 	public Chemin(Casting couleur, PlateauJeu plateau)
 	{
-		this.chemin  = new ArrayList<Point>();
+		this.chemin  = new ArrayList<Acteur>();
 		this.couleur = couleur;
 		this.plateau = plateau;
-		this.chemin.add(new Point(this.plateau.getPrincipal(this.couleur).getPosX(), this.plateau.getPrincipal(this.couleur).getPosY()));
+		this.chemin.add(this.plateau.getPrincipal(couleur));
 	}
 
 	public boolean ajouterChemin(Acteur acteurAjouté, ArrayList<Acteur> lstActeurs)
 	{
 		if (this.estAdjacentQueue(acteurAjouté))
 		{
-			this.chemin.addLast(new Point(acteurAjouté.getPosX(), acteurAjouté.getPosY()));
+			this.chemin.addLast(acteurAjouté);
 			return true;
 		}
 
 		if (this.estAdjacentTete(acteurAjouté))
 		{
-			this.chemin.addFirst(new Point(acteurAjouté.getPosX(), acteurAjouté.getPosY()));
+			this.chemin.addFirst(acteurAjouté);
 			return true;
 		}
 
@@ -39,8 +38,8 @@ public class Chemin
 		int ligActeur = acteur.getPosX();
 		int colActeur = acteur.getPosY();
 
-		int ligTete   = (int) this.chemin.getFirst().getX();
-		int colTete   = (int) this.chemin.getFirst().getY();
+		int ligTete   = this.chemin.getFirst().getPosX();
+		int colTete   = this.chemin.getFirst().getPosY();
 
 		if ( Math.abs(ligActeur - ligTete) <= 1 &&
 		     Math.abs(colActeur - colTete) <= 1)
@@ -54,8 +53,8 @@ public class Chemin
 		int ligActeur = acteur.getPosX();
 		int colActeur = acteur.getPosY();
 
-		int ligQueue  = (int) this.chemin.getLast().getX();
-		int colQueue  = (int) this.chemin.getLast().getY();
+		int ligQueue  = this.chemin.getLast().getPosX();
+		int colQueue  = this.chemin.getLast().getPosY();
 
 		if ( Math.abs(ligActeur - ligQueue) <= 1 &&
 		     Math.abs(colActeur - colQueue) <= 1)
