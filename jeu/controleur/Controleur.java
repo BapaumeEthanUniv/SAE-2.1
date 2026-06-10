@@ -1,24 +1,26 @@
 package controleur;
 
+import ihm.FrameCarte;
+import ihm.FrameJeu;
+import java.awt.Dimension;
 import java.io.File;
 import java.util.ArrayList;
-
-import ihm.FrameJeu;
-import ihm.FrameCarte;
-
-import java.awt.Dimension;
 import metier.Acteur;
+import metier.Carte;
 import metier.Casting;
+import metier.Pioche;
 import metier.PlateauJeu;
+import metier.Role;
 import metier.Zone;
 
 //import frameJeu.PlateauJeu;
 
 public class Controleur
 {
-	private FrameJeu        frameJeu;
+	private FrameJeu      frameJeu;
 	private FrameCarte	frameCarte;
 	private PlateauJeu      metier;
+	private Pioche          pioche;
 	
 	Dimension tailleEcran;
 	int l, lJeu, lCarte;
@@ -29,6 +31,7 @@ public class Controleur
 	public Controleur()
 	{
 		this.frameJeu   = new FrameJeu  (this);
+		this.pioche = new Pioche(this.getLstRole());
 		
 		tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -61,6 +64,8 @@ public class Controleur
 	public Zone[][]           getTabZone()    {return this.metier.getTabZone();}
 	//public Casting[][]        getTabArrete()  {return this.metier.getTabArrete();}
 	public ArrayList<Acteur>  getLstActeurs() {return this.metier.getLstActeurs();}
+	public ArrayList<Role> getLstRole() {return this.metier.getLstRole();}
+	public Carte getCartePioche(){return this.pioche.getCarte((int)(Math.random() * 10) + 1);}
 	
 	public static void main (String[] args) { new Controleur(); } //Démarrage de l'application
 }
