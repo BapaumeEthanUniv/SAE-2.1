@@ -104,11 +104,15 @@ public class Acteur
 		}
 	}
 
-	public void supprimerVoisin() //supprime tout les voisins de l'acteur
+	public void supprimerVoisin(Acteur voisin) //supprime le voisin de la liste
 	{
-		for (Acteur voisin : lstVoisins)
-			voisin.lstVoisins.remove(this);
+		this.lstVoisins.remove(voisin);
+		try
+		{
+			voisin.supprimerVoisin(this);
+		}catch(Exception e){}
 	}
+
 
 	public String toString()
 	{

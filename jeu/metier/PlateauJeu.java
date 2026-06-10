@@ -219,6 +219,7 @@ public class PlateauJeu
 				this.tabArrete[x][y]=casting;
 			}
 		}
+		voisin1.supprimerVoisin(voisin2);
 	}
 
 	//main de test
