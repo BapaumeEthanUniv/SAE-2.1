@@ -22,6 +22,7 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 	private Image 		imgFond;
 	
 	private JButton		btnCharger;
+	private JButton		btnJouer;
 	
 	public PanelAccueilJeu (Controleur ctrl, FrameJeu f, int indice)
 	{
@@ -29,26 +30,37 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 		this.frame 		= f;
 		this.indice 		= indice;
 	
-		this.setLayout(new GridLayout(10,1));
+		this.setLayout(new GridLayout(12,1));
 		
 		this.imgFond      = Toolkit.getDefaultToolkit().getImage("./images/img-accueil-jeu.png");
 		
-		JPanel pnlPrincipal = new JPanel();
-		pnlPrincipal.setLayout(new FlowLayout(FlowLayout.CENTER));
-		pnlPrincipal.setOpaque(false);
+		JPanel pnlBtnCharger = new JPanel();
+		pnlBtnCharger        .setLayout(new FlowLayout(FlowLayout.CENTER, 0, 20));
+		pnlBtnCharger        .setOpaque(false);
+		
+		JPanel pnlBtnJouer   = new JPanel();
+		pnlBtnJouer          .setLayout(new FlowLayout(FlowLayout.CENTER, 0, 20));
+		pnlBtnJouer          .setOpaque(false);
 		
 		this.btnCharger = new JButton("Charger Niveau");
-		this.btnCharger.setOpaque(false);
+		this.btnCharger .setOpaque(false);
+		
+		this.btnJouer   = new JButton("Jouer !");
+		this.btnJouer   .setOpaque(false);
+		this.btnJouer   .setEnabled(false);
 		
 		this.add(new JLabel(""));
 		this.add(new JLabel(""));
 		this.add(new JLabel(""));
 		this.add(new JLabel(""));
 		this.add(new JLabel(""));
-		pnlPrincipal.add(this.btnCharger);
-		this.add(pnlPrincipal);
+		pnlBtnCharger.add(this.btnCharger);
+		pnlBtnJouer  .add(this.btnJouer  );
+		this.add(pnlBtnCharger);
+		this.add(pnlBtnJouer  );
 		
 		this.btnCharger.addActionListener(this);
+		this.btnJouer  .addActionListener(this);
 		
 		this.setVisible(true);
 	}
@@ -68,11 +80,16 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 				
 				this.ctrl.initPlateau(fichier);
 				
-				this.ctrl.creerFrameCarte();
-				
 				this.frame.creerPanelJeu();
-				this.frame.setPnl(this.frame.getPnl(this.indice + 1));
+				
+				this.btnJouer.setEnabled(true);
 			}
+		}
+		
+		if ( e.getSource() == this.btnJouer   )
+		{
+			this.ctrl.creerFrameCarte();
+			this.frame.setPnl(this.frame.getPnl(this.indice + 1));
 		}
 	}
 	
