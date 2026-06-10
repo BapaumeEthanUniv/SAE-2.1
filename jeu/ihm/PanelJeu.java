@@ -39,6 +39,8 @@ public class PanelJeu extends JPanel implements ActionListener
 	private JPanel		 pnlPlateau;
 	private JPanel           pnlCentre;
 	
+	private Graphics         g;
+	
 	private JButton		 btnScore;
 	
 	private Font             policeBandeau;
@@ -103,6 +105,7 @@ public class PanelJeu extends JPanel implements ActionListener
 		    lblBouton .setFont(new Font("SansSerif", Font.BOLD, 18));
 		}
 		
+		// Parcours pour dessiner le plateau
 		for (int lig = 0; lig < this.nbLigne; lig++)
 		{
 			for (int col = 0; col < this.nbColonne; col++)
@@ -123,7 +126,8 @@ public class PanelJeu extends JPanel implements ActionListener
 				pnlPlateau.add(pnlCellule);
 		    	}
 		}
-
+		
+		// On affiche les images de chaque acteur dans lstActeurs et leur casting si il est un acteur principal
 		if (this.ctrl.getLstActeurs() != null)
 		{
 			for (Acteur acteur : this.ctrl.getLstActeurs()) 
@@ -134,7 +138,7 @@ public class PanelJeu extends JPanel implements ActionListener
 				JPanel pnlCellule = this.tabPnlCases[lig][col];
 				JLabel lblImage   = (JLabel) pnlCellule.getComponent(0); 
 				
-				ImageIcon imgRole = creerImgRole(acteur.getRole());
+				ImageIcon imgRole = this.creerImgRole(acteur.getRole());
 				lblImage.setIcon(imgRole);
 				
 				if (acteur.estPrincipal()) 
@@ -178,6 +182,14 @@ public class PanelJeu extends JPanel implements ActionListener
 		}
 	}
 	
+	// Méthode qui surcharge paint() pour dessiner après que les cases aient été posées
+	public void paint(Graphics g) 
+	{
+		super.paint(g); 
+		peindreContacts(g); 
+		//peindreCadres(g);
+	}
+	
 	// Méthode permettant de changer le fond du panel par imgFond
 	protected void paintComponent(Graphics g) 
 	{
@@ -186,13 +198,6 @@ public class PanelJeu extends JPanel implements ActionListener
 		{
 			g.drawImage(this.imgFond, 0, 0, this.getWidth(), this.getHeight(), this);
 		}
-	}
-	
-	// On surcharge paint() pour dessiner après que les cases aient été posées
-	public void paint(Graphics g) 
-	{
-		super.paint(g); 
-		peindreContacts(g); 
 	}
 	
 	private ImageIcon creerImgRole(Role role)
@@ -209,24 +214,28 @@ public class PanelJeu extends JPanel implements ActionListener
 		}
 		    
 		ImageIcon iconeOriginale = new ImageIcon(chemin);
-		Image imgRedimensionnee = iconeOriginale.getImage().getScaledInstance(this.tailleCase - 5, this.tailleCase - 5, Image.SCALE_SMOOTH);
+		Image imgRedimensionnee = iconeOriginale.getImage().getScaledInstance(this.tailleCase - 6, this.tailleCase - 6, Image.SCALE_SMOOTH);
 		return new ImageIcon(imgRedimensionnee);
 	}
 	
 	// Méthode permettant de dessiner les contacts entre les acteurs
 	protected void peindreContacts(Graphics g)
 	{
+		final int MARGE = this.tailleCase / 2 - 2; // pixels à laisser avant l'image
+		
+		int decalageX, decalageY;
+		double centreX1, centreY1, centreX2, centreY2;
 		
 		
 		if (this.tabPnlCases == null || this.pnlPlateau == null) return;
 	    	if (this.ctrl.getLstActeurs() == null) return;
 
 	    	Graphics2D g2 = (Graphics2D) g;
-	    	g2.setStroke(new java.awt.BasicStroke(1)); // Épaisseur du trait
-	    	g2.setColor(Color.BLACK); 
-	    	
-	    	int decalageX = this.pnlCentre.getX() + this.pnlPlateau.getX();
-		int decalageY = this.pnlCentre.getY() + this.pnlPlateau.getY();
+	    	g2.setStroke(new java.awt.BasicStroke(2));
+	    	g2.setColor(Color.BLACK);
+
+	    	decalageX = this.pnlCentre.getX() + this.pnlPlateau.getX();
+	    	decalageY = this.pnlCentre.getY() + this.pnlPlateau.getY();
 
 	    	for (Acteur acteur : this.ctrl.getLstActeurs()) 
 	    	{
@@ -236,17 +245,57 @@ public class PanelJeu extends JPanel implements ActionListener
 		    		{
 		        		JPanel case1 = tabPnlCases[acteur.getPosX()][acteur.getPosY()];
 		        		JPanel case2 = tabPnlCases[voisin.getPosX()][voisin.getPosY()];
-		        
-					int centreX1 = decalageX + case1.getX() + (case1.getWidth() / 2);
-					int centreY1 = decalageY + case1.getY() + (case1.getHeight()/ 2);
 
-					int centreX2 = decalageX + case2.getX() + (case2.getWidth() / 2);
-					int centreY2 = decalageY + case2.getY() + (case2.getHeight()/ 2);
+		        		centreX1 = decalageX + case1.getX() + case1.getWidth()  / 2.0;
+					centreY1 = decalageY + case1.getY() + case1.getHeight() / 2.0;
+					centreX2 = decalageX + case2.getX() + case2.getWidth()  / 2.0;
+					centreY2 = decalageY + case2.getY() + case2.getHeight() / 2.0;
 
-					g2.drawLine(centreX1, centreY1, centreX2, centreY2);
+					// Vecteur entre les deux centres
+					double distanceX = centreX2 - centreX1;
+					double distanceY = centreY2 - centreY1;
+					double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
+					// Vecteur unitaire
+					double ux = distanceX / distance;
+					double uy = distanceY / distance;
+
+					// On recule le début et la fin de MARGE pixels
+					int x1 = (int) (centreX1 + ux * MARGE);
+					int y1 = (int) (centreY1 + uy * MARGE);
+					int x2 = (int) (centreX2 - ux * MARGE);
+					int y2 = (int) (centreY2 - uy * MARGE);
+
+		        		g2.drawLine(x1, y1, x2, y2);
 		    		}
 			}
 	    	}
 	}
+	/*
+	private void peindreCadres(Graphics g)
+	{
+		final int EPAISSEUR = 2;
+		
+		if (this.tabPnlCases == null || this.pnlPlateau == null) return;
+	    	if (this.ctrl.getLstActeurs() == null) return;
+
+	    	Graphics2D g2 = (Graphics2D) g;
+	    	g2.setStroke(new java.awt.BasicStroke(EPAISSEUR));
+
+	    	int decalageX = this.pnlCentre.getX() + this.pnlPlateau.getX();
+	    	int decalageY = this.pnlCentre.getY() + this.pnlPlateau.getY();
+
+	    	for (Acteur acteur : this.ctrl.getLstActeurs())
+	    	{
+			JPanel pnlCellule = this.tabPnlCases[acteur.getPosX()][acteur.getPosY()];
+
+			int x = decalageX + pnlCellule.getX() + EPAISSEUR;
+			int y = decalageY + pnlCellule.getY() + EPAISSEUR;
+			int w = pnlCellule.getWidth()  - EPAISSEUR * 2;
+			int h = pnlCellule.getHeight() - EPAISSEUR * 2;
+
+			g2.drawRect(x, y, w, h);
+	    	}
+	}*/
 }
 
