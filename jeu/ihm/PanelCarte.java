@@ -75,7 +75,6 @@ public class PanelCarte extends JPanel implements ActionListener
 			{	
 				this.piocheAleatoire();
 				this.lblImage.setIcon(this.iconeFinale);
-				System.out.println(this.nomImage);
 			}
     	}
     	
@@ -86,6 +85,7 @@ public class PanelCarte extends JPanel implements ActionListener
     		this.imgPersonnage       = new ImageIcon("./images/" + this.nomImage + ".png");
 			this.imageRedimensionnee = this.imgPersonnage.getImage()
 		        .getScaledInstance(this.largeurImage, this.hauteurImage, Image.SCALE_SMOOTH);
+			this.iconeFinale         = new ImageIcon(this.imageRedimensionnee);
     	}
     	
     	// Méthode permettant de changer le fond du panel par imgFond + dessiner les liens sur le plateau
