@@ -2,6 +2,7 @@ package metier;
 
 import java.util.ArrayList;
 import java.awt.Color;
+import java.awt.Point;
 import java.io.File;
 import java.util.Scanner;
 import java.io.FileReader;
@@ -221,6 +222,28 @@ public class PlateauJeu
 		}
 		voisin1.supprimerVoisin(voisin2);
 	}
+
+	public ArrayList<Point> getArette(Acteur voisin1, Acteur voisin2)
+	{
+		int x;
+		int y;
+		ArrayList<Point> lstArrete = new ArrayList<Point>();
+
+		x = voisin1.getPosX();
+		y = voisin1.getPosY();
+		while (x!= voisin2.getPosX())
+		{
+			x+=Integer.compare(voisin1.getPosX(), voisin2.getPosX());
+			y+=Integer.compare(voisin2.getPosX(), voisin2.getPosX());
+			if (x!=voisin1.getPosX() && y!=voisin1.getPosY() &&
+			    x!=voisin2.getPosX() && y!=voisin2.getPosY() )
+			{
+				lstArrete.add(new Point(x, y));
+			}
+		}
+		return lstArrete;
+	}
+
 	public Acteur getPrincipal(Casting casting)
 	{
 		for (Acteur acteur : lstActeurs)
