@@ -81,14 +81,13 @@ public class Acteur
 		{
 			for (Acteur acteur : lstActeurs )
 				if (acteur.getPosY() == y && acteur.getPosX() == x)
-					return false;
+					return true;
 			
 			y += deltaY;
-			System.out.println(y + " " + a.getPosY());
 			x += deltaX;
 		}
 		
-		return true;
+		return false;
 	}
 
 	public void majVoisins(ArrayList<Acteur> lstActeurs) // met a jour la liste des voisins de l'acteur
