@@ -221,7 +221,7 @@ public class PanelJeu extends JPanel implements ActionListener
 
 	    	Graphics2D g2 = (Graphics2D) g;
 	    	g2.setStroke(new java.awt.BasicStroke(1)); // Épaisseur du trait
-	    	g2.setColor(new Color(40, 40, 40)); 
+	    	g2.setColor(Color.BLACK); 
 
 	    	for (Acteur acteur : this.ctrl.getLstActeurs()) 
 	    	{
