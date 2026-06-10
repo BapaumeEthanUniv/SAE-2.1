@@ -221,6 +221,15 @@ public class PlateauJeu
 		}
 		voisin1.supprimerVoisin(voisin2);
 	}
+	public Acteur getPrincipal(Casting casting)
+	{
+		for (Acteur acteur : lstActeurs)
+		{
+			if (acteur.estPrincipal() && acteur.getCouleur()==casting.getCouleur())
+				return acteur;
+		}
+		return null;
+	}
 
 	//main de test
 	// public static void main(String[] args) 
