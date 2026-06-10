@@ -12,9 +12,7 @@ public class FrameCarte extends JFrame
 	public FrameCarte(Controleur ctrl)
 	{
 		this.ctrl = ctrl;
-		this.setTitle("Carte pioché");
-		this.setSize(500, 700);
-		this.setLocation(10, 320);
+		this.setTitle("Pioche");
 
 		this.panelCarte = new PanelCarte();
 
