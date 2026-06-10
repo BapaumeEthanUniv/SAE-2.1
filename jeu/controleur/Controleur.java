@@ -67,7 +67,7 @@ public class Controleur
 	public ArrayList<Role>    getLstRole() {return this.metier.getLstRole();}
 	public Carte              getCartePioche(){return this.pioche.getCarte((int)(Math.random() * 10) + 1);}
 
-	public boolean ajouterChemin(Acteur acteurAjouté, Role rolePioche) {return this.metier.ajouterChemin(acteurAjouté, rolePioche);}
+	public boolean ajouterChemin(int posX, int posY) {return this.metier.ajouterChemin(posX, posY, this.getCartePioche().getRole());}
 	
 	public static void main (String[] args) { new Controleur(); } //Démarrage de l'application
 }

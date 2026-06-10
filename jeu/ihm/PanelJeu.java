@@ -116,6 +116,21 @@ public class PanelJeu extends JPanel implements ActionListener
 				lblImage.setPreferredSize(new Dimension(this.tailleCase - 6, this.tailleCase - 6));
 				lblImage.setOpaque(false); // Transparent par défaut
 				
+				final int finalLig = lig, finalCol= col;
+				/*
+				pnlCellule.addMouseListener(new MouseAdapter() 
+				{
+					public void mouseEntered(MouseEvent e)
+		            		{
+		                    		tabPnlCases[finalLig][finalCol].setBackground(Color.LIGHT_GRAY);
+		            		}
+		            		
+		            		public void mouseClicked(MouseEvent e)
+		            		{
+		            			tabPnlCases[finalLig][finalCol]
+		            		}
+				});*/
+				
 				pnlCellule.add(lblImage);
 				
 				this.tabPnlCases[lig][col] = pnlCellule;

@@ -34,6 +34,10 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 		
 		this.imgFond      = Toolkit.getDefaultToolkit().getImage("./images/img-accueil-jeu.png");
 		
+		/*-------------------------------*/
+		/*   Création des composants     */
+		/*-------------------------------*/
+		
 		JPanel pnlBtnCharger = new JPanel();
 		pnlBtnCharger        .setLayout(new FlowLayout(FlowLayout.CENTER, 0, 20));
 		pnlBtnCharger        .setOpaque(false);
@@ -49,6 +53,10 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 		this.btnJouer   .setOpaque(false);
 		this.btnJouer   .setEnabled(false);
 		
+		/*-------------------------------*/
+		/* Positionnement des composants */
+		/*-------------------------------*/
+		
 		this.add(new JLabel(""));
 		this.add(new JLabel(""));
 		this.add(new JLabel(""));
@@ -58,6 +66,10 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 		pnlBtnJouer  .add(this.btnJouer  );
 		this.add(pnlBtnCharger);
 		this.add(pnlBtnJouer  );
+		
+		/* ----------------------------- */
+		/* Activation des Composants     */
+		/* ----------------------------- */
 		
 		this.btnCharger.addActionListener(this);
 		this.btnJouer  .addActionListener(this);
