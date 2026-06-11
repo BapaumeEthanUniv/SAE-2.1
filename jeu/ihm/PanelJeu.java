@@ -73,8 +73,8 @@ public class PanelJeu extends JPanel implements ActionListener
 		
 		this.tabPnlCases        = new JPanel[nbLigne][nbColonne];
 		
-		JPanel pnlHaut          = new JPanel();
-		pnlHaut                 .setLayout(new FlowLayout(FlowLayout.CENTER));
+		JPanel pnlHaut          = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		pnlHaut                 .setLayout(new FlowLayout());
 		pnlHaut                 .setOpaque(false);
 		
 		this.pnlCentre          = new JPanel();
@@ -90,8 +90,12 @@ public class PanelJeu extends JPanel implements ActionListener
 		pnlPlateau              .setBackground(new Color(60, 60, 75));
 		pnlPlateau              .setSize(400, 400);
 		
-		JLabel lblBandeau       = new JLabel("Manche : " + this.ctrl.getManche(), JLabel.CENTER);
-		JLabel lblBouton        = new JLabel("Bouton ", JLabel.RIGHT );
+		JLabel lblMancheCoul    = new JLabel(this.ctrl.getManche().toString(), JLabel.LEFT);
+		lblMancheCoul           .setForeground(this.ctrl.getManche().getCouleur());
+		
+		JLabel lblManche        = new JLabel("Manche : " , JLabel.LEFT);
+		JLabel lblTour          = new JLabel("Tour n° : ", JLabel.RIGHT);
+		JLabel lblBouton        = new JLabel("Bouton "   , JLabel.RIGHT );
 		
 		// Essai pour initialiser les polices en prenant la police téléchargée dans le dossier polices/
 		try
@@ -103,12 +107,14 @@ public class PanelJeu extends JPanel implements ActionListener
 
 		    this.policeBandeau             = policeLbl.deriveFont(Font.BOLD, 18f);                // police du bandeau 	modifié en Gras + taille 18
 
-		    lblBandeau.setFont(policeBandeau);                                                    // police du bandeau changé
+		    lblManche.setFont(policeBandeau);  
+		    lblMancheCoul.setFont(policeBandeau); 
+		    lblTour.setFont(policeBandeau);                                                 // police du bandeau changé
 		}
 		// Si fichier non trouvé, la police est en SansSerif Gras par défaut
 		catch (Exception e)
 		{
-		    lblBandeau.setFont(new Font("SansSerif", Font.BOLD, 18));
+		    lblManche.setFont(new Font("SansSerif", Font.BOLD, 18));
 		    lblBouton .setFont(new Font("SansSerif", Font.BOLD, 18));
 		}
 		
@@ -180,7 +186,10 @@ public class PanelJeu extends JPanel implements ActionListener
 		/* Positionnement des composants */
 		/*-------------------------------*/
 		
-		pnlHaut.add(lblBandeau);
+		pnlHaut.add(lblManche);
+		pnlHaut.add(lblMancheCoul);
+		pnlHaut.add(new JLabel("     "));
+		pnlHaut.add(lblTour);
 		
 		pnlCentre.add(pnlPlateau, BorderLayout.CENTER);
 		
