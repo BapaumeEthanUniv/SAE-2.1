@@ -254,6 +254,7 @@ public class PlateauJeu
 				}
 				numLig++;
 			}
+			sc.close();
 		}
 		catch(Exception e)
 		{
