@@ -68,6 +68,7 @@ public class Controleur
 	public Carte              getCartePioche(){return this.pioche.getCarte((int)(Math.random() * 10) + 1);}
 
 	public boolean ajouterChemin(int posX, int posY) {return this.metier.ajouterChemin(posX, posY, this.getCartePioche().getRole());}
-	
+	public boolean nouvelleManche()                  {return this.metier.nouvelleManche();}
+
 	public static void main (String[] args) { new Controleur(); } //Démarrage de l'application
 }
