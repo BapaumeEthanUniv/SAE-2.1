@@ -72,7 +72,7 @@ public class Controleur
 	public Casting            getManche()     {return this.metier.getManche();}
 
 
-	public boolean piocherCarte() { return this.pioche.PiocherCarte();}
+	public boolean piocherCarte() { return this.pioche.piocherCarte();}
 	public boolean ajouterChemin(int posX, int posY) {return this.metier.ajouterChemin(posX, posY, this.getCartePioche().getRole());}
 	public boolean nouvelleManche()                  {return this.metier.nouvelleManche();}
 	
