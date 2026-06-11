@@ -13,7 +13,6 @@ public class Pioche
 		this.lstRoleCarte = lstRoles;
 		this.creerPioche();
 		this.nbCartesTotal = lstCarte.size();
-		
 	}
 
 	public void creerPioche()
@@ -26,7 +25,8 @@ public class Pioche
 			{
 				this.lstCarte.add(new Carte(role, type));
 			}
-			this.lstCarte.add(new Carte(null, type));
+			
+			this.lstCarte.add(new Carte(null, type));	// Carte Joker
 		}
 	}
 
