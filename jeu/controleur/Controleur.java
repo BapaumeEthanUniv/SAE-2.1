@@ -51,7 +51,7 @@ public class Controleur
 
 	public void initPlateau(File filePlateau) 
 	{ 
-		metier      = new PlateauJeu(filePlateau);
+		this.metier = new PlateauJeu(filePlateau);
 		this.pioche = new Pioche    (this.getLstRole());	
 	}
 	
