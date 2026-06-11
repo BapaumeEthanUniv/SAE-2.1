@@ -68,8 +68,6 @@ public class PlateauJeu
 
 	public ArrayList<Role>    getLstRole()        {return lstRole;}
 
-	public Chemin             getCheminActif()    {return cheminActif;}
-
 	public int[]              getScores()         {return scores;}
 
 	public int                getScoreFinal()
@@ -83,6 +81,8 @@ public class PlateauJeu
 	}
 
 	public int                getIdManche()       {return idManche;}
+
+	public ArrayList<Acteur>  getCheminActif()    {return this.cheminActif.getChemin();}
 
 	public boolean nouvelleManche()
 	{
