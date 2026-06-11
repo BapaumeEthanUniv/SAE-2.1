@@ -72,10 +72,16 @@ public class PlateauJeu
 	public int[]              getScores()         {return scores;}
 
 
-	public void nouvelleManche()
+	public boolean nouvelleManche()
 	{
-		this.manche      = this.lstCasting.get(this.idManche++);
-		this.cheminActif = new Chemin(manche, this);
+		if (this.idManche < this.lstCasting.size())
+		{
+			this.manche      = this.lstCasting.get(this.idManche++);
+			this.cheminActif = new Chemin(manche, this);
+			return true;
+		}
+
+		return false;
 	}
 
 	public Acteur getActeur(int posX, int posY)
