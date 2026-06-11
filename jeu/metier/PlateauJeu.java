@@ -84,6 +84,8 @@ public class PlateauJeu
 			return true;
 		}
 
+		this.calculerScore();
+
 		return false;
 	}
 
