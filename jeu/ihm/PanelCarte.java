@@ -11,6 +11,7 @@ import java.awt.event.*;
 import java.io.File;
 import javax.swing.*;
 import metier.Carte;
+import metier.Role;
 
 public class PanelCarte extends JPanel implements ActionListener
 {
@@ -21,7 +22,6 @@ public class PanelCarte extends JPanel implements ActionListener
     private Image      imageRedimensionnee;
     private ImageIcon  iconeFinale;
     private JLabel     lblImage;
-	private JLabel     lblManche;
 	private JLabel     lblScore;
 	private JLabel     lblTour;
     	
@@ -47,7 +47,7 @@ public class PanelCarte extends JPanel implements ActionListener
 		JPanel panelAfficheCarte = new JPanel(new GridLayout());
 		panelAfficheCarte.setOpaque(false);
 		
-		JPanel panelAfficheScore = new JPanel(new GridLayout(2, 2));
+		JPanel panelAfficheScore = new JPanel(new GridLayout(1, 2));
 		panelAfficheScore.setOpaque(false);
 		
 		this.nomImage            = (int)(Math.random() * 10) + 1;
@@ -61,8 +61,6 @@ public class PanelCarte extends JPanel implements ActionListener
 
 		this.btnChangerImage     = new JButton("Piocher Carte");
 
-
-		this.lblManche = new JLabel("Manche : ");
 		this.lblTour = new JLabel("Tour : ");
 		this.lblScore = new JLabel("Score joueur : ");
 
@@ -74,15 +72,13 @@ public class PanelCarte extends JPanel implements ActionListener
 		    java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(policeLbl);   // enregistre la police dans le système Java
 
 		    this.policeBandeau            =  policeLbl.deriveFont(Font.BOLD, 18f);                // police du bandeau 	modifié en Gras + taille 18
-
-		    lblManche.setFont(policeBandeau); 
+ 
 			lblTour.setFont(policeBandeau);
 			lblScore.setFont(policeBandeau);                                                    // police du bandeau changé
 		}
 		// Si fichier non trouvé, la police est en SansSerif Gras par défaut
 		catch (Exception e)
 		{
-		    lblManche.setFont(new Font("SansSerif", Font.BOLD, 18));
 		    lblTour  .setFont(new Font("SansSerif", Font.BOLD, 18));
 			lblScore .setFont(new Font("SansSerif", Font.BOLD, 18));
 		}
@@ -93,8 +89,6 @@ public class PanelCarte extends JPanel implements ActionListener
 		
 		panelAfficheCarte.add(this.lblImage);
 
-		
-		panelAfficheScore.add(this.lblManche);
 		panelAfficheScore.add(this.lblTour);
 		panelAfficheScore.add(this.lblScore);
 
@@ -125,28 +119,28 @@ public class PanelCarte extends JPanel implements ActionListener
 			System.out.println(carteAffiche.getRole());
 			if(!carteAffiche.estFonce())
 			{
-				switch (carteAffiche.getRole().getLibelle()) 
+				switch (carteAffiche.getRole()) 
 				{
-					case "CAS" : this.nomImage = 5;
-					case "EMO" : this.nomImage = 7;
-					case "FIG" : this.nomImage = 9;
-					case "ANT" : this.nomImage = 3;
-					case "null"  : this.nomImage = 1;
+					case Role.CASCADEUR   -> this.nomImage = 5;
+					case Role.EMOTION     -> this.nomImage = 7;
+					case Role.FIGURANT    -> this.nomImage = 9;
+					case Role.ANTAGONISTE -> this.nomImage = 3;
+					default               -> this.nomImage = 1;
 				}
 			}
 			else
 			{
-				switch (carteAffiche.getRole().getLibelle()) 
+				switch (carteAffiche.getRole()) 
 				{
-					case "CAS" : this.nomImage = 6;
-					case "EMO" : this.nomImage = 8;
-					case "FIG" : this.nomImage = 10;
-					case "ANT" : this.nomImage = 4;
-					case "null"  : this.nomImage = 2;
+					case Role.CASCADEUR   -> this.nomImage = 6;
+					case Role.EMOTION     -> this.nomImage = 8;
+					case Role.FIGURANT    -> this.nomImage = 10;
+					case Role.ANTAGONISTE -> this.nomImage = 4;
+					default               -> this.nomImage = 2;
 				}
 			}
 
-    			this.imgPersonnage       = new ImageIcon("./images/" + this.nomImage + ".png");
+    		this.imgPersonnage       = new ImageIcon("./images/" + this.nomImage + ".png");
 			this.imageRedimensionnee = this.imgPersonnage.getImage()
 		        .getScaledInstance(this.largeurImage, this.hauteurImage, Image.SCALE_SMOOTH);    
 			this.iconeFinale         = new ImageIcon(this.imageRedimensionnee);
