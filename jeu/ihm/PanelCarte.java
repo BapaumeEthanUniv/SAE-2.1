@@ -66,12 +66,12 @@ public class PanelCarte extends JPanel implements ActionListener
 
 		try
         	{
-		    File fichierTitre              = new File("./polices/TitreSaisieInfos/Shrikhand-Regular.ttf");
-		    Font policeLbl                 = Font.createFont(Font.TRUETYPE_FONT, fichierTitre);   // crée la police
+		    	File fichierTitre              = new File("./polices/TitreSaisieInfos/Shrikhand-Regular.ttf");
+		    	Font policeLbl                 = Font.createFont(Font.TRUETYPE_FONT, fichierTitre);   // crée la police
 		    
-		    java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(policeLbl);   // enregistre la police dans le système Java
+		   	 java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(policeLbl);   // enregistre la police dans le système Java
 
-		    this.policeBandeau            =  policeLbl.deriveFont(Font.BOLD, 18f);                // police du bandeau 	modifié en Gras + taille 18
+		    	this.policeBandeau            =  policeLbl.deriveFont(Font.BOLD, 18f);                // police du bandeau 	modifié en Gras + taille 18
  
 			lblTour.setFont(policeBandeau);
 			lblScore.setFont(policeBandeau);                                                    // police du bandeau changé
@@ -79,7 +79,7 @@ public class PanelCarte extends JPanel implements ActionListener
 		// Si fichier non trouvé, la police est en SansSerif Gras par défaut
 		catch (Exception e)
 		{
-		    lblTour  .setFont(new Font("SansSerif", Font.BOLD, 18));
+		    	lblTour  .setFont(new Font("SansSerif", Font.BOLD, 18));
 			lblScore .setFont(new Font("SansSerif", Font.BOLD, 18));
 		}
 		
@@ -115,36 +115,35 @@ public class PanelCarte extends JPanel implements ActionListener
     	// Méthode permettant de simuler une pioche aléatoire et d'afficher les cartes de façon optimisé
     	private void piocheAleatoire ()
     	{
-			this.ctrl.piocherCarte();
-			Carte carteAffiche = this.ctrl.getCartePioche();
-			//System.out.println(carteAffiche.getRole());
-			if(!carteAffiche.estFonce())
+		Carte carteAffiche = this.ctrl.getCartePioche();
+		System.out.println(carteAffiche.getRole());
+		if(!carteAffiche.estFonce())
+		{
+			switch (carteAffiche.getRole()) 
 			{
-				switch (carteAffiche.getRole()) 
-				{
-					case Role.CASCADEUR   -> this.nomImage = 5;
-					case Role.EMOTION     -> this.nomImage = 7;
-					case Role.FIGURANT    -> this.nomImage = 9;
-					case Role.ANTAGONISTE -> this.nomImage = 3;
-					default               -> this.nomImage = 1;
-				}
+				case Role.CASCADEUR   -> this.nomImage = 5;
+				case Role.EMOTION     -> this.nomImage = 7;
+				case Role.FIGURANT    -> this.nomImage = 9;
+				case Role.ANTAGONISTE -> this.nomImage = 3;
+				default               -> this.nomImage = 1;
 			}
-			else
+		}
+		else
+		{
+			switch (carteAffiche.getRole()) 
 			{
-				switch (carteAffiche.getRole()) 
-				{
-					case Role.CASCADEUR   -> this.nomImage = 6;
-					case Role.EMOTION     -> this.nomImage = 8;
-					case Role.FIGURANT    -> this.nomImage = 10;
-					case Role.ANTAGONISTE -> this.nomImage = 4;
-					default               -> this.nomImage = 2;
-				}
+				case Role.CASCADEUR   -> this.nomImage = 6;
+				case Role.EMOTION     -> this.nomImage = 8;
+				case Role.FIGURANT    -> this.nomImage = 10;
+				case Role.ANTAGONISTE -> this.nomImage = 4;
+				default               -> this.nomImage = 2;
 			}
+		}
 
     		this.imgPersonnage       = new ImageIcon("./images/" + this.nomImage + ".png");
-			this.imageRedimensionnee = this.imgPersonnage.getImage()
-		        .getScaledInstance(this.largeurImage, this.hauteurImage, Image.SCALE_SMOOTH);    
-			this.iconeFinale         = new ImageIcon(this.imageRedimensionnee);
+		this.imageRedimensionnee = this.imgPersonnage.getImage()
+		    .getScaledInstance(this.largeurImage, this.hauteurImage, Image.SCALE_SMOOTH);    
+		this.iconeFinale         = new ImageIcon(this.imageRedimensionnee);
     	}
     	
     	// Méthode permettant de changer le fond du panel par imgFond + dessiner les liens sur le plateau
