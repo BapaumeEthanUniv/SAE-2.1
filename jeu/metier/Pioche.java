@@ -39,13 +39,12 @@ public class Pioche
 	{
 		int indice = (int)(Math.random()*getNbCarte());
 		Carte tirer;
-		if (this.finManche())
-		{
-			tirer = this.lstCarte.get(indice);
-			this.lstCarte.remove(indice);
-			this.carteActive = tirer;
-			return true;
-		}
+
+		tirer = this.lstCarte.get(indice);
+		this.lstCarte.remove(indice);
+		this.carteActive = tirer;
+		return true;
+
 		return false;
 	}
 
