@@ -69,7 +69,7 @@ public class Controleur
 	public ArrayList<Role>    getLstRole()    {return this.metier.getLstRole();}
 	public Carte              getCartePioche(){return this.pioche.getCarte();}
 	public Chemin             getCheminActif(){return this.metier.getCheminActif();}
-	public Casting            getManche()         {return this.metier.getManche();}
+	public Casting            getManche()     {return this.metier.getManche();}
 
 
 	public boolean ajouterChemin(int posX, int posY) {return this.metier.ajouterChemin(posX, posY, this.getCartePioche().getRole());}
