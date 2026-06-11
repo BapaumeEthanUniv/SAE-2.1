@@ -51,7 +51,7 @@ public class Pioche
 
 	public boolean finManche()
 	{
-		return (this.getNbCarteFonce()==0);
+		return (this.getNbCarteFonce()!=0);
 	}
 
 	public int getNbCarteTotal(){ return this.nbCartesTotal;  }
