@@ -2,10 +2,10 @@ package metier;
 
 public enum Role
 {
-	CASCADEUR 	("Cascadeur  "),
-	EMOTION		("Émotion    "),
+	CASCADEUR 	("Cascadeur"),
+	EMOTION		("Émotion"),
 	ANTAGONISTE	("Antagoniste"),
-	FIGURANT	("Figurant"   );
+	FIGURANT	("Figurant");
 	
 	//Attribut
 	private String libelle;
