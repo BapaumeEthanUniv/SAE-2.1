@@ -42,7 +42,8 @@ public class PlateauJeu
 
 		this.tabArete      = new boolean[this.nbLigne]    [this.nbColonne];
 		this.tabAretePoint = new boolean[this.nbLigne - 1][this.nbColonne - 1];
-		
+		this.scores        = new int[this.lstCasting.size()];
+
 		this.majVoisin();
 		this.nouvelleManche();
 	}
@@ -71,6 +72,8 @@ public class PlateauJeu
 
 	public int[]              getScores()         {return scores;}
 
+	public int                getIdManche()       {return idManche;}
+
 
 	public boolean nouvelleManche()
 	{
@@ -78,6 +81,7 @@ public class PlateauJeu
 		{
 			this.manche      = this.lstCasting.get(this.idManche++);
 			this.cheminActif = new Chemin(manche, this);
+			this.idManche++;
 			return true;
 		}
 
@@ -339,6 +343,38 @@ public class PlateauJeu
 	public boolean ajouterChemin(int posX, int posY, Role rolePioche) 
 	{
 		return this.cheminActif.ajouterChemin(this.getActeur(posX, posY), this.lstActeurs, rolePioche);
+	}
+
+	public void calculerScore()
+	{
+		ArrayList<Integer> nbActeurs     = new ArrayList<Integer>(); //Nombre d'acteurs dans chaque zone
+		int                nbActeursMax  = 0;                        //Nombre d'acteurs dans la zone avec le plus d'acteurs
+		ArrayList<Zone>    zonesParcouru = new ArrayList<Zone>();    //Liste des zones parcourues
+		Zone               zoneActeur;                               //Zone de l'acteur traité
+		int                indexZone;                                //Index de la zone traité
+
+		for (Acteur acteurChemin : this.cheminActif.getChemin())
+		{
+			zoneActeur = this.tabZone[acteurChemin.getPosX()][acteurChemin.getPosY()];
+
+			if (! zonesParcouru.contains(zoneActeur))
+			{
+				zonesParcouru.add(zoneActeur);
+				nbActeurs    .add(1);
+			}
+			else
+			{
+				indexZone = zonesParcouru.indexOf(zoneActeur);
+
+				nbActeurs.set(indexZone, nbActeurs.get(indexZone) + 1);
+			}
+		}
+
+		for (Integer i : nbActeurs)
+			if (i > nbActeursMax)
+				nbActeursMax = i;
+
+		this.scores[idManche - 1] = nbActeursMax;
 	}
 
 	//main de test

@@ -16,6 +16,8 @@ public class Chemin
 		this.chemin.add(this.plateau.getPrincipal(couleur));
 	}
 
+	public ArrayList<Acteur> getChemin() {return chemin;}
+
 	public boolean ajouterChemin(Acteur acteurAjouté, ArrayList<Acteur> lstActeurs, Role rolePioche)
 	{
 		if (acteurAjouté.getRole().equals(rolePioche)) 
