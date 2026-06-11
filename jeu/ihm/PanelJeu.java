@@ -6,6 +6,8 @@ import metier.Acteur;
 import metier.Role;
 import metier.Zone;
 
+import java.util.ArrayList;
+
 import java.io.File;
 
 import java.awt.BorderLayout;
@@ -33,6 +35,8 @@ public class PanelJeu extends JPanel implements ActionListener
 	private int              nbLigne;
 	private int              nbColonne;
 	private int              tailleCase;
+	private int              ligSelectionne;
+	private int              colSelectionne;
 	
 	private Image 		 imgFond;
 	
@@ -54,13 +58,16 @@ public class PanelJeu extends JPanel implements ActionListener
 		/*   Création des composants     */
 		/*-------------------------------*/
 		
-		this.ctrl 	        	= ctrl;
-		this.frame 		        = f;
-		this.indice 		    = indice;
+		this.ctrl 	        = ctrl;
+		this.frame 		= f;
+		this.indice 		= indice;
 		
 		this.nbLigne            = this.ctrl.getNbLigne();
 		this.nbColonne          = this.ctrl.getNbColonne();
 		this.tailleCase         = 500 / Math.max(this.nbLigne, this.nbColonne);
+		
+		this.ligSelectionne     = -1;
+		this.colSelectionne     = -1;
 		
 		this.imgFond            = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
 		
@@ -94,7 +101,7 @@ public class PanelJeu extends JPanel implements ActionListener
 		    
 		    java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(policeLbl);   // enregistre la police dans le système Java
 
-		    this.policeBandeau            =  policeLbl.deriveFont(Font.BOLD, 18f);                // police du bandeau 	modifié en Gras + taille 18
+		    this.policeBandeau             = policeLbl.deriveFont(Font.BOLD, 18f);                // police du bandeau 	modifié en Gras + taille 18
 
 		    lblBandeau.setFont(policeBandeau);                                                    // police du bandeau changé
 		}
@@ -125,21 +132,12 @@ public class PanelJeu extends JPanel implements ActionListener
 				pnlCellule.addMouseListener(new MouseAdapter() 
 				{
 		            		public void mouseClicked(MouseEvent e)
-		            		{
-		            			for (Acteur acteur : ctrl.getLstActeurs()) 
-	    					{
-							if (acteur.getVoisins() != null) 
-							{
-						    		for (Acteur voisin : acteur.getVoisins()) 
-						    		{
-						    			JPanel case1 = tabPnlCases[acteur.getPosX()][acteur.getPosY()];
-		        						JPanel case2 = tabPnlCases[voisin.getPosX()][voisin.getPosY()];
-		        						
-		        						ctrl.ajouterChemin(case2.getX(), case2.getY());
-		        					}
-		        				}
-		        			}
-		            		}
+					{
+					    ligSelectionne = finalLig;
+					    colSelectionne = finalCol;
+					    ctrl.ajouterChemin(finalLig, finalCol);
+					    repaint();
+					}
 				});
 				
 				pnlCellule.add(lblImage);
@@ -209,6 +207,7 @@ public class PanelJeu extends JPanel implements ActionListener
 	{
 		super.paint(g); 
 		peindreContacts(g); 
+		peindreChemin(g);
 		peindreCadres(g);
 	}
 	
@@ -249,7 +248,6 @@ public class PanelJeu extends JPanel implements ActionListener
 		int decalageX, decalageY;
 		double centreX1, centreY1, centreX2, centreY2;
 		
-		
 		if (this.tabPnlCases == null || this.pnlPlateau == null) return;
 	    	if (this.ctrl.getLstActeurs() == null) return;
 
@@ -289,11 +287,57 @@ public class PanelJeu extends JPanel implements ActionListener
 					int x2 = (int) (centreX2 - ux * MARGE);
 					int y2 = (int) (centreY2 - uy * MARGE);
 
-		        		g2.drawLine(x1, y1, x2, y2);
+					g2.drawLine(x1, y1, x2, y2);
 		    		}
 			}
 	    	}
 	}
+	
+	protected void peindreChemin(Graphics g)
+	{
+		if (this.tabPnlCases == null || this.pnlPlateau == null) return;
+	    	if (this.ctrl.getCheminActif() == null)                  return;
+	    	if (this.ctrl.getCheminActif().getChemin().size() < 2)   return;
+
+	    	final int MARGE = this.tailleCase / 2 - 2;
+
+	    	Graphics2D g2 = (Graphics2D) g;
+	    	g2.setStroke(new java.awt.BasicStroke(4)); 
+
+	    	int decalageX = this.pnlCentre.getX() + this.pnlPlateau.getX();
+	   	int decalageY = this.pnlCentre.getY() + this.pnlPlateau.getY();
+
+	    	g2.setColor(this.ctrl.getCheminActif().getCouleur().getCouleur());
+
+	    	ArrayList<Acteur> chemin = this.ctrl.getCheminActif().getChemin();
+
+	    	for (int cpt = 0; cpt < chemin.size() - 1; cpt++)
+	    	{
+			JPanel case1 = tabPnlCases[chemin.get(cpt)    .getPosX()][chemin.get(cpt)    .getPosY()];
+			JPanel case2 = tabPnlCases[chemin.get(cpt + 1).getPosX()][chemin.get(cpt + 1).getPosY()];
+
+			double centreX1 = decalageX + case1.getX() + case1.getWidth()  / 2.0;
+			double centreY1 = decalageY + case1.getY() + case1.getHeight() / 2.0;
+			double centreX2 = decalageX + case2.getX() + case2.getWidth()  / 2.0;
+			double centreY2 = decalageY + case2.getY() + case2.getHeight() / 2.0;
+
+			double distanceX = centreX2 - centreX1;
+			double distanceY = centreY2 - centreY1;
+			double distance  = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
+			double ux = distanceX / distance;
+			double uy = distanceY / distance;
+
+			int x1 = (int) (centreX1 + ux * MARGE);
+			int y1 = (int) (centreY1 + uy * MARGE);
+			int x2 = (int) (centreX2 - ux * MARGE);
+			int y2 = (int) (centreY2 - uy * MARGE);
+
+			g2.drawLine(x1, y1, x2, y2);
+	    	}
+	}
+	
+	
 
 	private void peindreCadres(Graphics g)
 	{
