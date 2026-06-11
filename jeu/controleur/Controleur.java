@@ -13,8 +13,6 @@ import metier.PlateauJeu;
 import metier.Role;
 import metier.Zone;
 
-//import frameJeu.PlateauJeu;
-
 public class Controleur
 {
 	private FrameJeu      frameJeu;
@@ -30,8 +28,7 @@ public class Controleur
 	
 	public Controleur()
 	{
-		this.frameJeu   = new FrameJeu  (this);
-		this.pioche = new Pioche(this.getLstRole());
+		this.frameJeu   = new FrameJeu (this);
 		
 		tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -52,7 +49,11 @@ public class Controleur
 		
 	}
 
-	public void initPlateau(File filePlateau) { metier = new PlateauJeu(filePlateau);}
+	public void initPlateau(File filePlateau) 
+	{ 
+		metier      = new PlateauJeu(filePlateau);
+		this.pioche = new Pioche    (this.getLstRole());	
+	}
 	
 	public void creerFrameCarte ()            { frameCarte = new FrameCarte(this); this.frameCarte.setSize(lCarte, h); this.frameCarte.setLocation(xCarte,yCarte); }
 
@@ -62,12 +63,12 @@ public class Controleur
 	public int                getTailleCase() {return this.metier.getTailleCase();}
 	public ArrayList<Casting> getLstCasting() {return this.metier.getLstCasting();}
 	public Zone[][]           getTabZone()    {return this.metier.getTabZone();}
-	//public Casting[][]        getTabArrete()  {return this.metier.getTabArrete();}
+	//public Casting[][]        getTabArete()  {return this.metier.getTabArrete();}
 	public ArrayList<Acteur>  getLstActeurs() {return this.metier.getLstActeurs();}
-	public ArrayList<Role>    getLstRole() {return this.metier.getLstRole();}
-	public Carte              getCartePioche(){return this.pioche.getCarte((int)(Math.random() * 10) + 1);}
+	public ArrayList<Role>    getLstRole()    {return this.metier.getLstRole();}
+	//public Carte              getCartePioche(){return this.pioche.getCarte((int)(Math.random() * 10) + 1);}
 
-	public boolean ajouterChemin(int posX, int posY) {return this.metier.ajouterChemin(posX, posY, this.getCartePioche().getRole());}
+	//public boolean ajouterChemin(int posX, int posY) {return this.metier.ajouterChemin(posX, posY, this.getCartePioche().getRole());}
 	
 	public static void main (String[] args) { new Controleur(); } //Démarrage de l'application
 }
