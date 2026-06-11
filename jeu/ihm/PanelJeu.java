@@ -90,7 +90,7 @@ public class PanelJeu extends JPanel implements ActionListener
 		pnlPlateau              .setBackground(new Color(60, 60, 75));
 		pnlPlateau              .setSize(400, 400);
 		
-		JLabel lblBandeau       = new JLabel("Bandeau", JLabel.CENTER);
+		JLabel lblBandeau       = new JLabel("Manche : " + this.ctrl.getManche(), JLabel.CENTER);
 		JLabel lblBouton        = new JLabel("Bouton ", JLabel.RIGHT );
 		
 		// Essai pour initialiser les polices en prenant la police téléchargée dans le dossier polices/
@@ -135,7 +135,11 @@ public class PanelJeu extends JPanel implements ActionListener
 					{
 					    ligSelectionne = finalLig;
 					    colSelectionne = finalCol;
-					    ctrl.ajouterChemin(finalLig, finalCol);
+					    System.out.println(ctrl.ajouterChemin(finalLig, finalCol));
+					    
+					    if (ctrl.ajouterChemin(finalLig, finalCol))
+					    	ctrl.getCartePioche();
+					    	
 					    repaint();
 					}
 				});
