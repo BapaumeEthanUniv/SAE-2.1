@@ -4,58 +4,58 @@ import java.util.ArrayList;
 
 public class Pioche
 {
-	//private Controleur          ctrl        ;
-	private PlateauJeu		    metier      ;
+	private ArrayList<Role>     lstRoleCarte  ;
+	private ArrayList<Carte>    lstCarte      ;
+	private int                 nbCartesTotal ;
 
-	private ArrayList<Role>  lstRoleCarte;
-	private ArrayList<Carte>    lstCarte    ;
-	private int                 nbCartes    ;
-	private int                 cptCarte    ;
-	private int                 nbCarteGrise;
-	private int                 nbCarteGriseTotale;
-
-	public Pioche(ArrayList<Role> roleDispo)
+	public Pioche(ArrayList<Role> lstRoles)
 	{
-		this.lstRoleCarte = new ArrayList<Role>();
-		this.lstRoleCarte = roleDispo;
+		this.lstRoleCarte = lstRoles;
+		this.creerPioche();
+		this.nbCartesTotal = lstCarte.size();
 	}
 
-	public void creerPioche(int nbCartes)
+	public void creerPioche()
 	{
-		String[] typeCarte = new String[] {"Clair", "Foncé"};
-		this.nbCartes = nbCartes;
-		this.nbCarteGrise = 0;
-		this.nbCarteGriseTotale = this.lstRoleCarte.size() + 1;
+		boolean[] typeCarte = {false, true};
 
-		for( String type : typeCarte)
+		for    (boolean type : typeCarte)
 		{
-			for(Role role : this.lstRoleCarte)
+			for(Role    role : this.lstRoleCarte)
 			{
 				this.lstCarte.add(new Carte(role, type));
 			}
-			this.lstCarte.add(new Carte(null, type));
+			
+			this.lstCarte.add(new Carte(null, type));	// Carte Joker
 		}
 	}
 
-	public Carte getCarte(int indice)
+	public Carte getCarte()
 	{
+		int indice = (int)Math.random()*getNbCarte();
 		Carte tirer;
 		tirer = this.lstCarte.get(indice);
 		this.lstCarte.remove(indice);
-		if(tirer.getType().equals("Foncé"))
-			this.nbCarteGrise++;
 		return tirer;
 	}
 
 	public boolean finManche()
 	{
-		if(this.nbCarteGrise == this.nbCarteGriseTotale)
-		{
-			this.nbCarteGrise = 0;
-			return true;
-		}
-		return false;
+		return (this.getNbCarteFonce()==0);
 	}
 
-	public int getNbCarte(){return this.nbCartes;}
+	public int getNbCarteTotal(){return this.nbCartesTotal;}
+
+	public int getNbCarte() { return this.lstCarte.size();}
+
+	public int getNbCarteFonce()
+	{
+		int nbCarteFonce = 0;
+		for (Carte carte : this.lstCarte)
+		{
+			if (carte.estFonce())
+				nbCarteFonce++;
+		}
+		return nbCarteFonce;
+	}
 }

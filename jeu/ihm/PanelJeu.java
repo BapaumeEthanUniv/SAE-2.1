@@ -117,19 +117,26 @@ public class PanelJeu extends JPanel implements ActionListener
 				lblImage.setOpaque(false); // Transparent par défaut
 				
 				final int finalLig = lig, finalCol= col;
-				/*
+				
 				pnlCellule.addMouseListener(new MouseAdapter() 
 				{
-					public void mouseEntered(MouseEvent e)
+		            		/*public void mouseClicked(MouseEvent e)
 		            		{
-		                    		tabPnlCases[finalLig][finalCol].setBackground(Color.LIGHT_GRAY);
-		            		}
-		            		
-		            		public void mouseClicked(MouseEvent e)
-		            		{
-		            			tabPnlCases[finalLig][finalCol]
-		            		}
-				});*/
+		            			for (Acteur acteur : this.ctrl.getLstActeurs()) 
+	    					{
+							if (acteur.getVoisins() != null) 
+							{
+						    		for (Acteur voisin : acteur.getVoisins()) 
+						    		{
+						    			JPanel case1 = tabPnlCases[acteur.getPosX()][acteur.getPosY()];
+		        						JPanel case2 = tabPnlCases[voisin.getPosX()][voisin.getPosY()];
+		        						
+		        						this.ctrl.ajouterChemin(case2.getX(), case2.getY());
+		        					}
+		        				}
+		        			}
+		            		}*/
+				});
 				
 				pnlCellule.add(lblImage);
 				
@@ -154,8 +161,8 @@ public class PanelJeu extends JPanel implements ActionListener
 				
 				if (acteur.estPrincipal()) 
 				{
-				    lblImage.setBackground(acteur.getCouleur());
-				    lblImage.setOpaque(true);
+				    //lblImage.setBackground(acteur.getCouleur());
+				    lblImage.setOpaque(false);
 				}
 		    	}
 		}
@@ -198,7 +205,7 @@ public class PanelJeu extends JPanel implements ActionListener
 	{
 		super.paint(g); 
 		peindreContacts(g); 
-		//peindreCadres(g);
+		peindreCadres(g);
 	}
 	
 	// Méthode permettant de changer le fond du panel par imgFond
@@ -283,10 +290,10 @@ public class PanelJeu extends JPanel implements ActionListener
 			}
 	    	}
 	}
-	/*
+
 	private void peindreCadres(Graphics g)
 	{
-		final int EPAISSEUR = 2;
+		final int EPAISSEUR = 3;
 		
 		if (this.tabPnlCases == null || this.pnlPlateau == null) return;
 	    	if (this.ctrl.getLstActeurs() == null) return;
@@ -298,16 +305,24 @@ public class PanelJeu extends JPanel implements ActionListener
 	    	int decalageY = this.pnlCentre.getY() + this.pnlPlateau.getY();
 
 	    	for (Acteur acteur : this.ctrl.getLstActeurs())
-	    	{
+	    	{	
 			JPanel pnlCellule = this.tabPnlCases[acteur.getPosX()][acteur.getPosY()];
+				
+			g2.setColor(Color.BLACK);
 
 			int x = decalageX + pnlCellule.getX() + EPAISSEUR;
 			int y = decalageY + pnlCellule.getY() + EPAISSEUR;
 			int w = pnlCellule.getWidth()  - EPAISSEUR * 2;
 			int h = pnlCellule.getHeight() - EPAISSEUR * 2;
 
+			if (acteur.estPrincipal()) 
+			{ 
+				g2.setColor(acteur.getCouleur());
+				
+			}
+			
 			g2.drawRect(x, y, w, h);
 	    	}
-	}*/
+	}
 }
 

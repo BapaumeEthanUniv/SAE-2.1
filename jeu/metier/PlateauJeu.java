@@ -74,7 +74,6 @@ public class PlateauJeu
 
 	public int                getIdManche()       {return idManche;}
 
-
 	public boolean nouvelleManche()
 	{
 		if (this.idManche < this.lstCasting.size())
@@ -257,6 +256,7 @@ public class PlateauJeu
 				}
 				numLig++;
 			}
+			sc.close();
 		}
 		catch(Exception e)
 		{

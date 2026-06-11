@@ -2,15 +2,15 @@ package metier;
 
 public class Carte
 {
-	private Role   roleActeur;
-	private String typeCarte;
+	private Role    roleActeur;
+	private boolean fonce;
 
-	public Carte(Role role, String type)
+	public Carte(Role role, Boolean fonce)
 	{
 		this.roleActeur = role;
-		this.typeCarte  = type;
+		this.fonce      = fonce;
 	}
 
-	public Role    getRole() {return this.roleActeur;}
-	public String  getType() {return this.typeCarte ;}
+	public Role    getRole()   {return this.roleActeur;}
+	public boolean  estFonce() {return this.fonce ;}
 }
