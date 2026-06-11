@@ -74,8 +74,11 @@ public class PlateauJeu
 
 	public void nouvelleManche()
 	{
-		this.manche      = this.lstCasting.get(this.idManche++);
-		this.cheminActif = new Chemin(manche, this);
+		if (this.idManche < this.lstCasting.size())
+		{
+			this.manche      = this.lstCasting.get(this.idManche++);
+			this.cheminActif = new Chemin(manche, this);
+		}
 	}
 
 	public Acteur getActeur(int posX, int posY)
