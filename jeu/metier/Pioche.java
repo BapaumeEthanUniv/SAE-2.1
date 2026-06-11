@@ -44,8 +44,6 @@ public class Pioche
 		this.lstCarte.remove(indice);
 		this.carteActive = tirer;
 		return true;
-
-		return false;
 	}
 
 	public boolean finManche()
