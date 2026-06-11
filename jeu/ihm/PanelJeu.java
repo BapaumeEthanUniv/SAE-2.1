@@ -73,8 +73,8 @@ public class PanelJeu extends JPanel implements ActionListener
 		
 		this.tabPnlCases        = new JPanel[nbLigne][nbColonne];
 		
-		JPanel pnlHaut          = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		pnlHaut                 .setLayout(new FlowLayout());
+		JPanel pnlHaut          = new JPanel();
+		pnlHaut                 .setLayout(new BorderLayout());
 		pnlHaut                 .setOpaque(false);
 		
 		this.pnlCentre          = new JPanel();
@@ -82,7 +82,7 @@ public class PanelJeu extends JPanel implements ActionListener
 		this.pnlCentre          .setOpaque(false);
 		
 		JPanel pnlBas           = new JPanel();
-		pnlBas                  .setLayout(new FlowLayout(FlowLayout.RIGHT ));
+		pnlBas                  .setLayout(new FlowLayout(FlowLayout.RIGHT , 50, 50));
 		pnlBas                  .setOpaque(false);
 		
 		this.pnlPlateau         = new JPanel();
@@ -90,12 +90,20 @@ public class PanelJeu extends JPanel implements ActionListener
 		pnlPlateau              .setBackground(new Color(60, 60, 75));
 		pnlPlateau              .setSize(400, 400);
 		
-		JLabel lblMancheCoul    = new JLabel(this.ctrl.getManche().toString(), JLabel.LEFT);
+		JPanel pnlBandeau       = new JPanel();
+		pnlBandeau              .setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		pnlBandeau              .setOpaque(false);
+		
+		JLabel lblMancheCoul    = new JLabel(this.ctrl.getManche().toString(), JLabel.CENTER);
 		lblMancheCoul           .setForeground(this.ctrl.getManche().getCouleur());
 		
-		JLabel lblManche        = new JLabel("Manche : " , JLabel.LEFT);
-		JLabel lblTour          = new JLabel("Tour n° : " + this.ctrl.getNbTour(), JLabel.RIGHT);
-		JLabel lblBouton        = new JLabel("Bouton "   , JLabel.RIGHT );
+		JLabel lblManche        = new JLabel("Manche : " , JLabel.CENTER);
+		
+		
+		// Crée une ligne séparatrice à l'aide de JSeparator
+		JSeparator separateur   = new JSeparator(SwingConstants.HORIZONTAL);
+		separateur              .setForeground(new Color(150, 150, 150));
+		separateur              .setBackground(new Color(0, 0, 0, 0));
 		
 		// Essai pour initialiser les polices en prenant la police téléchargée dans le dossier polices/
 		try
@@ -108,14 +116,13 @@ public class PanelJeu extends JPanel implements ActionListener
 		    this.policeBandeau             = policeLbl.deriveFont(Font.BOLD, 18f);                // police du bandeau 	modifié en Gras + taille 18
 
 		    lblManche.setFont(policeBandeau);  
-		    lblMancheCoul.setFont(policeBandeau); 
-		    lblTour.setFont(policeBandeau);                                                 // police du bandeau changé
+		    lblMancheCoul.setFont(policeBandeau); // police du bandeau changé
 		}
 		// Si fichier non trouvé, la police est en SansSerif Gras par défaut
 		catch (Exception e)
 		{
 		    lblManche.setFont(new Font("SansSerif", Font.BOLD, 18));
-		    lblBouton .setFont(new Font("SansSerif", Font.BOLD, 18));
+		    lblMancheCoul.setFont(new Font("SansSerif", Font.BOLD, 18));
 		}
 		
 		// Parcours pour dessiner le plateau
@@ -146,9 +153,6 @@ public class PanelJeu extends JPanel implements ActionListener
 					    if (ctrl.ajouterChemin(finalLig, finalCol))
 					    {
 					    	ctrl.getCartePioche();
-					    	ctrl.nouveauTour();
-					    	
-					    	repaint();
 					    }
 					    
 					    repaint();
@@ -186,19 +190,21 @@ public class PanelJeu extends JPanel implements ActionListener
 		
 		this.btnScore = new JButton("Voir les Scores >>");
 		this.btnScore.setOpaque(false);
+		this.btnScore.setEnabled(false);
 		
 		/*-------------------------------*/
 		/* Positionnement des composants */
 		/*-------------------------------*/
 		
-		pnlHaut.add(lblManche);
-		pnlHaut.add(lblMancheCoul);
-		pnlHaut.add(new JLabel("     "));
-		pnlHaut.add(lblTour);
+		pnlBandeau.add(lblManche);
+		pnlBandeau.add(lblMancheCoul);
+		
+		pnlHaut.add(pnlBandeau, BorderLayout.CENTER);
+		pnlHaut.add(separateur, BorderLayout.SOUTH );
 		
 		pnlCentre.add(pnlPlateau, BorderLayout.CENTER);
 		
-		pnlBas.add(lblBouton);
+		pnlBas.add(btnScore);
 		
 		this.add(pnlHaut     , BorderLayout.NORTH);
 		this.add(pnlCentre   , BorderLayout.CENTER);
@@ -270,7 +276,7 @@ public class PanelJeu extends JPanel implements ActionListener
 	    	if (this.ctrl.getLstActeurs() == null) return;
 
 	    	Graphics2D g2 = (Graphics2D) g;
-	    	g2.setStroke(new java.awt.BasicStroke(2));
+	    	g2.setStroke(new java.awt.BasicStroke(1));
 	    	g2.setColor(new Color (90, 94, 107));
 
 	    	decalageX = this.pnlCentre.getX() + this.pnlPlateau.getX();
