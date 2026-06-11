@@ -27,7 +27,7 @@ public class Pioche
 				this.lstCarte.add(new Carte(role, type));
 			}
 			
-			this.lstCarte.add(new Carte(null, type));	// Carte Joker
+			this.lstCarte.add(new Carte(Role.JOKER, type));	// Carte Joker
 		}
 	}
 
