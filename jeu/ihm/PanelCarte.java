@@ -122,30 +122,27 @@ public class PanelCarte extends JPanel implements ActionListener
     	private void piocheAleatoire ()
     	{
 			Carte carteAffiche = this.ctrl.getCartePioche();
+			System.out.println(carteAffiche.getRole());
 			if(!carteAffiche.estFonce())
 			{
-				switch (carteAffiche.getRole()) 
+				switch (carteAffiche.getRole().getLibelle()) 
 				{
-					case CASCADEUR   : this.nomImage = 5;
-					case EMOTION     : this.nomImage = 7;
-					case FIGURANT    : this.nomImage = 9;
-					case ANTAGONISTE : this.nomImage = 3;
-
-					default:
-						this.nomImage = 1;
+					case "CAS" : this.nomImage = 5;
+					case "EMO" : this.nomImage = 7;
+					case "FIG" : this.nomImage = 9;
+					case "ANT" : this.nomImage = 3;
+					case "null"  : this.nomImage = 1;
 				}
 			}
 			else
 			{
-				switch (carteAffiche.getRole()) 
+				switch (carteAffiche.getRole().getLibelle()) 
 				{
-					case CASCADEUR   : this.nomImage = 6;
-					case EMOTION     : this.nomImage = 8;
-					case FIGURANT    : this.nomImage = 10;
-					case ANTAGONISTE : this.nomImage = 4;
-
-					default:
-						this.nomImage = 2;
+					case "CAS" : this.nomImage = 6;
+					case "EMO" : this.nomImage = 8;
+					case "FIG" : this.nomImage = 10;
+					case "ANT" : this.nomImage = 4;
+					case "null"  : this.nomImage = 2;
 				}
 			}
 
