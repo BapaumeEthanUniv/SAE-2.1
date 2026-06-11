@@ -20,7 +20,7 @@ public class PlateauJeu
 	private Casting            manche;
 	private int                cptTour;
 
-	private Chemin             cheminActif;
+	private Chemin[]           tabChemin;
 
 	private Zone[][]           tabZone;
 
@@ -44,6 +44,7 @@ public class PlateauJeu
 		this.tabArete      = new boolean[this.nbLigne]    [this.nbColonne];
 		this.tabAretePoint = new boolean[this.nbLigne - 1][this.nbColonne - 1];
 		this.scores        = new int[this.lstCasting.size()];
+		this.tabChemin     = new Chemin[this.lstCasting.size()];
 		this.cptTour       = 1;
 
 		this.majVoisin();
@@ -86,14 +87,14 @@ public class PlateauJeu
 
 	public int                getIdManche()       {return idManche;}
 
-	public Chemin             getCheminActif()    {return this.cheminActif;}
+	public Chemin[]           getTabChemin()      {return this.tabChemin;}
 
 	public boolean nouvelleManche()
 	{
 		if (this.idManche < this.lstCasting.size())
 		{
-			this.manche      = this.lstCasting.get(this.idManche++);
-			this.cheminActif = new Chemin(manche, this);
+			this.manche      = this.lstCasting.get(this.idManche);
+			this.tabChemin[this.idManche] = new Chemin(manche, this);
 			this.idManche++;
 			this.cptTour = 1;
 			return true;
@@ -384,7 +385,7 @@ public class PlateauJeu
 
 	public boolean ajouterChemin(int posX, int posY, Role rolePioche) 
 	{
-		return this.cheminActif.ajouterChemin(this.getActeur(posX, posY), this.lstActeurs, rolePioche);
+		return this.tabChemin[this.idManche].ajouterChemin(this.getActeur(posX, posY), this.lstActeurs, rolePioche);
 	}
 
 	public void calculerScore()
@@ -395,7 +396,7 @@ public class PlateauJeu
 		Zone               zoneActeur;                               //Zone de l'acteur traité
 		int                indexZone;                                //Index de la zone traité
 
-		for (Acteur acteurChemin : this.cheminActif.getChemin())
+		for (Acteur acteurChemin : this.tabChemin[idManche].getChemin())
 		{
 			zoneActeur = this.tabZone[acteurChemin.getPosX()][acteurChemin.getPosY()];
 
@@ -416,7 +417,7 @@ public class PlateauJeu
 			if (i > nbActeursMax)
 				nbActeursMax = i;
 
-		this.scores[idManche - 1] = nbActeursMax;
+		this.scores[idManche] = nbActeursMax;
 	}
 
 	//main de test

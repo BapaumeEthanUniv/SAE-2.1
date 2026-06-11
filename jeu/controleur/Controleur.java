@@ -68,7 +68,7 @@ public class Controleur
 	public ArrayList<Acteur>  getLstActeurs() {return this.metier.getLstActeurs();}
 	public ArrayList<Role>    getLstRole()    {return this.metier.getLstRole();}
 	public Carte              getCartePioche(){return this.pioche.getCarte();}
-	public Chemin             getCheminActif(){return this.metier.getCheminActif();}
+	public Chemin[]           getTabChemin(){return this.metier.getTabChemin();}
 	public Casting            getManche()     {return this.metier.getManche();}
 	public int                getNbTour()     {return this.metier.getNbTour();}
 
