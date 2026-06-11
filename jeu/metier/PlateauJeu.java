@@ -72,6 +72,16 @@ public class PlateauJeu
 
 	public int[]              getScores()         {return scores;}
 
+	public int                getScoreFinal()
+	{
+		int somme = 0;
+
+		for (int i : scores)
+			somme += i;
+
+		return somme;
+	}
+
 	public int                getIdManche()       {return idManche;}
 
 	public boolean nouvelleManche()
