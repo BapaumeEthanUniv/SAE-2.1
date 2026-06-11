@@ -32,7 +32,7 @@ public class Pioche
 		}
 	}
 
-	public boolean PiocherCarte()
+	public boolean piocherCarte()
 	{
 		int indice = (int)(Math.random()*getNbCarte());
 		Carte tirer;
@@ -51,11 +51,11 @@ public class Pioche
 		return (this.getNbCarteFonce()==0);
 	}
 
-	public int getNbCarteTotal(){return this.nbCartesTotal;}
+	public int getNbCarteTotal(){ return this.nbCartesTotal;  }
 
-	public int getNbCarte() { return this.lstCarte.size();}
+	public int getNbCarte()     { return this.lstCarte.size();}
 
-	public Carte getCarte() {return this.carteActive;}
+	public Carte getCarte()     { return this.carteActive;    }
 
 	public int getNbCarteFonce()
 	{
