@@ -18,6 +18,7 @@ public class Pioche
 	public void creerPioche()
 	{
 		boolean[] typeCarte = {false, true};
+		this.lstCarte       = new ArrayList<Carte>();
 
 		for    (boolean type : typeCarte)
 		{

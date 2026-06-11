@@ -121,8 +121,8 @@ public class PanelCarte extends JPanel implements ActionListener
     	// Méthode permettant de simuler une pioche aléatoire et d'afficher les cartes de façon optimisé
     	private void piocheAleatoire ()
     	{
-			/*Carte carteAffiche = this.ctrl.getCartePioche();
-			if(carteAffiche.getType() == "Clair")
+			Carte carteAffiche = this.ctrl.getCartePioche();
+			if(!carteAffiche.estFonce())
 			{
 				switch (carteAffiche.getRole()) 
 				{
@@ -147,7 +147,7 @@ public class PanelCarte extends JPanel implements ActionListener
 					default:
 						this.nomImage = 2;
 				}
-			}*/
+			}
 
     		this.imgPersonnage       = new ImageIcon("./images/" + this.nomImage + ".png");
 			this.imageRedimensionnee = this.imgPersonnage.getImage()
