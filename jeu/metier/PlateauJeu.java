@@ -18,6 +18,7 @@ public class PlateauJeu
 	private ArrayList<Role>    lstRole;
 
 	private Casting            manche;
+	private int                cptTour;
 
 	private Chemin             cheminActif;
 
@@ -43,6 +44,7 @@ public class PlateauJeu
 		this.tabArete      = new boolean[this.nbLigne]    [this.nbColonne];
 		this.tabAretePoint = new boolean[this.nbLigne - 1][this.nbColonne - 1];
 		this.scores        = new int[this.lstCasting.size()];
+		this.cptTour       = 1;
 
 		this.majVoisin();
 		this.nouvelleManche();
@@ -65,6 +67,8 @@ public class PlateauJeu
 	public ArrayList<Acteur>  getLstActeurs()     {return lstActeurs;}
 
 	public Casting            getManche()         {return manche;}
+	
+	public int                getNbTour()         {return cptTour;}
 
 	public ArrayList<Role>    getLstRole()        {return lstRole;}
 
@@ -91,6 +95,7 @@ public class PlateauJeu
 			this.manche      = this.lstCasting.get(this.idManche++);
 			this.cheminActif = new Chemin(manche, this);
 			this.idManche++;
+			this.cptTour = 1;
 			return true;
 		}
 
@@ -98,6 +103,8 @@ public class PlateauJeu
 
 		return false;
 	}
+	
+	public void nouveauTour() { this.cptTour++; }
 
 	public Acteur getActeur(int posX, int posY)
 	{

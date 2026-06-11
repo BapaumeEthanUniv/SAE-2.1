@@ -94,7 +94,7 @@ public class PanelJeu extends JPanel implements ActionListener
 		lblMancheCoul           .setForeground(this.ctrl.getManche().getCouleur());
 		
 		JLabel lblManche        = new JLabel("Manche : " , JLabel.LEFT);
-		JLabel lblTour          = new JLabel("Tour n° : ", JLabel.RIGHT);
+		JLabel lblTour          = new JLabel("Tour n° : " + this.ctrl.getNbTour(), JLabel.RIGHT);
 		JLabel lblBouton        = new JLabel("Bouton "   , JLabel.RIGHT );
 		
 		// Essai pour initialiser les polices en prenant la police téléchargée dans le dossier polices/
@@ -145,6 +145,8 @@ public class PanelJeu extends JPanel implements ActionListener
 					    if (ctrl.ajouterChemin(finalLig, finalCol))
 					    	ctrl.piocherCarte();
 					    	
+					    	repaint();
+					    
 					    repaint();
 					}
 				});
