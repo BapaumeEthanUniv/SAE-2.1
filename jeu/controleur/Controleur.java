@@ -51,7 +51,7 @@ public class Controleur
 
 	public void initPlateau(File filePlateau) 
 	{ 
-		metier      = new PlateauJeu(filePlateau);
+		this.metier = new PlateauJeu(filePlateau);
 		this.pioche = new Pioche    (this.getLstRole());	
 	}
 	
@@ -67,6 +67,7 @@ public class Controleur
 	public ArrayList<Acteur>  getLstActeurs() {return this.metier.getLstActeurs();}
 	public ArrayList<Role>    getLstRole()    {return this.metier.getLstRole();}
 	public Carte              getCartePioche(){return this.pioche.getCarte();}
+	public ArrayList<Acteur>  getCheminActif(){return this.metier.getCheminActif();}
 
 	public boolean ajouterChemin(int posX, int posY) {return this.metier.ajouterChemin(posX, posY, this.getCartePioche().getRole());}
 	public boolean nouvelleManche()                  {return this.metier.nouvelleManche();}
