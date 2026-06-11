@@ -13,6 +13,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -29,6 +30,8 @@ public class PanelSymbole extends JPanel implements ActionListener
 	private Image                   imgFond;
 
 	private JPanel[][]              tabPnlCases;  // tableau de JPanel qui constituera le plateau
+	private JPanel			pnlGrille;
+	private JPanel			pnlConteneurGrille;
 
     	private JComboBox<Role>         jcbRole;      // liste des rôles     choisis par le joueur
     	private JComboBox<Casting>      jcbCasting;   // liste des castings  choisis par le joueur
@@ -76,15 +79,15 @@ public class PanelSymbole extends JPanel implements ActionListener
 			bgMode.add(this.rbCasting);
 
 		// Partie Centrale
-		JPanel pnlConteneurGrille = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 30));
-		pnlConteneurGrille.setOpaque(false);
+		this.pnlConteneurGrille = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 30));
+		this.pnlConteneurGrille .setOpaque(false);
 
 		int nbLigne = this.ctrl.getNbLigne();
 		int nbCol   = this.ctrl.getNbColonne();
 		int taille  = this.ctrl.getTailleCase();
 
-		JPanel pnlGrille = new JPanel(new GridLayout(nbLigne, nbCol, 2, 2));
-		pnlGrille.setBackground(new Color(60, 60, 75));
+		this.pnlGrille = new JPanel(new GridLayout(nbLigne, nbCol, 2, 2));
+		this.pnlGrille .setBackground(new Color(60, 60, 75));
 
 		this.tabPnlCases = new JPanel[nbLigne][nbCol];
 
@@ -219,13 +222,13 @@ public class PanelSymbole extends JPanel implements ActionListener
 		separateur.setForeground(new Color(150, 150, 150));
 		pnlHaut.add(separateur, BorderLayout.SOUTH);
 
-		pnlConteneurGrille.add(pnlGrille);
+		this.pnlConteneurGrille.add(this.pnlGrille);
 
 		pnlBouton.add(this.btnPrecedent);
 		pnlBouton.add(this.btnConfirmer);
 
 		this.add(pnlHaut, BorderLayout.NORTH);
-		this.add(pnlConteneurGrille, BorderLayout.CENTER);
+		this.add(this.pnlConteneurGrille, BorderLayout.CENTER);
 		this.add(pnlBouton, BorderLayout.SOUTH);
 
 		/* ----------------------------- */
@@ -258,6 +261,13 @@ public class PanelSymbole extends JPanel implements ActionListener
 		}
 	}
 
+	/*
+	public void paint(Graphics g) 
+	{
+		super.paint(g); 
+		//peindreCadres(g);
+	}*/
+	
 	// Méthode permettant de changer le fond du panel par imgFond
 	protected void paintComponent(Graphics g)
 	{
@@ -323,4 +333,37 @@ public class PanelSymbole extends JPanel implements ActionListener
 		            }
 		        }
     	}
+    	/*
+    	private void peindreCadres(Graphics g)
+	{
+		final int EPAISSEUR = 3;
+		
+		if (this.tabPnlCases == null || this.pnlGrille == null) return;
+	    	if (this.ctrl.getLstActeurs() == null) return;
+
+	    	Graphics2D g2 = (Graphics2D) g;
+	    	g2.setStroke(new java.awt.BasicStroke(EPAISSEUR));
+
+	    	int decalageX = this.pnlConteneurGrille.getX() + this.pnlGrille.getX();
+	    	int decalageY = this.pnlConteneurGrille.getY() + this.pnlGrille.getY();
+
+	    	for (Acteur acteur : this.ctrl.getLstActeurs())
+	    	{	
+			JPanel pnlCellule = this.tabPnlCases[acteur.getPosX()][acteur.getPosY()];
+				
+			g2.setColor(Color.BLACK);
+
+			int x = decalageX + pnlCellule.getX() + EPAISSEUR;
+			int y = decalageY + pnlCellule.getY() + EPAISSEUR;
+			int w = pnlCellule.getWidth()  - EPAISSEUR * 2;
+			int h = pnlCellule.getHeight() - EPAISSEUR * 2;
+
+			if (acteur.estPrincipal()) 
+			{ 
+				g2.setColor(acteur.getCouleur());
+			}
+			
+			g2.drawRect(x, y, w, h);
+	    	}
+	}*/
 }
