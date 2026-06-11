@@ -7,6 +7,7 @@ public class Pioche
 	private ArrayList<Role>     lstRoleCarte  ;
 	private ArrayList<Carte>    lstCarte      ;
 	private int                 nbCartesTotal ;
+	private Carte               carteActive   ;
 
 	public Pioche(ArrayList<Role> lstRoles)
 	{
@@ -31,12 +32,13 @@ public class Pioche
 		}
 	}
 
-	public Carte getCarte()
+	public Carte PiocherCarte()
 	{
 		int indice = (int)(Math.random()*getNbCarte());
 		Carte tirer;
 		tirer = this.lstCarte.get(indice);
 		this.lstCarte.remove(indice);
+		this.carteActive = tirer;
 		return tirer;
 	}
 
@@ -48,6 +50,8 @@ public class Pioche
 	public int getNbCarteTotal(){return this.nbCartesTotal;}
 
 	public int getNbCarte() { return this.lstCarte.size();}
+
+	public Carte getCarte() {return this.carteActive;}
 
 	public int getNbCarteFonce()
 	{
