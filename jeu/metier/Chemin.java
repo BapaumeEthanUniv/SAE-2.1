@@ -21,7 +21,7 @@ public class Chemin
 
 	public boolean ajouterChemin(Acteur acteurAjouté, ArrayList<Acteur> lstActeurs, Role rolePioche)
 	{
-		if (acteurAjouté != null && acteurAjouté.getRole().equals(rolePioche)) 
+		if (acteurAjouté != null && (acteurAjouté.getRole().equals(rolePioche) || rolePioche.equals(Role.JOKER))) 
 		{
 			if (this.chemin.getLast().getVoisins().contains(acteurAjouté) &&
 	            this.plateau.entreDeux(this.chemin.getLast(), acteurAjouté))
