@@ -1,7 +1,6 @@
 package ihm;
 
 import controleur.Controleur;
-
 import javax.swing.JFrame;
 
 public class FrameCarte extends JFrame
@@ -21,5 +20,10 @@ public class FrameCarte extends JFrame
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		this.setVisible(true);
+	}
+
+	public void changerCarte()
+	{
+		this.panelCarte.changerCarte();
 	}
 }

@@ -1,15 +1,6 @@
 package ihm;
 
 import controleur.Controleur;
-
-import metier.Acteur;
-import metier.Role;
-import metier.Zone;
-
-import java.util.ArrayList;
-
-import java.io.File;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -21,8 +12,12 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.*;
-
+import java.io.File;
+import java.util.ArrayList;
 import javax.swing.*;
+import metier.Acteur;
+import metier.Role;
+import metier.Zone;
 
 public class PanelJeu extends JPanel implements ActionListener
 {
@@ -153,7 +148,7 @@ public class PanelJeu extends JPanel implements ActionListener
 					        ligSelectionne = finalLig;
 					        colSelectionne = finalCol;
 
-					        if (ctrl.ajouterChemin(finalLig, finalCol)) {}
+					        if (ctrl.ajouterChemin(finalLig, finalCol))
 						       ctrl.changerCarte();
 
 					        repaint();

@@ -54,12 +54,12 @@ public class PanelCarte extends JPanel implements ActionListener
 		this.largeurImage        = 250;
 		this.hauteurImage        = 350;
 		
-		this.piocheAleatoire();
-		this.lblImage = new JLabel(this.iconeFinale);
-		
+		this.lblImage = new JLabel("", JLabel.CENTER);
+		this.changerCarte();
+
 		this.imgFond             = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
 
-		this.btnChangerImage     = new JButton("Piocher Carte");
+		this.btnChangerImage     = new JButton("Passer le Tour");
 
 		this.lblTour = new JLabel("Tour : ");
 		this.lblScore = new JLabel("Score joueur : ");
@@ -107,14 +107,15 @@ public class PanelCarte extends JPanel implements ActionListener
    	{
 		if (e.getSource() == this.btnChangerImage)
 		{	
-			this.piocheAleatoire();
-			this.lblImage.setIcon(this.iconeFinale);
+			this.changerCarte();
+			//this.lblImage.setIcon(this.iconeFinale);
 		}
     	}
     	
     	// Méthode permettant de simuler une pioche aléatoire et d'afficher les cartes de façon optimisé
-    	private void piocheAleatoire ()
+    	public void changerCarte ()
     	{
+		System.out.println("Mario pizza");
 		this.ctrl.piocherCarte();
 		
 		Carte carteAffiche = this.ctrl.getCartePioche();
@@ -142,10 +143,11 @@ public class PanelCarte extends JPanel implements ActionListener
 			}
 		}
 
-    		this.imgPersonnage       = new ImageIcon("./images/" + this.nomImage + ".png");
+    	this.imgPersonnage       = new ImageIcon("./images/" + this.nomImage + ".png");
 		this.imageRedimensionnee = this.imgPersonnage.getImage()
 		    .getScaledInstance(this.largeurImage, this.hauteurImage, Image.SCALE_SMOOTH);    
 		this.iconeFinale         = new ImageIcon(this.imageRedimensionnee);
+		this.lblImage.setIcon(this.iconeFinale);
     	}
     	
     	// Méthode permettant de changer le fond du panel par imgFond + dessiner les liens sur le plateau
