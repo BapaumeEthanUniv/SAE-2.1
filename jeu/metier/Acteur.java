@@ -124,4 +124,4 @@ public class Acteur
 	{
 		plateau.ajouterArete(this, voisin);
 	}
-}
+} 
