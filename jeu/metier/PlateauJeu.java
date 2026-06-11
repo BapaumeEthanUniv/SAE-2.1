@@ -23,9 +23,9 @@ public class PlateauJeu
 
 	private Zone[][]           tabZone;
 
-	private boolean[][]        tabArrete;
+	private boolean[][]        tabArete;
 	
-	private boolean[][]        tabArretePoint;
+	private boolean[][]        tabAretePoint;
 
 	private int                tailleCase;
 
@@ -40,8 +40,8 @@ public class PlateauJeu
 		this.importPlateau(filePlateau);
 		this.importZone   (filePlateau);
 
-		this.tabArrete      = new boolean[this.nbLigne]    [this.nbColonne];
-		this.tabArretePoint = new boolean[this.nbLigne - 1][this.nbColonne - 1];
+		this.tabArete      = new boolean[this.nbLigne]    [this.nbColonne];
+		this.tabAretePoint = new boolean[this.nbLigne - 1][this.nbColonne - 1];
 		
 		this.majVoisin();
 		this.nouvelleManche();
@@ -57,9 +57,9 @@ public class PlateauJeu
 
 	public Zone[][]           getTabZone()        {return tabZone;}
 
-	public boolean[][]        getTabArrete()      {return tabArrete;}
+	public boolean[][]        getTabArete()      {return tabArete;}
 
-	public boolean[][]        getTabArretePoint() {return tabArretePoint;}
+	public boolean[][]        getTabAretePoint() {return tabAretePoint;}
 
 	public ArrayList<Acteur>  getLstActeurs()     {return lstActeurs;}
 
@@ -256,7 +256,7 @@ public class PlateauJeu
 		return true;
 	}
 
-	public void ajouterArette(Acteur ActeurDepart, Acteur ActeurArrive)
+	public void ajouterArete(Acteur ActeurDepart, Acteur ActeurArrive)
 	{
 		int deltaY = Integer.compare(ActeurArrive.getPosY(), ActeurDepart.getPosY());
 		int deltaX = Integer.compare(ActeurArrive.getPosX(), ActeurDepart.getPosX());
@@ -267,22 +267,22 @@ public class PlateauJeu
 		while (x != ActeurArrive.getPosX() || y != ActeurArrive.getPosY())
 		{
 			if (deltaX < 0 && deltaY < 0)
-				this.tabArretePoint[x - 1][y - 1] = true;
+				this.tabAretePoint[x - 1][y - 1] = true;
 
 			if (deltaX > 0 && deltaY > 0)
-				this.tabArretePoint[x][y]         = true;
+				this.tabAretePoint[x][y]         = true;
 
 			if (deltaX > 0 && deltaY < 0)
-				this.tabArretePoint[x][y - 1]     = true;
+				this.tabAretePoint[x][y - 1]     = true;
 
 			if (deltaX < 0 && deltaY > 0)
-				this.tabArretePoint[x - 1][y]     = true;
+				this.tabAretePoint[x - 1][y]     = true;
 
 			x += deltaX;
 			y += deltaY;
 
 			if (x != ActeurArrive.getPosX() || y != ActeurArrive.getPosY())
-				this.tabArrete[x][y] = true;
+				this.tabArete[x][y] = true;
 		}
 		ActeurDepart.supprimerVoisin(ActeurArrive);
 	}
@@ -298,22 +298,22 @@ public class PlateauJeu
 
 		while ( y != acteurArrive.getPosY() || x != acteurArrive.getPosX() )
 		{
-			if (deltaX < 0 && deltaY < 0 && this.tabArretePoint[x - 1][y - 1])
+			if (deltaX < 0 && deltaY < 0 && this.tabAretePoint[x - 1][y - 1])
 				return true;
 
-			if (deltaX > 0 && deltaY > 0 && this.tabArretePoint[x][y])
+			if (deltaX > 0 && deltaY > 0 && this.tabAretePoint[x][y])
 				return true;
 
-			if (deltaX > 0 && deltaY < 0 && this.tabArretePoint[x][y - 1])
+			if (deltaX > 0 && deltaY < 0 && this.tabAretePoint[x][y - 1])
 				return true;
 
-			if (deltaX < 0 && deltaY > 0 && this.tabArretePoint[x - 1][y])
+			if (deltaX < 0 && deltaY > 0 && this.tabAretePoint[x - 1][y])
 				return true;
 
 			y += deltaY;
 			x += deltaX;
 
-			if (this.tabArrete[x][y] && (x != acteurArrive.getPosX() || y != acteurArrive.getPosY()))
+			if (this.tabArete[x][y] && (x != acteurArrive.getPosX() || y != acteurArrive.getPosY()))
 				return true;
 		}
 		
