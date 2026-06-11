@@ -6,8 +6,7 @@ public enum Couleur
 {
 
 	ROSE        ( "Rose"        , new Color (230,100,160)),
-	ROUGE_CLAIR ( "Rouge Clair" , new Color (255,64 ,64 )),
-	BORDEAUX    ( "Bordeaux"    , new Color (109,7  ,26 )),
+	ROUGE	    ( "Rouge"       , new Color (255,64 ,64 )),
 	ORANGE      ( "Orange"      , new Color (255,149,9  )),
 	JAUNE       ( "Jaune"       , new Color (252,220,18 )),
 	VERT_CITRON ( "Vert Citron" , new Color (140,210,40 )),
@@ -36,8 +35,8 @@ public enum Couleur
 	/*----------*/
 	
 	//Getters :
-	public        Color      getCouleur()   {return this.couleur;}
-	public        String     getLib()       {return this.lib;}
+	public        Color      getCouleur()   {return this.couleur           ;}
+	public        String     getLib()       {return this.lib               ;}
 	public static int        getNbCouleur() {return Couleur.values().length;}
 
 	// autres méthodes :
