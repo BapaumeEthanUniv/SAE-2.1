@@ -312,6 +312,29 @@ public class PlateauJeu
 	//Vérifie si des arrêtes déjà remplis se trouve entre deux acteurs
 	public boolean entreDeux(Acteur acteurDepart, Acteur acteurArrive)
 	{
+		/*System.out.println("TabArrete :");
+		for (int lig = 0; lig < this.tabArete.length; lig ++)
+		{
+			for (int col = 0; col < this.tabArete[lig].length; col ++)
+				if (tabArete[lig][col])
+					System.out.print(1);
+				else
+					System.out.print(0);
+			System.out.println();
+		}
+
+		System.out.println("TabArretePoint :");
+		for (int lig = 0; lig < this.tabAretePoint.length; lig ++)
+		{
+			for (int col = 0; col < this.tabAretePoint[lig].length; col ++)
+				if (tabAretePoint[lig][col])
+					System.out.print(1);
+				else
+					System.out.print(0);
+			System.out.println();
+		}*/
+
+
 		int deltaY = Integer.compare(acteurArrive.getPosY(), acteurDepart.getPosY());
 		int deltaX = Integer.compare(acteurArrive.getPosX(), acteurDepart.getPosX());
 		
