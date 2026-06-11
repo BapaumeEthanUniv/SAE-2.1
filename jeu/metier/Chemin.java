@@ -21,22 +21,23 @@ public class Chemin
 
 	public boolean ajouterChemin(Acteur acteurAjoute, ArrayList<Acteur> lstActeurs, Role rolePioche)
 	{
-
-		if (acteurAjoute != null && (acteurAjoute.getRole().equals(rolePioche) || rolePioche.equals(Role.JOKER))) 
+		//System.out.println("Acteur : " + acteurAjoute.getRole().getLibelle() + " Pioche : " + rolePioche.getLibelle());
+		if (acteurAjoute != null && (acteurAjoute.getRole().equals(rolePioche) || rolePioche.equals(Role.JOKER)) && ! this.chemin.contains(acteurAjoute))
 		{
+			//System.out.println("A côté de la queue : " + this.chemin.getLast().getVoisins().contains(acteurAjoute));
+			//System.out.println("A côté de la tête : " + this.chemin.getFirst().getVoisins().contains(acteurAjoute));
 			if (this.chemin.getLast().getVoisins().contains(acteurAjoute) &&
-	            this.plateau.entreDeux(this.chemin.getLast(), acteurAjoute))
+	            ! this.plateau.entreDeux(this.chemin.getLast(), acteurAjoute))
 			{
-				this.chemin.addLast(acteurAjoute);
 				this.plateau.ajouterArete(this.chemin.getLast(), acteurAjoute);
+				this.chemin.addLast(acteurAjoute);
 				return true;
 			}
-
-			if (this.chemin.getFirst().getVoisins().contains(acteurAjoute) && 
-			    this.plateau.entreDeux(this.chemin.getFirst(), acteurAjoute))
+			else if (this.chemin.getFirst().getVoisins().contains(acteurAjoute) && 
+			         ! this.plateau.entreDeux(this.chemin.getFirst(), acteurAjoute))
 			{
-				this.chemin.addFirst(acteurAjoute);
 				this.plateau.ajouterArete(this.chemin.getFirst(), acteurAjoute);
+				this.chemin.addFirst(acteurAjoute);
 				return true;
 			}
 		}

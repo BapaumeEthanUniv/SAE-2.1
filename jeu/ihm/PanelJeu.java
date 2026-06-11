@@ -141,10 +141,9 @@ public class PanelJeu extends JPanel implements ActionListener
 					{
 					    ligSelectionne = finalLig;
 					    colSelectionne = finalCol;
-					    System.out.println(ctrl.ajouterChemin(finalLig, finalCol));
 					    
 					    if (ctrl.ajouterChemin(finalLig, finalCol))
-					    	ctrl.getCartePioche();
+					    	ctrl.piocherCarte();
 					    	
 					    repaint();
 					}
