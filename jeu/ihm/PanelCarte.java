@@ -18,23 +18,23 @@ public class PanelCarte extends JPanel implements ActionListener
 	private Controleur ctrl;
 
 	private ImageIcon  imgPersonnage;
-    private JButton    btnChangerImage;
-    private Image      imageRedimensionnee;
-    private ImageIcon  iconeFinale;
-    private JLabel     lblImage;
+   	private JButton    btnChangerImage;
+    	private Image      imageRedimensionnee;
+   	private ImageIcon  iconeFinale;
+    	private JLabel     lblImage;
 	private JLabel     lblScore;
 	private JLabel     lblTour;
     	
-    private Image 	   imgFond;
+    	private Image 	   imgFond;
     	
-    private int        nomImage;
-    private int        largeurImage;
-    private int        hauteurImage;
+   	private int        nomImage;
+    	private int        largeurImage;
+    	private int        hauteurImage;
 
 	private Font       policeBandeau;
 
-    public PanelCarte(Controleur ctrl)
-    {
+    	public PanelCarte(Controleur ctrl)
+    	{
 		this.ctrl = ctrl;
 
 		
