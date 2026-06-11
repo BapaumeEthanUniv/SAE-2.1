@@ -21,15 +21,18 @@ public class Pioche
 		boolean[] typeCarte = {false, true};
 		this.lstCarte       = new ArrayList<Carte>();
 
-		for    (boolean type : typeCarte)
+		for (boolean type : typeCarte)
 		{
-			for(Role    role : this.lstRoleCarte)
+			for (Role role : this.lstRoleCarte)
 			{
 				this.lstCarte.add(new Carte(role, type));
 			}
 			
 			this.lstCarte.add(new Carte(Role.JOKER, type));	// Carte Joker
 		}
+		
+		int indice = (int)(Math.random()*getNbCarte());
+		this.carteActive = this.lstCarte.get(indice);
 	}
 
 	public boolean piocherCarte()
