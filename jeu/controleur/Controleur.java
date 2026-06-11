@@ -71,6 +71,7 @@ public class Controleur
 	public Chemin             getCheminActif(){return this.metier.getCheminActif();}
 	public Casting            getManche()     {return this.metier.getManche();}
 	public void               changerCarte()   {this.frameCarte.changerCarte();}
+	public int                getNbCarteFonce(){return this.pioche.getNbCarteFonce();}
 
 
 	public boolean piocherCarte()             { return this.pioche.piocherCarte();}
