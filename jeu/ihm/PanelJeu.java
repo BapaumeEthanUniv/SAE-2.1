@@ -1,6 +1,13 @@
 package ihm;
 
 import controleur.Controleur;
+
+import metier.Acteur;
+import metier.Role;
+import metier.Zone;
+
+import java.io.File;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,11 +19,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.*;
-import java.io.File;
+
 import javax.swing.*;
-import metier.Acteur;
-import metier.Role;
-import metier.Zone;
 
 public class PanelJeu extends JPanel implements ActionListener
 {
@@ -120,9 +124,9 @@ public class PanelJeu extends JPanel implements ActionListener
 				
 				pnlCellule.addMouseListener(new MouseAdapter() 
 				{
-		            		/*public void mouseClicked(MouseEvent e)
+		            		public void mouseClicked(MouseEvent e)
 		            		{
-		            			for (Acteur acteur : this.ctrl.getLstActeurs()) 
+		            			for (Acteur acteur : ctrl.getLstActeurs()) 
 	    					{
 							if (acteur.getVoisins() != null) 
 							{
@@ -131,11 +135,11 @@ public class PanelJeu extends JPanel implements ActionListener
 						    			JPanel case1 = tabPnlCases[acteur.getPosX()][acteur.getPosY()];
 		        						JPanel case2 = tabPnlCases[voisin.getPosX()][voisin.getPosY()];
 		        						
-		        						this.ctrl.ajouterChemin(case2.getX(), case2.getY());
+		        						ctrl.ajouterChemin(case2.getX(), case2.getY());
 		        					}
 		        				}
 		        			}
-		            		}*/
+		            		}
 				});
 				
 				pnlCellule.add(lblImage);
