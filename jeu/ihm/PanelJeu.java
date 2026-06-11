@@ -137,17 +137,15 @@ public class PanelJeu extends JPanel implements ActionListener
 				
 				pnlCellule.addMouseListener(new MouseAdapter() 
 				{
-		            		public void mouseClicked(MouseEvent e)
+					public void mouseClicked(MouseEvent e)
 					{
-					    ligSelectionne = finalLig;
-					    colSelectionne = finalCol;
-					    
-					    if (ctrl.ajouterChemin(finalLig, finalCol))
-					    	ctrl.piocherCarte();
-					    	
-					    	repaint();
-					    
-					    repaint();
+						ligSelectionne = finalLig;
+						colSelectionne = finalCol;
+
+						if (ctrl.ajouterChemin(finalLig, finalCol)) {}
+							ctrl.changerCarte();
+
+						repaint();
 					}
 				});
 				
