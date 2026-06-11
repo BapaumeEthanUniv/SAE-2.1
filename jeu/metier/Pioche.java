@@ -18,6 +18,8 @@ public class Pioche
 	{
 		this.lstRoleCarte = new ArrayList<Role>();
 		this.lstRoleCarte = roleDispo;
+		
+		//this.lstCarte     = new ArrayList<Carte>();
 	}
 
 	public void creerPioche(int nbCartes)
@@ -33,7 +35,8 @@ public class Pioche
 			{
 				this.lstCarte.add(new Carte(role, type));
 			}
-			this.lstCarte.add(new Carte(null, type));
+			
+			this.lstCarte.add(new Carte(null, type));	// Carte Joker
 		}
 	}
 
