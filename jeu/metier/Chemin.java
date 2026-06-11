@@ -19,23 +19,24 @@ public class Chemin
 	public ArrayList<Acteur> getChemin()  {return chemin;}
 	public Casting           getCouleur() {return couleur;}
 
-	public boolean ajouterChemin(Acteur acteurAjouté, ArrayList<Acteur> lstActeurs, Role rolePioche)
+	public boolean ajouterChemin(Acteur acteurAjoute, ArrayList<Acteur> lstActeurs, Role rolePioche)
 	{
-		if (acteurAjouté != null && (acteurAjouté.getRole().equals(rolePioche) || rolePioche.equals(Role.JOKER))) 
+
+		if (acteurAjoute != null && (acteurAjoute.getRole().equals(rolePioche) || rolePioche.equals(Role.JOKER))) 
 		{
-			if (this.chemin.getLast().getVoisins().contains(acteurAjouté) &&
-	            this.plateau.entreDeux(this.chemin.getLast(), acteurAjouté))
+			if (this.chemin.getLast().getVoisins().contains(acteurAjoute) &&
+	            this.plateau.entreDeux(this.chemin.getLast(), acteurAjoute))
 			{
-				this.chemin.addLast(acteurAjouté);
-				this.plateau.ajouterArete(this.chemin.getLast(), acteurAjouté);
+				this.chemin.addLast(acteurAjoute);
+				this.plateau.ajouterArete(this.chemin.getLast(), acteurAjoute);
 				return true;
 			}
 
-			if (this.chemin.getFirst().getVoisins().contains(acteurAjouté) && 
-			    this.plateau.entreDeux(this.chemin.getFirst(), acteurAjouté))
+			if (this.chemin.getFirst().getVoisins().contains(acteurAjoute) && 
+			    this.plateau.entreDeux(this.chemin.getFirst(), acteurAjoute))
 			{
-				this.chemin.addFirst(acteurAjouté);
-				this.plateau.ajouterArete(this.chemin.getFirst(), acteurAjouté);
+				this.chemin.addFirst(acteurAjoute);
+				this.plateau.ajouterArete(this.chemin.getFirst(), acteurAjoute);
 				return true;
 			}
 		}
