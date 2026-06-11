@@ -71,6 +71,7 @@ public class PlateauJeu
 
 	public int[]              getScores()         {return scores;}
 
+	
 
 	public void nouvelleManche()
 	{
