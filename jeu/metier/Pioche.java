@@ -32,14 +32,18 @@ public class Pioche
 		}
 	}
 
-	public Carte PiocherCarte()
+	public boolean PiocherCarte()
 	{
 		int indice = (int)(Math.random()*getNbCarte());
 		Carte tirer;
-		tirer = this.lstCarte.get(indice);
-		this.lstCarte.remove(indice);
-		this.carteActive = tirer;
-		return tirer;
+		if (this.finManche())
+		{
+			tirer = this.lstCarte.get(indice);
+			this.lstCarte.remove(indice);
+			this.carteActive = tirer;
+			return true;
+		}
+		return false;
 	}
 
 	public boolean finManche()
