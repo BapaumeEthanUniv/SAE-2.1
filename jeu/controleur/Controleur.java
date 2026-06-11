@@ -12,6 +12,7 @@ import metier.Pioche;
 import metier.PlateauJeu;
 import metier.Role;
 import metier.Zone;
+import metier.Chemin;
 
 public class Controleur
 {
@@ -67,7 +68,7 @@ public class Controleur
 	public ArrayList<Acteur>  getLstActeurs() {return this.metier.getLstActeurs();}
 	public ArrayList<Role>    getLstRole()    {return this.metier.getLstRole();}
 	public Carte              getCartePioche(){return this.pioche.getCarte();}
-	public ArrayList<Acteur>  getCheminActif(){return this.metier.getCheminActif();}
+	public Chemin             getCheminActif(){return this.metier.getCheminActif();}
 
 	public boolean ajouterChemin(int posX, int posY) {return this.metier.ajouterChemin(posX, posY, this.getCartePioche().getRole());}
 	public boolean nouvelleManche()                  {return this.metier.nouvelleManche();}

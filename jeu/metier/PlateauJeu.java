@@ -82,7 +82,7 @@ public class PlateauJeu
 
 	public int                getIdManche()       {return idManche;}
 
-	public ArrayList<Acteur>  getCheminActif()    {return this.cheminActif.getChemin();}
+	public Chemin             getCheminActif()    {return this.cheminActif;}
 
 	public boolean nouvelleManche()
 	{

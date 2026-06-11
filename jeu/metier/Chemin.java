@@ -16,7 +16,8 @@ public class Chemin
 		this.chemin.add(this.plateau.getPrincipal(couleur));
 	}
 
-	public ArrayList<Acteur> getChemin() {return chemin;}
+	public ArrayList<Acteur> getChemin()  {return chemin;}
+	public Casting           getCouleur() {return couleur;}
 
 	public boolean ajouterChemin(Acteur acteurAjouté, ArrayList<Acteur> lstActeurs, Role rolePioche)
 	{
