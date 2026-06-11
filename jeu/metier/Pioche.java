@@ -33,7 +33,7 @@ public class Pioche
 
 	public Carte getCarte()
 	{
-		int indice = (int)Math.random()*getNbCarte();
+		int indice = (int)(Math.random()*getNbCarte());
 		Carte tirer;
 		tirer = this.lstCarte.get(indice);
 		this.lstCarte.remove(indice);
