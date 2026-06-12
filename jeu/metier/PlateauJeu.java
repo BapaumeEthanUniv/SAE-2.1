@@ -379,7 +379,7 @@ public class PlateauJeu
 
 	public boolean ajouterChemin(int posX, int posY, Role rolePioche) 
 	{
-		return this.tabChemin[this.idManche].ajouterChemin(this.getActeur(posX, posY), this.lstActeurs, rolePioche);
+		return this.tabChemin[this.idManche - 1].ajouterChemin(this.getActeur(posX, posY), this.lstActeurs, rolePioche);
 	}
 
 	public void calculerScore()
