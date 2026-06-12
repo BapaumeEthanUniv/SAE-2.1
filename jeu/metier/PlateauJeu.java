@@ -88,7 +88,7 @@ public class PlateauJeu
 
 	public boolean nouvelleManche()
 	{
-		if (this.idManche < this.lstCasting.size())
+		if (this.idManche <= this.lstCasting.size())
 		{
 			this.manche      = this.lstCasting.get(this.idManche);
 			this.tabChemin[this.idManche] = new Chemin(manche, this);
