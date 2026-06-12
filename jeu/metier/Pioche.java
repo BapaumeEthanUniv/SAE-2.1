@@ -35,8 +35,7 @@ public class Pioche
 			this.lstCarte.add(new Carte(Role.JOKER, type));	// Carte Joker
 		}
 		
-		int indice = (int)(Math.random()*getNbCarte());
-		this.carteActive = this.lstCarte.get(indice);
+		this.piocherCarte();
 	}
 
 	public boolean piocherCarte()
