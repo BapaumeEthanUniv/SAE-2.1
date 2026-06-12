@@ -45,6 +45,7 @@ public class Pioche
 		Carte tirer;
 		if (this.finManche())
 		{
+			System.out.println(" nouvelle manche ");
 			this.nouvelleManche();
 			this.creerPioche();
 		}
@@ -59,7 +60,7 @@ public class Pioche
 
 	public boolean finManche()
 	{
-		return (this.getNbCarteFonce()!=0);
+		return (this.getNbCarteFonce()==0);
 	}
 
 	public void nouvelleManche()
