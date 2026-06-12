@@ -43,6 +43,10 @@ public class Pioche
 	{
 		int indice = (int)(Math.random()*getNbCarte()); //a modifier pour le debug si on veut set une seed pour un exemple particulier
 		Carte tirer;
+		for (Carte c : this.lstCarte)
+		{
+			System.out.print(c.getRole()+"|"+c.estFonce()+" ");
+		}
 		if (this.finManche())
 		{
 			System.out.println(" nouvelle manche ");
