@@ -53,7 +53,7 @@ public class Controleur
 	public void initPlateau(File filePlateau) 
 	{ 
 		this.metier = new PlateauJeu(filePlateau);
-		this.pioche = new Pioche    (this.getLstRole());	
+		this.pioche = new Pioche    (this.getLstRole(),this);	
 	}
 	
 	public void creerFrameCarte ()            { frameCarte = new FrameCarte(this); this.frameCarte.setSize(lCarte, h); this.frameCarte.setLocation(xCarte,yCarte); }
