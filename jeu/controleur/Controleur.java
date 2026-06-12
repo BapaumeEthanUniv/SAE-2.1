@@ -59,20 +59,22 @@ public class Controleur
 	public void creerFrameCarte ()            { frameCarte = new FrameCarte(this); this.frameCarte.setSize(lCarte, h); this.frameCarte.setLocation(xCarte,yCarte); }
 
 	//getters
-	public int                getNbLigne()    {return this.metier.getNbLigne();}
-	public int                getNbColonne()  {return this.metier.getNbColonne();}
-	public int                getTailleCase() {return this.metier.getTailleCase();}
-	public ArrayList<Casting> getLstCasting() {return this.metier.getLstCasting();}
-	public Zone[][]           getTabZone()    {return this.metier.getTabZone();}
+	public int                getNbLigne()     {return this.metier.getNbLigne();}
+	public int                getNbColonne()   {return this.metier.getNbColonne();}
+	public int                getTailleCase()  {return this.metier.getTailleCase();}
+	public ArrayList<Casting> getLstCasting()  {return this.metier.getLstCasting();}
+	public Zone[][]           getTabZone()     {return this.metier.getTabZone();}
 	//public Casting[][]        getTabArete()  {return this.metier.getTabArrete();}
-	public ArrayList<Acteur>  getLstActeurs() {return this.metier.getLstActeurs();}
-	public ArrayList<Role>    getLstRole()    {return this.metier.getLstRole();}
-	public Carte              getCartePioche(){return this.pioche.getCarte();}
-	public Chemin[]           getTabChemin()  {return this.metier.getTabChemin();}
-	public Casting            getManche()     {return this.metier.getManche();}
-	public int                getIdManche()   {return this.metier.getIdManche();}
+	public ArrayList<Acteur>  getLstActeurs()  {return this.metier.getLstActeurs();}
+	public ArrayList<Role>    getLstRole()     {return this.metier.getLstRole();}
+	public Carte              getCartePioche() {return this.pioche.getCarte();}
+	public Chemin[]           getTabChemin()   {return this.metier.getTabChemin();}
+	public Casting            getManche()      {return this.metier.getManche();}
+	public int                getIdManche()    {return this.metier.getIdManche();}
 	public void               changerCarte()   {this.frameCarte.changerCarte();}
 	public int                getNbCarteFonce(){return this.pioche.getNbCarteFonce();}
+	public int[]              getScores()      {return this.metier.getScores();}
+	public int                getScoreFinal()  {return this.metier.getScoreFinal();}
 
 	public boolean piocherCarte()             { return this.pioche.piocherCarte();}
 	public boolean ajouterChemin(int posX, int posY) {return this.metier.ajouterChemin(posX, posY, this.getCartePioche().getRole());}
