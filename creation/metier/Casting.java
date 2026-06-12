@@ -8,7 +8,7 @@ public enum Casting
 	VERT	("Vert" , Color.GREEN ),
 	BLEU	("Bleu" , Color.BLUE ),
 	MAGENTA	("Mauve", Color.MAGENTA),
-	JAUNE	("Jaune", Color.YELLOW),
+	JAUNE	("Jaune", new Color(253, 238, 0)),
 	CYAN	("Cyan" , Color.CYAN );
 	
 	//Attribut

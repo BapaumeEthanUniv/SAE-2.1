@@ -108,7 +108,7 @@ public class PanelCarte extends JPanel implements ActionListener
 		if (e.getSource() == this.btnChangerImage)
 		{	
 			this.changerCarte();
-			//this.lblImage.setIcon(this.iconeFinale);
+			this.ctrl.majLblCasting();
 		}
     	}
     	
