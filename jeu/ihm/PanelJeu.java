@@ -37,6 +37,8 @@ public class PanelJeu extends JPanel implements ActionListener
 	
 	private JPanel		 pnlPlateau;
 	private JPanel           pnlCentre;
+
+	private JLabel        lblMancheCoul;
 	
 	private Graphics         g;
 	
@@ -89,8 +91,8 @@ public class PanelJeu extends JPanel implements ActionListener
 		pnlBandeau              .setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		pnlBandeau              .setOpaque(false);
 		
-		JLabel lblMancheCoul    = new JLabel(this.ctrl.getManche().toString(), JLabel.CENTER);
-		lblMancheCoul           .setForeground(this.ctrl.getManche().getCouleur());
+		this.lblMancheCoul      = new JLabel(ctrl.getManche().toString(), JLabel.CENTER);
+		this.lblMancheCoul      .setForeground(ctrl.getManche().getCouleur());
 		
 		JLabel lblManche        = new JLabel("Manche : " , JLabel.CENTER);
 		
@@ -111,13 +113,13 @@ public class PanelJeu extends JPanel implements ActionListener
 		    this.policeBandeau             = policeLbl.deriveFont(Font.BOLD, 18f);                // police du bandeau 	modifié en Gras + taille 18
 
 		    lblManche.setFont(policeBandeau);  
-		    lblMancheCoul.setFont(policeBandeau); // police du bandeau changé
+		    this.lblMancheCoul.setFont(policeBandeau); // police du bandeau changé
 		}
 		// Si fichier non trouvé, la police est en SansSerif Gras par défaut
 		catch (Exception e)
 		{
 		    lblManche.setFont(new Font("SansSerif", Font.BOLD, 18));
-		    lblMancheCoul.setFont(new Font("SansSerif", Font.BOLD, 18));
+		    this.lblMancheCoul.setFont(new Font("SansSerif", Font.BOLD, 18));
 		}
 		
 		// Parcours pour dessiner le plateau
@@ -144,12 +146,16 @@ public class PanelJeu extends JPanel implements ActionListener
 					        ligSelectionne = finalLig;
 					        colSelectionne = finalCol;
 					    	//System.out.println(ctrl.ajouterChemin(finalLig, finalCol));
-					    
-					        ligSelectionne = finalLig;
-					        colSelectionne = finalCol;
 
 					        if (ctrl.ajouterChemin(finalLig, finalCol))
-						       ctrl.changerCarte();
+						       	if (ctrl.getNbCarteFonce() > 0)
+									ctrl.changerCarte();
+								else
+								{
+									ctrl.nouvelleManche();
+									lblMancheCoul.setText(ctrl.getManche().toString());
+									lblMancheCoul.setForeground(ctrl.getManche().getCouleur());
+								}
 
 					        repaint();
 					}

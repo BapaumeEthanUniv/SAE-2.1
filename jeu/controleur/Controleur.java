@@ -70,8 +70,9 @@ public class Controleur
 	public Carte              getCartePioche(){return this.pioche.getCarte();}
 	public Chemin[]           getTabChemin()  {return this.metier.getTabChemin();}
 	public Casting            getManche()     {return this.metier.getManche();}
-	public void               changerCarte()  {this.frameCarte.changerCarte();}
 	public int                getIdManche()   {return this.metier.getIdManche();}
+	public void               changerCarte()   {this.frameCarte.changerCarte();}
+	public int                getNbCarteFonce(){return this.pioche.getNbCarteFonce();}
 
 	public boolean piocherCarte()             { return this.pioche.piocherCarte();}
 	public boolean ajouterChemin(int posX, int posY) {return this.metier.ajouterChemin(posX, posY, this.getCartePioche().getRole());}
