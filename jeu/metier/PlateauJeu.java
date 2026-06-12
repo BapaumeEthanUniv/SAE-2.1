@@ -86,19 +86,22 @@ public class PlateauJeu
 
 	public Chemin[]           getTabChemin()      {return this.tabChemin;}
 
-	public boolean nouvelleManche()
+	public void nouvelleManche()
 	{
-		if (this.idManche <= this.lstCasting.size())
+		if (this.idManche < this.lstCasting.size())
 		{
+			System.out.println(lstCasting);
+			System.out.println(this.lstCasting.get(this.idManche).getLibelle());
 			this.manche      = this.lstCasting.get(this.idManche);
 			this.tabChemin[this.idManche] = new Chemin(manche, this);
 			this.idManche++;
-			return true;
+		}
+		else
+		{
+			System.out.println("Fin de partie");
 		}
 
 		this.calculerScore();
-
-		return false;
 	}
 
 	public Acteur getActeur(int posX, int posY)
