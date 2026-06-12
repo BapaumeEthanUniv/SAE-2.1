@@ -1,5 +1,7 @@
 package metier;
 
+import controleur.Controleur;
+
 import java.util.ArrayList;
 
 public class Pioche
@@ -8,10 +10,12 @@ public class Pioche
 	private ArrayList<Carte>    lstCarte      ;
 	private int                 nbCartesTotal ;
 	private Carte               carteActive   ;
+	public Controleur           ctrl          ;
 
-	public Pioche(ArrayList<Role> lstRoles)
+	public Pioche(ArrayList<Role> lstRoles, Controleur ctrl)
 	{
 		this.lstRoleCarte = lstRoles;
+		this.ctrl = ctrl;
 		this.creerPioche();
 		this.nbCartesTotal = lstCarte.size();
 	}
@@ -37,9 +41,9 @@ public class Pioche
 
 	public boolean piocherCarte()
 	{
-		int indice = (int)(Math.random()*getNbCarte());
+		int indice = (int)(Math.random()*getNbCarte()); //a modifier pour le debug si on veut set une seed pour un exemple particulier
 		Carte tirer;
-
+		this.nouvelleManche();
 		tirer = this.lstCarte.get(indice);
 		this.lstCarte.remove(indice);
 		this.carteActive = tirer;
@@ -50,6 +54,12 @@ public class Pioche
 	{
 		return (this.getNbCarteFonce()!=0);
 	}
+
+	public void nouvelleManche()
+		{
+			if (this.finManche())
+				this.ctrl.nouvelleManche();
+		}
 
 	public int getNbCarteTotal(){ return this.nbCartesTotal;  }
 
