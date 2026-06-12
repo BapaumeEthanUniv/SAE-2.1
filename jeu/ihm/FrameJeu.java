@@ -50,4 +50,6 @@ public class FrameJeu extends JFrame
 	}
 	
 	public JPanel getPnl(int i) { return this.tabPanel[i]; }
+	
+	public void majLblCasting() { this.tabPanel[1].majLblCasting(); }
 }
