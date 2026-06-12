@@ -50,8 +50,8 @@ public class Pioche
 		if (this.finManche())
 		{
 			System.out.println(" nouvelle manche ");
-			this.nouvelleManche();
 			this.creerPioche();
+			this.nouvelleManche();
 		}
 		else
 		{
