@@ -1,16 +1,13 @@
 package ihm;
 
 import controleur.Controleur;
-
-import java.io.File;
-
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.*;
-
+import java.io.File;
 import javax.swing.*;
 
 public class PanelAccueilJeu extends JPanel implements ActionListener
@@ -24,6 +21,7 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 	private JButton		btnCharger;
 	private JButton		btnJouer;
 	
+	// Constructeur
 	public PanelAccueilJeu (Controleur ctrl, FrameJeu f, int indice)
 	{
 		this.ctrl 		= ctrl;
@@ -77,16 +75,17 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 		this.setVisible(true);
 	}
 	
+	// interactivitée du panel
 	public void actionPerformed ( ActionEvent e )
 	{
 		if ( e.getSource() == this.btnCharger )
 		{
 			JFileChooser fcRepertoire = new JFileChooser("../creation/Plateau/"); 
-			fcRepertoire.setFileSelectionMode(fcRepertoire.DIRECTORIES_ONLY);
+			fcRepertoire.setFileSelectionMode(fcRepertoire.DIRECTORIES_ONLY); // création du selectionneur de dossier
 			
 			int res = fcRepertoire.showOpenDialog(this); 
 			
-			if (res == JFileChooser.APPROVE_OPTION) 
+			if (res == JFileChooser.APPROVE_OPTION) // lecture des fichiers du dossier choisie
 			{
 				File fichier = fcRepertoire.getSelectedFile();
 				
@@ -94,7 +93,7 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 				
 				this.frame.creerPanelJeu();
 				
-				this.btnJouer.setEnabled(true);
+				this.btnJouer.setEnabled(true); // activation du bouton jouer
 			}
 		}
 		
@@ -105,6 +104,7 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 		}
 	}
 	
+	// Chargement de l'image de fin
 	protected void paintComponent(Graphics g) 
 	{
 		super.paintComponent(g);
