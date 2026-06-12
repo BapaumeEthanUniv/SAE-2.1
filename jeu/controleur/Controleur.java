@@ -80,5 +80,7 @@ public class Controleur
 	public boolean ajouterChemin(int posX, int posY) {return this.metier.ajouterChemin(posX, posY, this.getCartePioche().getRole());}
 	public void nouvelleManche()                  {this.metier.nouvelleManche();}
 	
+	public void majLblCasting()                { this.frameJeu.majLblCasting();}
+	
 	public static void main (String[] args) { new Controleur(); } //Démarrage de l'application
 }
