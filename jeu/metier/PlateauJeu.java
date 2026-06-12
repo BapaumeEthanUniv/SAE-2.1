@@ -391,7 +391,7 @@ public class PlateauJeu
 		Zone               zoneActeur;                               //Zone de l'acteur traité
 		int                indexZone;                                //Index de la zone traité
 
-		for (Acteur acteurChemin : this.tabChemin[idManche].getChemin())
+		for (Acteur acteurChemin : this.tabChemin[idManche - 1].getChemin())
 		{
 			zoneActeur = this.tabZone[acteurChemin.getPosX()][acteurChemin.getPosY()];
 
@@ -412,7 +412,7 @@ public class PlateauJeu
 			if (i > nbActeursMax)
 				nbActeursMax = i;
 
-		this.scores[idManche] = nbActeursMax;
+		this.scores[idManche - 1] = nbActeursMax;
 	}
 
 	//main de test
