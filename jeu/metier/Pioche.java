@@ -24,7 +24,7 @@ public class Pioche
 	{
 		boolean[] typeCarte = {false, true};
 		this.lstCarte       = new ArrayList<Carte>();
-
+		System.out.println(lstRoleCarte);
 		for (boolean type : typeCarte)
 		{
 			for (Role role : this.lstRoleCarte)
