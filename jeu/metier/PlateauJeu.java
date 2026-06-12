@@ -379,6 +379,7 @@ public class PlateauJeu
 
 	public boolean ajouterChemin(int posX, int posY, Role rolePioche) 
 	{
+		System.out.println(this.tabChemin[this.idManche - 1].getCouleur().getLibelle());
 		return this.tabChemin[this.idManche - 1].ajouterChemin(this.getActeur(posX, posY), this.lstActeurs, rolePioche);
 	}
 
