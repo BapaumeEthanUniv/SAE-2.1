@@ -151,13 +151,11 @@ public class PanelJeu extends JPanel implements ActionListener
 					{
 					        ligSelectionne = finalLig;
 					        colSelectionne = finalCol;
-					    	//System.out.println(ctrl.ajouterChemin(finalLig, finalCol));
 
 					        if (ctrl.ajouterChemin(finalLig, finalCol))
 					        {
 							ctrl.changerCarte();
-							lblMancheCoul.setText      (ctrl.getManche().toString()  );
-							lblMancheCoul.setForeground(ctrl.getManche().getCouleur());
+							ctrl.majLblCasting();
 						}
 
 					        repaint();
@@ -409,6 +407,12 @@ public class PanelJeu extends JPanel implements ActionListener
 			
 			g2.drawRect(x, y, w, h);
 	    	}
+	}
+	
+	public void majLblCasting()
+	{
+		this.lblMancheCoul.setText      (ctrl.getManche().toString()  );
+		this.lblMancheCoul.setForeground(ctrl.getManche().getCouleur());
 	}
 }
 
