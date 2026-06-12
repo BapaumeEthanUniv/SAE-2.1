@@ -43,10 +43,17 @@ public class Pioche
 	{
 		int indice = (int)(Math.random()*getNbCarte()); //a modifier pour le debug si on veut set une seed pour un exemple particulier
 		Carte tirer;
-		this.nouvelleManche();
-		tirer = this.lstCarte.get(indice);
-		this.lstCarte.remove(indice);
-		this.carteActive = tirer;
+		if (this.finManche())
+		{
+			this.nouvelleManche();
+			this.creerPioche();
+		}
+		else
+		{
+			tirer = this.lstCarte.get(indice);
+			this.lstCarte.remove(indice);
+			this.carteActive = tirer;
+		}
 		return true;
 	}
 
@@ -57,8 +64,8 @@ public class Pioche
 
 	public void nouvelleManche()
 		{
-			if (this.finManche())
-				this.ctrl.nouvelleManche();
+
+			this.ctrl.nouvelleManche();
 		}
 
 	public int getNbCarteTotal(){ return this.nbCartesTotal;  }
