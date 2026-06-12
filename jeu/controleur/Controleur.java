@@ -52,7 +52,7 @@ public class Controleur
 
 	public void initPlateau(File filePlateau) 
 	{ 
-		this.metier = new PlateauJeu(filePlateau);
+		this.metier = new PlateauJeu(filePlateau, this);
 		this.pioche = new Pioche    (this.getLstRole(),this);	
 	}
 	
@@ -75,6 +75,12 @@ public class Controleur
 	public int                getNbCarteFonce(){return this.pioche.getNbCarteFonce();}
 	public int[]              getScores()      {return this.metier.getScores();}
 	public int                getScoreFinal()  {return this.metier.getScoreFinal();}
+
+	// public void finDePartie(); //décomentez moi ça quand les méthodes sont créé dans les panels avec la ligne 104 de PlateauJeu
+	// {
+	// 	this.frameJeu.finDePartie(); 
+	// 	this.frameCarte.finDePartie();
+	// }
 
 	public boolean piocherCarte()             { return this.pioche.piocherCarte();}
 	public boolean ajouterChemin(int posX, int posY) {return this.metier.ajouterChemin(posX, posY, this.getCartePioche().getRole());}

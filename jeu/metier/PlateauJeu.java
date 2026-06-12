@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.io.File;
 import java.util.Scanner;
 import java.io.FileReader;
+import controleur.Controleur;
 
 public class PlateauJeu 
 {
@@ -33,7 +34,9 @@ public class PlateauJeu
 
 	private int[]              scores;
 
-	public PlateauJeu(File filePlateau)
+	private Controleur ctrl;
+
+	public PlateauJeu(File filePlateau, Controleur ctrl)
 	{
 		this.importActeur (filePlateau);
 		this.importCasting(filePlateau);
@@ -98,7 +101,7 @@ public class PlateauJeu
 		}
 		else
 		{
-			System.out.println("Fin de partie");
+			//this.ctrl.finDePartie(); //ligne 104 au cas ou si ça change
 		}
 
 		this.calculerScore();
@@ -416,33 +419,5 @@ public class PlateauJeu
 				nbActeursMax = i;
 
 		this.scores[idManche - 1] = nbActeursMax;
-	}
-
-	//main de test
-	public static void main(String[] args) 
-	{
-		PlateauJeu p = new PlateauJeu(new File("../creation/Plateau/plateauArsene"));
-
-		System.out.println("Plateau : " + p.getNbLigne() + " " + p.getNbColonne() + " " + p.getTailleCase());
-		
-		for (Casting c : p.getLstCasting())
-			System.out.println("Casting : " + c.getLibelle());
-
-		for (Acteur a : p.getLstActeurs())
-			System.out.println("Acteur : " + a.getRole().getLibelle() + " " + a.getPosX() + " " + a.getPosY() + " " + a.getCouleur());
-
-		System.out.println("Zone : ");
-		for (int lig = 0; lig < p.getTabZone().length; lig ++)
-		{
-			for (int col = 0; col < p.getTabZone()[lig].length; col ++)
-			{
-				if (p.getTabZone()[lig][col] != null)
-					System.out.print(String.format("%3d", p.getTabZone()[lig][col].getNumZone()));
-				else
-					System.out.print("  0");
-			}
-			System.out.println();
-		}
-
 	}
 }
