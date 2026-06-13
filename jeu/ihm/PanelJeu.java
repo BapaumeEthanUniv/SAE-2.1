@@ -186,7 +186,6 @@ public class PanelJeu extends JPanel implements ActionListener
 
                     if (acteur.estPrincipal())
                     {
-                        //lblImage.setBackground(acteur.getCouleur());
                         lblImage.setOpaque(false);
                     }
             }

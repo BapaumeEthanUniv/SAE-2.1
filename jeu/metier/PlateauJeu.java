@@ -95,8 +95,8 @@ public class PlateauJeu
 	{
 		if (this.idManche < this.lstCasting.size())
 		{
-			System.out.println(lstCasting);
-			System.out.println(this.lstCasting.get(this.idManche).getLibelle());
+			//System.out.println(lstCasting);
+			//System.out.println(this.lstCasting.get(this.idManche).getLibelle());
 			this.manche      = this.lstCasting.get(this.idManche);
 			this.tabChemin[this.idManche] = new Chemin(manche, this);
 			this.idManche++;
@@ -386,7 +386,7 @@ public class PlateauJeu
 
 	public boolean ajouterChemin(int posX, int posY, Role rolePioche) 
 	{
-		System.out.println(this.tabChemin[this.idManche - 1].getCouleur().getLibelle() + " " + (this.idManche - 1));
+		//System.out.println(this.tabChemin[this.idManche - 1].getCouleur().getLibelle() + " " + (this.idManche - 1));
 		return this.tabChemin[this.idManche - 1].ajouterChemin(this.getActeur(posX, posY), this.lstActeurs, rolePioche);
 	}
 

@@ -22,8 +22,7 @@ public class PanelCarte extends JPanel implements ActionListener
     private Image      imageRedimensionnee;
    	private ImageIcon  iconeFinale;
     private JLabel     lblImage;
-	private JLabel     lblScore;
-	private JLabel     lblTour;
+	//private JLabel     lblScore;
     	
     private Image 	   imgFond;
     	
@@ -60,8 +59,7 @@ public class PanelCarte extends JPanel implements ActionListener
         this.lblImage = new JLabel("", JLabel.CENTER);
 		this.changerCarte();
 
-		this.lblTour = new JLabel("Tour : ");
-		this.lblScore = new JLabel("Score joueur : ");
+		//this.lblScore = new JLabel("Score joueur : " + this.ctrl.getScores());
 
 		try
         	{
@@ -73,15 +71,13 @@ public class PanelCarte extends JPanel implements ActionListener
 		    	this.policeBandeau            =  policeLbl.deriveFont(Font.BOLD, 18f);                // police du bandeau 	modifié en Gras + taille 18
 
             this.lblImage.setFont(policeBandeau);
-            lblTour.setFont(policeBandeau);
-			lblScore.setFont(policeBandeau);                                                    // police du bandeau changé
+			//lblScore.setFont(policeBandeau);                                                    // police du bandeau changé
 		}
 		// Si fichier non trouvé, la police est en SansSerif Gras par défaut
 		catch (Exception e)
 		{
             this.lblImage.setFont(new Font("SansSerif", Font.BOLD, 18));
-            lblTour      .setFont(new Font("SansSerif", Font.BOLD, 18));
-			lblScore     .setFont(new Font("SansSerif", Font.BOLD, 18));
+			//lblScore     .setFont(new Font("SansSerif", Font.BOLD, 18));
 		}
 		
 		/*-------------------------------*/
@@ -90,8 +86,7 @@ public class PanelCarte extends JPanel implements ActionListener
 		
 		panelAfficheCarte.add(this.lblImage);
 
-		panelAfficheScore.add(this.lblTour);
-		panelAfficheScore.add(this.lblScore);
+		//panelAfficheScore.add(this.lblScore);
 
 		this.add(this.btnChangerImage, BorderLayout.NORTH);
 		this.add(panelAfficheCarte   , BorderLayout.CENTER);
@@ -102,7 +97,7 @@ public class PanelCarte extends JPanel implements ActionListener
 		/* ----------------------------- */
 
 		this.btnChangerImage.addActionListener(this);
-    	}
+    }
 
     public void actionPerformed(ActionEvent e)
    	{
@@ -116,13 +111,13 @@ public class PanelCarte extends JPanel implements ActionListener
     	// Méthode permettant de simuler une pioche aléatoire et d'afficher les cartes de façon optimisé
     public void changerCarte ()
     {
-		System.out.println("Mario pizza");
+		//System.out.println("Mario pizza");
 		this.ctrl.piocherCarte();
 
         if (!this.btnChangerImage.isEnabled()) return;
 		
 		Carte carteAffiche = this.ctrl.getCartePioche();
-		System.out.println(carteAffiche.getRole());
+		//System.out.println(carteAffiche.getRole());
 
 		if(!carteAffiche.estFonce())
 		{

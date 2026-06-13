@@ -2,14 +2,9 @@ package ihm;
 
 import controleur.Controleur;
 
+import java.awt.*;
 import java.io.File;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.*;
 
 import javax.swing.*;
@@ -24,6 +19,8 @@ public class PanelScore extends JPanel implements ActionListener
 
     private JLabel      lblScore;
 
+    private Font        police;
+
     private JButton		btnRetour;
     private JButton		btnRejouer;
 
@@ -36,21 +33,39 @@ public class PanelScore extends JPanel implements ActionListener
 
         this.setLayout(new BorderLayout());
 
-        this.imgFond         = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
+        this.imgFond         = Toolkit.getDefaultToolkit().getImage("./images/img-score.png");
 
         /*-------------------------------*/
         /*   Création des composants     */
         /*-------------------------------*/
 
         JPanel pnlScore      = new JPanel();
-        pnlScore             .setLayout(new GridLayout(2, 1, 10, 10));
+        pnlScore             .setLayout(new GridLayout(2, 1, 30, 30));
         pnlScore             .setOpaque(false);
 
         JPanel pnlBouton     = new JPanel();
-        pnlBouton             .setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        pnlBouton             .setLayout(new FlowLayout(FlowLayout.CENTER, 30, 30));
         pnlBouton             .setOpaque(false);
 
-        this.lblScore        = new JLabel("Bravo ! Vous avez marqué " + this.ctrl.getScoreFinal() + "points !");
+        this.lblScore        = new JLabel("Bravo ! Vous avez marqué " + this.ctrl.getScoreFinal() + "points !", JLabel.CENTER);
+
+        // Essai pour initialiser les polices en prenant la police téléchargée dans le dossier polices/
+        try
+        {
+            File fichierTitre = new File("./polices/TitreSaisieInfos/Shrikhand-Regular.ttf");
+            Font policeLbl    = Font.createFont(Font.TRUETYPE_FONT, fichierTitre);   // crée la police
+
+            java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(policeLbl);   // enregistre la police dans le système Java
+
+            this.police       = policeLbl.deriveFont(Font.BOLD, 18f);                // police du bandeau 	modifié en Gras + taille 18
+
+            this.lblScore.setFont(this.police); // police changé
+        }
+        // Si fichier non trouvé, la police est en SansSerif Gras par défaut
+        catch (Exception e)
+        {
+            this.lblScore.setFont(new Font("SansSerif", Font.BOLD, 18));
+        }
 
         this.btnRetour       = new JButton("<< Retour à l'accueil");
         this.btnRetour       .setOpaque(false);
