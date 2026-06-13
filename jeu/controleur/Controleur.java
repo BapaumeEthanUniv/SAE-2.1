@@ -76,17 +76,22 @@ public class Controleur
 	public int[]              getScores()      {return this.metier.getScores();}
 	public int                getScoreFinal()  {return this.metier.getScoreFinal();}
 
-	// public void finDePartie(); //décomentez moi ça quand les méthodes sont créé dans les panels avec la ligne 104 de PlateauJeu
-	// {
-	// 	this.frameJeu.finDePartie(); 
-	// 	this.frameCarte.finDePartie();
-	// }
+	public void finDePartie()
+	{
+	    this.frameJeu.finDePartie();
+        this.frameCarte.finDePartie();
+	}
 
-	public boolean piocherCarte()             { return this.pioche.piocherCarte();}
+	public boolean piocherCarte()                    { return this.pioche.piocherCarte();}
 	public boolean ajouterChemin(int posX, int posY) {return this.metier.ajouterChemin(posX, posY, this.getCartePioche().getRole());}
-	public void nouvelleManche()                  {this.metier.nouvelleManche();}
+	public void    nouvelleManche()                  {this.metier.nouvelleManche();}
 	
 	public void majLblCasting()                { this.frameJeu.majLblCasting();}
+
+    public void cacherFrameCarte()
+    {
+        if (this.frameCarte != null) { this.frameCarte.setVisible(false); }
+    }
 	
 	public static void main (String[] args) { new Controleur(); } //Démarrage de l'application
 }
