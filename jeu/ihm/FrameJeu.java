@@ -2,6 +2,8 @@ package ihm;
 
 import controleur.Controleur;
 
+import java.io.File;
+
 import java.awt.BorderLayout;
 
 import javax.swing.*;
@@ -44,12 +46,16 @@ public class FrameJeu extends JFrame
 		this.revalidate();
 	}
 	
-	public void creerPanelJeu()
-	{
-		this.tabPanel[1] = new PanelJeu (ctrl, this, 1);
-	}
+	public void creerPanelJeu()   { this.tabPanel[1] = new PanelJeu   (ctrl, this, 1); }
+    public void creerPanelScore()
+    {
+        this.tabPanel[2] = new PanelScore (ctrl, this, 2);
+    }
 	
-	public JPanel getPnl(int i) { return this.tabPanel[i]; }
+	public JPanel getPnl(int indice) { return this.tabPanel[indice]; }
+    public File   getFichierPlateau(){ return ((PanelAccueilJeu) this.tabPanel[0]).getFichierPlateau(); }
 	
 	public void majLblCasting() { ((PanelJeu) this.tabPanel[1]).majLblCasting(); }
+
+    public void finDePartie() { ((PanelJeu) this.tabPanel[1]).finDePartie(); }
 }

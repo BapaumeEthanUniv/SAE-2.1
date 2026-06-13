@@ -44,7 +44,8 @@ public class PanelJeu extends JPanel implements ActionListener
 	private JPanel		 pnlPlateau;
 	private JPanel           pnlCentre;
 
-	private JLabel           lblMancheCoul;
+    private JLabel           lblManche;
+    private JLabel           lblMancheCoul;
 	
 	private Graphics         g;
 	
@@ -61,9 +62,9 @@ public class PanelJeu extends JPanel implements ActionListener
 		/*   Création des composants     */
 		/*-------------------------------*/
 		
-		this.ctrl 	        = ctrl;
-		this.frame 		= f;
-		this.indice 		= indice;
+		this.ctrl 	            = ctrl;
+		this.frame 		        = f;
+		this.indice 		    = indice;
 		
 		this.nbLigne            = this.ctrl.getNbLigne();
 		this.nbColonne          = this.ctrl.getNbColonne();
@@ -97,10 +98,10 @@ public class PanelJeu extends JPanel implements ActionListener
 		pnlBandeau              .setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		pnlBandeau              .setOpaque(false);
 		
-		this.lblMancheCoul      = new JLabel(ctrl.getManche().toString(), JLabel.CENTER);
+		this.lblMancheCoul      = new JLabel  (ctrl.getManche().toString(), JLabel.CENTER);
 		this.lblMancheCoul      .setForeground(ctrl.getManche().getCouleur());
 		
-		JLabel lblManche        = new JLabel("Casting : " , JLabel.CENTER);
+		this.lblManche        = new JLabel("Casting : " , JLabel.CENTER);
 		
 		
 		// Crée une ligne séparatrice à l'aide de JSeparator
@@ -110,7 +111,7 @@ public class PanelJeu extends JPanel implements ActionListener
 		
 		// Essai pour initialiser les polices en prenant la police téléchargée dans le dossier polices/
 		try
-        	{
+        {
 		    File fichierTitre              = new File("./polices/TitreSaisieInfos/Shrikhand-Regular.ttf");
 		    Font policeLbl                 = Font.createFont(Font.TRUETYPE_FONT, fichierTitre);   // crée la police
 		    
@@ -118,13 +119,13 @@ public class PanelJeu extends JPanel implements ActionListener
 
 		    this.policeBandeau             = policeLbl.deriveFont(Font.BOLD, 18f);                // police du bandeau 	modifié en Gras + taille 18
 
-		    lblManche.setFont(policeBandeau);  
+		    this.lblManche.setFont(policeBandeau);
 		    this.lblMancheCoul.setFont(policeBandeau); // police du bandeau changé
 		}
 		// Si fichier non trouvé, la police est en SansSerif Gras par défaut
 		catch (Exception e)
 		{
-		    lblManche.setFont(new Font("SansSerif", Font.BOLD, 18));
+		    this.lblManche.setFont(new Font("SansSerif", Font.BOLD, 18));
 		    this.lblMancheCoul.setFont(new Font("SansSerif", Font.BOLD, 18));
 		}
 		
@@ -132,7 +133,7 @@ public class PanelJeu extends JPanel implements ActionListener
 		for (int lig = 0; lig < this.nbLigne; lig++)
 		{
 			for (int col = 0; col < this.nbColonne; col++)
-		    	{
+            {
 				JPanel pnlCellule = new JPanel(new FlowLayout(FlowLayout.CENTER, 3, 3));
 				
 				Zone zoneCase = this.ctrl.getTabZone()[lig][col];
@@ -154,9 +155,9 @@ public class PanelJeu extends JPanel implements ActionListener
 
 					        if (ctrl.ajouterChemin(finalLig, finalCol))
 					        {
-							ctrl.changerCarte();
-							ctrl.majLblCasting();
-						}
+							    ctrl.changerCarte();
+							    ctrl.majLblCasting();
+						    }
 
 					        repaint();
 					}
@@ -166,29 +167,29 @@ public class PanelJeu extends JPanel implements ActionListener
 				
 				this.tabPnlCases[lig][col] = pnlCellule;
 				pnlPlateau.add(pnlCellule);
-		    	}
+            }
 		}
 		
 		// On affiche les images de chaque acteur dans lstActeurs et leur casting si il est un acteur principal
 		if (this.ctrl.getLstActeurs() != null)
 		{
 			for (Acteur acteur : this.ctrl.getLstActeurs()) 
-		    	{
-				int lig = acteur.getPosX();
-				int col = acteur.getPosY();
-				
-				JPanel pnlCellule = this.tabPnlCases[lig][col];
-				JLabel lblImage   = (JLabel) pnlCellule.getComponent(0); 
-				
-				ImageIcon imgRole = this.creerImgRole(acteur.getRole());
-				lblImage.setIcon(imgRole);
-				
-				if (acteur.estPrincipal()) 
-				{
-				    //lblImage.setBackground(acteur.getCouleur());
-				    lblImage.setOpaque(false);
-				}
-		    	}
+            {
+                    int lig = acteur.getPosX();
+                    int col = acteur.getPosY();
+
+                    JPanel pnlCellule = this.tabPnlCases[lig][col];
+                    JLabel lblImage   = (JLabel) pnlCellule.getComponent(0);
+
+                    ImageIcon imgRole = this.creerImgRole(acteur.getRole());
+                    lblImage.setIcon(imgRole);
+
+                    if (acteur.estPrincipal())
+                    {
+                        //lblImage.setBackground(acteur.getCouleur());
+                        lblImage.setOpaque(false);
+                    }
+            }
 		}
 		
 		this.btnScore = new JButton("Voir les Scores >>");
@@ -225,9 +226,19 @@ public class PanelJeu extends JPanel implements ActionListener
 	{
 		if ( e.getSource() == this.btnScore )
 		{
-			this.frame.setPnl(this.frame.getPnl(indice + 1));
+            this.ctrl.cacherFrameCarte();
+            this.frame.creerPanelScore();
+            this.frame.setPnl(this.frame.getPnl(this.indice + 1));
 		}
 	}
+
+    public void finDePartie()
+    {
+        this.lblManche.setText("Fin de la Partie !");
+
+        this.lblMancheCoul.setText("");
+        this.btnScore.setEnabled(true); // On débloque le bouton !
+    }
 	
 	// Méthode qui surcharge paint() pour dessiner après que les cases aient été posées
 	public void paint(Graphics g) 
@@ -411,7 +422,9 @@ public class PanelJeu extends JPanel implements ActionListener
 	
 	public void majLblCasting()
 	{
-		this.lblMancheCoul.setText      (ctrl.getManche().toString()  );
+        if (this.btnScore.isEnabled()) return;
+
+        this.lblMancheCoul.setText      (ctrl.getManche().toString()  );
 		this.lblMancheCoul.setForeground(ctrl.getManche().getCouleur());
 	}
 }

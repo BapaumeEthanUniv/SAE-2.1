@@ -19,24 +19,23 @@ public class PanelCarte extends JPanel implements ActionListener
 
 	private ImageIcon  imgPersonnage;
    	private JButton    btnChangerImage;
-    	private Image      imageRedimensionnee;
+    private Image      imageRedimensionnee;
    	private ImageIcon  iconeFinale;
-    	private JLabel     lblImage;
+    private JLabel     lblImage;
 	private JLabel     lblScore;
 	private JLabel     lblTour;
     	
-    	private Image 	   imgFond;
+    private Image 	   imgFond;
     	
    	private int        nomImage;
-    	private int        largeurImage;
-    	private int        hauteurImage;
+    private int        largeurImage;
+    private int        hauteurImage;
 
 	private Font       policeBandeau;
 
-    	public PanelCarte(Controleur ctrl)
-    	{
+    public PanelCarte(Controleur ctrl)
+    {
 		this.ctrl = ctrl;
-
 		
 		this.setLayout(new BorderLayout());
 
@@ -53,13 +52,13 @@ public class PanelCarte extends JPanel implements ActionListener
 		this.nomImage            = (int)(Math.random() * 10) + 1;
 		this.largeurImage        = 250;
 		this.hauteurImage        = 350;
-		
-		this.lblImage = new JLabel("", JLabel.CENTER);
+
+        this.imgFond             = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
+
+        this.btnChangerImage     = new JButton("Passer le Tour");
+
+        this.lblImage = new JLabel("", JLabel.CENTER);
 		this.changerCarte();
-
-		this.imgFond             = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
-
-		this.btnChangerImage     = new JButton("Passer le Tour");
 
 		this.lblTour = new JLabel("Tour : ");
 		this.lblScore = new JLabel("Score joueur : ");
@@ -72,15 +71,17 @@ public class PanelCarte extends JPanel implements ActionListener
 		   	 java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(policeLbl);   // enregistre la police dans le système Java
 
 		    	this.policeBandeau            =  policeLbl.deriveFont(Font.BOLD, 18f);                // police du bandeau 	modifié en Gras + taille 18
- 
-			lblTour.setFont(policeBandeau);
+
+            this.lblImage.setFont(policeBandeau);
+            lblTour.setFont(policeBandeau);
 			lblScore.setFont(policeBandeau);                                                    // police du bandeau changé
 		}
 		// Si fichier non trouvé, la police est en SansSerif Gras par défaut
 		catch (Exception e)
 		{
-		    	lblTour  .setFont(new Font("SansSerif", Font.BOLD, 18));
-			lblScore .setFont(new Font("SansSerif", Font.BOLD, 18));
+            this.lblImage.setFont(new Font("SansSerif", Font.BOLD, 18));
+            lblTour      .setFont(new Font("SansSerif", Font.BOLD, 18));
+			lblScore     .setFont(new Font("SansSerif", Font.BOLD, 18));
 		}
 		
 		/*-------------------------------*/
@@ -103,23 +104,26 @@ public class PanelCarte extends JPanel implements ActionListener
 		this.btnChangerImage.addActionListener(this);
     	}
 
-    	public void actionPerformed(ActionEvent e)
+    public void actionPerformed(ActionEvent e)
    	{
 		if (e.getSource() == this.btnChangerImage)
 		{	
 			this.changerCarte();
 			this.ctrl.majLblCasting();
 		}
-    	}
+    }
     	
     	// Méthode permettant de simuler une pioche aléatoire et d'afficher les cartes de façon optimisé
-    	public void changerCarte ()
-    	{
+    public void changerCarte ()
+    {
 		System.out.println("Mario pizza");
 		this.ctrl.piocherCarte();
+
+        if (!this.btnChangerImage.isEnabled()) return;
 		
 		Carte carteAffiche = this.ctrl.getCartePioche();
 		System.out.println(carteAffiche.getRole());
+
 		if(!carteAffiche.estFonce())
 		{
 			switch (carteAffiche.getRole()) 
@@ -148,9 +152,16 @@ public class PanelCarte extends JPanel implements ActionListener
 		    .getScaledInstance(this.largeurImage, this.hauteurImage, Image.SCALE_SMOOTH);    
 		this.iconeFinale         = new ImageIcon(this.imageRedimensionnee);
 		this.lblImage.setIcon(this.iconeFinale);
-    	}
+    }
+
+    public void finDePartie()
+    {
+        this.btnChangerImage.setEnabled(false);
+        this.lblImage.setIcon(null);
+        this.lblImage.setText("Fin de la Partie !");
+    }
     	
-    	// Méthode permettant de changer le fond du panel par imgFond + dessiner les liens sur le plateau
+    // Méthode permettant de changer le fond du panel par imgFond + dessiner les liens sur le plateau
 	protected void paintComponent(Graphics g) 
 	{
 		super.paintComponent(g);

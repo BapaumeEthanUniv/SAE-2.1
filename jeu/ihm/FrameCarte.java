@@ -26,4 +26,6 @@ public class FrameCarte extends JFrame
 	{
 		this.panelCarte.changerCarte();
 	}
+
+    public void finDePartie()  { this.panelCarte.finDePartie();}
 }

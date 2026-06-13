@@ -14,9 +14,10 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 {
 	private Controleur 	ctrl;
 	private FrameJeu 	frame;
-	private int		indice;
+	private int		    indice;
 	
 	private Image 		imgFond;
+    private File        fichierPlateau;
 	
 	private JButton		btnCharger;
 	private JButton		btnJouer;
@@ -24,14 +25,15 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 	// Constructeur
 	public PanelAccueilJeu (Controleur ctrl, FrameJeu f, int indice)
 	{
-		this.ctrl 		= ctrl;
-		this.frame 		= f;
-		this.indice 		= indice;
+		this.ctrl 		     = ctrl;
+		this.frame 		     = f;
+		this.indice 		 = indice;
 	
 		this.setLayout(new GridLayout(12,1));
 		
-		this.imgFond      = Toolkit.getDefaultToolkit().getImage("./images/img-accueil-jeu.png");
-		
+		this.imgFond         = Toolkit.getDefaultToolkit().getImage("./images/img-accueil-jeu.png");
+		this.fichierPlateau  = new File("../creation/Plateau/");
+
 		/*-------------------------------*/
 		/*   Création des composants     */
 		/*-------------------------------*/
@@ -74,8 +76,7 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 		
 		this.setVisible(true);
 	}
-	
-	// interactivitée du panel
+
 	public void actionPerformed ( ActionEvent e )
 	{
 		if ( e.getSource() == this.btnCharger )
@@ -87,9 +88,9 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 			
 			if (res == JFileChooser.APPROVE_OPTION) // lecture des fichiers du dossier choisie
 			{
-				File fichier = fcRepertoire.getSelectedFile();
+				this.fichierPlateau = fcRepertoire.getSelectedFile();
 				
-				this.ctrl.initPlateau(fichier);
+				this.ctrl.initPlateau(fichierPlateau);
 				
 				this.frame.creerPanelJeu();
 				
@@ -101,10 +102,13 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 		{
 			this.ctrl.creerFrameCarte();
 			this.frame.setPnl(this.frame.getPnl(this.indice + 1));
+            this.btnJouer.setEnabled(false);
 		}
 	}
+
+    public File getFichierPlateau() {return this.fichierPlateau; }
 	
-	// Chargement de l'image de fin
+	// Chargement de l'image de l'accueil
 	protected void paintComponent(Graphics g) 
 	{
 		super.paintComponent(g);
