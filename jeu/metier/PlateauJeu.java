@@ -38,7 +38,9 @@ public class PlateauJeu
 
 	public PlateauJeu(File filePlateau, Controleur ctrl)
 	{
-		this.importActeur (filePlateau);
+        this.ctrl = ctrl;
+
+        this.importActeur (filePlateau);
 		this.importCasting(filePlateau);
 		this.importPlateau(filePlateau);
 		this.importZone   (filePlateau);
@@ -100,11 +102,10 @@ public class PlateauJeu
 			this.idManche++;
 		}
 		else
-		{
-			//this.ctrl.finDePartie(); //ligne 104 au cas ou si ça change
-		}
-
-		this.calculerScore();
+        {
+            this.calculerScore();
+            this.ctrl.finDePartie();
+        }
 	}
 
 	public Acteur getActeur(int posX, int posY)
