@@ -56,6 +56,28 @@ public class Controleur
 		
 	}
 
+	//Getters
+	public int                getNbLigne     () { return this.metier.getNbLigne();      }
+	public int                getNbColonne   () { return this.metier.getNbColonne();    }
+	public int                getTailleCase  () { return this.metier.getTailleCase();   }
+	public ArrayList<Casting> getLstCasting  () { return this.metier.getLstCasting();   }
+	public Zone[][]           getTabZone     () { return this.metier.getTabZone();      }
+	public ArrayList<Acteur>  getLstActeurs  () { return this.metier.getLstActeurs();   }
+	public ArrayList<Role>    getLstRole     () { return this.metier.getLstRole();      }
+	public Carte              getCartePioche () { return this.pioche.getCarte();        }
+	public Chemin[]           getTabChemin   () { return this.metier.getTabChemin();    }
+	public Casting            getManche      () { return this.metier.getManche();       }
+	public int                getIdManche    () { return this.metier.getIdManche();     }
+	public void               changerCarte   () { this.frameCarte.changerCarte();       }
+	public int                getNbCarteFonce() { return this.pioche.getNbCarteFonce(); }
+	public int[]              getScores      () { return this.metier.getScores();       }
+	public int                getScoreFinal  () { return this.metier.getScoreFinal();   }
+
+
+    /* --------------------------*/
+    /*    Méthodes utilitaires   */
+    /* --------------------------*/
+
     // Méthode permettant de bouger les fenêtres l'une à côté de l'autre avec un espace de 50px
     public void moveFrame(String orig)
     {
@@ -83,32 +105,19 @@ public class Controleur
     }
 
     // Méthode permettant d'initialiser le plateau, en prenant en paramètre le répertoire du plateau
-	public void initPlateau(File filePlateau) 
-	{ 
-		this.metier = new PlateauJeu(filePlateau, this);
-		this.pioche = new Pioche    (this.getLstRole(),this);	
-	}
+    public void initPlateau(File filePlateau)
+    {
+        this.metier = new PlateauJeu(filePlateau, this);
+        this.pioche = new Pioche    (this.getLstRole(),this);
+    }
 
     // Méthode permettant de créer la FrameCarte lorsqu'on a appuyé sur le bouton Jouer
-	public void creerFrameCarte ()            { frameCarte = new FrameCarte(this); this.frameCarte.setSize(lCarte, h); this.frameCarte.setLocation(xCarte,yCarte); }
-
-	//Getters
-	public int                getNbLigne()     {return this.metier.getNbLigne();}
-	public int                getNbColonne()   {return this.metier.getNbColonne();}
-	public int                getTailleCase()  {return this.metier.getTailleCase();}
-	public ArrayList<Casting> getLstCasting()  {return this.metier.getLstCasting();}
-	public Zone[][]           getTabZone()     {return this.metier.getTabZone();}
-	//public Casting[][]        getTabArete()  {return this.metier.getTabArrete();}
-	public ArrayList<Acteur>  getLstActeurs()  {return this.metier.getLstActeurs();}
-	public ArrayList<Role>    getLstRole()     {return this.metier.getLstRole();}
-	public Carte              getCartePioche() {return this.pioche.getCarte();}
-	public Chemin[]           getTabChemin()   {return this.metier.getTabChemin();}
-	public Casting            getManche()      {return this.metier.getManche();}
-	public int                getIdManche()    {return this.metier.getIdManche();}
-	public void               changerCarte()   {this.frameCarte.changerCarte();}
-	public int                getNbCarteFonce(){return this.pioche.getNbCarteFonce();}
-	public int[]              getScores()      {return this.metier.getScores();}
-	public int                getScoreFinal()  {return this.metier.getScoreFinal();}
+    public void creerFrameCarte ()
+    {
+        frameCarte = new FrameCarte(this);
+        this.frameCarte.setSize(lCarte, h);
+        this.frameCarte.setLocation(xCarte,yCarte);
+    }
 
     // Méthode permettant de signaler à l'IHM que le jeu est terminé en appelant les méthodes finDePartie() des frames
 	public void finDePartie()
@@ -118,22 +127,26 @@ public class Controleur
 	}
 
     // Méthode permettant de piocher une carte en appelant la méthode piocherCarte() de la classe Pioche
-	public boolean piocherCarte()                    { return this.pioche.piocherCarte();}
+	public boolean piocherCarte()                    { return this.pioche.piocherCarte(); }
 
     // Méthode permettant d'ajouter un chemin en appelant la méthode ajouterChemin() du Métier
-	public boolean ajouterChemin(int posX, int posY) {return this.metier.ajouterChemin(posX, posY, this.getCartePioche().getRole());}
+	public boolean ajouterChemin(int posX, int posY) { return this.metier.ajouterChemin(posX, posY, this.getCartePioche().getRole()); }
 
     // Méthode permettant de signaler à l'IHM qu'une nouvelle manche commence en appelant la méthode nouvelleManche() du Métier
-	public void    nouvelleManche()                  {this.metier.nouvelleManche();}
+	public void    nouvelleManche()                  { this.metier.nouvelleManche(); }
 
-    // Méthode permettant de mettre à jour le JLabel affichant le Casting actif et informer le Métier du Casting actif
-	public void majLblCasting()                { this.frameJeu.majLblCasting();}
+    // Méthode permettant de mettre à jour le JLabel affichant le Casting actif
+	public void    majLblCasting()                   { this.frameJeu.majLblCasting(); }
 
     // Méthode permettant de cacher la frameCarte lorsqu'on se trouve sur le panel des scores
-    public void cacherFrameCarte()
+    public void    cacherFrameCarte()
     {
-        if (this.frameCarte != null) { this.frameCarte.setVisible(false); }
+        if (this.frameCarte != null)
+        {
+            this.frameCarte.setVisible(false);
+        }
     }
-	
+
+
 	public static void main (String[] args) { new Controleur(); } // Démarrage de l'application
 }
