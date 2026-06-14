@@ -1,3 +1,7 @@
+/*-----------------------------------------*/
+/* Classe métier principale du Jeu         */
+/*-----------------------------------------*/
+
 package metier;
 
 import java.util.ArrayList;
@@ -9,75 +13,69 @@ import controleur.Controleur;
 
 public class PlateauJeu 
 {
-	private int                nbLigne;
-	private int                nbColonne;
+	//Attributs
+	private int                nbLigne;       //Nombre de lignes du plateau
+	private int                nbColonne;     //Nombre de colonnes du plateau
 	
-	private ArrayList<Casting> lstCasting;
+	private ArrayList<Casting> lstCasting;    //Liste des castings (manches) de la partie
 
-	private int                idManche;
+	private int                idManche;      //Index de la manche en cours
 
-	private ArrayList<Role>    lstRole;
+	private ArrayList<Role>    lstRole;       //Liste des rôles (type de symboles) présents sur le plateau
 
-	private Casting            manche;
+	private Casting            manche;        //Couleur de la manche actuelle
 
-	private Chemin[]           tabChemin;
+	private Chemin[]           tabChemin;     //Ensemble des chemins sur le plateau
 
-	private Zone[][]           tabZone;
+	private Zone[][]           tabZone;       //Ensemble des zones du plateau
 
-	private boolean[][]        tabArete;
+	private boolean[][]        tabArete;      //True si une arrête déjà traversé est sur la coordonnée
 	
-	private boolean[][]        tabAretePoint;
+	private boolean[][]        tabAretePoint; //Même chose que tabArete mais pour les points de la grille
 
-	private int                tailleCase;
+	private int                tailleCase;    //Taille des case du plateau
 
-	private ArrayList<Acteur>  lstActeurs;
+	private ArrayList<Acteur>  lstActeurs;    //Liste acteurs (symbole) placés sur le plateau
 
-	private int[]              scores;
+	private int[]              scores;        //Score de chaque manche
 
-	private Controleur ctrl;
+	private Controleur         ctrl;          //Controleur
 
+	//Constructeur
 	public PlateauJeu(File filePlateau, Controleur ctrl)
 	{
-        this.ctrl = ctrl;
+		this.ctrl = ctrl;
 
-        this.importActeur (filePlateau);
+		//Importe les attributs du plateau en utilisant les données sauvegardées
+		this.importActeur (filePlateau);
 		this.importCasting(filePlateau);
 		this.importPlateau(filePlateau);
 		this.importZone   (filePlateau);
 
 		this.tabArete      = new boolean[this.nbLigne]    [this.nbColonne];
 		this.tabAretePoint = new boolean[this.nbLigne - 1][this.nbColonne - 1];
-		this.scores        = new int[this.lstCasting.size()];
+		this.scores        = new int    [this.lstCasting.size()];
+		this.tabChemin     = new Chemin [this.lstCasting.size()];
 
-		this.tabChemin     = new Chemin[this.lstCasting.size()];
-
-		this.majVoisin();
-		this.nouvelleManche();
+		this.majVoisin();      //Permet l'affichage des arrêtes
+		this.nouvelleManche(); //Commence la première manche
 	}
 
-	public int                getNbLigne()        {return nbLigne;}
+	//Getter
+	public int                getNbLigne()        {return this.nbLigne;}
+	public int                getNbColonne()      {return this.nbColonne;}
+	public int                getTailleCase()     {return this.tailleCase;}
+	public ArrayList<Casting> getLstCasting()     {return this.lstCasting;}
+	public Zone[][]           getTabZone()        {return this.tabZone;}
+	public boolean[][]        getTabArete()       {return this.tabArete;}
+	public boolean[][]        getTabAretePoint()  {return this.tabAretePoint;}
+	public ArrayList<Acteur>  getLstActeurs()     {return this.lstActeurs;}
+	public Casting            getManche()         {return this.manche;}
+	public ArrayList<Role>    getLstRole()        {return this.lstRole;}
+	public int[]              getScores()         {return this.scores;}
 
-	public int                getNbColonne()      {return nbColonne;}
-
-	public int                getTailleCase()     {return tailleCase;}
-
-	public ArrayList<Casting> getLstCasting()     {return lstCasting;}
-
-	public Zone[][]           getTabZone()        {return tabZone;}
-
-	public boolean[][]        getTabArete()      {return tabArete;}
-
-	public boolean[][]        getTabAretePoint() {return tabAretePoint;}
-
-	public ArrayList<Acteur>  getLstActeurs()     {return lstActeurs;}
-
-	public Casting            getManche()         {return manche;}
-
-	public ArrayList<Role>    getLstRole()        {return lstRole;}
-
-	public int[]              getScores()         {return scores;}
-
-	public int                getScoreFinal()
+	//retourne le score final
+	public int                getScoreFinal() 
 	{
 		int somme = 0;
 
@@ -87,28 +85,11 @@ public class PlateauJeu
 		return somme;
 	}
 
-	public int                getIdManche()       {return idManche;}
-
+	public int                getIdManche()       {return this.idManche;}
 	public Chemin[]           getTabChemin()      {return this.tabChemin;}
 
-	public void nouvelleManche()
-	{
-		if (this.idManche > 0)
-			this.calculerScore();
-
-		if (this.idManche < this.lstCasting.size())
-		{
-			//System.out.println(lstCasting);
-			//System.out.println(this.lstCasting.get(this.idManche).getLibelle());
-			this.manche      = this.lstCasting.get(this.idManche);
-			this.tabChemin[this.idManche] = new Chemin(manche, this);
-			this.idManche++;
-		}
-		else
-			this.ctrl.finDePartie();
-	}
-
-	public Acteur getActeur(int posX, int posY)
+	//Retourne un acteur en prenant sa position sur la plateau
+	public Acteur             getActeur(int posX, int posY)
 	{
 		for (Acteur acteur : this.lstActeurs)
 		{
@@ -120,12 +101,41 @@ public class PlateauJeu
 		return null; // Il n'y a pas d'acteur ici
 	}
 
+	//Retourne l'acteur principal pour la couleur donnée
+	public Acteur            getPrincipal(Casting casting)
+	{
+		for (Acteur acteur : lstActeurs)
+		{
+			if (acteur.estPrincipal() && acteur.getCouleur().equals(casting.getCouleur()))
+				return acteur;
+		}
+		return null;
+	}
+
+	//Passe à la manche suivante
+	public void nouvelleManche()
+	{
+		if (this.idManche > 0)
+			this.calculerScore(); //Calcule le score après chaque fin de manche
+
+		if (this.idManche < this.lstCasting.size())
+		{
+			this.manche                   = this.lstCasting.get(this.idManche);
+			this.tabChemin[this.idManche] = new Chemin(manche, this);
+			this.idManche++;
+		}
+		else
+			this.ctrl.finDePartie(); //Fini la partie si toute les manches ont été faites
+	}
+
+	//Permet à chaque acteur d'identifier ses voisins
 	public void majVoisin()
 	{
 		for (Acteur acteur : lstActeurs)
 			acteur.majVoisins(lstActeurs);
 	}
 
+	//Définit un acteur comme acteur principal (point de départ)
 	public boolean setPrincipal(Color c, int posX, int posY)
 	{
 		for (Acteur acteur : lstActeurs)
@@ -140,6 +150,11 @@ public class PlateauJeu
 		return false;
 	}
 
+	/*---------------------------*/
+	/* Méthodes d'import         */
+	/*---------------------------*/
+
+	//Ajoute les acteurs sur le plateau
 	public boolean importActeur(File filePlateau)
 	{
 		FileReader fr;
@@ -177,6 +192,7 @@ public class PlateauJeu
 		return true;
 	}
 
+	//Définit la liste des manches et la position des points de départ
 	public boolean importCasting(File filePlateau)
 	{
 		FileReader fr;
@@ -212,6 +228,7 @@ public class PlateauJeu
 		return true;
 	}
 
+	//Définit la taille du plateau et des cases
 	public boolean importPlateau(File filePlateau)
 	{
 		FileReader fr;
@@ -233,6 +250,7 @@ public class PlateauJeu
 		return true;
 	}
 
+	//Définit la liste des zones, leur couleur et leur position
 	public boolean importZone(File filePlateau)
 	{
 		FileReader fr;
@@ -279,14 +297,11 @@ public class PlateauJeu
 			}
 			sc.close();
 		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-			return false;
-		}
+		catch (Exception e){return false;}
 		return true;
 	}
 
+	//Ajoute les arrêtes dans tabArrete quand un chemin est dessiné
 	public void ajouterArete(Acteur ActeurDepart, Acteur ActeurArrive)
 	{
 		int deltaY = Integer.compare(ActeurArrive.getPosY(), ActeurDepart.getPosY());
@@ -315,35 +330,12 @@ public class PlateauJeu
 			if (x != ActeurArrive.getPosX() || y != ActeurArrive.getPosY())
 				this.tabArete[x][y] = true;
 		}
-		ActeurDepart.supprimerVoisin(ActeurArrive);
+		ActeurDepart.supprimerVoisin(ActeurArrive); //Lorqu'une arrête est dessiner entre deux symboles, ils ne sont plus considérés comme voisin
 	}
 
 	//Vérifie si des arrêtes déjà remplis se trouve entre deux acteurs
 	public boolean entreDeux(Acteur acteurDepart, Acteur acteurArrive)
 	{
-		/*System.out.println("TabArrete :");
-		for (int lig = 0; lig < this.tabArete.length; lig ++)
-		{
-			for (int col = 0; col < this.tabArete[lig].length; col ++)
-				if (tabArete[lig][col])
-					System.out.print(1);
-				else
-					System.out.print(0);
-			System.out.println();
-		}
-
-		System.out.println("TabArretePoint :");
-		for (int lig = 0; lig < this.tabAretePoint.length; lig ++)
-		{
-			for (int col = 0; col < this.tabAretePoint[lig].length; col ++)
-				if (tabAretePoint[lig][col])
-					System.out.print(1);
-				else
-					System.out.print(0);
-			System.out.println();
-		}*/
-
-
 		int deltaY = Integer.compare(acteurArrive.getPosY(), acteurDepart.getPosY());
 		int deltaX = Integer.compare(acteurArrive.getPosX(), acteurDepart.getPosX());
 		
@@ -374,22 +366,13 @@ public class PlateauJeu
 		return false;
 	}
 
-	public Acteur getPrincipal(Casting casting)
-	{
-		for (Acteur acteur : lstActeurs)
-		{
-			if (acteur.estPrincipal() && acteur.getCouleur().equals(casting.getCouleur()))
-				return acteur;
-		}
-		return null;
-	}
-
+	//Appel de la méthode ajouterChemin du chemin actif
 	public boolean ajouterChemin(int posX, int posY, Role rolePioche) 
 	{
-		//System.out.println(this.tabChemin[this.idManche - 1].getCouleur().getLibelle() + " " + (this.idManche - 1));
 		return this.tabChemin[this.idManche - 1].ajouterChemin(this.getActeur(posX, posY), this.lstActeurs, rolePioche);
 	}
 
+	//Calcul des scores de la manche actuelle
 	public void calculerScore()
 	{
 		ArrayList<Integer> nbActeurs     = new ArrayList<Integer>(); //Nombre d'acteurs dans chaque zone
