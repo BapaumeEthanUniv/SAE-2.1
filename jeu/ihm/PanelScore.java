@@ -2,9 +2,9 @@ package ihm;
 
 import controleur.Controleur;
 
-import java.awt.*;
 import java.io.File;
 
+import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
@@ -15,11 +15,11 @@ public class PanelScore extends JPanel implements ActionListener
     private FrameJeu 	frame;
     private int		    indice;
 
-    private Image 		imgFond;
+    private Image 		imgFond;     // Permet de stocker une img de fond pour l'appliquer au panel
 
     private JLabel      lblScore;
 
-    private Font        police;
+    private Font        police;      // Permet d'appliquer une police spéciale aux JLabel
 
     private JButton		btnRetour;
     private JButton		btnRejouer;
@@ -39,13 +39,15 @@ public class PanelScore extends JPanel implements ActionListener
         /*   Création des composants     */
         /*-------------------------------*/
 
+        // Panel qui contiendra le JLabel du score
         JPanel pnlScore      = new JPanel();
         pnlScore             .setLayout(new GridLayout(2, 1, 30, 30));
         pnlScore             .setOpaque(false);
 
+        // Panel qui contiendra les deux boutons
         JPanel pnlBouton     = new JPanel();
-        pnlBouton             .setLayout(new FlowLayout(FlowLayout.CENTER, 30, 30));
-        pnlBouton             .setOpaque(false);
+        pnlBouton            .setLayout(new FlowLayout(FlowLayout.CENTER, 30, 30));
+        pnlBouton            .setOpaque(false);
 
         this.lblScore        = new JLabel("Bravo ! Vous avez marqué " + this.ctrl.getScoreFinal() + "points !", JLabel.CENTER);
 
@@ -99,21 +101,26 @@ public class PanelScore extends JPanel implements ActionListener
     {
         if ( e.getSource() == this.btnRetour )
         {
-            this.frame.setPnl(this.frame.getPnl(0));
+            this.frame.setPnl(this.frame.getPnl(0));                // On retourne au premier panel (PanelAccueilJeu)
         }
 
         if ( e.getSource() == this.btnRejouer   )
         {
-            this.ctrl.initPlateau(this.frame.getFichierPlateau());
+            this.ctrl .initPlateau(this.frame.getFichierPlateau());        // On réinitialise le plateau
 
-            this.frame.creerPanelJeu();
-            this.ctrl.creerFrameCarte();
+            this.frame.creerPanelJeu();                                   // On recrée le panel du Jeu
+            this.ctrl .creerFrameCarte();                                  // On recrée le panel de Pioche
 
-            this.frame.setPnl(this.frame.getPnl(this.indice - 1));
+            this.frame.setPnl(this.frame.getPnl(this.indice - 1));  // On revient au panel précédent (PanelJeu)
         }
     }
 
-    // Chargement de l'image de fin
+
+    /* --------------------------*/
+    /*    Méthodes utilitaires   */
+    /* --------------------------*/
+
+    // Méthode permettant de dessiner l'image de fond du panel
     protected void paintComponent(Graphics g)
     {
         super.paintComponent(g);

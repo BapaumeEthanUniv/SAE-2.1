@@ -5,6 +5,7 @@ import controleur.Controleur;
 import java.io.File;
 
 import java.awt.BorderLayout;
+import java.awt.event.ComponentAdapter;
 
 import javax.swing.*;
 
@@ -68,8 +69,8 @@ public class FrameJeu extends JFrame
     // Méthode permettant de signaler au PanelJeu que la partie est terminée
     public void finDePartie() { ((PanelJeu) this.tabPanel[1]).finDePartie(); }
 
-    // Méthode permettant de gérer le déplacement des fenêtres
-    private class GereDeplacerFrame extends java.awt.event.ComponentAdapter
+    // Classe interne permettant de gérer le déplacement des fenêtres
+    private class GereDeplacerFrame extends ComponentAdapter
     {
         public void componentMoved(java.awt.event.ComponentEvent e)
         {

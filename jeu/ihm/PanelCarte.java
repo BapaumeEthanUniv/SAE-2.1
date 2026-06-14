@@ -31,6 +31,7 @@ public class PanelCarte extends JPanel implements ActionListener
 
 	private Font       police;              // Permet d'appliquer une police spéciale aux JLabel
 
+    // Constructeur
     public PanelCarte(Controleur ctrl)
     {
 		this.ctrl = ctrl;
@@ -40,7 +41,8 @@ public class PanelCarte extends JPanel implements ActionListener
 		/*-------------------------------*/
 		/*   Création des composants     */
 		/*-------------------------------*/
-		
+
+        // Panel qui contiendra l'image de la carte (dans lblImage)
 		JPanel panelAfficheCarte = new JPanel(new GridLayout());
 		panelAfficheCarte.setOpaque(false);
 		
@@ -97,6 +99,10 @@ public class PanelCarte extends JPanel implements ActionListener
 			this.ctrl.majLblCasting();
 		}
     }
+
+    /* --------------------------*/
+    /*    Méthodes utilitaires   */
+    /* --------------------------*/
     	
     // Méthode permettant de simuler une pioche aléatoire et d'afficher les cartes de façon optimisé
     public void changerCarte ()

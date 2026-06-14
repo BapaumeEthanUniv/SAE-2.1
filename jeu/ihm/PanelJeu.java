@@ -142,22 +142,22 @@ public class PanelJeu extends JPanel implements ActionListener
 			for (int col = 0; col < this.nbColonne; col++)
             {
 				JPanel pnlCellule = new JPanel(new FlowLayout(FlowLayout.CENTER, 3, 3));
-                pnlCellule.setPreferredSize(new Dimension(this.tailleCase, this.tailleCase));                    // On donne une taille au pnlCellule avec l'attribut tailleCase
+                pnlCellule        .setPreferredSize(new Dimension(this.tailleCase, this.tailleCase));                    // On donne une taille au pnlCellule avec l'attribut tailleCase
 
-				Zone zoneCase = this.ctrl.getTabZone()[lig][col];                                                // On récupère la Zone du tableau de Zone du métier au coordonées lig col
+				Zone zoneCase     = this.ctrl.getTabZone()[lig][col];                                                // On récupère la Zone du tableau de Zone du métier au coordonées lig col
 				if (zoneCase != null) { pnlCellule.setBackground(zoneCase.getCouleurAwt()); } 			         // Si la zone est coloriée, le pnlCellule prend la couleur de la Zone
 				else                  { pnlCellule.setBackground(Color.WHITE); }                                 // Sinon, le pnlCellule prend la couleur par défaut (blanc)
 
-				JLabel lblImage = new JLabel();
-				lblImage.setPreferredSize(new Dimension(this.tailleCase - 6, this.tailleCase - 6)); // On ajuste la taille du lblImage en fonction de l'attribut tailleCase et ajustement personnel
-				lblImage.setOpaque(false);                                                                       // Transparent par défaut
+				JLabel lblImage   = new JLabel();
+				lblImage          .setPreferredSize(new Dimension(this.tailleCase - 6, this.tailleCase - 6)); // On ajuste la taille du lblImage en fonction de l'attribut tailleCase et ajustement personnel
+				lblImage          .setOpaque(false);                                                                       // Transparent par défaut
 
-				pnlCellule.add(lblImage);
+				pnlCellule        .add(lblImage);
 				
 				this.tabPnlCases[lig][col] = pnlCellule;                                                         // On ajoute pnlCellule au tableau de JPanel
-				pnlPlateau.add(pnlCellule);                                                                      // Le panel qui affichera le plateau ajoute le pnlCellule
+				pnlPlateau        .add(pnlCellule);                                                                      // Le panel qui affichera le plateau ajoute le pnlCellule
 
-                pnlCellule.addMouseListener(new GereSouris(lig, col));
+                pnlCellule        .addMouseListener(new GereSouris(lig, col));
             }
 		}
 		
@@ -170,7 +170,7 @@ public class PanelJeu extends JPanel implements ActionListener
                     int col = acteur.getPosY();
 
                     JPanel pnlCellule = this.tabPnlCases[lig][col];              // On récupère le JPanel dans le tableau de JPanel
-                    JLabel lblImage   = (JLabel) pnlCellule.getComponent(0);  // On récupère le JLabel contenant l'image dans pnlCellule
+                    JLabel lblImage   = (JLabel) pnlCellule.getComponent(0);     // On récupère le JLabel contenant l'image dans pnlCellule
 
                     ImageIcon imgRole = this.creerImgRole(acteur.getRole());     // On stocke l'image liée au Role de l'acteur grâce à la méthode creerImgRole()
                     lblImage.setIcon(imgRole);                                   // On change l'image par celle stockée au-dessus
@@ -194,8 +194,8 @@ public class PanelJeu extends JPanel implements ActionListener
 		pnlBandeau.add(lblManche);
 		pnlBandeau.add(lblMancheCoul);
 		
-		pnlHaut.add(pnlBandeau, BorderLayout.CENTER);
-		pnlHaut.add(separateur, BorderLayout.SOUTH );
+		pnlHaut.add(pnlBandeau  , BorderLayout.CENTER);
+		pnlHaut.add(separateur  , BorderLayout.SOUTH );
 		
 		pnlCentre.add(pnlPlateau, BorderLayout.CENTER);
 		
@@ -217,18 +217,23 @@ public class PanelJeu extends JPanel implements ActionListener
 	{
 		if ( e.getSource() == this.btnScore )
 		{
-            this.ctrl.cacherFrameCarte();
+            this.ctrl .cacherFrameCarte();
             this.frame.creerPanelScore();
             this.frame.setPnl(this.frame.getPnl(this.indice + 1));
 		}
 	}
 
+    /* --------------------------*/
+    /*    Méthodes utilitaires   */
+    /* --------------------------*/
+
+    // Méthode permettant d'afficher le message de fin de partie et de déverrouiller le bouton des scores
     public void finDePartie()
     {
-        this.lblManche.setText("Fin de la Partie !");
+        this.lblManche    .setText("Fin de la Partie !");
 
         this.lblMancheCoul.setText("");
-        this.btnScore.setEnabled(true); // On débloque le bouton !
+        this.btnScore     .setEnabled(true);
     }
 	
 	// Méthode qui surcharge paint() pour dessiner après que les cases aient été posées
@@ -265,17 +270,21 @@ public class PanelJeu extends JPanel implements ActionListener
 		}
 		    
 		ImageIcon iconeOriginale = new ImageIcon(chemin);
-		Image imgRedimensionnee = iconeOriginale.getImage().getScaledInstance(this.tailleCase - 6, this.tailleCase - 6, Image.SCALE_SMOOTH);
+		Image imgRedimensionnee  = iconeOriginale.getImage().getScaledInstance(this.tailleCase - 6, this.tailleCase - 6, Image.SCALE_SMOOTH);
 		return new ImageIcon(imgRedimensionnee);
 	}
 	
 	// Méthode permettant de dessiner les contacts entre les acteurs
 	protected void peindreContacts(Graphics g)
 	{
-		final int MARGE = this.tailleCase / 2 - 2; // pixels à laisser avant l'image
+		final int MARGE = this.tailleCase / 2 - 2;  // Pixels à laisser avant l'image
 		
 		int decalageX, decalageY;
 		double centreX1, centreY1, centreX2, centreY2;
+
+        double distance, distanceX, distanceY;
+        double uX, uY;
+        int x1, x2, y1, y2;
 		
 		if (this.tabPnlCases == null || this.pnlPlateau == null) return;
         if (this.ctrl.getLstActeurs() == null) return;
@@ -302,33 +311,40 @@ public class PanelJeu extends JPanel implements ActionListener
                     centreY2 = decalageY + case2.getY() + case2.getHeight() / 2.0;
 
                     // Vecteur entre les deux centres
-                    double distanceX = centreX2 - centreX1;
-                    double distanceY = centreY2 - centreY1;
-                    double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+                    distanceX = centreX2 - centreX1;
+                    distanceY = centreY2 - centreY1;
+                    distance  = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
                     // Vecteur unitaire
-                    double ux = distanceX / distance;
-                    double uy = distanceY / distance;
+                    uX = distanceX / distance;
+                    uY = distanceY / distance;
 
                     // On recule le début et la fin de MARGE pixels
-                    int x1 = (int) (centreX1 + ux * MARGE);
-                    int y1 = (int) (centreY1 + uy * MARGE);
-                    int x2 = (int) (centreX2 - ux * MARGE);
-                    int y2 = (int) (centreY2 - uy * MARGE);
+                    x1 = (int) (centreX1 + uX * MARGE);
+                    y1 = (int) (centreY1 + uY * MARGE);
+                    x2 = (int) (centreX2 - uX * MARGE);
+                    y2 = (int) (centreY2 - uY * MARGE);
 
                     g2.drawLine(x1, y1, x2, y2);
                 }
             }
 	    }
 	}
-	
+
+    // Méthode permettant de dessiner le chemin des différents castings au fur et à mesure
 	protected void peindreChemin(Graphics g)
 	{
-		final int MARGE = this.tailleCase / 2 - 2;
-		
-		int decalageX, decalageY;
+		final int MARGE = this.tailleCase / 2 - 2;   // Pixels à laisser avant l'image
+
+        int decalageX, decalageY;
+        double centreX1, centreY1, centreX2, centreY2;
+
+        double distance, distanceX, distanceY;
+        double uX, uY;
+        int x1, x2, y1, y2;
 		
 		Graphics2D g2;
+
 		
 		if (this.tabPnlCases == null || this.pnlPlateau == null) return;
         if (this.ctrl.getTabChemin() == null)                    return;
@@ -354,22 +370,22 @@ public class PanelJeu extends JPanel implements ActionListener
 					JPanel case1 = tabPnlCases[chemin.get(cpt)    .getPosX()][chemin.get(cpt)    .getPosY()];
 					JPanel case2 = tabPnlCases[chemin.get(cpt + 1).getPosX()][chemin.get(cpt + 1).getPosY()];
 
-					double centreX1 = decalageX + case1.getX() + case1.getWidth()  / 2.0;
-					double centreY1 = decalageY + case1.getY() + case1.getHeight() / 2.0;
-					double centreX2 = decalageX + case2.getX() + case2.getWidth()  / 2.0;
-					double centreY2 = decalageY + case2.getY() + case2.getHeight() / 2.0;
+					centreX1 = decalageX + case1.getX() + case1.getWidth()  / 2.0;
+					centreY1 = decalageY + case1.getY() + case1.getHeight() / 2.0;
+					centreX2 = decalageX + case2.getX() + case2.getWidth()  / 2.0;
+                    centreY2 = decalageY + case2.getY() + case2.getHeight() / 2.0;
 
-					double distanceX = centreX2 - centreX1;
-					double distanceY = centreY2 - centreY1;
-					double distance  = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+					distanceX = centreX2 - centreX1;
+					distanceY = centreY2 - centreY1;
+					distance  = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
-					double ux = distanceX / distance;
-					double uy = distanceY / distance;
+					uX = distanceX / distance;
+					uY = distanceY / distance;
 
-					int x1 = (int) (centreX1 + ux * MARGE);
-					int y1 = (int) (centreY1 + uy * MARGE);
-					int x2 = (int) (centreX2 - ux * MARGE);
-					int y2 = (int) (centreY2 - uy * MARGE);
+					x1 = (int) (centreX1 + uX * MARGE);
+					y1 = (int) (centreY1 + uY * MARGE);
+					x2 = (int) (centreX2 - uX * MARGE);
+					y2 = (int) (centreY2 - uY * MARGE);
 
 					g2.drawLine(x1, y1, x2, y2);
                 }
@@ -377,6 +393,7 @@ public class PanelJeu extends JPanel implements ActionListener
         }
 	}
 
+    // Méthode permettant de peindre les cadres de tous les acteurs (noir ou de couleur du casting)
 	private void peindreCadres(Graphics g)
 	{
 		final int EPAISSEUR = 3;
@@ -404,21 +421,23 @@ public class PanelJeu extends JPanel implements ActionListener
 			if (acteur.estPrincipal()) 
 			{ 
 				g2.setColor(acteur.getCouleur());
-				
 			}
 			
 			g2.drawRect(x, y, w, h);
         }
 	}
-	
+
+    // Méthode permettant de mettre à jour le JLabel hébergeant le Casting actif tout au long de la partie
 	public void majLblCasting()
 	{
-        if (this.btnScore.isEnabled()) return;
+        if (this.btnScore.isEnabled()) return;  // Si le bouton est déverrouillé, on ne change le texte
 
         this.lblMancheCoul.setText      (ctrl.getManche().toString()  );
 		this.lblMancheCoul.setForeground(ctrl.getManche().getCouleur());
 	}
 
+
+    // Classe interne permettant de gérer le clic de la souris pendant le Jeu
     private class GereSouris extends MouseAdapter
     {
         private int ligMouse;

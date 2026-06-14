@@ -40,11 +40,13 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 		/*-------------------------------*/
 		/*   Création des composants     */
 		/*-------------------------------*/
-		
+
+        // Panel qui contiendra le bouton Charger Niveau
 		JPanel pnlBtnCharger = new JPanel();
 		pnlBtnCharger        .setLayout(new FlowLayout(FlowLayout.CENTER, 0, 20));
 		pnlBtnCharger        .setOpaque(false);
-		
+
+        // Panel qui contiendra le bouton Jouer
 		JPanel pnlBtnJouer   = new JPanel();
 		pnlBtnJouer          .setLayout(new FlowLayout(FlowLayout.CENTER, 0, 20));
 		pnlBtnJouer          .setOpaque(false);
@@ -52,7 +54,7 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 		this.btnCharger = new JButton("Charger Niveau");
 		this.btnCharger .setOpaque(false);
 		
-		this.btnJouer   = new JButton("Jouer !");
+		this.btnJouer   = new JButton("Jouer");
 		this.btnJouer   .setOpaque(false);
 		this.btnJouer   .setEnabled(false);
 		
@@ -114,7 +116,11 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 
     // Getter permettant au métier de récupérer le fichier séléctionné
     public File getFichierPlateau() {return this.fichierPlateau; }
-	
+
+    /* --------------------------*/
+    /*    Méthodes utilitaires   */
+    /* --------------------------*/
+
 	// Méthode permettant de dessiner l'image de l'accueil
 	protected void paintComponent(Graphics g) 
 	{

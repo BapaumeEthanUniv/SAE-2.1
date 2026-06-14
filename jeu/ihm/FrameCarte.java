@@ -2,17 +2,18 @@ package ihm;
 
 import controleur.Controleur;
 
-import java.awt.event.*;
+import java.awt.event.ComponentAdapter;
 
 import javax.swing.JFrame;
 
 public class FrameCarte extends JFrame
 {
-	public  boolean    updating = false;  // Permet le déplacement fluide et correct des frames;
+	public  boolean    updating = false;  // Permet le déplacement fluide et correct des fenêtres;
 
     private Controleur ctrl;
 	private PanelCarte panelCarte;
 
+    // Contructeur
 	public FrameCarte(Controleur ctrl)
 	{
 		this.ctrl = ctrl;
@@ -28,6 +29,10 @@ public class FrameCarte extends JFrame
 		this.setVisible(true);
 	}
 
+    /* --------------------------*/
+    /*    Méthodes utilitaires   */
+    /* --------------------------*/
+
     // Méthode permettant de changer de Carte en appelant la méthode changerCarte() de PanelCarte
 	public void changerCarte()
 	{
@@ -37,7 +42,8 @@ public class FrameCarte extends JFrame
     // Méthode permettant de signaler au PanelCarte que la partie est terminée
     public void finDePartie()  { this.panelCarte.finDePartie();}
 
-    // Méthode permettant de gérer le déplacement des fenêtres
+
+    // Classe interne permettant de gérer le déplacement des fenêtres
     private class GereDeplacerFrame extends ComponentAdapter
     {
         public void componentMoved(java.awt.event.ComponentEvent e)
