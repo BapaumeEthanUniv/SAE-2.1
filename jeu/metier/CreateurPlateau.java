@@ -5,10 +5,12 @@
 package metier;
 
 import java.io.PrintWriter;
-import java.awt.Color;
 import java.io.FileOutputStream;
 import java.io.File;
+
 import java.util.ArrayList;
+
+import java.awt.Color;
 
 public class CreateurPlateau 
 {

@@ -4,12 +4,15 @@
 
 package metier;
 
-import java.util.ArrayList;
-import java.awt.Color;
-import java.io.File;
-import java.util.Scanner;
-import java.io.FileReader;
 import controleur.Controleur;
+
+import java.io.File;
+import java.io.FileReader;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import java.awt.Color;
 
 public class PlateauJeu 
 {
@@ -29,7 +32,7 @@ public class PlateauJeu
 
 	private Zone[][]           tabZone;       //Ensemble des zones du plateau
 
-	private boolean[][]        tabArete;      //True si une arrête déjà traversé est sur la coordonnée
+	private boolean[][]        tabArete;      //True si une arête déjà traversé est sur la coordonnée
 	
 	private boolean[][]        tabAretePoint; //Même chose que tabArete mais pour les points de la grille
 
@@ -75,7 +78,7 @@ public class PlateauJeu
 	public int[]              getScores()         {return this.scores;}
 
 	//retourne le score final
-	public int                getScoreFinal() 
+	public int                getScoreFinal()
 	{
 		int somme = 0;
 
@@ -125,7 +128,7 @@ public class PlateauJeu
 			this.idManche++;
 		}
 		else
-			this.ctrl.finDePartie(); //Fini la partie si toute les manches ont été faites
+			this.ctrl.finDePartie(); //Fini la partie si toutes les manches ont été faites
 	}
 
 	//Permet à chaque acteur d'identifier ses voisins
@@ -302,15 +305,15 @@ public class PlateauJeu
 	}
 
 	//Ajoute les arrêtes dans tabArrete quand un chemin est dessiné
-	public void ajouterArete(Acteur ActeurDepart, Acteur ActeurArrive)
+	public void ajouterArete(Acteur acteurDepart, Acteur acteurArrive)
 	{
-		int deltaY = Integer.compare(ActeurArrive.getPosY(), ActeurDepart.getPosY());
-		int deltaX = Integer.compare(ActeurArrive.getPosX(), ActeurDepart.getPosX());
+		int deltaY = Integer.compare(acteurArrive.getPosY(), acteurDepart.getPosY());
+		int deltaX = Integer.compare(acteurArrive.getPosX(), acteurDepart.getPosX());
 		
-		int x = ActeurDepart.getPosX();
-		int y = ActeurDepart.getPosY();
+		int x = acteurDepart.getPosX();
+		int y = acteurDepart.getPosY();
 
-		while (x != ActeurArrive.getPosX() || y != ActeurArrive.getPosY())
+		while (x != acteurArrive.getPosX() || y != acteurArrive.getPosY())
 		{
 			if (deltaX < 0 && deltaY < 0)
 				this.tabAretePoint[x - 1][y - 1] = true;
@@ -327,10 +330,10 @@ public class PlateauJeu
 			x += deltaX;
 			y += deltaY;
 
-			if (x != ActeurArrive.getPosX() || y != ActeurArrive.getPosY())
+			if (x != acteurArrive.getPosX() || y != acteurArrive.getPosY())
 				this.tabArete[x][y] = true;
 		}
-		ActeurDepart.supprimerVoisin(ActeurArrive); //Lorqu'une arrête est dessiner entre deux symboles, ils ne sont plus considérés comme voisin
+		acteurDepart.supprimerVoisin(acteurArrive); //Lorsqu'une arête est dessiner entre deux symboles, ils ne sont plus considérés comme voisin
 	}
 
 	//Vérifie si des arrêtes déjà remplis se trouve entre deux acteurs
