@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 public class Chemin 
 {
+	//Attributs
 	private ArrayList<Acteur> chemin;
 	private Casting           couleur;
 	private PlateauJeu        plateau;
 
-	//constructeur
+	//Constructeur
 	public Chemin(Casting couleur, PlateauJeu plateau)
 	{
 		this.chemin  = new ArrayList<Acteur>();
@@ -17,29 +18,24 @@ public class Chemin
 		this.chemin.add(this.plateau.getPrincipal(couleur));
 	}
 
-	// getter
+	//Getter
 	public ArrayList<Acteur> getChemin()  {return chemin;}
 	public Casting           getCouleur() {return couleur;}
 
-	// Permet de rajouté des chemin entre les sommets (acteur)
+	//Ajoute l'acteur en paramètre dans le chemin
 	public boolean ajouterChemin(Acteur acteurAjoute, ArrayList<Acteur> lstActeurs, Role rolePioche)
 	{
-		//System.out.println("Acteur : " + acteurAjoute.getRole().getLibelle() + " Pioche : " + rolePioche.getLibelle());
-		if (acteurAjoute != null && (acteurAjoute.getRole().equals(rolePioche) || rolePioche.equals(Role.JOKER)) && ! this.chemin.contains(acteurAjoute))
+		if (acteurAjoute != null && (acteurAjoute.getRole().equals(rolePioche) || rolePioche.equals(Role.JOKER)) && ! this.chemin.contains(acteurAjoute)) //Vérification que la carte pioché permet le placement
 		{
-			//System.out.println("A côté de la queue : " + this.chemin.getLast().getVoisins().contains(acteurAjoute));
-			//System.out.println("A côté de la tête : " + this.chemin.getFirst().getVoisins().contains(acteurAjoute));
 			if (this.chemin.getLast().getVoisins().contains(acteurAjoute) &&
-	            ! this.plateau.entreDeux(this.chemin.getLast(), acteurAjoute))
-			// vérifie si le chemin passe bien un ligne, colonne, diago et ne passe pas par dessu un autre chemin sur le dernier acteur de la liste
+			    ! this.plateau.entreDeux(this.chemin.getLast(), acteurAjoute)) //Vérification que l'acteur ajouté est voisin avec la queue du chemin et que l'ajout ne fasse pas croiser les arrêtes
 			{
 				this.plateau.ajouterArete(this.chemin.getLast(), acteurAjoute);
 				this.chemin.addLast(acteurAjoute);
 				return true;
 			}
 			else if (this.chemin.getFirst().getVoisins().contains(acteurAjoute) && 
-			         ! this.plateau.entreDeux(this.chemin.getFirst(), acteurAjoute))
-			 // vérifie si le chemin passe bien sur une ligne, colonne ou diagonal et pas par dessu un autre acteur sur le premier acteur de la liste
+			         ! this.plateau.entreDeux(this.chemin.getFirst(), acteurAjoute)) //Vérification que l'acteur ajouté est voisin avec la tête du chemin et que l'ajout ne fasse pas croiser les arrêtes
 			{
 				this.plateau.ajouterArete(this.chemin.getFirst(), acteurAjoute);
 				this.chemin.addFirst(acteurAjoute);

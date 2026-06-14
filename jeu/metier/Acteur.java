@@ -2,8 +2,6 @@ package metier;
 
 import java.util.ArrayList;
 
-import metier.PlateauJeu;
-
 import java.awt.Color;
 
 public class Acteur
