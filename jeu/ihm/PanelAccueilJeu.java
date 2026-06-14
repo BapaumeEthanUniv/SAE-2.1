@@ -1,23 +1,26 @@
 package ihm;
 
 import controleur.Controleur;
+
+import java.io.File;
+
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.*;
-import java.io.File;
+
 import javax.swing.*;
 
 public class PanelAccueilJeu extends JPanel implements ActionListener
 {
 	private Controleur 	ctrl;
 	private FrameJeu 	frame;
-	private int		    indice;
+	private int		    indice;          // Permet de savoir l'indice dans lequel le Panel est rangé dans le tableau de JPanel de FrameJeu
 	
-	private Image 		imgFond;
-    private File        fichierPlateau;
+	private Image 		imgFond;         // Permet de stocker une img de fond pour l'appliquer au panel
+    private File        fichierPlateau;  // Permet d'avoir en main le répertoire du plateau
 	
 	private JButton		btnCharger;
 	private JButton		btnJouer;
@@ -57,13 +60,15 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 		/* Positionnement des composants */
 		/*-------------------------------*/
 		
-		this.add(new JLabel(""));
-		this.add(new JLabel(""));
-		this.add(new JLabel(""));
-		this.add(new JLabel(""));
-		this.add(new JLabel(""));
+		this.add(new JLabel(""));  // Permet de
+		this.add(new JLabel(""));  // centrer
+		this.add(new JLabel(""));  // les boutons
+		this.add(new JLabel(""));  // par rapport à l'image
+		this.add(new JLabel(""));  // et à la fenêtre
+
 		pnlBtnCharger.add(this.btnCharger);
 		pnlBtnJouer  .add(this.btnJouer  );
+
 		this.add(pnlBtnCharger);
 		this.add(pnlBtnJouer  );
 		
@@ -82,33 +87,35 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 		if ( e.getSource() == this.btnCharger )
 		{
 			JFileChooser fcRepertoire = new JFileChooser("../creation/Plateau/"); 
-			fcRepertoire.setFileSelectionMode(fcRepertoire.DIRECTORIES_ONLY); // création du selectionneur de dossier
+			fcRepertoire.setFileSelectionMode(fcRepertoire.DIRECTORIES_ONLY); // Création du sélectionneur de dossier
 			
-			int res = fcRepertoire.showOpenDialog(this); 
-			
-			if (res == JFileChooser.APPROVE_OPTION) // lecture des fichiers du dossier choisie
+			int res = fcRepertoire.showOpenDialog(this);
+
+            // Si on appuie sur Ouvrir en ayant choisi son répertoire
+			if (res == JFileChooser.APPROVE_OPTION)
 			{
-				this.fichierPlateau = fcRepertoire.getSelectedFile();
+				this.fichierPlateau = fcRepertoire.getSelectedFile();    // L'attribut stocke le répertoire
 				
-				this.ctrl.initPlateau(fichierPlateau);
+				this.ctrl.initPlateau(fichierPlateau);                   // On initialise le plateau
 				
-				this.frame.creerPanelJeu();
+				this.frame.creerPanelJeu();                              // On crée le PanelJeu
 				
-				this.btnJouer.setEnabled(true); // activation du bouton jouer
+				this.btnJouer.setEnabled(true);                          // On active le bouton pour lancer le Jeu
 			}
 		}
 		
 		if ( e.getSource() == this.btnJouer   )
 		{
-			this.ctrl.creerFrameCarte();
-			this.frame.setPnl(this.frame.getPnl(this.indice + 1));
-            this.btnJouer.setEnabled(false);
+			this.ctrl.creerFrameCarte();                                  // On crée le PanelCarte
+			this.frame.setPnl(this.frame.getPnl(this.indice + 1)); // On change le panelActif pour afficher PanelJeu
+            this.btnJouer.setEnabled(false);                              // On désactive le bouton Jouer après avoir appuyé
 		}
 	}
 
+    // Getter permettant au métier de récupérer le fichier séléctionné
     public File getFichierPlateau() {return this.fichierPlateau; }
 	
-	// Chargement de l'image de l'accueil
+	// Méthode permettant de dessiner l'image de l'accueil
 	protected void paintComponent(Graphics g) 
 	{
 		super.paintComponent(g);

@@ -17,20 +17,19 @@ public class PanelCarte extends JPanel implements ActionListener
 {
 	private Controleur ctrl;
 
-	private ImageIcon  imgPersonnage;
-   	private JButton    btnChangerImage;
-    private Image      imageRedimensionnee;
-   	private ImageIcon  iconeFinale;
-    private JLabel     lblImage;
-	//private JLabel     lblScore;
+	private ImageIcon  imgPersonnage;       // Image de la Carte
+   	private JButton    btnPasser;
+    private Image      imgRedimensionnee;   // Permet de redimensionner la Carte avant de l'afficher
+   	private ImageIcon  iconeFinale;         // Permet de stocker l'image de la Carte finale
+    private JLabel     lblImage;            // Permet d'afficher iconeFinale (image de la carte)
     	
-    private Image 	   imgFond;
+    private Image 	   imgFond;             // Image de fond
     	
-   	private int        nomImage;
-    private int        largeurImage;
-    private int        hauteurImage;
+   	private int        nomImage;            // Stocke le nom de l'image de la Carte (1 à 10)
+    private int        largeurImage;        // Stocke la largeur de l'image
+    private int        hauteurImage;        // Stocke la hauteur de l'image
 
-	private Font       policeBandeau;
+	private Font       police;              // Permet d'appliquer une police spéciale aux JLabel
 
     public PanelCarte(Controleur ctrl)
     {
@@ -45,39 +44,33 @@ public class PanelCarte extends JPanel implements ActionListener
 		JPanel panelAfficheCarte = new JPanel(new GridLayout());
 		panelAfficheCarte.setOpaque(false);
 		
-		JPanel panelAfficheScore = new JPanel(new GridLayout(1, 2));
-		panelAfficheScore.setOpaque(false);
-		
 		this.nomImage            = (int)(Math.random() * 10) + 1;
 		this.largeurImage        = 250;
 		this.hauteurImage        = 350;
 
         this.imgFond             = Toolkit.getDefaultToolkit().getImage("./images/img-saisie.png");
 
-        this.btnChangerImage     = new JButton("Passer le Tour");
+        this.btnPasser           = new JButton("Passer le Tour");
 
-        this.lblImage = new JLabel("", JLabel.CENTER);
+        this.lblImage            = new JLabel("", JLabel.CENTER);
 		this.changerCarte();
 
-		//this.lblScore = new JLabel("Score joueur : " + this.ctrl.getScores());
-
+        // Essai pour initialiser les polices en prenant la police téléchargée dans le dossier polices/
 		try
-        	{
-		    	File fichierTitre              = new File("./polices/TitreSaisieInfos/Shrikhand-Regular.ttf");
-		    	Font policeLbl                 = Font.createFont(Font.TRUETYPE_FONT, fichierTitre);   // crée la police
+        {
+            File fichierTitre   = new File("./polices/TitreSaisieInfos/Shrikhand-Regular.ttf");
+            Font policeLbl      = Font.createFont(Font.TRUETYPE_FONT, fichierTitre);              // Crée la police
 		    
-		   	 java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(policeLbl);   // enregistre la police dans le système Java
+            java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(policeLbl);   // Enregistre la police dans le système Java
 
-		    	this.policeBandeau            =  policeLbl.deriveFont(Font.BOLD, 18f);                // police du bandeau 	modifié en Gras + taille 18
+            this.police         =  policeLbl.deriveFont(Font.BOLD, 18f);                     // Police du bandeau modifié en Gras + taille 18
 
-            this.lblImage.setFont(policeBandeau);
-			//lblScore.setFont(policeBandeau);                                                    // police du bandeau changé
+            this.lblImage.setFont(police);  // Police du JLabel changé
 		}
 		// Si fichier non trouvé, la police est en SansSerif Gras par défaut
 		catch (Exception e)
 		{
             this.lblImage.setFont(new Font("SansSerif", Font.BOLD, 18));
-			//lblScore     .setFont(new Font("SansSerif", Font.BOLD, 18));
 		}
 		
 		/*-------------------------------*/
@@ -86,39 +79,36 @@ public class PanelCarte extends JPanel implements ActionListener
 		
 		panelAfficheCarte.add(this.lblImage);
 
-		//panelAfficheScore.add(this.lblScore);
-
-		this.add(this.btnChangerImage, BorderLayout.NORTH);
-		this.add(panelAfficheCarte   , BorderLayout.CENTER);
-		this.add(panelAfficheScore   , BorderLayout.SOUTH);
+		this.add(this.btnPasser   , BorderLayout.NORTH);
+		this.add(panelAfficheCarte, BorderLayout.CENTER);
 
 		/* ----------------------------- */
 		/* Activation des Composants     */
 		/* ----------------------------- */
 
-		this.btnChangerImage.addActionListener(this);
+		this.btnPasser.addActionListener(this);
     }
 
     public void actionPerformed(ActionEvent e)
    	{
-		if (e.getSource() == this.btnChangerImage)
+		if (e.getSource() == this.btnPasser)
 		{	
 			this.changerCarte();
 			this.ctrl.majLblCasting();
 		}
     }
     	
-    	// Méthode permettant de simuler une pioche aléatoire et d'afficher les cartes de façon optimisé
+    // Méthode permettant de simuler une pioche aléatoire et d'afficher les cartes de façon optimisé
     public void changerCarte ()
     {
-		//System.out.println("Mario pizza");
 		this.ctrl.piocherCarte();
 
-        if (!this.btnChangerImage.isEnabled()) return;
+        // Si le bouton Passer est verrouillé, on ne pioche plus
+        if (!this.btnPasser.isEnabled()) return;
 		
 		Carte carteAffiche = this.ctrl.getCartePioche();
-		//System.out.println(carteAffiche.getRole());
 
+        // Condition pour savoir l'image de la carte à afficher selon le Role de la Carte pioché
 		if(!carteAffiche.estFonce())
 		{
 			switch (carteAffiche.getRole()) 
@@ -142,21 +132,29 @@ public class PanelCarte extends JPanel implements ActionListener
 			}
 		}
 
+        // Image stockée dans attribut imgPersonnage
     	this.imgPersonnage       = new ImageIcon("./images/" + this.nomImage + ".png");
-		this.imageRedimensionnee = this.imgPersonnage.getImage()
-		    .getScaledInstance(this.largeurImage, this.hauteurImage, Image.SCALE_SMOOTH);    
-		this.iconeFinale         = new ImageIcon(this.imageRedimensionnee);
+
+        // Redimension de l'image selon les attributs largeurImage et hauteurImage --> nouvelle Carte stockée dans l'attribut
+		this.imgRedimensionnee = this.imgPersonnage.getImage()
+		    .getScaledInstance(this.largeurImage, this.hauteurImage, Image.SCALE_SMOOTH);
+
+        // Image finale stockée dans l'attribut iconeFinale
+		this.iconeFinale         = new ImageIcon(this.imgRedimensionnee);
+
+        // Le JLabel ajoute iconeFinale
 		this.lblImage.setIcon(this.iconeFinale);
     }
 
+    // Méthode permettant d'annoncer la fin de la partie
     public void finDePartie()
     {
-        this.btnChangerImage.setEnabled(false);
-        this.lblImage.setIcon(null);
-        this.lblImage.setText("Fin de la Partie !");
+        this.btnPasser.setEnabled(false);             // Bouton Passer verrouillé
+        this.lblImage.setIcon(null);                  // Image du JLabel effacé
+        this.lblImage.setText("Fin de la Partie !");  // Affichage du message dans JLabel
     }
     	
-    // Méthode permettant de changer le fond du panel par imgFond + dessiner les liens sur le plateau
+    // Méthode permettant de dessiner le fond du panel
 	protected void paintComponent(Graphics g) 
 	{
 		super.paintComponent(g);
