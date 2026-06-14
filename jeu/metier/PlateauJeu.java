@@ -77,7 +77,7 @@ public class PlateauJeu
 	public ArrayList<Role>    getLstRole()        {return this.lstRole;}
 	public int[]              getScores()         {return this.scores;}
 
-	//retourne le score final
+	// Retourne le score final
 	public int                getScoreFinal()
 	{
 		int somme = 0;
@@ -91,7 +91,7 @@ public class PlateauJeu
 	public int                getIdManche()       {return this.idManche;}
 	public Chemin[]           getTabChemin()      {return this.tabChemin;}
 
-	//Retourne un acteur en prenant sa position sur la plateau
+	// Retourne un acteur en prenant sa position sur la plateau
 	public Acteur             getActeur(int posX, int posY)
 	{
 		for (Acteur acteur : this.lstActeurs)
@@ -104,7 +104,7 @@ public class PlateauJeu
 		return null; // Il n'y a pas d'acteur ici
 	}
 
-	//Retourne l'acteur principal pour la couleur donnée
+	// Retourne l'acteur principal pour la couleur donnée
 	public Acteur            getPrincipal(Casting casting)
 	{
 		for (Acteur acteur : lstActeurs)
@@ -115,30 +115,7 @@ public class PlateauJeu
 		return null;
 	}
 
-	//Passe à la manche suivante
-	public void nouvelleManche()
-	{
-		if (this.idManche > 0)
-			this.calculerScore(); //Calcule le score après chaque fin de manche
-
-		if (this.idManche < this.lstCasting.size())
-		{
-			this.manche                   = this.lstCasting.get(this.idManche);
-			this.tabChemin[this.idManche] = new Chemin(manche, this);
-			this.idManche++;
-		}
-		else
-			this.ctrl.finDePartie(); //Fini la partie si toutes les manches ont été faites
-	}
-
-	//Permet à chaque acteur d'identifier ses voisins
-	public void majVoisin()
-	{
-		for (Acteur acteur : lstActeurs)
-			acteur.majVoisins(lstActeurs);
-	}
-
-	//Définit un acteur comme acteur principal (point de départ)
+	// Définit un acteur comme acteur principal (point de départ)
 	public boolean setPrincipal(Color c, int posX, int posY)
 	{
 		for (Acteur acteur : lstActeurs)
@@ -157,7 +134,7 @@ public class PlateauJeu
 	/* Méthodes d'import         */
 	/*---------------------------*/
 
-	//Ajoute les acteurs sur le plateau
+	// Ajoute les acteurs sur le plateau
 	public boolean importActeur(File filePlateau)
 	{
 		FileReader fr;
@@ -195,7 +172,7 @@ public class PlateauJeu
 		return true;
 	}
 
-	//Définit la liste des manches et la position des points de départ
+	// Définit la liste des manches et la position des points de départ
 	public boolean importCasting(File filePlateau)
 	{
 		FileReader fr;
@@ -231,7 +208,7 @@ public class PlateauJeu
 		return true;
 	}
 
-	//Définit la taille du plateau et des cases
+	// Définit la taille du plateau et des cases
 	public boolean importPlateau(File filePlateau)
 	{
 		FileReader fr;
@@ -253,7 +230,7 @@ public class PlateauJeu
 		return true;
 	}
 
-	//Définit la liste des zones, leur couleur et leur position
+	// Définit la liste des zones, leur couleur et leur position
 	public boolean importZone(File filePlateau)
 	{
 		FileReader fr;
@@ -304,7 +281,35 @@ public class PlateauJeu
 		return true;
 	}
 
-	//Ajoute les arrêtes dans tabArrete quand un chemin est dessiné
+
+    /* --------------------------*/
+    /*    Méthodes utilitaires   */
+    /* --------------------------*/
+
+    // Passe à la manche suivante
+    public void nouvelleManche()
+    {
+        if (this.idManche > 0)
+            this.calculerScore(); //Calcule le score après chaque fin de manche
+
+        if (this.idManche < this.lstCasting.size())
+        {
+            this.manche                   = this.lstCasting.get(this.idManche);
+            this.tabChemin[this.idManche] = new Chemin(manche, this);
+            this.idManche++;
+        }
+        else
+            this.ctrl.finDePartie(); //Fini la partie si toutes les manches ont été faites
+    }
+
+    // Permet à chaque acteur d'identifier ses voisins
+    public void majVoisin()
+    {
+        for (Acteur acteur : lstActeurs)
+            acteur.majVoisins(lstActeurs);
+    }
+
+	// Ajoute les arrêtes dans tabArrete quand un chemin est dessiné
 	public void ajouterArete(Acteur acteurDepart, Acteur acteurArrive)
 	{
 		int deltaY = Integer.compare(acteurArrive.getPosY(), acteurDepart.getPosY());
@@ -336,7 +341,7 @@ public class PlateauJeu
 		acteurDepart.supprimerVoisin(acteurArrive); //Lorsqu'une arête est dessiner entre deux symboles, ils ne sont plus considérés comme voisin
 	}
 
-	//Vérifie si des arrêtes déjà remplis se trouve entre deux acteurs
+	// Vérifie si des arrêtes déjà remplis se trouve entre deux acteurs
 	public boolean entreDeux(Acteur acteurDepart, Acteur acteurArrive)
 	{
 		int deltaY = Integer.compare(acteurArrive.getPosY(), acteurDepart.getPosY());
@@ -369,13 +374,13 @@ public class PlateauJeu
 		return false;
 	}
 
-	//Appel de la méthode ajouterChemin du chemin actif
+	// Appel de la méthode ajouterChemin du chemin actif
 	public boolean ajouterChemin(int posX, int posY, Role rolePioche) 
 	{
 		return this.tabChemin[this.idManche - 1].ajouterChemin(this.getActeur(posX, posY), this.lstActeurs, rolePioche);
 	}
 
-	//Calcul des scores de la manche actuelle
+	// Calcul des scores de la manche actuelle
 	public void calculerScore()
 	{
 		ArrayList<Integer> nbActeurs     = new ArrayList<Integer>(); //Nombre d'acteurs dans chaque zone

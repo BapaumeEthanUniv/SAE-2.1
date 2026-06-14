@@ -24,22 +24,22 @@ public enum Couleur
 	GRIS_CLAIR  ( "Gris clair"  , new Color (200,200,200)),
 	GRIS        ( "Gris"        , new Color (150,150,150));
 	
-	//Attribut
+	// Attributs
 	private String lib;
 	private Color couleur;
 	
 	Couleur (String lib, Color couleur) { this.lib = lib; this.couleur = couleur; }
-	
-	/*----------*/
-	/* Méthodes */
-	/*----------*/
-	
-	//Getters :
+
+	// Getters
 	public        Color      getCouleur()   {return this.couleur           ;}
 	public        String     getLib()       {return this.lib               ;}
 	public static int        getNbCouleur() {return Couleur.values().length;}
 
-	// autres méthodes :
+
+    /* --------------------------*/
+    /*    Méthodes utilitaires   */
+    /* --------------------------*/
+
 	public String toString()
 	{
 		return this.lib;

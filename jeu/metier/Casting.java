@@ -11,19 +11,33 @@ public enum Casting
 	JAUNE	("Jaune", new Color(253, 238, 0)),
 	CYAN	("Cyan" , Color.CYAN );
 	
-	//Attribut
+	// Attributs
 	private String libelle;
 	private Color  couleur;
 	
-	//Constructeur
+	// Constructeur
 	Casting (String libelle, Color couleur) { this.libelle = libelle; this.couleur = couleur;}
 
-	//getters
+	// Getters
 	public        String getLibelle ()  { return libelle; }
 	public        Color  getCouleur ()  {return couleur;}
 	public static int    getNbCasting() {return Casting.values().length;}
 
-	// autres méthodes
+    public static Casting getCasting(Color couleur)
+    {
+        for (Casting c : Casting.values())
+        {
+            if (c.getCouleur().equals(couleur))
+                return c;
+        }
+
+        return null;
+    }
+
+    /* --------------------------*/
+    /*    Méthodes utilitaires   */
+    /* --------------------------*/
+
 	public String toString   ()
 	{
 		return this.name();
@@ -32,16 +46,5 @@ public enum Casting
 	public static Casting valueOf(int ordinal)
 	{
 		return Casting.values()[ordinal];
-	}
-
-	public static Casting getCasting(Color couleur)
-	{
-		for (Casting c : Casting.values())
-		{
-			if (c.getCouleur().equals(couleur))
-				return c;
-		}
-
-		return null;
 	}
 }

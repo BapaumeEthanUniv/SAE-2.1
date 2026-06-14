@@ -49,8 +49,11 @@ public class Acteur
 			couleur = c;
 		}
 	}
-	
-	// Méthodes utilitaires	
+
+    /* --------------------------*/
+    /*    Méthodes utilitaires   */
+    /* --------------------------*/
+
 	public boolean estVoisin (Acteur voisin) // permet de savoir si l'acteur est voisin avec celui entré en paramètre
 	{
 		return this.lstVoisins.contains(voisin);

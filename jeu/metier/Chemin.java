@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class Chemin 
 {
-	//Attributs
+	// Attributs
 	private ArrayList<Acteur> chemin;
 	private Casting           couleur;
 	private PlateauJeu        plateau;
 
-	//Constructeur
+	// Constructeur
 	public Chemin(Casting couleur, PlateauJeu plateau)
 	{
 		this.chemin  = new ArrayList<Acteur>();
@@ -18,11 +18,16 @@ public class Chemin
 		this.chemin.add(this.plateau.getPrincipal(couleur));
 	}
 
-	//Getter
+	// Getters
 	public ArrayList<Acteur> getChemin()  {return chemin;}
 	public Casting           getCouleur() {return couleur;}
 
-	//Ajoute l'acteur en paramètre dans le chemin
+
+    /* --------------------------*/
+    /*    Méthodes utilitaires   */
+    /* --------------------------*/
+
+	// Ajoute l'acteur en paramètre dans le chemin
 	public boolean ajouterChemin(Acteur acteurAjoute, ArrayList<Acteur> lstActeurs, Role rolePioche)
 	{
 		if (acteurAjoute != null && (acteurAjoute.getRole().equals(rolePioche) || rolePioche.equals(Role.JOKER)) && ! this.chemin.contains(acteurAjoute)) //Vérification que la carte pioché permet le placement

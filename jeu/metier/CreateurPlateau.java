@@ -14,7 +14,7 @@ import java.awt.Color;
 
 public class CreateurPlateau 
 {
-	//Attribut
+	// Attributs
 	private String            nomPlateau; //Nom du plateau
 
 	private int               nbLigne;    //Nombre de ligne
@@ -31,7 +31,7 @@ public class CreateurPlateau
 	private ArrayList<Acteur> lstActeurs; //Liste des acteurs placés
 	private ArrayList<Zone>   lstZones;   //Liste des zones placés
 
-	//Constructeur
+	// Constructeur
 	public CreateurPlateau(String nomPlateau, int nbLigne, int nbColonne, int tailleCase, Role[] tabRole, Casting[] tabCasting)
 	{
 		this.nomPlateau = nomPlateau;
@@ -47,7 +47,7 @@ public class CreateurPlateau
 		this.nouvelleZone();
 	}
 
-	//Getter
+	// Getters
 	public String            getNomPlateau() {return this.nomPlateau; }
 	public int               getNbLigne()    {return nbLigne;}
 	public int               getNbColonne()  {return nbColonne;}
@@ -59,10 +59,28 @@ public class CreateurPlateau
 	public ArrayList<Zone>   getLstZones()   {return lstZones;}
 	public ArrayList<Acteur> getLstActeurs() {return lstActeurs;}
 
-	//Setter
-	public void setZoneActive(Zone zone) {this.zoneActive = zone;}
+    public Acteur getActeur(int posX, int posY)
+    {
+        for (Acteur acteur : this.lstActeurs)
+        {
+            if (acteur.getPosX() == posX && acteur.getPosY() == posY)
+            {
+                return acteur; // On a trouvé l'acteur sur lequel on a cliqué
+            }
+        }
+        return null;
+    }
 
-	//Place une zone dans le plateau
+	// Setters
+	public void setZoneActive(Zone zone) {this.zoneActive = zone;}
+    public void setPrincipal (Color c, Acteur a) {a.setPrincipal(c);}
+
+
+    /* --------------------------*/
+    /*    Méthodes utilitaires   */
+    /* --------------------------*/
+
+	// Place une zone dans le plateau
 	public boolean modifierZone(int lig, int col, Zone zone)
 	{
 		boolean estPremier   = true;  //La zone est la première placée
@@ -211,9 +229,6 @@ public class CreateurPlateau
 		return false;
 	}
 
-	//Rend un acteur principal et lui donne une couleur
-	public void setPrincipal (Color c, Acteur a) {a.setPrincipal(c);}
-
 	//Vérifie qu'il y a au moins un acteur principal
 	public boolean principalPresent()
 	{
@@ -236,19 +251,6 @@ public class CreateurPlateau
 		}
 		}
 		return false; // On a fini de chercher, la couleur est libre
-	}
-
-	// Méthode pour trouver quel acteur est à une position précise (X, Y)
-	public Acteur getActeur(int posX, int posY)
-	{
-		for (Acteur acteur : this.lstActeurs)
-		{
-			if (acteur.getPosX() == posX && acteur.getPosY() == posY)
-			{
-				return acteur; // On a trouvé l'acteur sur lequel on a cliqué !
-			}
-		}
-		return null; // Il n'y a pas d'acteur ici
 	}
 
 	//Méthode finale qui va créer les fichiers .data

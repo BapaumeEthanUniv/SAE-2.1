@@ -6,12 +6,14 @@ import java.util.ArrayList;
 
 public class Pioche
 {
-	private ArrayList<Role>     lstRoleCarte  ;
+	// Attributs
+    private ArrayList<Role>     lstRoleCarte  ;
 	private ArrayList<Carte>    lstCarte      ;
 	private int                 nbCartesTotal ;
 	private Carte               carteActive   ;
 	public Controleur           ctrl          ;
 
+    // Constructeur
 	public Pioche(ArrayList<Role> lstRoles, Controleur ctrl)
 	{
 		this.lstRoleCarte = lstRoles;
@@ -19,6 +21,27 @@ public class Pioche
 		this.creerPioche();
 		this.nbCartesTotal = lstCarte.size();
 	}
+
+    // Getters
+    public int   getNbCarteTotal() { return this.nbCartesTotal;  }
+    public int   getNbCarte     () { return this.lstCarte.size();}
+    public Carte getCarte       () { return this.carteActive;    }
+
+    public int   getNbCarteFonce()
+    {
+        int nbCarteFonce = 0;
+        for (Carte carte : this.lstCarte)
+        {
+            if (carte.estFonce())
+                nbCarteFonce++;
+        }
+        return nbCarteFonce;
+    }
+
+
+    /* --------------------------*/
+    /*    Méthodes utilitaires   */
+    /* --------------------------*/
 
 	public void creerPioche()
 	{
@@ -67,25 +90,7 @@ public class Pioche
 	}
 
 	public void nouvelleManche()
-		{
-
-			this.ctrl.nouvelleManche();
-		}
-
-	public int getNbCarteTotal(){ return this.nbCartesTotal;  }
-
-	public int getNbCarte()     { return this.lstCarte.size();}
-
-	public Carte getCarte()     { return this.carteActive;    }
-
-	public int getNbCarteFonce()
-	{
-		int nbCarteFonce = 0;
-		for (Carte carte : this.lstCarte)
-		{
-			if (carte.estFonce())
-				nbCarteFonce++;
-		}
-		return nbCarteFonce;
-	}
+    {
+        this.ctrl.nouvelleManche();
+    }
 }
