@@ -93,6 +93,9 @@ public class PlateauJeu
 
 	public void nouvelleManche()
 	{
+		if (this.idManche > 0)
+			this.calculerScore();
+
 		if (this.idManche < this.lstCasting.size())
 		{
 			//System.out.println(lstCasting);
@@ -102,10 +105,7 @@ public class PlateauJeu
 			this.idManche++;
 		}
 		else
-        {
-            this.calculerScore();
-            this.ctrl.finDePartie();
-        }
+			this.ctrl.finDePartie();
 	}
 
 	public Acteur getActeur(int posX, int posY)
@@ -419,6 +419,6 @@ public class PlateauJeu
 			if (i > nbActeursMax)
 				nbActeursMax = i;
 
-		this.scores[idManche - 1] = nbActeursMax;
+		this.scores[idManche - 1] = nbActeursMax * zonesParcouru.size();
 	}
 }
