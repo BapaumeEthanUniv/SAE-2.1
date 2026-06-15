@@ -1,4 +1,4 @@
-# SAE-2.1
+# Acte de Présence
 ## Compilation :
 A partir de ce répertoire lancer
 javac @compile.list
