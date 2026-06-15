@@ -4,6 +4,7 @@ import controleur.Controleur;
 
 import java.io.File;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -24,6 +25,7 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 	
 	private JButton		btnCharger;
 	private JButton		btnJouer;
+	private JButton		btnQuitter;
 	
 	// Constructeur
 	public PanelAccueilJeu (Controleur ctrl, FrameJeu f, int indice)
@@ -51,12 +53,20 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 		pnlBtnJouer          .setLayout(new FlowLayout(FlowLayout.CENTER, 0, 20));
 		pnlBtnJouer          .setOpaque(false);
 		
+		JPanel pnlBtnQuitter = new JPanel();
+		pnlBtnQuitter        .setLayout(new FlowLayout(FlowLayout.CENTER, 0, 20));
+		pnlBtnQuitter        .setOpaque(false);
+		
+		
 		this.btnCharger = new JButton("Charger Niveau");
 		this.btnCharger .setOpaque(false);
 		
 		this.btnJouer   = new JButton("Jouer");
 		this.btnJouer   .setOpaque(false);
 		this.btnJouer   .setEnabled(false);
+		
+		this.btnQuitter = new JButton("Quitter le Jeu");
+		this.btnQuitter .setOpaque(false);
 		
 		/*-------------------------------*/
 		/* Positionnement des composants */
@@ -70,9 +80,11 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 
 		pnlBtnCharger.add(this.btnCharger);
 		pnlBtnJouer  .add(this.btnJouer  );
+		pnlBtnQuitter.add(this.btnQuitter);
 
 		this.add(pnlBtnCharger);
 		this.add(pnlBtnJouer  );
+		this.add(pnlBtnQuitter);
 		
 		/* ----------------------------- */
 		/* Activation des Composants     */
@@ -80,6 +92,7 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 		
 		this.btnCharger.addActionListener(this);
 		this.btnJouer  .addActionListener(this);
+		this.btnQuitter.addActionListener(this);
 		
 		this.setVisible(true);
 	}
@@ -109,8 +122,13 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 		if ( e.getSource() == this.btnJouer   )
 		{
 			this.ctrl.creerFrameCarte();                                  // On crée le PanelCarte
-			this.frame.setPnl(this.frame.getPnl(this.indice + 1)); // On change le panelActif pour afficher PanelJeu
+			this.frame.setPnl(this.frame.getPnl(this.indice + 1));        // On change le panelActif pour afficher PanelJeu
             this.btnJouer.setEnabled(false);                              // On désactive le bouton Jouer après avoir appuyé
+		}
+		
+		if ( e.getSource() == this.btnQuitter )
+		{
+			System.exit(0);
 		}
 	}
 
