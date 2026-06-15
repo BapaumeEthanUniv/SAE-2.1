@@ -106,17 +106,17 @@ public class PanelScore extends JPanel implements ActionListener
 
     public void actionPerformed ( ActionEvent e )
     {
-        if ( e.getSource() == this.btnRetour )
+        if ( e.getSource() == this.btnRetour    )
         {
             this.frame.setPnl(this.frame.getPnl(0));                // On retourne au premier panel (PanelAccueilJeu)
         }
 
         if ( e.getSource() == this.btnRejouer   )
         {
-            this.ctrl .initPlateau(this.frame.getFichierPlateau());        // On réinitialise le plateau
+            this.ctrl .initPlateau(this.frame.getFichierPlateau());       // On réinitialise le plateau
 
             this.frame.creerPanelJeu();                                   // On recrée le panel du Jeu
-            this.ctrl .creerFrameCarte();                                  // On recrée le panel de Pioche
+            this.ctrl .creerFrameCarte();                                 // On recrée le panel de Pioche
 
             this.frame.setPnl(this.frame.getPnl(this.indice - 1));  // On revient au panel précédent (PanelJeu)
         }
