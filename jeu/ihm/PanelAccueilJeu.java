@@ -22,6 +22,8 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 	
 	private Image 		imgFond;         // Permet de stocker une img de fond pour l'appliquer au panel
     private File        fichierPlateau;  // Permet d'avoir en main le répertoire du plateau
+    
+    private JCheckBox   cbDebug;
 	
 	private JButton		btnCharger;
 	private JButton		btnJouer;
@@ -53,10 +55,15 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 		pnlBtnJouer          .setLayout(new FlowLayout(FlowLayout.CENTER, 0, 20));
 		pnlBtnJouer          .setOpaque(false);
 		
+		JPanel pnlCBDebug    = new JPanel();
+		pnlCBDebug           .setLayout(new FlowLayout(FlowLayout.CENTER, 0, 20));
+		pnlCBDebug           .setOpaque(false);
+		
 		JPanel pnlBtnQuitter = new JPanel();
 		pnlBtnQuitter        .setLayout(new FlowLayout(FlowLayout.CENTER, 0, 20));
 		pnlBtnQuitter        .setOpaque(false);
 		
+		this.cbDebug    = new JCheckBox("Activer le mode Debug");
 		
 		this.btnCharger = new JButton("Charger Niveau");
 		this.btnCharger .setOpaque(false);
@@ -80,10 +87,12 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 
 		pnlBtnCharger.add(this.btnCharger);
 		pnlBtnJouer  .add(this.btnJouer  );
+		pnlCBDebug   .add(this.cbDebug   );
 		pnlBtnQuitter.add(this.btnQuitter);
 
 		this.add(pnlBtnCharger);
 		this.add(pnlBtnJouer  );
+		this.add(pnlCBDebug   );
 		this.add(pnlBtnQuitter);
 		
 		/* ----------------------------- */
@@ -93,6 +102,8 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 		this.btnCharger.addActionListener(this);
 		this.btnJouer  .addActionListener(this);
 		this.btnQuitter.addActionListener(this);
+		
+		this.cbDebug   .addActionListener(this);
 		
 		this.setVisible(true);
 	}
@@ -111,7 +122,10 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 			{
 				this.fichierPlateau = fcRepertoire.getSelectedFile();    // L'attribut stocke le répertoire
 				
-				this.ctrl.initPlateau(fichierPlateau);                   // On initialise le plateau
+				if (this.cbDebug.isSelected())
+					this.ctrl.initPlateau(fichierPlateau, true);         // On initialise le plateau avec version debug
+				else
+					this.ctrl.initPlateau(fichierPlateau, false);        // On initialise le plateau sans version debug
 				
 				this.frame.creerPanelJeu();                              // On crée le PanelJeu
 				
