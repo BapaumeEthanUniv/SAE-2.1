@@ -127,7 +127,7 @@ public class Controleur
 	}
 
     // Méthode permettant de piocher une carte en appelant la méthode piocherCarte() de la classe Pioche
-	public boolean piocherCarte()                    { return this.pioche.piocherCarte(); }
+	public void piocherCarte()                    { this.pioche.piocherCarte(); }
 
     // Méthode permettant d'ajouter un chemin en appelant la méthode ajouterChemin() du Métier
 	public boolean ajouterChemin(int posX, int posY) { return this.metier.ajouterChemin(posX, posY, this.getCartePioche().getRole()); }

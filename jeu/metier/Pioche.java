@@ -9,7 +9,6 @@ public class Pioche
 	// Attributs
     private ArrayList<Role>     lstRoleCarte  ;
 	private ArrayList<Carte>    lstCarte      ;
-	private int                 nbCartesTotal ;
 	private Carte               carteActive   ;
 	public Controleur           ctrl          ;
 
@@ -19,15 +18,13 @@ public class Pioche
 		this.lstRoleCarte = lstRoles;
 		this.ctrl = ctrl;
 		this.creerPioche();
-		this.nbCartesTotal = lstCarte.size();
 	}
 
     // Getters
-    public int   getNbCarteTotal() { return this.nbCartesTotal;  }
     public int   getNbCarte     () { return this.lstCarte.size();}
     public Carte getCarte       () { return this.carteActive;    }
 
-    public int   getNbCarteFonce()
+    public int   getNbCarteFonce() // retourne le nombre de cartes foncées encore présentes dans la pioche
     {
         int nbCarteFonce = 0;
         for (Carte carte : this.lstCarte)
@@ -43,11 +40,11 @@ public class Pioche
     /*    Méthodes utilitaires   */
     /* --------------------------*/
 
-	public void creerPioche()
+	public void creerPioche() // crée une pioche stocké dans la liste lstCarte.
 	{
 		boolean[] typeCarte = {false, true};
 		this.lstCarte       = new ArrayList<Carte>();
-		System.out.println(lstRoleCarte);
+		
 		for (boolean type : typeCarte)
 		{
 			for (Role role : this.lstRoleCarte)
@@ -61,17 +58,12 @@ public class Pioche
 		this.piocherCarte();
 	}
 
-	public boolean piocherCarte()
+	public void piocherCarte() // pioche une carte dans la liste lstCarte, la retirant et la stockant dans carteActive
 	{
 		int indice = (int)(Math.random()*getNbCarte()); //a modifier pour le debug si on veut set une seed pour un exemple particulier
 		Carte tirer;
-		for (Carte c : this.lstCarte)
-		{
-			System.out.print(c.getRole()+"|"+c.estFonce()+" ");
-		}
 		if (this.finManche())
 		{
-			System.out.println(" nouvelle manche ");
 			this.creerPioche();
 			this.nouvelleManche();
 		}
@@ -81,15 +73,14 @@ public class Pioche
 			this.lstCarte.remove(indice);
 			this.carteActive = tirer;
 		}
-		return true;
 	}
 
-	public boolean finManche()
+	public boolean finManche() //return true si la manche est fini en regardant si le nombre de carte foncé est de 0
 	{
 		return (this.getNbCarteFonce()==0);
 	}
 
-	public void nouvelleManche()
+	public void nouvelleManche() // initialise une nouvelle manche
     {
         this.ctrl.nouvelleManche();
     }
