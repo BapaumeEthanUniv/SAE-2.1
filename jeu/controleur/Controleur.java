@@ -26,14 +26,14 @@ public class Controleur
 	private PlateauJeu      metier;
 	private Pioche          pioche;
 	
-    Dimension tailleEcran;   // Variables permettant 
-	int l, lJeu, lCarte;     // de gérer 
-	int h;                   // la position 
-	int xCarte, yCarte;      // et la taille 
-	int xPlateau, yPlateau;  // des fenêtres
-	
 	public Controleur()
 	{
+		Dimension tailleEcran;   // Variables permettant 
+		int l, lJeu, lCarte;     // de gérer 
+		int h;                   // la position 
+		int xCarte, yCarte;      // et la taille 
+		int xPlateau, yPlateau;  // des fenêtres
+		
 		this.frameJeu   = new FrameJeu (this);
 		
 		tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -104,10 +104,10 @@ public class Controleur
     }
 
     // Méthode permettant d'initialiser le plateau, en prenant en paramètre le répertoire du plateau
-    public void    initPlateau(File filePlateau)
+    public void    initPlateau(File filePlateau, boolean estDebug)
     {
         this.metier = new PlateauJeu(filePlateau, this);
-        this.pioche = new Pioche    (this);
+        this.pioche = new Pioche    (this.getLstRole(), this, estDebug);
     }
 
     // Méthode permettant de créer la FrameCarte lorsqu'on a appuyé sur le bouton Jouer
