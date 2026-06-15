@@ -8,6 +8,6 @@ javac @compile.list
 ## Exécution :
 Lancer :
 ``` shell
-java controleur/Controleur.java
+java controleur.Controleur
 ```
 
