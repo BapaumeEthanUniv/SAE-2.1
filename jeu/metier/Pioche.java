@@ -7,55 +7,57 @@ import java.util.ArrayList;
 public class Pioche
 {
 	// Attributs
-    private ArrayList<Role>     lstRoleCarte  ;
-	private ArrayList<Carte>    lstCarte      ;
-	private Carte               carteActive   ;
-	public Controleur           ctrl          ;
-
-    // Constructeur
-	public Pioche(ArrayList<Role> lstRoles, Controleur ctrl)
+	private ArrayList<Carte>    lstCarte         ; //liste contenant les cartes encore présentes dans la Pioche 
+	private Carte               carteActive      ; //contient la carte Active (présente sur la frameCarte)
+	private Controleur          ctrl             ; // contien le controleur
+	private boolean             PremiereCreation ; //booléen permettant de ne pas piocher une carte dès la première création de la pioche
+	
+	// Constructeur
+	public Pioche(Controleur ctrl)
 	{
-		this.lstRoleCarte = lstRoles;
 		this.ctrl = ctrl;
+		this.PremiereCreation = true;
 		this.creerPioche();
 	}
 
-    // Getters
-    public int   getNbCarte     () { return this.lstCarte.size();}
-    public Carte getCarte       () { return this.carteActive;    }
+	// Getters
+	public int   getNbCarte     () { return this.lstCarte.size();}
+	public Carte getCarte       () { return this.carteActive;    }
 
-    public int   getNbCarteFonce() // retourne le nombre de cartes foncées encore présentes dans la pioche
-    {
-        int nbCarteFonce = 0;
-        for (Carte carte : this.lstCarte)
-        {
-            if (carte.estFonce())
-                nbCarteFonce++;
-        }
-        return nbCarteFonce;
-    }
+	public int   getNbCarteFonce() // retourne le nombre de cartes foncées encore présentes dans la pioche
+	{
+		int nbCarteFonce = 0;
+		for (Carte carte : this.lstCarte)
+		{
+			if (carte.estFonce())
+				nbCarteFonce++;
+		}
+		return nbCarteFonce;
+	}
 
 
-    /* --------------------------*/
-    /*    Méthodes utilitaires   */
-    /* --------------------------*/
+	/* --------------------------*/
+	/*    Méthodes utilitaires   */
+	/* --------------------------*/
 
 	public void creerPioche() // crée une pioche stocké dans la liste lstCarte.
 	{
 		boolean[] typeCarte = {false, true};
 		this.lstCarte       = new ArrayList<Carte>();
-		
+
 		for (boolean type : typeCarte)
 		{
-			for (Role role : this.lstRoleCarte)
+			for (Role role : ctrl.getLstRole())
 			{
 				this.lstCarte.add(new Carte(role, type));
 			}
 			
 			this.lstCarte.add(new Carte(Role.JOKER, type));	// Carte Joker
 		}
-		
-		this.piocherCarte();
+
+		if (this.PremiereCreation) { this.PremiereCreation = false; }
+
+		else { this.piocherCarte(); }
 	}
 
 	public void piocherCarte() // pioche une carte dans la liste lstCarte, la retirant et la stockant dans carteActive
@@ -81,7 +83,7 @@ public class Pioche
 	}
 
 	public void nouvelleManche() // initialise une nouvelle manche
-    {
-        this.ctrl.nouvelleManche();
-    }
+	{
+		this.ctrl.nouvelleManche();
+	}
 }
