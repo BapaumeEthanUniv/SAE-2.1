@@ -50,7 +50,7 @@ public class PanelScore extends JPanel implements ActionListener
         pnlBouton            .setLayout(new FlowLayout(FlowLayout.CENTER, 30, 30));
         pnlBouton            .setOpaque(false);
 
-        this.lblScore        = new JLabel("Bravo ! Vous avez marqué " + this.ctrl.getScoreFinal() + "points !", JLabel.CENTER);
+        this.lblScore        = new JLabel("Bravo ! Vous avez marqué " + this.ctrl.getScoreFinal() + " point(s) !", JLabel.CENTER);
 
         // Essai pour initialiser les polices en prenant la police téléchargée dans le dossier polices/
         try
