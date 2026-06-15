@@ -13,13 +13,17 @@ public class Pioche
 	private Carte               carteActive      ; //contient la carte Active (présente sur la frameCarte)
 	private Controleur          ctrl             ; //contien le controleur
 	private boolean             PremiereCreation ; //booléen permettant de ne pas piocher une carte dès la première création de la pioche
+	private boolean             debug            ;
 	
 	// Constructeur
-	public Pioche(Controleur ctrl)
+	public Pioche(Controleur ctrl, boolean debug)
 	{
-		this.ctrl = ctrl;
+		this.ctrl  = ctrl;
+		this.debug = debug;
+
 		this.PremiereCreation = true;
-		this.creerPioche();
+		if (debug) { this.creerPiocheDebug(); }
+		else       { this.creerPioche(); }
 	}
 
 	// Getters
@@ -63,12 +67,29 @@ public class Pioche
 		else { this.piocherCarte(); }
 	}
 
+	public void creerPiocheDebug() //création de la pioche pour le mode debug (pioche remplis de joker)
+	{
+		this.lstCarte       = new ArrayList<Carte>();
+		
+		for (int i=0; i<5; i++)
+		{
+			this.lstCarte.add(new Carte(Role.JOKER, false));
+			this.lstCarte.add(new Carte(Role.JOKER, true));
+
+		}
+		if (this.PremiereCreation) { this.PremiereCreation = false; }
+
+		else { this.piocherCarte(); }
+	}
+
 	public void piocherCarte() // pioche une carte dans la liste lstCarte, la retirant et la stockant dans carteActive
 	{
 		Carte tirer;
 		if (this.finManche())
 		{
-			this.creerPioche();
+			if (debug) { this.creerPiocheDebug(); }
+			else       { this.creerPioche(); }
+
 			this.nouvelleManche();
 		}
 		else

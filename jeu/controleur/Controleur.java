@@ -109,7 +109,7 @@ public class Controleur
     public void    initPlateau(File filePlateau, boolean estDebug)
     {
         this.metier = new PlateauJeu(filePlateau, this);
-        this.pioche = new Pioche    (this.getLstRole(), this, estDebug);
+        this.pioche = new Pioche    (this, estDebug);
     }
 
     // Méthode permettant de créer la FrameCarte lorsqu'on a appuyé sur le bouton Jouer
