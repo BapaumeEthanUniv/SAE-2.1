@@ -13,16 +13,17 @@ public class PanelScore extends JPanel implements ActionListener
 {
     private Controleur 	ctrl;
     private FrameJeu 	frame;
-    private int		    indice;
+    private int		indice;
 
-    private Image 		imgFond;     // Permet de stocker une img de fond pour l'appliquer au panel
+    private Image       imgFond;     // Permet de stocker une img de fond pour l'appliquer au panel
 
     private JLabel      lblScore;
 
     private Font        police;      // Permet d'appliquer une police spéciale aux JLabel
 
-    private JButton		btnRetour;
-    private JButton		btnRejouer;
+    private JButton	btnRetour;
+    private JButton	btnRejouer;
+    private JButton	btnQuitter;
 
     // Constructeur
     public PanelScore (Controleur ctrl, FrameJeu f, int indice)
@@ -74,6 +75,9 @@ public class PanelScore extends JPanel implements ActionListener
 
         this.btnRejouer      = new JButton("Rejouer !");
         this.btnRejouer      .setOpaque(false);
+        
+        this.btnQuitter      = new JButton("Quitter le jeu");
+        this.btnQuitter      .setOpaque(false);
 
         /*-------------------------------*/
         /* Positionnement des composants */
@@ -83,6 +87,8 @@ public class PanelScore extends JPanel implements ActionListener
         pnlBouton.add(this.btnRetour);
         pnlBouton.add(new JLabel("       "));
         pnlBouton.add(this.btnRejouer  );
+        pnlBouton.add(new JLabel("       "));
+        pnlBouton.add(this.btnQuitter  );
 
         this.add(pnlScore , BorderLayout.CENTER);
         this.add(pnlBouton, BorderLayout.SOUTH );
@@ -93,6 +99,7 @@ public class PanelScore extends JPanel implements ActionListener
 
         this.btnRetour .addActionListener(this);
         this.btnRejouer.addActionListener(this);
+        this.btnQuitter.addActionListener(this);
 
         this.setVisible(true);
     }
@@ -112,6 +119,11 @@ public class PanelScore extends JPanel implements ActionListener
             this.ctrl .creerFrameCarte();                                  // On recrée le panel de Pioche
 
             this.frame.setPnl(this.frame.getPnl(this.indice - 1));  // On revient au panel précédent (PanelJeu)
+        }
+        
+        if ( e.getSource() == this.btnQuitter   )
+        {
+        	System.exit(0);
         }
     }
 
