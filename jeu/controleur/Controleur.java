@@ -26,14 +26,14 @@ public class Controleur
 	private PlateauJeu      metier;
 	private Pioche          pioche;
 	
+	Dimension tailleEcran;   // Variables permettant 
+	int l, lJeu, lCarte;     // de gérer 
+	int h;                   // la position 
+	int xCarte, yCarte;      // et la taille 
+	int xPlateau, yPlateau;  // des fenêtres
+	
 	public Controleur()
 	{
-		Dimension tailleEcran;   // Variables permettant 
-		int l, lJeu, lCarte;     // de gérer 
-		int h;                   // la position 
-		int xCarte, yCarte;      // et la taille 
-		int xPlateau, yPlateau;  // des fenêtres
-		
 		this.frameJeu   = new FrameJeu (this);
 		
 		tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -67,7 +67,6 @@ public class Controleur
 	public Chemin[]           getTabChemin   () { return this.metier.getTabChemin();    }
 	public Casting            getManche      () { return this.metier.getManche();       }
 	public int                getIdManche    () { return this.metier.getIdManche();     }
-	public void               changerCarte   () { this.frameCarte.changerCarte();       }
 	public int                getNbCarteFonce() { return this.pioche.getNbCarteFonce(); }
 	public int[]              getScores      () { return this.metier.getScores();       }
 	public int                getScoreFinal  () { return this.metier.getScoreFinal();   }
@@ -77,6 +76,9 @@ public class Controleur
     /*    Méthodes utilitaires   */
     /* --------------------------*/
 
+	// Méthode permettant de changer la Carte affichée
+    public void    changerCarte()               { this.frameCarte.changerCarte();       }
+    
     // Méthode permettant de bouger les fenêtres l'une à côté de l'autre avec un espace de 50px
     public void    moveFrame(String orig)
     {
