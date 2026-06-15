@@ -48,7 +48,7 @@ public class FrameCarte extends JFrame
     {
         public void componentMoved(java.awt.event.ComponentEvent e)
         {
-            if ( !updating )
+            if ( !updating && FrameCarte.this.isFocused())
             {
                 ctrl.moveFrame("Carte"); // On prévient le contrôleur que la pioche bouge !
             }

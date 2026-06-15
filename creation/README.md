@@ -1,8 +1,13 @@
 # Acte de Présence : application de création
 ## Compilation :
-A partir de ce répertoire lancer
+A partir de ce répertoire, lancer :
+``` shell
 javac @compile.list
+```
 
 ## Exécution :
-Lancer 
-java controleur/Controleur.java
+Lancer :
+``` shell
+java controleur.Controleur
+```
+

@@ -74,7 +74,7 @@ public class FrameJeu extends JFrame
     {
         public void componentMoved(java.awt.event.ComponentEvent e)
         {
-            if ( !updating )
+            if ( !updating && FrameJeu.this.isFocused() )
             {
                 ctrl.moveFrame("Jeu"); // On prévient le contrôleur que le jeu bouge
             }
