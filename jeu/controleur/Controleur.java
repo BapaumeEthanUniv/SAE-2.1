@@ -33,7 +33,7 @@ public class Controleur
 	int xPlateau, yPlateau;  // des fenêtres
 	
 	public Controleur()
-	{
+	{	
 		this.frameJeu   = new FrameJeu (this);
 		
 		tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -52,7 +52,6 @@ public class Controleur
 		yCarte   = yPlateau = 100;
 		
 		this.frameJeu  .setLocation(xPlateau, yPlateau);
-		
 	}
 
 	//Getters
