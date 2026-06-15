@@ -107,9 +107,6 @@ public class Acteur
 	public void supprimerVoisin(Acteur voisin) //supprime le voisin de la liste
 	{
 		this.lstVoisins.remove(voisin);
-
-		if (this.estVoisin(voisin))
-			voisin.supprimerVoisin(this);
 	}
 
 

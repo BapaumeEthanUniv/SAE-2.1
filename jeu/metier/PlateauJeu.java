@@ -339,6 +339,7 @@ public class PlateauJeu
 				this.tabArete[x][y] = true;
 		}
 		acteurDepart.supprimerVoisin(acteurArrive); //Lorsqu'une arête est dessiner entre deux symboles, ils ne sont plus considérés comme voisin
+		acteurArrive.supprimerVoisin(acteurDepart); //On supprime les voisins dans les deux sens
 	}
 
 	// Vérifie si des arrêtes déjà remplis se trouve entre deux acteurs
