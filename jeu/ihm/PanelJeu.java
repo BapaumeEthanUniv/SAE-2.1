@@ -66,7 +66,7 @@ public class PanelJeu extends JPanel implements ActionListener
 
         Dimension ecran = Toolkit.getDefaultToolkit().getScreenSize();          // Permet d'ajuster
         int espaceDispo = (int) (ecran.getHeight() * 0.55);                     // la taille des cases
-        // par rapport à
+                                                                                // par rapport à
         this.tailleCase = espaceDispo / Math.max(this.nbLigne, this.nbColonne); // la taille de l'écran
 
         this.ligSelectionne = -1;
