@@ -36,7 +36,7 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 		this.frame 		     = f;
 		this.indice 		 = indice;
 	
-		this.setLayout(new GridLayout(12,1));
+		this.setLayout(new GridLayout(15,1));
 		
 		this.imgFond         = Toolkit.getDefaultToolkit().getImage("./images/img-accueil-jeu.png");
 		this.fichierPlateau  = new File("../creation/Plateau/");
@@ -55,15 +55,19 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 		pnlBtnJouer          .setLayout(new FlowLayout(FlowLayout.CENTER, 0, 20));
 		pnlBtnJouer          .setOpaque(false);
 		
+		// Panel qui contiendra la checkbox Debug
 		JPanel pnlCBDebug    = new JPanel();
 		pnlCBDebug           .setLayout(new FlowLayout(FlowLayout.CENTER, 0, 20));
 		pnlCBDebug           .setOpaque(false);
 		
+		// Panel qui contiendre le bouton Quitter
 		JPanel pnlBtnQuitter = new JPanel();
 		pnlBtnQuitter        .setLayout(new FlowLayout(FlowLayout.CENTER, 0, 20));
 		pnlBtnQuitter        .setOpaque(false);
 		
 		this.cbDebug    = new JCheckBox("Activer le mode Debug");
+		this.cbDebug    .setOpaque(true);
+		this.cbDebug    .setBackground(new Color(248,247,242));
 		
 		this.btnCharger = new JButton("Charger Niveau");
 		this.btnCharger .setOpaque(false);
@@ -82,17 +86,18 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 		this.add(new JLabel(""));  // Permet de
 		this.add(new JLabel(""));  // centrer
 		this.add(new JLabel(""));  // les boutons
-		this.add(new JLabel(""));  // par rapport à l'image
+		this.add(new JLabel(""));  // par rapport
+		this.add(new JLabel(""));  // à l'image
 		this.add(new JLabel(""));  // et à la fenêtre
 
+		pnlCBDebug   .add(this.cbDebug   );
 		pnlBtnCharger.add(this.btnCharger);
 		pnlBtnJouer  .add(this.btnJouer  );
-		pnlCBDebug   .add(this.cbDebug   );
 		pnlBtnQuitter.add(this.btnQuitter);
 
+		this.add(pnlCBDebug   );
 		this.add(pnlBtnCharger);
 		this.add(pnlBtnJouer  );
-		this.add(pnlCBDebug   );
 		this.add(pnlBtnQuitter);
 		
 		/* ----------------------------- */
