@@ -62,6 +62,7 @@ public class FrameJeu extends JFrame
     // Getters
 	public JPanel getPnl(int indice) { return this.tabPanel[indice]; }
     public File   getFichierPlateau(){ return ((PanelAccueilJeu) this.tabPanel[0]).getFichierPlateau(); }
+    public boolean getEstDebug     (){ return ((PanelAccueilJeu) this.tabPanel[0]).getEstDebug();       }
 
     // Méthode permettant de mettre à jour le JLabel du Casting actif en appelant la méthode majLblCasting() de PanelJeu
 	public void majLblCasting() { ((PanelJeu) this.tabPanel[1]).majLblCasting(); }

@@ -147,7 +147,8 @@ public class PanelAccueilJeu extends JPanel implements ActionListener
 	}
 
     // Getter permettant au métier de récupérer le fichier séléctionné
-    public File getFichierPlateau() {return this.fichierPlateau; }
+    public File    getFichierPlateau() {return this.fichierPlateau;       }
+    public boolean getEstDebug      () {return this.cbDebug.isSelected(); }
 
     /* --------------------------*/
     /*    Méthodes utilitaires   */
