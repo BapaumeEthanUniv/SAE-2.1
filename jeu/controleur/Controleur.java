@@ -26,12 +26,11 @@ public class Controleur
 	private PlateauJeu      metier;
 	private Pioche          pioche;
 	
-	// Variables permettant de gérer la position et la taille des fenêtres
-    Dimension tailleEcran;
-	int l, lJeu, lCarte;
-	int h;
-	int xCarte, yCarte;
-	int xPlateau, yPlateau;
+    Dimension tailleEcran;   // Variables permettant 
+	int l, lJeu, lCarte;     // de gérer 
+	int h;                   // la position 
+	int xCarte, yCarte;      // et la taille 
+	int xPlateau, yPlateau;  // des fenêtres
 	
 	public Controleur()
 	{
@@ -79,7 +78,7 @@ public class Controleur
     /* --------------------------*/
 
     // Méthode permettant de bouger les fenêtres l'une à côté de l'autre avec un espace de 50px
-    public void moveFrame(String orig)
+    public void    moveFrame(String orig)
     {
         Point p;
 
@@ -105,14 +104,14 @@ public class Controleur
     }
 
     // Méthode permettant d'initialiser le plateau, en prenant en paramètre le répertoire du plateau
-    public void initPlateau(File filePlateau)
+    public void    initPlateau(File filePlateau)
     {
         this.metier = new PlateauJeu(filePlateau, this);
         this.pioche = new Pioche    (this.getLstRole(),this);
     }
 
     // Méthode permettant de créer la FrameCarte lorsqu'on a appuyé sur le bouton Jouer
-    public void creerFrameCarte ()
+    public void    creerFrameCarte ()
     {
         frameCarte = new FrameCarte(this);
         this.frameCarte.setSize(lCarte, h);
@@ -120,14 +119,14 @@ public class Controleur
     }
 
     // Méthode permettant de signaler à l'IHM que le jeu est terminé en appelant les méthodes finDePartie() des frames
-	public void finDePartie()
+	public void    finDePartie()
 	{
 	    this.frameJeu.finDePartie();
         this.frameCarte.finDePartie();
 	}
 
     // Méthode permettant de piocher une carte en appelant la méthode piocherCarte() de la classe Pioche
-	public void piocherCarte()                    { this.pioche.piocherCarte(); }
+	public void    piocherCarte()                    { this.pioche.piocherCarte(); }
 
     // Méthode permettant d'ajouter un chemin en appelant la méthode ajouterChemin() du Métier
 	public boolean ajouterChemin(int posX, int posY) { return this.metier.ajouterChemin(posX, posY, this.getCartePioche().getRole()); }
