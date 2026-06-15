@@ -1,7 +1,11 @@
 ./metier/Acteur.java
-./metier/PlateauJeu.java
 ./metier/Casting.java
+./metier/Carte.java
+./metier/Chemin.java
 ./metier/Couleur.java
+./metier/CreateurPlateau.java
+./metier/Pioche.java
+./metier/PlateauJeu.java
 ./metier/Role.java
 ./metier/Zone.java
 
@@ -12,3 +16,4 @@
 ./ihm/PanelAccueilJeu.java
 ./ihm/PanelJeu.java
 ./ihm/PanelCarte.java
+./ihm/PanelScore.java
