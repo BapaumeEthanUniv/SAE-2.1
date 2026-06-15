@@ -1,5 +1,7 @@
 package metier;
 
+import java.util.Collections;
+
 import controleur.Controleur;
 
 import java.util.ArrayList;
@@ -9,7 +11,7 @@ public class Pioche
 	// Attributs
 	private ArrayList<Carte>    lstCarte         ; //liste contenant les cartes encore présentes dans la Pioche 
 	private Carte               carteActive      ; //contient la carte Active (présente sur la frameCarte)
-	private Controleur          ctrl             ; // contien le controleur
+	private Controleur          ctrl             ; //contien le controleur
 	private boolean             PremiereCreation ; //booléen permettant de ne pas piocher une carte dès la première création de la pioche
 	
 	// Constructeur
@@ -54,6 +56,7 @@ public class Pioche
 			
 			this.lstCarte.add(new Carte(Role.JOKER, type));	// Carte Joker
 		}
+		Collections.shuffle(this.lstCarte);
 
 		if (this.PremiereCreation) { this.PremiereCreation = false; }
 
@@ -62,7 +65,6 @@ public class Pioche
 
 	public void piocherCarte() // pioche une carte dans la liste lstCarte, la retirant et la stockant dans carteActive
 	{
-		int indice = (int)(Math.random()*getNbCarte()); //a modifier pour le debug si on veut set une seed pour un exemple particulier
 		Carte tirer;
 		if (this.finManche())
 		{
@@ -71,8 +73,8 @@ public class Pioche
 		}
 		else
 		{
-			tirer = this.lstCarte.get(indice);
-			this.lstCarte.remove(indice);
+			tirer = this.lstCarte.get(0);
+			this.lstCarte.remove(0);
 			this.carteActive = tirer;
 		}
 	}
