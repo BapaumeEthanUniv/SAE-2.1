@@ -3,7 +3,6 @@
 ./metier/Carte.java
 ./metier/Chemin.java
 ./metier/Couleur.java
-./metier/CreateurPlateau.java
 ./metier/Pioche.java
 ./metier/PlateauJeu.java
 ./metier/Role.java
